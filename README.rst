@@ -7,14 +7,11 @@ written in a custom DSL.
 
 ----
 
-=========
- WARNING
-=========
-
 .. parsed-literal::
 
-    The implementation is not yet finished. There may be features documented
-    in the readme which are not implemented at all.
+    WARNING: The implementation is not yet finished. There may be features
+    documented in the readme which are not implemented at all or not working
+    fully yet.
 
 ----
 
