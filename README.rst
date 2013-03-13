@@ -59,6 +59,12 @@ Installation
         ftw.lawmaker
 
 
+Compatibility
+-------------
+
+Runs with `Plone <http://www.plone.org/>`_ `4.3`.
+
+
 Action groups
 -------------
 
@@ -179,14 +185,53 @@ We are not using any internal ids here, but the labels that the user actually
 sees - the ids are generated automatically.
 
 
+Role mapping
+~~~~~~~~~~~~
+
+In Plone we have quite technical roles which may not apply for all use cases,
+the customer may have own roles with other names.
+Since theese roles are already well configured and have certain permissions
+globally (meaning: on the plone site root level) it can cause problems when
+registering new roles.
+Therefore we should always try to reuse the existing roles.
+
+Because the customer has different names for his roles we need to map the
+customer roles to our technical roles:
+
+.. code:: rst
+
+    Role mapping:
+    - editor-in-chief => Reviewer
+    - editor => Editor
+
+In our example we have only "normal" editors and an "editor-in-chief" who can
+review and publish the contents.
+We don't use the Contributor role since our editors can edit, add and request
+a review.
+Giving each user two roles (Contributor and Editor) is not good since for the
+customer we only have one role, the user is just editor.
 
 
+General statements
+~~~~~~~~~~~~~~~~~~
+
+Usually there are some general statements, for example that an administrator
+user can always edit the contents on every state.
+Such statements should not be repeated for every state but defined once as
+a general statement.
+
+An example:
+
+.. code::rst
+
+    General:
+    - An administrator can always view the content
+    - An administrator can always edit the content
+    - An administrator can always delete the content
+
+Those general statements apply for all states.
 
 
-Compatibility
--------------
-
-Runs with `Plone <http://www.plone.org/>`_ `4.3`.
 
 
 Links
