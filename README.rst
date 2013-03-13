@@ -23,13 +23,13 @@ Motivation
 Developing and maintaining complex Plone workflows can be come cumbersome and prone to error. Lots of permissions need to be managed for different roles and different workflow states. Usually, this has to be done directly in the ZMI of Zope by selecting or unselecting thousands of checkboxes.
 Furthermore, it is no simple task to document the workflow and the design decisions which led to the current configuration of permissions and roles. The extension or adaption of an existing workflow becomes very difficult, leading to workflows which are barely maintainable.
 
-Another problem poses the communication between workflow integrator and customer. The security system of Zope is based on a role-based access control (RBAC) which is quite complex due to its use of roles, permissions, and workflow states. Experience has shown that these security concepts can be hard to convey to customer. 
+Another problem poses the communication between workflow integrator and customer. The security system of Zope is based on a role-based access control (RBAC) which is quite complex due to its use of roles, permissions, and workflow states. Experience has shown that these security concepts can be hard to convey to customer.
 
 How it works
 ------------
 
 ftw.lawmaker helps solving these problems by using a domain specific language (DSL) for describing how a workflow should work.
-The lawmaker then generate the complete workflow definition (``definition.xml``) based on this specification.
+The lawmaker then generates the complete workflow definition (``definition.xml``) based on this specification.
 By separating this specification from the resulting workflow definition (which is in XML) the specification does not have to use permissions--handling the permissions is the job of the lawmaker.
 
 Using the specification file the workflow can easily be regenerated any time and will handle additional permissions automatically when it is regenerated. However, it is still the task of the developer to regenerate the ``definition.xml`` when more or other permissions have to be managed. He or she have to make sure that the workflow is properly installed with an upgrade step /
