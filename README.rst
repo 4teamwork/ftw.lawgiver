@@ -226,7 +226,7 @@ a general statement.
 
 An example:
 
-.. code::rst
+.. code:: rst
 
     General:
     - An administrator can always view the content
@@ -243,7 +243,7 @@ For each state we describe the things a user with a certain role can do.
 We have the principal that a user / role cannot do anything by default, we
 have to describe every action he can do.
 
-.. code::rst
+.. code:: rst
 
     State Private
     - An editor can view the content.
