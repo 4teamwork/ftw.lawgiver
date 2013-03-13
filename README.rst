@@ -305,6 +305,14 @@ This is done in ZCML:
     </configure>
 
 
+Internationalization
+~~~~~~~~~~~~~~~~~~~~
+
+The package supports internationalization and is translated to english and
+german.
+If you need use another language we look forward to your pull request.
+
+
 Generating the workflow
 -----------------------
 
