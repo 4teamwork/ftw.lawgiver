@@ -35,8 +35,8 @@ How it works
 
 The lawmaker helps solving theese problems by using a domain specific language
 for describing how a workflow should work.
-The lawmaker then creates the workflow definition (``definition.xml``) from this
-specification.
+The lawmaker then creates the workflow definition (``definition.xml``) from
+this specification.
 By separating the specification from the workflow definition the specificion
 does not rely on certain permissions - handling the permissions is the job of
 the lawmaker.
@@ -44,7 +44,8 @@ the lawmaker.
 Because of this fact the workflow can easily be regenerated any time and will
 handle new permissions automatically when it is regenerated (but the developer
 still has to regenerate the ``definition.xml`` on permission changes and make
-sure that it is properly installed with an upgrade step / reindexing security).
+sure that it is properly installed with an upgrade step /
+reindexing security).
 
 
 Installation
@@ -57,6 +58,8 @@ Installation
     [instance]
     eggs +=
         ftw.lawmaker
+
+- Install the generic setup profile of ``ftw.lawmaker``.
 
 
 Compatibility
@@ -155,8 +158,8 @@ This can be easily achieved by also defining the workflow in the ZCML:
 The workflow specification
 --------------------------
 
-The specification is written in a plain text file (``specification.txt``) in the
-same directory where the ``definition.xml`` is saved.
+The specification is written in a plain text file (``specification.txt``) in
+the same directory where the ``definition.xml`` is saved.
 
 
 States and transitions
@@ -203,6 +206,7 @@ customer roles to our technical roles:
     Role mapping:
     - editor-in-chief => Reviewer
     - editor => Editor
+    - everyone => Anonymous
 
 In our example we have only "normal" editors and an "editor-in-chief" who can
 review and publish the contents.
@@ -231,6 +235,87 @@ An example:
 
 Those general statements apply for all states.
 
+
+Describing states
+~~~~~~~~~~~~~~~~~
+
+For each state we describe the things a user with a certain role can do.
+We have the principal that a user / role cannot do anything by default, we
+have to describe every action he can do.
+
+.. code::rst
+
+    State Private
+    - An editor can view the content.
+    - An editor can edit the content.
+    - An editor can delete the content.
+    - An editor can add new content.
+    - An editor can Submit for publication.
+    - An editor-in-chief can view the content.
+    - An editor-in-chief can edit the content.
+    - An editor-in-chief can delete the content.
+    - An editor-in-chief can add new content.
+    - An editor-in-chief can Publish.
+
+    State Pending
+    - An editor can view the content.
+    - An editor can add new content.
+    - An editor can Reject.
+    - An editor-in-chief can view the content.
+    - An editor-in-chief can edit the content.
+    - An editor-in-chief can delete the content.
+    - An editor-in-chief can add new content.
+    - An editor-in-chief can Publish.
+    - An editor-in-chief can Retract.
+
+    State Published
+    - An editor can view the content.
+    - An editor can add new content.
+    - An editor can Reject.
+    - An editor-in-chief can view the content.
+    - An editor-in-chief can add new content.
+    - An editor-in-chief can Reject.
+    - Everyone can view the content.
+
+
+Registering a workflow sepcification
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have written your workflow specification saved for example in
+``profiles/default/workflows/my_custom_workflow/specification.txt`` you ned to
+tell the lawmaker where your specification is so that he can generate your
+workflow.
+This is done in ZCML:
+
+.. code::xml
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:lawmaker="http://namespaces.zope.org/lawmaker"
+        i18n_domain="my.package">
+
+        <include package="ftw.lawmaker" file="meta.zcml" />
+
+        <lawmaker:specification
+            title="My Custom Workflow"
+            description="A three state publication workflow"
+            specification="profiles/default/workflows/my_custom_workflow/specification.txt"
+            />
+
+    </configure>
+
+
+Generating the workflow
+-----------------------
+
+For generating the workflow go to lawmaker control panel (in the
+Plone control panel).
+There you can see a list of all workflows and by selecting one you can see the
+specification and the details, such as the action groups.
+
+On this view you can generate the workflow (automatically saved in the
+``definition.xml`` in the same directory as the ``specification.txt``) and you
+can install the workflow / update the security.
 
 
 
