@@ -14,7 +14,8 @@ tests_require = [
 
 setup(name='ftw.lawmaker',
       version=version,
-      description='',
+      description='Generate your Plone workflows by describing it in' + \
+          ' plain text with a DSL.',
 
       long_description=open('README.rst').read() + '\n' + \
           open(os.path.join('docs', 'HISTORY.txt')).read(),
