@@ -7,8 +7,11 @@ version = '1.0.dev0'
 
 
 tests_require = [
-    'unittest2',
+    'Products.CMFCore',
     'plone.app.testing',
+    'unittest2',
+    'z3c.autoinclude',
+    'zope.configuration',
     ]
 
 
@@ -39,7 +42,9 @@ setup(name='ftw.lawmaker',
       zip_safe=False,
 
       install_requires=[
+        'Products.GenericSetup',
         'setuptools',
+        'zope.i18nmessageid',
         ],
 
       tests_require=tests_require,
