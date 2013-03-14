@@ -6,7 +6,7 @@ from plone.app.testing import applyProfile
 from zope.configuration import xmlconfig
 
 
-class LawmakerLayer(PloneSandboxLayer):
+class LawgiverLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE, )
 
@@ -22,10 +22,10 @@ class LawmakerLayer(PloneSandboxLayer):
             context=configurationContext)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, 'ftw.lawmaker:default')
+        applyProfile(portal, 'ftw.lawgiver:default')
 
-LAWMAKER_FIXTURE = LawmakerLayer()
-LAWMAKER_INTEGRATION_TESTING = IntegrationTesting(
-    bases=(LAWMAKER_FIXTURE, ), name="ftw.lawmaker:integration")
-LAWMAKER_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(LAWMAKER_FIXTURE, ), name="ftw.lawmaker:functional")
+LAWGIVER_FIXTURE = LawgiverLayer()
+LAWGIVER_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(LAWGIVER_FIXTURE, ), name="ftw.lawgiver:integration")
+LAWGIVER_FUNCTIONAL_TESTING = FunctionalTesting(
+    bases=(LAWGIVER_FIXTURE, ), name="ftw.lawgiver:functional")

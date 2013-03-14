@@ -1,7 +1,7 @@
-ftw.lawmaker
+ftw.lawgiver
 ============
 
-ftw.lawmaker generates Plone workflows based on a human readable specification written in a custom DSL (domain specific language).
+ftw.lawgiver generates Plone workflows based on a human readable specification written in a custom DSL (domain specific language).
 
 
 ----
@@ -28,9 +28,9 @@ Another problem poses the communication between workflow integrator and customer
 How it works
 ------------
 
-ftw.lawmaker helps solving these problems by using a domain specific language (DSL) for describing how a workflow should work.
-The lawmaker then generates the complete workflow definition (``definition.xml``) based on this specification.
-By separating this specification from the resulting workflow definition (which is in XML) the specification does not have to use permissions--handling the permissions is the job of the lawmaker.
+ftw.lawgiver helps solving these problems by using a domain specific language (DSL) for describing how a workflow should work.
+The lawgiver then generates the complete workflow definition (``definition.xml``) based on this specification.
+By separating this specification from the resulting workflow definition (which is in XML) the specification does not have to use permissions--handling the permissions is the job of the lawgiver.
 
 Using the specification file the workflow can easily be regenerated any time and will handle additional permissions automatically when it is regenerated. However, it is still the task of the developer to regenerate the ``definition.xml`` when more or other permissions have to be managed. He or she have to make sure that the workflow is properly installed with an upgrade step /
 reindexing security.
@@ -39,15 +39,15 @@ reindexing security.
 Installation
 ------------
 
-- Add ``ftw.lawmaker`` to your buildout configuration:
+- Add ``ftw.lawgiver`` to your buildout configuration:
 
 .. code:: ini
 
     [instance]
     eggs +=
-        ftw.lawmaker
+        ftw.lawgiver
 
-- Install the generic setup profile of ``ftw.lawmaker``.
+- Install the generic setup profile of ``ftw.lawgiver``.
 
 
 Compatibility
@@ -72,21 +72,21 @@ The registration of a permission to an action group should be done in the
 package where the permission is defined.
 This allows to keep changes of the permissions and action group registrations
 together in branches, for reviews etc.
-ftw.lawmaker already assigns default Plone / Zope permissions to action groups.
+ftw.lawgiver already assigns default Plone / Zope permissions to action groups.
 
 The registration is done in ZCML.
-Here is an example ``lawmaker.zcml``:
+Here is an example ``lawgiver.zcml``:
 
 .. code:: xml
 
     <configure
         xmlns="http://namespaces.zope.org/zope"
-        xmlns:lawmaker="http://namespaces.zope.org/lawmaker"
+        xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
         i18n_domain="my.package">
 
-        <include package="ftw.lawmaker" file="meta.zcml" />
+        <include package="ftw.lawgiver" file="meta.zcml" />
 
-        <lawmaker:map_permissions
+        <lawgiver:map_permissions
             action_group="add content"
             permissions="my.package: Add Foo
                          my.package: Add Bar"
@@ -94,9 +94,9 @@ Here is an example ``lawmaker.zcml``:
 
     </configure>
 
-By putting the ZCML in a separate ``lawmaker.zcml`` file you can define
-lawmaker in your addon package without having to define a dependency to
-``ftw.lawmaker`` by using ``zcml:condition`` while loading it in your default
+By putting the ZCML in a separate ``lawgiver.zcml`` file you can define
+lawgiver in your addon package without having to define a dependency to
+``ftw.lawgiver`` by using ``zcml:condition`` while loading it in your default
 ``configure.zcml``:
 
 .. code:: xml
@@ -106,7 +106,7 @@ lawmaker in your addon package without having to define a dependency to
         xmlns:zcml="http://namespaces.zope.org/zcml"
         i18n_domain="my.package">
 
-        <include zcml:condition="installed ftw.lawmaker" file="lawmaker.zcml" />
+        <include zcml:condition="installed ftw.lawgiver" file="lawgiver.zcml" />
 
     </configure>
 
@@ -123,12 +123,12 @@ This can be easily achieved by also defining the workflow in the ZCML:
 
     <configure
         xmlns="http://namespaces.zope.org/zope"
-        xmlns:lawmaker="http://namespaces.zope.org/lawmaker"
+        xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
         i18n_domain="my.package">
 
-        <include package="ftw.lawmaker" file="meta.zcml" />
+        <include package="ftw.lawgiver" file="meta.zcml" />
 
-        <lawmaker:map_permissions
+        <lawgiver:map_permissions
             action_group="add content"
             permissions="my.package: Add Foo
                          my.package: Add Bar"
@@ -168,7 +168,7 @@ The states and transitions are defined in simple lists:
 
 The asterisk (`*`) in the state list indicates that this state is the
 initial state.
-We are not using any internal ids for workflow states or transitions. Instead, we use the same labels which the user will actually see--the ids are automatically generated by ftw.lawmaker.
+We are not using any internal ids for workflow states or transitions. Instead, we use the same labels which the user will actually see--the ids are automatically generated by ftw.lawgiver.
 
 
 Role mapping
@@ -256,7 +256,7 @@ Registering a workflow sepcification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If your workflow specification is stored in
-``profiles/default/workflows/my_custom_workflow/specification.txt`` you need to tell ftw.lawmaker where your specification is in order to generate the
+``profiles/default/workflows/my_custom_workflow/specification.txt`` you need to tell ftw.lawgiver where your specification is in order to generate the
 workflow XML.
 This is done in ZCML:
 
@@ -264,12 +264,12 @@ This is done in ZCML:
 
     <configure
         xmlns="http://namespaces.zope.org/zope"
-        xmlns:lawmaker="http://namespaces.zope.org/lawmaker"
+        xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
         i18n_domain="my.package">
 
-        <include package="ftw.lawmaker" file="meta.zcml" />
+        <include package="ftw.lawgiver" file="meta.zcml" />
 
-        <lawmaker:specification
+        <lawgiver:specification
             title="My Custom Workflow"
             description="A three state publication workflow"
             specification="profiles/default/workflows/my_custom_workflow/specification.txt"
@@ -289,7 +289,7 @@ If you need to use another language we look forward to your pull request.
 Generating the workflow
 -----------------------
 
-For generating the workflow go to the lawmaker control panel (in the
+For generating the workflow go to the lawgiver control panel (in the
 Plone control panel).
 There you can see a list of all workflows and by selecting one you can see the specification and other details, such as the action groups.
 
@@ -302,10 +302,10 @@ can install the workflow / update the security.
 Links
 -----
 
-- Main github project repository: https://github.com/4teamwork/ftw.lawmaker
-- Issue tracker: https://github.com/4teamwork/ftw.lawmaker/issues
-- Package on pypi: http://pypi.python.org/pypi/ftw.lawmaker
-- Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.lawmaker
+- Main github project repository: https://github.com/4teamwork/ftw.lawgiver
+- Issue tracker: https://github.com/4teamwork/ftw.lawgiver/issues
+- Package on pypi: http://pypi.python.org/pypi/ftw.lawgiver
+- Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.lawgiver
 
 
 Copyright
@@ -313,4 +313,4 @@ Copyright
 
 This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
-``ftw.lawmaker`` is licensed under GNU General Public License, version 2.
+``ftw.lawgiver`` is licensed under GNU General Public License, version 2.

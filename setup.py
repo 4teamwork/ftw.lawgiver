@@ -15,7 +15,7 @@ tests_require = [
     ]
 
 
-setup(name='ftw.lawmaker',
+setup(name='ftw.lawgiver',
       version=version,
       description='Generate your Plone workflows by describing it in' + \
           ' plain text with a DSL.',
@@ -30,10 +30,10 @@ setup(name='ftw.lawmaker',
         'Topic :: Software Development :: Libraries :: Python Modules',
         ],
 
-      keywords='ftw lawmaker generate workflows dsl',
+      keywords='ftw lawgiver generate workflows dsl',
       author='4teamwork GmbH',
       author_email='mailto:info@4teamwork.ch',
-      url='https://github.com/4teamwork/ftw.lawmaker',
+      url='https://github.com/4teamwork/ftw.lawgiver',
 
       license='GPL2',
       packages=find_packages(exclude=['ez_setup']),

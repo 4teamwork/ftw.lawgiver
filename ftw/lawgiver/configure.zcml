@@ -1,12 +1,12 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-    i18n_domain="ftw.lawmaker">
+    i18n_domain="ftw.lawgiver">
 
 
     <genericsetup:registerProfile
         name="default"
-        title="ftw.lawmaker"
+        title="ftw.lawgiver"
         directory="profiles/default"
         description="Generate workflows from human readable specifications."
         provides="Products.GenericSetup.interfaces.EXTENSION"
