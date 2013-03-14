@@ -153,6 +153,9 @@ The states and transitions are defined in simple lists:
 
 .. code:: rst
 
+    Title: My Custom Workflow
+    Description: A three state publication workflow
+
     States:
     - * Private
     - Pending
@@ -252,15 +255,15 @@ We have the principle that any user / role is NOT allowed do anything by default
     - Anyone can view this content.
 
 
-Registering a workflow sepcification
+Registering a workflow specification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If your workflow specification is stored in
-``profiles/default/workflows/my_custom_workflow/specification.txt`` you need to tell ftw.lawgiver where your specification is in order to generate the
-workflow XML.
+Assuming we have a workflow specification stored in
+``profiles/default/workflows/my_custom_workflow/specification.txt`` we need
+to tell ftw.lawgiver where it is in order to generate the workflow XML.
 This is done in ZCML:
 
-.. code::xml
+.. code:: xml
 
     <configure
         xmlns="http://namespaces.zope.org/zope"
@@ -269,13 +272,16 @@ This is done in ZCML:
 
         <include package="ftw.lawgiver" file="meta.zcml" />
 
-        <lawgiver:specification
-            title="My Custom Workflow"
-            description="A three state publication workflow"
-            specification="profiles/default/workflows/my_custom_workflow/specification.txt"
+        <lawgiver:workflows
+            directory="profiles/default/workflows"
             />
 
     </configure>
+
+We are registering the "workflows" directory of our generic setup profile
+here.
+The lawgiver now checks for every workflow in this directory whether there is
+a ``specification.txt`` and registers it dynamically.
 
 
 Internationalization
