@@ -1,8 +1,8 @@
 
 - Implementation [0/5]
-  - [ ] Action Groups [0/3]
-    - [ ] action group registry
-    - [ ] ZCML directive for mapping permissions to action
+  - [-] Action Groups [2/3]
+    - [X] action group registry
+    - [X] ZCML directive for mapping permissions to action
       groups (``lawgiver:map_permissions``)
     - [ ] map Plone / Zope permissions to action groups (multi plone
       version compatible?)
@@ -28,10 +28,10 @@
     - returns a definition.xml
     - result should be consistent regarding sorting etc, so that it
       can easily be diffed
-  - [ ] Workflow specification discovery [0/0]
+  - [ ] Workflow specification discovery [0/2]
     - [ ] implement a ZCML meta directive (``lawgiver:workflows``)
     - [ ] specification detection in the known workflow directories
-  - [ ] user-interface [0/1]
+  - [ ] user-interface [0/6]
     - [ ] view listing all known specifications
     - [ ] details view: show the specification
     - [ ] details view: show the used permissions mapping
@@ -39,7 +39,7 @@
     - [ ] details view: button for writing / importing the definition.xml
     - [ ] details view: button for reindexing security for this workflow
 
-- Documentation [0/1]
+- Documentation [0/2]
   - [ ] Better documentation for workflow properties (title /
     description) in specification file
   - [ ] Document UI / views with screenshots

@@ -5,13 +5,15 @@ from setuptools import setup, find_packages
 version = '1.0.dev0'
 
 
-
 tests_require = [
+
     'Products.CMFCore',
+    'ftw.testing',
     'plone.app.testing',
     'unittest2',
     'z3c.autoinclude',
     'zope.configuration',
+
     ]
 
 
@@ -42,9 +44,15 @@ setup(name='ftw.lawgiver',
       zip_safe=False,
 
       install_requires=[
+
         'Products.GenericSetup',
         'setuptools',
+        'zope.component',
+        'zope.configuration',
         'zope.i18nmessageid',
+        'zope.interface',
+        'zope.schema',
+
         ],
 
       tests_require=tests_require,

@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:meta="http://namespaces.zope.org/meta">
+
+    <meta:directive
+        namespace="http://namespaces.zope.org/lawgiver"
+        name="map_permissions"
+        schema=".meta.IMapPermissionsDirective"
+        handler=".meta.mapPermissions"
+        />
+
+</configure>

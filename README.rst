@@ -87,11 +87,14 @@ Here is an example ``lawgiver.zcml``:
 
         <lawgiver:map_permissions
             action_group="add content"
-            permissions="my.package: Add Foo
+            permissions="my.package: Add Foo,
                          my.package: Add Bar"
             />
 
     </configure>
+
+If you define multiple permissions in the same `map_permissions` directive
+make sure to separate them by comma.
 
 By putting the ZCML in a separate ``lawgiver.zcml`` file you can define
 lawgiver in your addon package without having to define a dependency to
@@ -129,7 +132,7 @@ This can be easily achieved by also defining the workflow in the ZCML:
 
         <lawgiver:map_permissions
             action_group="add content"
-            permissions="my.package: Add Foo
+            permissions="my.package: Add Foo,
                          my.package: Add Bar"
             workflow="my_workflow"
             />
@@ -221,7 +224,7 @@ We have the principle that any user / role is NOT allowed do anything by default
 
 .. code:: rst
 
-    State Private
+    State Private:
     - An editor can view this content.
     - An editor can edit this content.
     - An editor can delete this content.
@@ -233,7 +236,7 @@ We have the principle that any user / role is NOT allowed do anything by default
     - An editor-in-chief can add new content.
     - An editor-in-chief can publish this content.
 
-    State Pending
+    State Pending:
     - An editor can view this content.
     - An editor can add new content.
     - An editor can Reject.
@@ -244,7 +247,7 @@ We have the principle that any user / role is NOT allowed do anything by default
     - An editor-in-chief can Publish.
     - An editor-in-chief can Retract.
 
-    State Published
+    State Published:
     - An editor can view the content.
     - An editor can add new content.
     - An editor can retract this content.
