@@ -120,3 +120,43 @@ class TestWDLIntegration(TestCase):
 
         self.assertEquals(admin.customer_role, 'admin')
         self.assertEquals(admin.plone_role, 'Site Administrator')
+
+    def test_spec_needs_an_initial_status(self):
+        # REMARK: the validator fails only when at least one status is
+        # defined but there is no initial state.
+        # For the sake of simpleness it does not fail when no states
+        # are defined at all (its easier to test and it allows to write
+        # workflows incrementally).
+
+        with self.assertRaises(ConstraintNotSatisfied) as cm:
+            self.parse_lines(
+                'Title: A workflow',
+                '',
+                'States:',
+                '- Bar')
+
+        self.assertEquals(
+            'No initial status defined.'
+            ' Add an asterisk (*) in front of the initial status.',
+            str(cm.exception))
+
+    def test_spec_allows_max_one_initial_status(self):
+        # REMARK: the validator fails only when at least one status is
+        # defined but there is no initial state.
+        # For the sake of simpleness it does not fail when no states
+        # are defined at all (its easier to test and it allows to write
+        # workflows incrementally).
+
+        with self.assertRaises(ConstraintNotSatisfied) as cm:
+            self.parse_lines(
+                'Title: A workflow',
+                '',
+                'States:',
+                '- * Foo',
+                '- Bar',
+                '- * Baz')
+
+        self.assertEquals(
+            'You have defined multiple initial states, but there should'
+            ' be exactly one (Lines 4, 6).',
+            str(cm.exception))

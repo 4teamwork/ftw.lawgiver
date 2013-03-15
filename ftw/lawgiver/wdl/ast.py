@@ -50,6 +50,25 @@ class Specification(BaseSyntaxTreeElement):
         map(recurse, self.transitions)
         map(recurse, self.role_mappings)
 
+    def validate(self, specification, warnings):
+        if self.states:
+            initial_states = tuple(self._get_initial_states())
+            if len(initial_states) == 0:
+                raise ConstraintNotSatisfied(
+                    'No initial status defined.'
+                    ' Add an asterisk (*) in front of the initial status.')
+
+            elif len(initial_states) > 1:
+                lines = [str(get_line_number(obj)) for obj in initial_states]
+                raise ConstraintNotSatisfied(
+                    'You have defined multiple initial states, but there'
+                    ' should be exactly one (Lines %s).' % ', '.join(lines))
+
+    def _get_initial_states(self):
+        for status in self.states:
+            if status.init_status:
+                yield status
+
 
 class Status(BaseSyntaxTreeElement):
     implements(IStatus)
