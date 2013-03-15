@@ -1,0 +1,61 @@
+Title: My Custom Workflow
+Description: A three state publication workflow
+
+States:
+- * Private
+- Pending
+- Published
+
+Transitions:
+- publish (Private => Published)
+- submit for publication (Private => Pending)
+- reject (Pending => Private)
+- retract (Pending => Private)
+- publish (Pending => Published)
+- reject (Published => Private)
+
+Role mapping:
+- editor-in-chief => Reviewer
+- editor => Editor
+- everyone => Anonymous
+- administrator => Site Administrator
+
+
+
+General:
+- An administrator can always view this content
+- An administrator can always edit this content
+- An administrator can always delete this content
+
+
+State Private:
+- An editor can view this content.
+- An editor can edit this content.
+- An editor can delete this content.
+- An editor can add new content.
+- An editor can submit this content for publication.
+- An editor-in-chief can view this content.
+- An editor-in-chief can edit this content.
+- An editor-in-chief can delete this content.
+- An editor-in-chief can add new content.
+- An editor-in-chief can publish this content.
+
+State Pending:
+- An editor can view this content.
+- An editor can add new content.
+- An editor can retract.
+- An editor-in-chief can view this content.
+- An editor-in-chief can edit this content.
+- An editor-in-chief can delete this content.
+- An editor-in-chief can add new content.
+- An editor-in-chief can publish.
+- An editor-in-chief can reject.
+
+State Published:
+- An editor can view this content.
+- An editor can add new content.
+- An editor can retract this content.
+- An editor-in-chief can view this content.
+- An editor-in-chief can add new content.
+- An editor-in-chief can reject this content.
+- Anyone can view this content.

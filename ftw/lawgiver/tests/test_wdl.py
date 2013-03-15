@@ -5,6 +5,7 @@ from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from unittest2 import TestCase
 from zope.component import getUtility
 from zope.schema.interfaces import ConstraintNotSatisfied
+import os
 
 
 class TestWDLIntegration(TestCase):
@@ -160,3 +161,43 @@ class TestWDLIntegration(TestCase):
             'You have defined multiple initial states, but there should'
             ' be exactly one (Lines 4, 6).',
             str(cm.exception))
+
+    def test_example_specification(self):
+        with open(os.path.join(
+                os.path.dirname(__file__),
+                'assets', 'example.specification.txt')) as file_:
+            spec = self.parse(file_)
+
+        # Properties
+        self.assertEquals('My Custom Workflow', spec.title)
+        self.assertEquals('A three state publication workflow',
+                          spec.description)
+
+        # States
+        self.assertEquals(
+            ['<Status "Private" [init]>',
+             '<Status "Pending">',
+             '<Status "Published">'],
+
+            map(str, spec.states))
+
+        # Transitions
+        self.maxDiff = None
+        self.assertEquals(
+            ['<Transition "publish" ["Private" => "Published"]>',
+             '<Transition "submit for publication" ["Private" => "Pending"]>',
+             '<Transition "reject" ["Pending" => "Private"]>',
+             '<Transition "retract" ["Pending" => "Private"]>',
+             '<Transition "publish" ["Pending" => "Published"]>',
+             '<Transition "reject" ["Published" => "Private"]>'],
+
+            map(str, spec.transitions))
+
+        # Role mappings
+        self.assertEquals(
+            ['<RoleMapping "editor-in-chief" => "Reviewer">',
+             '<RoleMapping "editor" => "Editor">',
+             '<RoleMapping "everyone" => "Anonymous">',
+             '<RoleMapping "administrator" => "Site Administrator">'],
+
+            map(str, spec.role_mappings))

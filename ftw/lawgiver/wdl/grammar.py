@@ -98,9 +98,9 @@ def role_mapping_line_to_ast(document, position, tokens):
 
 role_mapping_line = (
     Suppress('-') +
-    words +
+    sentence +
     Suppress('=>') +
-    words +
+    sentence +
     Optional(newline)
     ).setParseAction(role_mapping_line_to_ast)
 
