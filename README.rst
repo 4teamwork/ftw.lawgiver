@@ -239,16 +239,16 @@ We have the principle that any user / role is NOT allowed do anything by default
     State Pending:
     - An editor can view this content.
     - An editor can add new content.
-    - An editor can Reject.
-    - An editor-in-chief can view the content.
-    - An editor-in-chief can edit the content.
-    - An editor-in-chief can delete the content.
+    - An editor can retract this content.
+    - An editor-in-chief can view this content.
+    - An editor-in-chief can edit this content.
+    - An editor-in-chief can delete this content.
     - An editor-in-chief can add new content.
-    - An editor-in-chief can Publish.
-    - An editor-in-chief can Retract.
+    - An editor-in-chief can publish this content.
+    - An editor-in-chief can reject this content.
 
     State Published:
-    - An editor can view the content.
+    - An editor can view this content.
     - An editor can add new content.
     - An editor can retract this content.
     - An editor-in-chief can view this content.
