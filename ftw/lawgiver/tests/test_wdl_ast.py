@@ -53,6 +53,22 @@ class TestTransition(TestCase):
         self.assertEquals(unicode(obj),
                           u'<Transition "publish" ["Private" => "Public"]>')
 
+    def test_get_from_status_requires_augmentation(self):
+        obj = Transition('publish', 'Private', 'Public')
+        with self.assertRaises(RuntimeError) as cm:
+            obj.get_from_status()
+
+        self.assertEquals('augment() should be called first',
+                          str(cm.exception))
+
+    def test_get_to_status_requires_augmentation(self):
+        obj = Transition('publish', 'Private', 'Public')
+        with self.assertRaises(RuntimeError) as cm:
+            obj.get_to_status()
+
+        self.assertEquals('augment() should be called first',
+                          str(cm.exception))
+
 
 class TestRoleMapping(TestCase):
 

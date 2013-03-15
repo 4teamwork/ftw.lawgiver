@@ -2,6 +2,7 @@ from ftw.lawgiver.wdl.ast import RoleMapping
 from ftw.lawgiver.wdl.ast import Specification
 from ftw.lawgiver.wdl.ast import Status
 from ftw.lawgiver.wdl.ast import Transition
+from ftw.lawgiver.wdl.utils import remember_line_number
 from pyparsing import Group
 from pyparsing import OneOrMore
 from pyparsing import Optional
@@ -45,9 +46,12 @@ PROPERTIES = TITLE + DESCRIPTION + Optional(some_newlines)
 def state_line_to_ast(document, position, tokens):
     if len(tokens) == 2:
         assert tokens[0] == '*'
-        return Status(title=tokens[1], init=True)
+        obj = Status(title=tokens[1], init=True)
     else:
-        return Status(title=tokens[0])
+        obj = Status(title=tokens[0])
+
+    remember_line_number(obj, document, position)
+    return obj
 
 state_line = (
     Suppress('-') +
@@ -64,7 +68,9 @@ STATES = Optional(Group(
 
 # "Transitions:"
 def transition_line_to_ast(document, position, tokens):
-    return Transition(*tokens)
+    obj = Transition(*tokens)
+    remember_line_number(obj, document, position)
+    return obj
 
 transition_line = (
     Suppress('-') +
@@ -86,7 +92,9 @@ TRANSITIONS = Optional(Group(
 
 # "Role mapping:"
 def role_mapping_line_to_ast(document, position, tokens):
-    return RoleMapping(*tokens)
+    obj = RoleMapping(*tokens)
+    remember_line_number(obj, document, position)
+    return obj
 
 role_mapping_line = (
     Suppress('-') +

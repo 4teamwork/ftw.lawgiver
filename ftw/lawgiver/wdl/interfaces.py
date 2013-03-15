@@ -17,7 +17,49 @@ class IWorkflowSpecificationParser(Interface):
         """
 
 
-class ISpecification(Interface):
+class ISyntaxTreeElement(Interface):
+    """Elements in the abstract syntax tree are implementing this interface
+    and provide support for validation and augmenting after parsing and
+    creating the tree.
+    """
+
+    def recursive_collect_objects(collection):
+        """After parsing the document and creating the syntax tree the
+        parser calls this method for collecting all objects in the tree
+        recursively so that they can be validated afterwards.
+
+        An object implementing this method should add the object itself
+        to the `collection` (set) and then call this method on every
+        object it knows.
+
+        Most implementations will not have pointers to other objects in
+        this state.
+        """
+
+    def validate(specification, warnings):
+        """The parser calls the validate method on every object found
+        with `recursive_collect_objects`.
+
+        The validate can raise a
+        `zope.schema.interfaces.ConstraintNotSatisfied` exception when
+        there is a fatal error or it can append a warning to the
+        passed `warnings` list.
+
+        When neither is done everything is valid.
+        """
+
+    def augment(specification):
+        """Any object in the AST may need to have pointers to other objects
+        but it should not access them on parsing time (they may not
+        yet exist).
+
+        The pointers should be created after parsing and validating in this
+        `augment` hook by getting them from the `specification`, which is the
+        AST root.
+        """
+
+
+class ISpecification(ISyntaxTreeElement):
     """Represents a specification file.
     """
 
@@ -27,8 +69,12 @@ class ISpecification(Interface):
     transitions = Attribute('A list of `ITransition` objects.')
     role_mappings = Attribute('A list of `IRoleMapping` objects.')
 
+    def get_status_by_title(title):
+        """Returns the status with the title `title` or None.
+        """
 
-class IStatus(Interface):
+
+class IStatus(ISyntaxTreeElement):
     """A workflow status representation.
     """
 
@@ -42,7 +88,7 @@ class IStatus(Interface):
         u'True when this is the init status of this workflow')
 
 
-class ITransition(Interface):
+class ITransition(ISyntaxTreeElement):
     """Represents a workflow transition.
     """
 
@@ -64,7 +110,7 @@ class ITransition(Interface):
         """
 
 
-class IRoleMapping(Interface):
+class IRoleMapping(ISyntaxTreeElement):
     """Represents a role mapping.
     """
 

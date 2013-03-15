@@ -4,6 +4,7 @@ from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from unittest2 import TestCase
 from zope.component import getUtility
+from zope.schema.interfaces import ConstraintNotSatisfied
 
 
 class TestWDLIntegration(TestCase):
@@ -68,9 +69,40 @@ class TestWDLIntegration(TestCase):
         self.assertEquals(len(ast.transitions), 2)
         forward, backward = ast.transitions
 
-        # XXX test states
         self.assertEquals(forward.title, 'forward')
+        self.assertEquals(forward.get_from_status().title, 'Foo')
+        self.assertEquals(forward.get_to_status().title, 'Bar')
+
         self.assertEquals(backward.title, 'backward')
+        self.assertEquals(backward.get_from_status().title, 'Bar')
+        self.assertEquals(backward.get_to_status().title, 'Foo')
+
+    def test_spec_with_invalid_status_names_in_transitions(self):
+        with self.assertRaises(ConstraintNotSatisfied) as cm:
+            self.parse_lines(
+                'Title: workflow',
+                '',
+                'States:',
+                '- * Foo',
+                '',
+                'Transitions:',
+                '- baz (Foo => Bar)')
+
+        self.assertEquals('There is no status with title "Bar". (Line 7)',
+                          str(cm.exception))
+
+        with self.assertRaises(ConstraintNotSatisfied) as cm:
+            self.parse_lines(
+                'Title: workflow',
+                '',
+                'States:',
+                '- * Bar',
+                '',
+                'Transitions:',
+                '- baz (Foo => Bar)')
+
+        self.assertEquals('There is no status with title "Foo". (Line 7)',
+                          str(cm.exception))
 
     def test_spec_with_role_mapping(self):
         ast = self.parse_lines(

@@ -11,4 +11,16 @@ class SpecificationParser(object):
         data = stream.read().decode('utf-8')
         ast = WORKFLOW_SPEC.parseString(data)
         assert len(ast) == 1
-        return ast[0]
+        spec = ast[0]
+
+        objects = set()
+        spec.recursive_collect_objects(objects)
+
+        warnings = []
+        for obj in objects:
+            obj.validate(spec, warnings)
+
+        for obj in objects:
+            obj.augment(spec)
+
+        return spec
