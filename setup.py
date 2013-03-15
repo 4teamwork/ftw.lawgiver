@@ -46,6 +46,7 @@ setup(name='ftw.lawgiver',
       install_requires=[
 
         'Products.GenericSetup',
+        'pyparsing < 2',
         'setuptools',
         'zope.component',
         'zope.configuration',

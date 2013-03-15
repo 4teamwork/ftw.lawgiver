@@ -3,6 +3,7 @@
     xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
     i18n_domain="ftw.lawgiver">
 
+    <include package=".wdl" />
 
     <genericsetup:registerProfile
         name="default"
