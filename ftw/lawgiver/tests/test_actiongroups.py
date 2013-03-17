@@ -135,3 +135,57 @@ class TestActionGroupRegistry(BaseTest):
                           u'View',
                           u'Modify portal content',
                           u'A custom permission for foo'])})
+
+    def test_get_action_group_for_permission(self):
+        self.load_zcml(
+            '<lawgiver:map_permissions',
+            '    action_group="view"',
+            '    permissions="Access contents information,',
+            '                 View" />',
+
+            '<lawgiver:map_permissions',
+            '    action_group="edit"',
+            '    permissions="Modify portal content" />',
+
+            '<lawgiver:map_permissions',
+            '    action_group="view"',
+            '    permissions="Modify portal content"'
+            '    workflow="foo" />',
+
+            '<lawgiver:map_permissions',
+            '    action_group="view"',
+            '    permissions="A custom permission for foo"'
+            '    workflow="foo" />',
+            )
+
+        registry = self.get_registry()
+
+        self.assertEqual(
+            'view',
+            registry.get_action_group_for_permission(
+                'Access contents information'))
+
+        self.assertEqual(
+            'edit',
+            registry.get_action_group_for_permission(
+                'Modify portal content'))
+
+        self.assertEqual(
+            None,
+            registry.get_action_group_for_permission(
+                'A custom permission for foo'))
+
+        self.assertEqual(
+            'view',
+            registry.get_action_group_for_permission(
+                'Modify portal content', workflow_name='foo'))
+
+        self.assertEqual(
+            'view',
+            registry.get_action_group_for_permission(
+                'A custom permission for foo', workflow_name='foo'))
+
+        self.assertEqual(
+            None,
+            registry.get_action_group_for_permission(
+                'A unregistered permission'))

@@ -34,3 +34,10 @@ class ActionGroupRegistry(object):
             result[group].add(permission)
 
         return result
+
+    def get_action_group_for_permission(self, permission_title,
+                                        workflow_name=None):
+        if permission_title not in self._permissions:
+            return None
+
+        return self._permissions[permission_title].get(workflow_name, None)
