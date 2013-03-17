@@ -40,7 +40,7 @@ Installation
 
 - Add ``ftw.lawgiver`` to your buildout configuration:
 
-.. code:: ini
+.. code:: rst
 
     [instance]
     eggs +=
@@ -155,21 +155,23 @@ The states and transitions are defined in simple lists:
 
 .. code:: rst
 
-    Title: My Custom Workflow
+    [My Custom Workflow]
     Description: A three state publication workflow
+    Initial Status: Private
 
-    States:
-    - * Private
-    - Pending
-    - Published
+    Status Private:
+
+    Status Pending:
+
+    Status Published:
 
     Transitions:
-    - Publish (Private => Published)
-    - Submit for publication (Private => Pending)
-    - Reject (Pending => Private)
-    - Retract (Pending => Private)
-    - Publish (Pending => Published)
-    - Reject (Published => Private)
+      Publish (Private => Published)
+      Submit for publication (Private => Pending)
+      Reject (Pending => Private)
+      Retract (Pending => Private)
+      Publish (Pending => Published)
+      Reject (Published => Private)
 
 The asterisk (`*`) in the state list indicates that this state is the
 initial state.
@@ -188,9 +190,9 @@ customer roles to Plone roles:
 .. code:: rst
 
     Role mapping:
-    - editor-in-chief => Reviewer
-    - editor => Editor
-    - everyone => Anonymous
+      editor-in-chief => Reviewer
+      editor => Editor
+      everyone => Anonymous
 
 In our example we have only "normal" editors and an "editor-in-chief" who can
 review and publish the contents.
@@ -209,9 +211,9 @@ An example:
 .. code:: rst
 
     General:
-    - An administrator can always view the content
-    - An administrator can always edit the content
-    - An administrator can always delete the content
+      An administrator can always view the content
+      An administrator can always edit the content
+      An administrator can always delete the content
 
 These general statements apply for all states.
 
@@ -224,37 +226,37 @@ We have the principle that any user / role is NOT allowed do anything by default
 
 .. code:: rst
 
-    State Private:
-    - An editor can view this content.
-    - An editor can edit this content.
-    - An editor can delete this content.
-    - An editor can add new content.
-    - An editor can submit this content for publication.
-    - An editor-in-chief can view this content.
-    - An editor-in-chief can edit this content.
-    - An editor-in-chief can delete this content.
-    - An editor-in-chief can add new content.
-    - An editor-in-chief can publish this content.
+    Status Private:
+      An editor can view this content.
+      An editor can edit this content.
+      An editor can delete this content.
+      An editor can add new content.
+      An editor can submit for publication.
+      An editor-in-chief can view this content.
+      An editor-in-chief can edit this content.
+      An editor-in-chief can delete this content.
+      An editor-in-chief can add new content.
+      An editor-in-chief can publish this content.
 
-    State Pending:
-    - An editor can view this content.
-    - An editor can add new content.
-    - An editor can retract this content.
-    - An editor-in-chief can view this content.
-    - An editor-in-chief can edit this content.
-    - An editor-in-chief can delete this content.
-    - An editor-in-chief can add new content.
-    - An editor-in-chief can publish this content.
-    - An editor-in-chief can reject this content.
+    Status Pending:
+      An editor can view this content.
+      An editor can add new content.
+      An editor can retract this content.
+      An editor-in-chief can view this content.
+      An editor-in-chief can edit this content.
+      An editor-in-chief can delete this content.
+      An editor-in-chief can add new content.
+      An editor-in-chief can publish this content.
+      An editor-in-chief can reject this content.
 
-    State Published:
-    - An editor can view this content.
-    - An editor can add new content.
-    - An editor can retract this content.
-    - An editor-in-chief can view this content.
-    - An editor-in-chief can add new content.
-    - An editor-in-chief can reject this content.
-    - Anyone can view this content.
+    Status Published:
+      An editor can view this content.
+      An editor can add new content.
+      An editor can retract this content.
+      An editor-in-chief can view this content.
+      An editor-in-chief can add new content.
+      An editor-in-chief can retract this content.
+      Anyone can view this content.
 
 
 Registering a workflow specification

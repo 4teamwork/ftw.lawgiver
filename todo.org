@@ -1,28 +1,28 @@
 
-- Implementation [0/5]
+- Implementation [1/5]
   - [-] Action Groups [2/3]
     - [X] action group registry
     - [X] ZCML directive for mapping permissions to action
       groups (``lawgiver:map_permissions``)
     - [ ] map Plone / Zope permissions to action groups (multi plone
       version compatible?)
-  - [ ] DSL [0/2]
-    - [ ] implement internal data structure [0/5]
-      - [ ] workflow specification
-      - [ ] state object
-      - [ ] transition object
-      - [ ] statement object (X can Y)
+  - [X] DSL [2/2]
+    - [X] implement internal data structure [5/5]
+      - [X] workflow specification
+      - [X] state object
+      - [X] transition object
+      - [X] statement object (X can Y)
         - for action groups
         - for transitions
-      - [ ] state object
-    - [ ] implement specification parser [0/5]
-      - [ ] graph definition: states and transitions
-      - [ ] role mapping definition
-      - [ ] can-statements
+      - [X] state object
+    - [X] implement specification parser [5/5]
+      - [X] graph definition: states and transitions
+      - [X] role mapping definition
+      - [X] can-statements
         - can for action groups
         - can for transitions
-      - [ ] general statements
-      - [ ] state definition
+      - [X] general statements
+      - [X] state definition
   - [ ] implement workflow generator
     - accepts a workflow specification object
     - returns a definition.xml
