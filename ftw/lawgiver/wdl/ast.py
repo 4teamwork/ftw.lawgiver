@@ -1,10 +1,7 @@
-from ftw.lawgiver.wdl.interfaces import IRoleMapping
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IStatus
 from ftw.lawgiver.wdl.interfaces import ITransition
 from zope.interface import implements
-from zope.schema.interfaces import ConstraintNotSatisfied
-
 
 
 class Specification(object):
@@ -12,29 +9,27 @@ class Specification(object):
 
     def __init__(self, title, description=None,
                  states=None, initial_status_title=None,
-                 transitions=None, role_mappings=None):
+                 transitions=None, role_mapping=None, generals=None):
         self.title = title
         self.description = description
         self._initial_status_title = initial_status_title
-        self.states = states or []
+        self.states = states or {}
         self.transitions = transitions or []
-        self.role_mappings = role_mappings or []
+        self.role_mapping = role_mapping or {}
+        self.generals = generals or []
 
     def __repr__(self):
         return u'<Specification "%s">' % self.title
 
     def get_initial_status(self):
-        for status in self.states:
-            if status.title == self._initial_status_title:
-                return status
-        return None
+        return self.states.get(self._initial_status_title)
 
     def validate(self):
         if not self._initial_status_title:
-            raise ConstraintNotSatisfied('No initial status defined.')
+            raise ValueError('No initial status defined.')
 
         if not self.get_initial_status():
-            raise ConstraintNotSatisfied(
+            raise ValueError(
                 'Definition of initial status "%s" not found.' % (
                     self._initial_status_title))
 
@@ -53,26 +48,38 @@ class Status(object):
 class Transition(object):
     implements(ITransition)
 
-    def __init__(self, title, src_status, dest_status):
+    def __init__(self, title, src_status=None, dest_status=None,
+                 src_status_title=None, dest_status_title=None):
         self.title = title
+
+        if src_status is None and src_status_title is None:
+            raise ValueError('src_status or src_status_title required.')
+
+        if dest_status is None and dest_status_title is None:
+            raise ValueError('dest_status or dest_status_title required.')
+
         self.src_status = src_status
+        self._src_status_title = src_status_title or src_status.title
         self.dest_status = dest_status
+        self._dest_status_title = dest_status_title or dest_status.title
 
     def __repr__(self):
         return u'<Transition "%s" ["%s" => "%s"]>' % (
             self.title,
-            self.src_status.title,
-            self.dest_status.title)
+            self.src_status and self.src_status.title,
+            self.dest_status and self.dest_status.title)
 
+    def augment_states(self, states):
+        if not self.src_status and self._src_status_title not in states:
+            raise ValueError('No such src_status "%s" (%s).' % (
+                    self._src_status_title, self.title))
 
-class RoleMapping(object):
-    implements(IRoleMapping)
+        elif not self.src_status:
+            self.src_status = states[self._src_status_title]
 
-    def __init__(self, customer_role, plone_role):
-        self.customer_role = customer_role
-        self.plone_role = plone_role
+        if not self.dest_status and self._dest_status_title not in states:
+            raise ValueError('No such dest_status "%s" (%s).' % (
+                    self._dest_status_title, self.title))
 
-    def __repr__(self):
-        return u'<RoleMapping "%s" => "%s">' % (
-            self.customer_role,
-            self.plone_role)
+        elif not self.dest_status:
+            self.dest_status = states[self._dest_status_title]

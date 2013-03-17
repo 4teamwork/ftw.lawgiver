@@ -12,7 +12,7 @@ class IWorkflowSpecificationParser(Interface):
     to a abstract syntax tree.
     """
 
-    def parse(stream):
+    def __call__(stream):
         """Parse the stream and return the validated abstract syntax tree.
         """
 
@@ -33,7 +33,7 @@ class ISpecification(Interface):
 
     def validate():
         """Validates the specification.
-        Raises a `ConstraintNotSatisfied` exception when an error occurs,
+        Raises an exception when an error occurs,
         otherwise the validation is considered as passed.
         """
 
@@ -63,14 +63,3 @@ class ITransition(Interface):
     title = Attribute(u'The workflow transition title.')
     src_status = Attribute(u'The source status of the transition.')
     dest_status = Attribute(u'The target status of the transition.')
-
-
-class IRoleMapping(Interface):
-    """Represents a role mapping.
-    """
-
-    def __init__(customer_role, plone_role):
-        pass
-
-    customer_role = Attribute(u'The customer role (string).')
-    plone_role = Attribute(u'The plone role (string).')

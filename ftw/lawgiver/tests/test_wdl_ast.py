@@ -1,15 +1,11 @@
-from ftw.lawgiver.wdl.ast import RoleMapping
 from ftw.lawgiver.wdl.ast import Specification
 from ftw.lawgiver.wdl.ast import Status
 from ftw.lawgiver.wdl.ast import Transition
-from ftw.lawgiver.wdl.interfaces import IRoleMapping
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IStatus
 from ftw.lawgiver.wdl.interfaces import ITransition
 from unittest2 import TestCase
 from zope.interface.verify import verifyClass
-from zope.schema.interfaces import ConstraintNotSatisfied
-
 
 
 class TestSpecification(TestCase):
@@ -26,14 +22,14 @@ class TestSpecification(TestCase):
 
     def test_VALIDATION_no_initial_status(self):
         obj = Specification('My Workflow')
-        with self.assertRaises(ConstraintNotSatisfied) as cm:
+        with self.assertRaises(ValueError) as cm:
             obj.validate()
 
         self.assertEquals('No initial status defined.', str(cm.exception))
 
     def test_VALIDATION_unkown_initial_status(self):
         obj = Specification('My Workflow', initial_status_title='Foo')
-        with self.assertRaises(ConstraintNotSatisfied) as cm:
+        with self.assertRaises(ValueError) as cm:
             obj.validate()
 
         self.assertEquals('Definition of initial status "Foo" not found.',
@@ -67,15 +63,49 @@ class TestTransition(TestCase):
         self.assertEquals(unicode(obj),
                           u'<Transition "publish" ["Private" => "Public"]>')
 
+    def test_src_status_object_or_title_required(self):
+        with self.assertRaises(ValueError) as cm:
+            Transition('foo', dest_status_title='Bar')
 
-class TestRoleMapping(TestCase):
+        self.assertEquals('src_status or src_status_title required.',
+                          str(cm.exception))
 
-    def test_implements_interface(self):
-        self.assertTrue(IRoleMapping.implementedBy(RoleMapping))
+    def test_dest_status_object_or_title_required(self):
+        with self.assertRaises(ValueError) as cm:
+            Transition('foo', src_status_title='Bar')
 
-        verifyClass(IRoleMapping, RoleMapping)
+        self.assertEquals('dest_status or dest_status_title required.',
+                          str(cm.exception))
 
-    def test_string_repr(self):
-        obj = RoleMapping('Secretary', 'Editor')
-        self.assertEquals(unicode(obj),
-                          u'<RoleMapping "Secretary" => "Editor">')
+    def test_augmenting_states(self):
+        obj = Transition('foo', src_status_title='Bar',
+                         dest_status_title='Baz')
+
+        states = {'Bar': Status('Bar', []),
+                  'Baz': Status('Baz', [])}
+        obj.augment_states(states)
+
+        self.assertEquals(obj.src_status, states['Bar'])
+        self.assertEquals(obj.dest_status, states['Baz'])
+
+    def test_augmenting_missing_src_status(self):
+        obj = Transition('foo', src_status_title='Bar',
+                         dest_status_title='Baz')
+
+        states = {'Baz': Status('Baz', [])}
+        with self.assertRaises(ValueError) as cm:
+            obj.augment_states(states)
+
+        self.assertEquals('No such src_status "Bar" (foo).',
+                          str(cm.exception))
+
+    def test_augmenting_missing_dest_status(self):
+        obj = Transition('foo', src_status_title='Bar',
+                         dest_status_title='Baz')
+
+        states = {'Bar': Status('Bar', [])}
+        with self.assertRaises(ValueError) as cm:
+            obj.augment_states(states)
+
+        self.assertEquals('No such dest_status "Baz" (foo).',
+                          str(cm.exception))
