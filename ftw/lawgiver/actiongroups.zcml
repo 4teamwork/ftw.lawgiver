@@ -1,0 +1,162 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
+    i18n_domain="ftw.lawgiver">
+
+    <include package="ftw.lawgiver" file="meta.zcml" />
+
+    <!-- This file maps the default Plone permissions to the default
+         action groups. -->
+
+    <lawgiver:map_permissions
+        action_group="view"
+        permissions="
+                     Access contents information,
+                     CMFEditions: Access previous versions,
+                     List folder contents,
+                     Portlets: View dashboard,
+                     View,
+                     "
+        />
+
+
+    <lawgiver:map_permissions
+        action_group="view inactive content"
+        permissions="
+                     Access inactive portal content,
+                     "
+        />
+
+
+    <lawgiver:map_permissions
+        action_group="edit"
+        permissions="
+                     CMFEditions: Access previous versions,
+                     CMFEditions: Apply version control,
+                     CMFEditions: Checkout to location,
+                     CMFEditions: Revert to previous versions,
+                     CMFEditions: Save new version,
+                     Copy or Move,
+                     Manage properties,
+                     Modify portal content,
+                     PloneFormGen: Edit Advanced Fields,
+                     PloneFormGen: Edit Encryption Specs,
+                     PloneFormGen: Edit Mail Addresses,
+                     PloneFormGen: Edit Python Fields,
+                     PloneFormGen: Edit TALES Fields,
+                     Portlets: Manage own portlets,
+                     Portlets: Manage portlets,
+                     "
+        />
+
+
+    <lawgiver:map_permissions
+        action_group="add"
+        permissions="
+                     ATContentTypes: Add Folder,
+                     Add Folders,
+                     Add portal content,
+                     Add portal events,
+                     Add portal folders,
+                     PloneFormGen: Add Content,
+                     plone.app.collection: Add Collection,
+                     plone.portlet.collection: Add collection portlet,
+                     "
+        />
+
+
+    <lawgiver:map_permissions
+        action_group="delete"
+        permissions="
+                     Delete objects,
+                     "
+        />
+
+
+    <lawgiver:map_permissions
+        action_group="change security"
+        permissions="
+                     Change local roles,
+                     Sharing page: Delegate Contributor role,
+                     Sharing page: Delegate Editor role,
+                     Sharing page: Delegate Reader role,
+                     Sharing page: Delegate Reviewer role,
+                     Sharing page: Delegate roles,
+                     Take ownership,
+                     "
+        />
+
+    <lawgiver:map_permissions
+        action_group="manage"
+        permissions="
+                     Access future portal content,
+                     CMFEditions: Manage versioning policies,
+                     Content rules: Manage rules,
+                     List undoable changes,
+                     Plone Site Setup: Navigation,
+                     Undo changes,
+                     "
+        />
+
+
+    <lawgiver:map_permissions
+        action_group="__unmanaged__"
+        workflow="__unmanaged__"
+        permissions="
+                     Add portal member,
+                     CMFEditions: Purge version,
+                     Change Images and Files,
+                     Change configuration,
+                     Change permissions,
+                     Define permissions,
+                     FTP access,
+                     Five: Add TTW View Template,
+                     Import/Export objects,
+                     List portal members,
+                     Mail forgotten password,
+                     Manage Five local sites,
+                     Manage portal,
+                     Manage users,
+                     Plone Site Setup: Calendar,
+                     Plone Site Setup: Editing,
+                     Plone Site Setup: Filtering,
+                     Plone Site Setup: Imaging,
+                     Plone Site Setup: Language,
+                     Plone Site Setup: Mail,
+                     Plone Site Setup: Markup,
+                     Plone Site Setup: Overview,
+                     Plone Site Setup: Search,
+                     Plone Site Setup: Security,
+                     Plone Site Setup: Site,
+                     Plone Site Setup: Themes,
+                     Plone Site Setup: TinyMCE,
+                     Plone Site Setup: Types,
+                     Plone Site Setup: Users and Groups,
+                     Review comments,
+                     Search for principals,
+                     Set own password,
+                     Set own properties,
+                     View History,
+                     View management screens,
+                     WebDAV Lock items,
+                     WebDAV Unlock items,
+                     WebDAV access,
+                     plone.portlet.static: Add static portlet,
+                     "
+        />
+
+
+    <!-- we do not use "Request review" / "Review portal content" by
+         default, since we use role-based transition guards. -->
+
+    <lawgiver:map_permissions
+        action_group="__unmanaged__"
+        workflow="__unmanaged__"
+        permissions="
+                     Review portal content,
+                     Request review,
+                     "
+        />
+
+
+</configure>

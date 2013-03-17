@@ -4,6 +4,7 @@
     i18n_domain="ftw.lawgiver">
 
     <include package=".wdl" />
+    <include file="actiongroups.zcml" />
 
     <genericsetup:registerProfile
         name="default"
