@@ -3,6 +3,7 @@ from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.schema import CommaSeparatedText
 from zope.component import provideUtility
 from zope.component import queryUtility
+from zope.configuration.exceptions import ConfigurationError
 from zope.interface import Interface
 from zope.schema import TextLine
 
@@ -31,6 +32,16 @@ class IMapPermissionsDirective(Interface):
 def mapPermissions(_context, **kwargs):
     """Map permissions to an action group.
     """
+
+    permissions = kwargs['permissions']
+    for permission in permissions:
+        if '   ' in permission:
+            raise ConfigurationError(
+                'Seems that a comma is missing in the "permissions"'
+                ' attribute of the lawgiver:map_permissions tag.')
+
+    if permissions[-1] == '':
+        permissions.pop()
 
     component = queryUtility(IActionGroupRegistry)
     if component is None:

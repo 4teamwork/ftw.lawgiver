@@ -189,3 +189,32 @@ class TestActionGroupRegistry(BaseTest):
             None,
             registry.get_action_group_for_permission(
                 'A unregistered permission'))
+
+    def test_detect_possible_missing_comma(self):
+        with self.assertRaises(ConfigurationError) as cm:
+            self.load_zcml(
+                '<lawgiver:map_permissions',
+                '    action_group="view"',
+                '    permissions="Access contents information',
+                '                 View" />')
+
+        self.assertEqual(
+            'File "<string>", line 3.0-6.25\n    ConfigurationError:'
+            ' Seems that a comma is missing in the "permissions" attribute'
+            ' of the lawgiver:map_permissions tag.',
+            str(cm.exception))
+
+    def test_trailing_comma_works(self):
+        self.load_zcml(
+            '<lawgiver:map_permissions',
+            '    action_group="view"',
+            '    permissions="Access contents information,',
+            '                 View," />')
+
+        registry = self.get_registry()
+
+        self.assertEquals(
+            sorted(['Access contents information', 'View']),
+            sorted(registry._permissions.keys()),
+
+            'Trailing comma seems not to be working in map_permissions ZCML.')
