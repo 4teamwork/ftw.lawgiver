@@ -40,4 +40,5 @@ class ActionGroupRegistry(object):
         if permission_title not in self._permissions:
             return None
 
-        return self._permissions[permission_title].get(workflow_name, None)
+        permission = self._permissions[permission_title]
+        return permission.get(workflow_name, permission.get(None, None))

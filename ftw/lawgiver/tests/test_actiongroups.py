@@ -140,8 +140,7 @@ class TestActionGroupRegistry(BaseTest):
         self.load_zcml(
             '<lawgiver:map_permissions',
             '    action_group="view"',
-            '    permissions="Access contents information,',
-            '                 View" />',
+            '    permissions="View" />',
 
             '<lawgiver:map_permissions',
             '    action_group="edit"',
@@ -154,16 +153,17 @@ class TestActionGroupRegistry(BaseTest):
 
             '<lawgiver:map_permissions',
             '    action_group="view"',
-            '    permissions="A custom permission for foo"'
+            '    permissions="Bar"'
             '    workflow="foo" />',
             )
 
         registry = self.get_registry()
 
+        # without specifying workflow
         self.assertEqual(
             'view',
             registry.get_action_group_for_permission(
-                'Access contents information'))
+                'View'))
 
         self.assertEqual(
             'edit',
@@ -173,7 +173,13 @@ class TestActionGroupRegistry(BaseTest):
         self.assertEqual(
             None,
             registry.get_action_group_for_permission(
-                'A custom permission for foo'))
+                'Bar'))
+
+        # with specifying a workflow
+        self.assertEqual(
+            'view',
+            registry.get_action_group_for_permission(
+                'View', workflow_name='foo'))
 
         self.assertEqual(
             'view',
@@ -183,7 +189,7 @@ class TestActionGroupRegistry(BaseTest):
         self.assertEqual(
             'view',
             registry.get_action_group_for_permission(
-                'A custom permission for foo', workflow_name='foo'))
+                'Bar', workflow_name='foo'))
 
         self.assertEqual(
             None,
