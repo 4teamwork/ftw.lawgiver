@@ -110,9 +110,10 @@ class SpecificationParser(object):
         title = match.groups()[0]
 
         statements = []
-        lines = map(str.strip, value.strip().split('\n'))
-        for line in lines:
-            statements.append(convert_statement(line))
+        if value.strip():
+            lines = map(str.strip, value.strip().split('\n'))
+            for line in lines:
+                statements.append(convert_statement(line))
 
         specargs['states'][title] = Status(title, statements)
 

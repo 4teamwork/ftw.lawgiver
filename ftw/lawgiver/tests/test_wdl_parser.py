@@ -81,6 +81,28 @@ class TestParser(TestCase):
             dict(map(lambda item: (item[0], unicode(item[1])),
                      spec.states.items())))
 
+    def test_empty_status(self):
+        # Let's support iteration based workflow development: I might
+        # not define the details of the states from the beginning..
+
+        spec = self.parse_lines(
+            '[Foo]',
+            'Initial status: Private',
+            '',
+            'Status Private:',
+            '',
+            'Status Pending:',
+            ''
+            'Status Published:')
+
+        self.assertEquals(
+            {'Private': u'<Status "Private">',
+             'Pending': u'<Status "Pending">',
+             'Published': u'<Status "Published">'},
+
+            dict(map(lambda item: (item[0], unicode(item[1])),
+                     spec.states.items())))
+
     def test_simple_context_specific_statements(self):
         spec = self.parse_lines(
             '[Foo]',
