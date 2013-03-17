@@ -8,6 +8,7 @@ from ftw.lawgiver.wdl.interfaces import IStatus
 from ftw.lawgiver.wdl.interfaces import ITransition
 from unittest2 import TestCase
 from zope.interface.verify import verifyClass
+from zope.schema.interfaces import ConstraintNotSatisfied
 
 
 
@@ -23,6 +24,21 @@ class TestSpecification(TestCase):
         self.assertEquals(unicode(obj),
                           u'<Specification "My Workflow">')
 
+    def test_VALIDATION_no_initial_status(self):
+        obj = Specification('My Workflow')
+        with self.assertRaises(ConstraintNotSatisfied) as cm:
+            obj.validate()
+
+        self.assertEquals('No initial status defined.', str(cm.exception))
+
+    def test_VALIDATION_unkown_initial_status(self):
+        obj = Specification('My Workflow', initial_status_title='Foo')
+        with self.assertRaises(ConstraintNotSatisfied) as cm:
+            obj.validate()
+
+        self.assertEquals('Definition of initial status "Foo" not found.',
+                          str(cm.exception))
+
 
 class TestStatus(TestCase):
 
@@ -32,13 +48,9 @@ class TestStatus(TestCase):
         verifyClass(IStatus, Status)
 
     def test_string_repr(self):
-        obj = Status(title='Private', init=True)
+        obj = Status('Private', [])
         self.assertEquals(unicode(obj),
-                          u'<Status "Private" [init]>')
-
-        obj2 = Status(title='Public', init=False)
-        self.assertEquals(unicode(obj2),
-                          u'<Status "Public">')
+                          u'<Status "Private">')
 
 
 class TestTransition(TestCase):
@@ -49,25 +61,11 @@ class TestTransition(TestCase):
         verifyClass(ITransition, Transition)
 
     def test_string_repr(self):
-        obj = Transition('publish', 'Private', 'Public')
+        private = Status('Private', [])
+        public = Status('Public', [])
+        obj = Transition('publish', private, public)
         self.assertEquals(unicode(obj),
                           u'<Transition "publish" ["Private" => "Public"]>')
-
-    def test_get_from_status_requires_augmentation(self):
-        obj = Transition('publish', 'Private', 'Public')
-        with self.assertRaises(RuntimeError) as cm:
-            obj.get_from_status()
-
-        self.assertEquals('augment() should be called first',
-                          str(cm.exception))
-
-    def test_get_to_status_requires_augmentation(self):
-        obj = Transition('publish', 'Private', 'Public')
-        with self.assertRaises(RuntimeError) as cm:
-            obj.get_to_status()
-
-        self.assertEquals('augment() should be called first',
-                          str(cm.exception))
 
 
 class TestRoleMapping(TestCase):
