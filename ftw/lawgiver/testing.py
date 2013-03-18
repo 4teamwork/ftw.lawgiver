@@ -19,16 +19,16 @@ class MetaZCMLLayer(ComponentRegistryLayer):
 META_ZCML = MetaZCMLLayer()
 
 
-class WdlZCMLLayer(ComponentRegistryLayer):
+class ZCMLLayer(ComponentRegistryLayer):
 
     def setUp(self):
-        super(WdlZCMLLayer, self).setUp()
+        super(ZCMLLayer, self).setUp()
 
-        import ftw.lawgiver.wdl
-        self.load_zcml_file('configure.zcml', ftw.lawgiver.wdl)
+        import ftw.lawgiver.tests
+        self.load_zcml_file('tests.zcml', ftw.lawgiver.tests)
 
 
-WDL_ZCML = WdlZCMLLayer()
+ZCML_FIXTURE = ZCMLLayer()
 
 
 class LawgiverLayer(PloneSandboxLayer):

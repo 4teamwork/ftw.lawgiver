@@ -1,8 +1,8 @@
 from ConfigParser import RawConfigParser
 from ftw.lawgiver.exceptions import ParsingError
-from ftw.lawgiver.wdl.ast import Specification
-from ftw.lawgiver.wdl.ast import Status
-from ftw.lawgiver.wdl.ast import Transition
+from ftw.lawgiver.wdl.specification import Specification
+from ftw.lawgiver.wdl.specification import Status
+from ftw.lawgiver.wdl.specification import Transition
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from zope.interface import implements
 import re

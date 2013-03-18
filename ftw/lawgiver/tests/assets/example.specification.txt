@@ -9,7 +9,7 @@ Transitions:
   reject (Pending => Private)
   retract (Pending => Private)
   publish (Pending => Published)
-  reject (Published => Private)
+  retract (Published => Private)
 
 # It is possible to add comments with a hash character.
 
@@ -21,9 +21,10 @@ Role mapping:
 
 
 General:
-  An administrator can always view this content
-  An administrator can always edit this content
-  An administrator can always delete this content
+  An administrator can always view the content
+  An administrator can always edit the content
+  An administrator can always delete the content
+  An administrator can always publish the content.
 
 
 Status Private:
@@ -56,4 +57,4 @@ Status Published:
   An editor-in-chief can view this content.
   An editor-in-chief can add new content.
   An editor-in-chief can retract this content.
-  Anyone can view this content.
+  Everyone can view this content.

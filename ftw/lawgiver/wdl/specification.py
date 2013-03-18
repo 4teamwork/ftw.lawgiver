@@ -19,7 +19,7 @@ class Specification(object):
         self.generals = generals or []
 
     def __repr__(self):
-        return u'<Specification "%s">' % self.title
+        return '<Specification "%s">' % self.title
 
     def get_initial_status(self):
         return self.states.get(self._initial_status_title)
@@ -42,7 +42,7 @@ class Status(object):
         self.statements = statements
 
     def __repr__(self):
-        return u'<Status "%s">' % self.title
+        return '<Status "%s">' % self.title
 
 
 class Transition(object):
@@ -64,7 +64,7 @@ class Transition(object):
         self._dest_status_title = dest_status_title or dest_status.title
 
     def __repr__(self):
-        return u'<Transition "%s" ["%s" => "%s"]>' % (
+        return '<Transition "%s" ["%s" => "%s"]>' % (
             self.title,
             self.src_status and self.src_status.title,
             self.dest_status and self.dest_status.title)

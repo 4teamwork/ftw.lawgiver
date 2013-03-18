@@ -1,10 +1,10 @@
 
-- Implementation [1/5]
-  - [-] Action Groups [2/3]
+- Implementation [2/5]
+  - [X] Action Groups [3/3]
     - [X] action group registry
     - [X] ZCML directive for mapping permissions to action
       groups (``lawgiver:map_permissions``)
-    - [ ] map Plone / Zope permissions to action groups (multi plone
+    - [X] map Plone / Zope permissions to action groups (multi plone
       version compatible?)
   - [X] DSL [2/2]
     - [X] implement internal data structure [5/5]
@@ -28,6 +28,8 @@
     - returns a definition.xml
     - result should be consistent regarding sorting etc, so that it
       can easily be diffed
+  - [ ] workflow generator: make sure it breaks when the action of a
+    statement is neither an action group nor a transition.
   - [ ] Workflow specification discovery [0/2]
     - [ ] implement a ZCML meta directive (``lawgiver:workflows``)
     - [ ] specification detection in the known workflow directories
@@ -47,3 +49,4 @@
 - Future [0/1]
   - [ ] Suppor for comments or another possibility for documenting
     decisions in a free form.
+  - [ ] Worklist support.
