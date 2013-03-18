@@ -119,7 +119,8 @@
  <transition transition_id="my_custom_workflow--TRANSITION--retract--published_private" title="retract" new_state="my_custom_workflow--STATUS--private" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=my_custom_workflow--TRANSITION--retract--published_private" category="workflow" icon="">retract</action>
   <guard>
-   <guard-role>Reviewer, Editor</guard-role>
+   <guard-role>Reviewer</guard-role>
+   <guard-role>Editor</guard-role>
   </guard>
  </transition>
  <transition transition_id="my_custom_workflow--TRANSITION--submit-for-publication--private_pending" title="submit for publication" new_state="my_custom_workflow--STATUS--pending" trigger="USER" before_script="" after_script="">
