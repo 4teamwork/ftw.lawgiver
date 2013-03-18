@@ -29,6 +29,10 @@ PERMISSION_MAP = '''
         </permission-map>
 '''
 
+PERMISSION = '''
+<permission>%s</permission>
+'''
+
 PERMISSION_ROLE = '''
 <permission-role>%s</permission-role>
 '''

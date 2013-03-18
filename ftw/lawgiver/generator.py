@@ -51,6 +51,11 @@ class WorkflowGenerator(object):
 
         root.set('state_variable', 'review_state')
         root.set('manager_bypass', 'False')
+
+        for permission in self.managed_permissions:
+            etree.SubElement(root, 'permission').text = permission.decode(
+                'utf-8')
+
         return root
 
     def _add_status(self, doc, status):

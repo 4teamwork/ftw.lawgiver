@@ -145,31 +145,41 @@ class TestGenerator(BaseTest):
         result = StringIO()
         getUtility(IWorkflowGenerator)('example-workflow', spec, result)
 
+
+        xml_permissions_declaration = ''.join((
+                workflowxml.PERMISSION % 'Access contents information',
+                workflowxml.PERMISSION % 'Manage portal',
+                workflowxml.PERMISSION % 'Modify portal content',
+                workflowxml.PERMISSION % 'View',
+                ))
+
+        xml_status_defininition = workflowxml.STATUS % {
+            'title': 'Foo',
+            'id': 'example-workflow--STATUS--foo',
+            } % ''.join((
+
+                (workflowxml.PERMISSION_MAP %
+                 'Access contents information') % ''.join((
+                        workflowxml.PERMISSION_ROLE % 'Administrator',
+                        workflowxml.PERMISSION_ROLE % 'Editor')),
+
+                (workflowxml.PERMISSION_MAP % 'Manage portal') % (
+                    workflowxml.PERMISSION_ROLE % 'Administrator'),
+
+                (workflowxml.PERMISSION_MAP % 'Modify portal content') % (
+                    workflowxml.PERMISSION_ROLE % 'Editor'),
+
+                (workflowxml.PERMISSION_MAP % 'View') % ''.join((
+                        workflowxml.PERMISSION_ROLE % 'Administrator',
+                        workflowxml.PERMISSION_ROLE % 'Editor')),
+                ))
+
         expected = workflowxml.WORKFLOW % {
             'id': 'example-workflow',
             'title': 'Workflow',
             'description': '',
-            'initial_status': 'example-workflow--STATUS--foo'} % (
-
-            workflowxml.STATUS % {
-                'title': 'Foo',
-                'id': 'example-workflow--STATUS--foo',
-                } % ''.join((
-
-                    (workflowxml.PERMISSION_MAP %
-                     'Access contents information') % ''.join((
-                            workflowxml.PERMISSION_ROLE % 'Administrator',
-                            workflowxml.PERMISSION_ROLE % 'Editor')),
-
-                    (workflowxml.PERMISSION_MAP % 'Manage portal') % (
-                        workflowxml.PERMISSION_ROLE % 'Administrator'),
-
-                    (workflowxml.PERMISSION_MAP % 'Modify portal content') % (
-                        workflowxml.PERMISSION_ROLE % 'Editor'),
-
-                    (workflowxml.PERMISSION_MAP % 'View') % ''.join((
-                            workflowxml.PERMISSION_ROLE % 'Administrator',
-                            workflowxml.PERMISSION_ROLE % 'Editor')),
-                    )))
+            'initial_status': 'example-workflow--STATUS--foo'} % ''.join((
+                xml_permissions_declaration,
+                xml_status_defininition))
 
         self.assert_xml(expected, result.getvalue())
