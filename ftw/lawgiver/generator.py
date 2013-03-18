@@ -110,8 +110,11 @@ class WorkflowGenerator(object):
             doc.append(node)
 
     def _transition_id(self, transition):
-        return '%s--TRANSITION--%s' % (
-            self.workflow_id, self._normalize(transition.title))
+        return '%s--TRANSITION--%s--%s_%s' % (
+            self.workflow_id,
+            self._normalize(transition.title),
+            self._normalize(transition.src_status.title),
+            self._normalize(transition.dest_status.title))
 
     def _status_id(self, status):
         return '%s--STATUS--%s' % (

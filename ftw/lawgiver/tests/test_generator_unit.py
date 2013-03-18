@@ -99,22 +99,22 @@ class TestGenerator(BaseTest):
                     'title': 'Bar',
                     'id': 'workflow--STATUS--bar',
                     } % (workflowxml.EXIT_TRANSITION %
-                         'workflow--TRANSITION--fuize'),
+                         'workflow--TRANSITION--fuize--bar_foo'),
 
                 workflowxml.STATUS % {
                     'title': 'Foo',
                     'id': 'workflow--STATUS--foo',
                     } % (workflowxml.EXIT_TRANSITION %
-                         'workflow--TRANSITION--barize'),
+                         'workflow--TRANSITION--barize--foo_bar'),
 
                 workflowxml.TRANSITION % {
-                    'id': 'workflow--TRANSITION--barize',
+                    'id': 'workflow--TRANSITION--barize--foo_bar',
                     'title': 'b\xc3\xa4rize',
                     'target_state': 'workflow--STATUS--bar',
                     'guards': ''},
 
                 workflowxml.TRANSITION % {
-                    'id': 'workflow--TRANSITION--fuize',
+                    'id': 'workflow--TRANSITION--fuize--bar_foo',
                     'title': 'f\xc3\xbcize',
                     'target_state': 'workflow--STATUS--foo',
                     'guards': ''},
