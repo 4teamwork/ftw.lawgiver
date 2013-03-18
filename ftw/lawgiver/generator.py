@@ -26,13 +26,18 @@ class WorkflowGenerator(object):
 
         doc = self._create_document()
 
+        status_nodes = {}
         for status in sorted(specification.states.values(),
                              key=lambda status: status.title):
-            self._add_status(doc, status)
+            status_nodes[status] = self._add_status(doc, status)
 
+        transition_nodes = {}
         for transition in sorted(specification.transitions,
                                  key=lambda transition: transition.title):
-            self._add_transition(doc, transition)
+            transition_nodes[transition] = self._add_transition(
+                doc, transition)
+
+        self._apply_specification_statements(status_nodes, transition_nodes)
 
         self._add_variables(doc)
         etree.ElementTree(doc).write(result_stream,
@@ -72,24 +77,7 @@ class WorkflowGenerator(object):
             exit_trans = etree.SubElement(node, 'exit-transition')
             exit_trans.set('transition_id', self._transition_id(transition))
 
-        for permission in self.managed_permissions:
-            self._add_status_permission(node, status, permission)
-
         return node
-
-    def _add_status_permission(self, status_node, status, permission):
-        node = etree.SubElement(status_node, 'permission-map')
-        node.set('name', permission)
-        node.set('acquired', 'False')
-
-        agregistry = getUtility(IActionGroupRegistry)
-        action_group = agregistry.get_action_group_for_permission(permission)
-        roles = self.specification.get_roles_for_action_group_in_status(
-            action_group, status)
-
-        for role in roles:
-            rolenode = etree.SubElement(node, 'permission-role')
-            rolenode.text = role.decode('utf-8')
 
     def _add_transition(self, doc, transition):
         node = etree.SubElement(doc, 'transition')
@@ -109,19 +97,95 @@ class WorkflowGenerator(object):
                    '?workflow_action=%s' % self._transition_id(transition))
         action.text = transition.title.decode('utf-8')
 
-        roles = self.specification.get_roles_for_action_group_in_status(
-            transition.title, transition.src_status)
-        guards = etree.SubElement(node, 'guard')
-        if roles:
-            for role in roles:
+        return node
+
+    def _apply_specification_statements(self, status_nodes, transition_nodes):
+        transition_statements = set()
+
+        for status, snode in status_nodes.items():
+            statements = set(status.statements) | set(
+                self.specification.generals)
+
+            status_stmts, trans_stmts = self._distinguish_statements(
+                statements)
+            transition_statements.update(trans_stmts)
+            self._apply_status_statements(snode, status_stmts)
+
+        self._apply_transition_statements(transition_statements,
+                                          transition_nodes)
+
+    def _apply_status_statements(self, snode, statements):
+        for permission in self.managed_permissions:
+            pnode = etree.SubElement(snode, 'permission-map')
+            pnode.set('name', permission)
+            pnode.set('acquired', 'False')
+
+            for role in self._get_roles_for_permission(permission,
+                                                       statements):
+                rolenode = etree.SubElement(pnode, 'permission-role')
+                rolenode.text = role.decode('utf-8')
+
+    def _apply_transition_statements(self, statements, nodes):
+        for transition, node in nodes.items():
+            guards = etree.SubElement(node, 'guard')
+
+            for customer_role, action in statements:
+                if action != transition.title:
+                    continue
+
+                role = self.specification.role_mapping[customer_role]
                 rolenode = etree.SubElement(guards, 'guard-role')
                 rolenode.text = role.decode('utf-8')
 
-        else:
-            # Disable the transition by a condition guard, because there
-            # were no statements about who can do the transtion.
-            xprnode = etree.SubElement(guards, 'guard-expression')
-            xprnode.text = u'python: False'
+            if len(guards) == 0:
+                # Disable the transition by a condition guard, because there
+                # were no statements about who can do the transtion.
+                xprnode = etree.SubElement(guards, 'guard-expression')
+                xprnode.text = u'python: False'
+
+    def _get_roles_for_permission(self, permission, statements):
+        agregistry = getUtility(IActionGroupRegistry)
+        action_group = agregistry.get_action_group_for_permission(permission)
+
+        customer_roles = (role for (role, group) in statements
+                          if group == action_group)
+
+        plone_roles = (self.specification.role_mapping[cr]
+                       for cr in customer_roles)
+        return sorted(plone_roles)
+
+    def _distinguish_statements(self, statements):
+        """Accepts a list of statements (tuples with customer role and action)
+        and turns it into two lists, the first with action group statements,
+        the second with transition statements.
+        """
+
+        action_group_statements = []
+        transition_statements = []
+
+        agregistry = getUtility(IActionGroupRegistry)
+        action_groups = agregistry.get_action_groups_for_workflow(
+            self.workflow_id)
+
+        for customer_role, action in statements:
+            if self._find_transition_by_title(action):
+                transition_statements.append((customer_role, action))
+
+            elif action in action_groups:
+                action_group_statements.append((customer_role, action))
+
+            else:
+                raise Exception(
+                    'Action "%s" is neither action group nor transition.' % (
+                        action))
+
+        return action_group_statements, transition_statements
+
+    def _find_transition_by_title(self, title):
+        for transition in self.specification.transitions:
+            if transition.title == title:
+                return transition
+        return None
 
     def _add_variables(self, doc):
         # The variables are static - we use always the same.

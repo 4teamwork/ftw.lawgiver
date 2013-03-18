@@ -21,9 +21,10 @@ Role mapping:
 
 
 General:
-  An administrator can always view this content
-  An administrator can always edit this content
-  An administrator can always delete this content
+  An administrator can always view the content
+  An administrator can always edit the content
+  An administrator can always delete the content
+  An administrator can always publish the content.
 
 
 Status Private:

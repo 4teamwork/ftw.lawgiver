@@ -109,6 +109,7 @@ class TestExampleSpecification(MockTestCase):
         self.assertEquals(
             [('administrator', 'view'),
              ('administrator', 'edit'),
-             ('administrator', 'delete')],
+             ('administrator', 'delete'),
+             ('administrator', 'publish')],
 
             self.spec.generals)

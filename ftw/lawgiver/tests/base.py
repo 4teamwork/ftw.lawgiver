@@ -23,18 +23,14 @@ def definition_xml_node_sorter(nodea, nodeb):
     if nodea.tag != nodeb.tag:
         return cmp(nodea.tag, nodeb.tag)
 
-    elif nodea.tag == 'permission':
+    elif nodea.tag in ('permission', 'permission-role', 'guard-role'):
         return cmp(nodea.text, nodeb.text)
 
     elif nodea.tag == 'state':
         return cmp(nodea.get('state_id'),
                    nodeb.get('state_id'))
 
-    elif nodea.tag == 'transition':
-        return cmp(nodea.get('transition_id'),
-                   nodeb.get('transition_id'))
-
-    elif nodea.tag == 'exit-transition':
+    elif nodea.tag in ('transition', 'exit-transition'):
         return cmp(nodea.get('transition_id'),
                    nodeb.get('transition_id'))
 
