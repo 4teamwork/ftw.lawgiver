@@ -92,7 +92,7 @@ class TestExampleSpecification(TestCase):
                  '<Transition "reject" ["Pending" => "Private"]>',
                  '<Transition "retract" ["Pending" => "Private"]>',
                  '<Transition "publish" ["Pending" => "Published"]>',
-                 '<Transition "reject" ["Published" => "Private"]>']),
+                 '<Transition "retract" ["Published" => "Private"]>']),
 
             set(map(unicode, self.spec.transitions)))
 

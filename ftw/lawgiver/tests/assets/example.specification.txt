@@ -9,7 +9,7 @@ Transitions:
   reject (Pending => Private)
   retract (Pending => Private)
   publish (Pending => Published)
-  reject (Published => Private)
+  retract (Published => Private)
 
 # It is possible to add comments with a hash character.
 
