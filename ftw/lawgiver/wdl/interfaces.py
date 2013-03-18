@@ -37,11 +37,6 @@ class ISpecification(Interface):
         otherwise the validation is considered as passed.
         """
 
-    def get_roles_for_action_group_in_status(action_group, status):
-        """Returns all plone roles which have the `action_group` in the
-        given `status` (`IStatus` object).
-        """
-
 
 class IStatus(Interface):
     """A workflow status representation.
@@ -54,11 +49,6 @@ class IStatus(Interface):
 
     title = Attribute(u'The workflow status title.')
     statements = Attribute(u'List of statements of this workflow.')
-
-    def get_customer_roles_for_action_group(action_group):
-        """Returns all customer roles which have a certain action group
-        in this status.
-        """
 
 
 class ITransition(Interface):

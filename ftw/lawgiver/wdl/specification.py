@@ -33,13 +33,6 @@ class Specification(object):
                 'Definition of initial status "%s" not found.' % (
                     self._initial_status_title))
 
-    def get_roles_for_action_group_in_status(self, action_group, status):
-        customer_roles = status.get_customer_roles_for_action_group(
-            action_group)
-
-        roles = (self.role_mapping[cr] for cr in customer_roles)
-        return sorted(roles)
-
 
 class Status(object):
     implements(IStatus)
@@ -50,10 +43,6 @@ class Status(object):
 
     def __repr__(self):
         return '<Status "%s">' % self.title
-
-    def get_customer_roles_for_action_group(self, action_group):
-        return (role for (role, group) in self.statements
-                if group == action_group)
 
 
 class Transition(object):

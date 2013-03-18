@@ -35,23 +35,6 @@ class TestSpecification(TestCase):
         self.assertEquals('Definition of initial status "Foo" not found.',
                           str(cm.exception))
 
-    def test_get_roles_for_action_group_in_status(self):
-        status = Status('Private', [('editor', 'view'),
-                                    ('administator', 'view'),
-                                    ('administator', 'edit')])
-
-        spec = Specification('workflow', states=[status],
-                             role_mapping={'editor': 'Editor',
-                                           'administator': 'Manager'})
-
-        self.assertEquals(
-            ['Editor', 'Manager'],
-            spec.get_roles_for_action_group_in_status('view', status))
-
-        self.assertEquals(
-            ['Manager'],
-            spec.get_roles_for_action_group_in_status('edit', status))
-
 
 class TestStatus(TestCase):
 
@@ -64,19 +47,6 @@ class TestStatus(TestCase):
         obj = Status('Private', [])
         self.assertEquals(unicode(obj),
                           u'<Status "Private">')
-
-    def test_get_customer_roles_for_action_group(self):
-        obj = Status('Private', [('editor', 'view'),
-                                 ('administator', 'view'),
-                                 ('administator', 'edit')])
-
-        self.assertEquals(
-            set(['administator', 'editor']),
-            set(obj.get_customer_roles_for_action_group('view')))
-
-        self.assertEquals(
-            set(['administator']),
-            set(obj.get_customer_roles_for_action_group('edit')))
 
 
 class TestTransition(TestCase):
