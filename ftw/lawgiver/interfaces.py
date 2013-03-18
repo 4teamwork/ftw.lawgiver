@@ -30,3 +30,14 @@ class IActionGroupRegistry(Interface):
         specific.
         If the permission is not mapped, None is returned.
         """
+
+
+class IWorkflowGenerator(Interface):
+    """The workflow generator utility generates a workflow ``definition.xml``
+    from a ``ISpecification`` object.
+    """
+
+    def __call__(worfklow_id, specification, result_stream):
+        """Converts the ``specification`` into XML and writes the result on
+        the ``result_stream``.
+        """

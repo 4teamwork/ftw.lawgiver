@@ -6,6 +6,8 @@
     <include package=".wdl" />
     <include file="actiongroups.zcml" />
 
+    <utility factory=".generator.WorkflowGenerator" />
+
     <genericsetup:registerProfile
         name="default"
         title="ftw.lawgiver"

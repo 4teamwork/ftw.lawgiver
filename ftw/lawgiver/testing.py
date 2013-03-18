@@ -31,6 +31,18 @@ class WdlZCMLLayer(ComponentRegistryLayer):
 WDL_ZCML = WdlZCMLLayer()
 
 
+class ZCMLLayer(ComponentRegistryLayer):
+
+    def setUp(self):
+        super(ZCMLLayer, self).setUp()
+
+        import ftw.lawgiver.tests
+        self.load_zcml_file('tests.zcml', ftw.lawgiver.tests)
+
+
+ZCML_FIXTURE = ZCMLLayer()
+
+
 class LawgiverLayer(PloneSandboxLayer):
 
     defaultBases = (PLONE_FIXTURE, )
