@@ -51,4 +51,5 @@ class TestGeneratorIntegration(BaseTest):
 
         expected_path = os.path.join(ASSETS, 'example.definition.xml')
         with open(expected_path) as expected_file:
-            self.assert_xml(expected_file.read(), result.getvalue())
+            self.assert_definition_xmls(
+                expected_file.read(), result.getvalue())

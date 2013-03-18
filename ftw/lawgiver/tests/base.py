@@ -10,6 +10,37 @@ CONFIGURE = '''
 '''
 
 
+def definition_xml_eliminate_standalone(node):
+    if node.text is not None or len(node) > 0:
+        return
+    node.text = '\n  '
+
+
+def definition_xml_node_sorter(nodea, nodeb):
+    definition_xml_eliminate_standalone(nodea)
+    definition_xml_eliminate_standalone(nodeb)
+
+    if nodea.tag != nodeb.tag:
+        return cmp(nodea.tag, nodeb.tag)
+
+    elif nodea.tag == 'permission':
+        return cmp(nodea.text, nodeb.text)
+
+    elif nodea.tag == 'state':
+        return cmp(nodea.get('state_id'),
+                   nodeb.get('state_id'))
+
+    elif nodea.tag == 'transition':
+        return cmp(nodea.get('transition_id'),
+                   nodeb.get('transition_id'))
+
+    elif nodea.tag == 'exit-transition':
+        return cmp(nodea.get('transition_id'),
+                   nodeb.get('transition_id'))
+
+    return 0
+
+
 class BaseTest(MockTestCase):
 
     def map_permissions(self, permissions, action_group, workflow_name=None):
@@ -32,7 +63,7 @@ class BaseTest(MockTestCase):
                 map(lambda item: '<permission id="%s" title="%s"/>' % item,
                     kwargs.items())))
 
-    def _canonicalize_xml(self, text):
+    def _canonicalize_xml(self, text, node_sorter=None):
         parser = etree.XMLParser(remove_blank_text=True)
         try:
             xml = etree.fromstring(text, parser)
@@ -45,14 +76,28 @@ class BaseTest(MockTestCase):
             raise
 
         norm = StringIO()
+        if node_sorter:
+            # Search for parent elements
+            for parent in xml.xpath('//*[./*]'):
+                parent[:] = sorted(parent, node_sorter)
+
         xml.getroottree().write_c14n(norm)
         xml = etree.fromstring(norm.getvalue())
-        return etree.tostring(xml.getroottree(), pretty_print=True,
+        return etree.tostring(xml.getroottree(),
+                              pretty_print=True,
                               xml_declaration=True,
                               encoding='utf-8')
 
     def assert_xml(self, xml1, xml2):
         norm1 = self._canonicalize_xml(xml1)
         norm2 = self._canonicalize_xml(xml2)
+        self.maxDiff = None
+        self.assertMultiLineEqual(norm1, norm2)
+
+    def assert_definition_xmls(self, xml1, xml2):
+        norm1 = self._canonicalize_xml(
+            xml1, node_sorter=definition_xml_node_sorter)
+        norm2 = self._canonicalize_xml(
+            xml2, node_sorter=definition_xml_node_sorter)
         self.maxDiff = None
         self.assertMultiLineEqual(norm1, norm2)
