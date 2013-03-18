@@ -37,7 +37,7 @@ class Specification(object):
         customer_roles = status.get_customer_roles_for_action_group(
             action_group)
 
-        roles = map(lambda cr: self.role_mapping[cr], customer_roles)
+        roles = (self.role_mapping[cr] for cr in customer_roles)
         return sorted(roles)
 
 

@@ -13,7 +13,8 @@ VARIABLES = '''
 
 <variable variable_id="actor" for_catalog="False"
           for_status="True" update_always="True">
-    <description>The ID of the user who performed the previous transition</description>
+<description
+>The ID of the user who performed the previous transition</description>
     <default>
         <expression>user/getId</expression>
     </default>
