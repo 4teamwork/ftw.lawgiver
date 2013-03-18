@@ -1,10 +1,10 @@
 
-- Implementation [1/5]
-  - [-] Action Groups [2/3]
+- Implementation [2/5]
+  - [X] Action Groups [3/3]
     - [X] action group registry
     - [X] ZCML directive for mapping permissions to action
       groups (``lawgiver:map_permissions``)
-    - [ ] map Plone / Zope permissions to action groups (multi plone
+    - [X] map Plone / Zope permissions to action groups (multi plone
       version compatible?)
   - [X] DSL [2/2]
     - [X] implement internal data structure [5/5]
