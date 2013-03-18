@@ -56,4 +56,4 @@ Status Published:
   An editor-in-chief can view this content.
   An editor-in-chief can add new content.
   An editor-in-chief can retract this content.
-  Anyone can view this content.
+  Everyone can view this content.

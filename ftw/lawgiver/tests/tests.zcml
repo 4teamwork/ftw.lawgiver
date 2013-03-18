@@ -5,6 +5,8 @@
     <include package="Products.GenericSetup" file="meta.zcml" />
     <include package="plone.i18n.normalizer" />
 
+    <include package="zope.security" file="meta.zcml" />
+
     <include package="ftw.lawgiver" />
 
 </configure>

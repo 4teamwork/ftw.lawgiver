@@ -15,11 +15,6 @@ class TestGenerator(BaseTest):
 
     layer = ZCML_FIXTURE
 
-    def setUp(self):
-        super(TestGenerator, self).setUp()
-        import zope.security
-        self.layer.load_zcml_file('meta.zcml', zope.security)
-
     def test_component_registered(self):
         self.assertTrue(queryUtility(IWorkflowGenerator),
                         'The IWorkflowGenerator utility is not registerd.')

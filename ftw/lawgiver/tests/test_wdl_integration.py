@@ -76,7 +76,7 @@ class TestExampleSpecification(TestCase):
              ('editor-in-chief', 'view'),
              ('editor-in-chief', 'add'),
              ('editor-in-chief', 'retract'),
-             ('anyone', 'view')],
+             ('everyone', 'view')],
 
             published.statements)
 
