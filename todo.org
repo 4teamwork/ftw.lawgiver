@@ -28,6 +28,8 @@
     - returns a definition.xml
     - result should be consistent regarding sorting etc, so that it
       can easily be diffed
+  - [ ] workflow generator: make sure it breaks when the action of a
+    statement is neither an action group nor a transition.
   - [ ] Workflow specification discovery [0/2]
     - [ ] implement a ZCML meta directive (``lawgiver:workflows``)
     - [ ] specification detection in the known workflow directories

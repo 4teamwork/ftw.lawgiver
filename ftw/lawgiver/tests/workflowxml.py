@@ -23,6 +23,16 @@ STATUS_STANDALONE = STATUS_start + STANDALONE_end
 
 EXIT_TRANSITION = '<exit-transition transition_id="%s"/>'
 
+PERMISSION_MAP = '''
+        <permission-map name="%s" acquired="False">
+            %%s
+        </permission-map>
+'''
+
+PERMISSION_ROLE = '''
+<permission-role>%s</permission-role>
+'''
+
 
 TRANSITION = '''
 <transition transition_id="%(id)s"

@@ -20,6 +20,7 @@ class DefaultPermissionCollector(object):
                              map(list, action_groups.values())))
 
     def is_permission_registered(self, permission_title):
+        # XXX This should be cached.
         for _id, component in getUtilitiesFor(IPermission):
             if component.title == permission_title:
                 return True

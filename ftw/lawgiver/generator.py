@@ -1,3 +1,5 @@
+from ftw.lawgiver.interfaces import IActionGroupRegistry
+from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.variables import VARIABLES
 from lxml import etree
@@ -14,10 +16,14 @@ class WorkflowGenerator(object):
     def __init__(self):
         self.workflow_id = None
         self.specification = None
+        self.managed_permissions = None
 
     def __call__(self, workflow_id, specification, result_stream):
         self.workflow_id = workflow_id
         self.specification = specification
+        self.managed_permissions = sorted(
+            getUtility(IPermissionCollector).collect(workflow_id))
+
         doc = self._create_document()
 
         for status in sorted(specification.states.values(),
@@ -61,7 +67,24 @@ class WorkflowGenerator(object):
             exit_trans = etree.SubElement(node, 'exit-transition')
             exit_trans.set('transition_id', self._transition_id(transition))
 
+        for permission in self.managed_permissions:
+            self._add_status_permission(node, status, permission)
+
         return node
+
+    def _add_status_permission(self, status_node, status, permission):
+        node = etree.SubElement(status_node, 'permission-map')
+        node.set('name', permission)
+        node.set('acquired', 'False')
+
+        agregistry = getUtility(IActionGroupRegistry)
+        action_group = agregistry.get_action_group_for_permission(permission)
+        roles = self.specification.get_roles_for_action_group_in_status(
+            action_group, status)
+
+        for role in roles:
+            rolenode = etree.SubElement(node, 'permission-role')
+            rolenode.text = role.decode('utf-8')
 
     def _add_transition(self, doc, transition):
         node = etree.SubElement(doc, 'transition')

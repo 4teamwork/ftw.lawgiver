@@ -15,6 +15,11 @@ class TestGenerator(BaseTest):
 
     layer = ZCML_FIXTURE
 
+    def setUp(self):
+        super(TestGenerator, self).setUp()
+        import zope.security
+        self.layer.load_zcml_file('meta.zcml', zope.security)
+
     def test_component_registered(self):
         self.assertTrue(queryUtility(IWorkflowGenerator),
                         'The IWorkflowGenerator utility is not registerd.')
@@ -115,5 +120,61 @@ class TestGenerator(BaseTest):
                     'guards': ''},
 
                 ))
+
+        self.assert_xml(expected, result.getvalue())
+
+    def test_workflow_with_managed_permissions(self):
+        self.register_permissions(**{
+                'cmf.ModifyPortalContent': 'Modify portal content',
+                'zope2.View': 'View',
+                'zope2.AccessContentsInformation': \
+                    'Access contents information',
+                'cmf.ManagePortal': 'Manage portal'})
+
+        self.map_permissions(['View', 'Access contents information'], 'view')
+        self.map_permissions(['Modify portal content'], 'edit')
+        self.map_permissions(['Manage portal'], 'manage')
+
+        spec = Specification(title='Workflow',
+                             initial_status_title='Foo')
+        spec.role_mapping['writer'] = 'Editor'
+        spec.role_mapping['admin'] = 'Administrator'
+
+        spec.states['Foo'] = Status('Foo', [
+                ('writer', 'view'),
+                ('writer', 'edit'),
+                ('admin', 'view'),
+                ('admin', 'manage')])
+        spec.validate()
+
+        result = StringIO()
+        getUtility(IWorkflowGenerator)('example-workflow', spec, result)
+
+        expected = workflowxml.WORKFLOW % {
+            'id': 'example-workflow',
+            'title': 'Workflow',
+            'description': '',
+            'initial_status': 'example-workflow--STATUS--foo'} % (
+
+            workflowxml.STATUS % {
+                'title': 'Foo',
+                'id': 'example-workflow--STATUS--foo',
+                } % ''.join((
+
+                    (workflowxml.PERMISSION_MAP %
+                     'Access contents information') % ''.join((
+                            workflowxml.PERMISSION_ROLE % 'Administrator',
+                            workflowxml.PERMISSION_ROLE % 'Editor')),
+
+                    (workflowxml.PERMISSION_MAP % 'Manage portal') % (
+                        workflowxml.PERMISSION_ROLE % 'Administrator'),
+
+                    (workflowxml.PERMISSION_MAP % 'Modify portal content') % (
+                        workflowxml.PERMISSION_ROLE % 'Editor'),
+
+                    (workflowxml.PERMISSION_MAP % 'View') % ''.join((
+                            workflowxml.PERMISSION_ROLE % 'Administrator',
+                            workflowxml.PERMISSION_ROLE % 'Editor')),
+                    )))
 
         self.assert_xml(expected, result.getvalue())
