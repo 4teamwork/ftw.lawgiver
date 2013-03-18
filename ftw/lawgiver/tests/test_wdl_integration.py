@@ -1,15 +1,16 @@
-from ftw.lawgiver.testing import WDL_ZCML
+from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
-from unittest2 import TestCase
+from ftw.testing import MockTestCase
 from zope.component import getUtility
 import os
 
 
-class TestExampleSpecification(TestCase):
+class TestExampleSpecification(MockTestCase):
 
-    layer = WDL_ZCML
+    layer = ZCML_FIXTURE
 
     def setUp(self):
+        super(TestExampleSpecification, self).setUp()
         path = os.path.join(os.path.dirname(__file__),
                             'assets', 'example.specification.txt')
         parser = getUtility(IWorkflowSpecificationParser)

@@ -3,13 +3,13 @@ from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.testing import META_ZCML
 from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.tests.base import BaseTest
-from unittest2 import TestCase
+from ftw.testing import MockTestCase
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.interface.verify import verifyObject
 
 
-class TestComponentRegistered(TestCase):
+class TestComponentRegistered(MockTestCase):
 
     layer = ZCML_FIXTURE
 

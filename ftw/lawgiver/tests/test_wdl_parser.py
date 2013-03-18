@@ -1,18 +1,18 @@
 from StringIO import StringIO
 from ftw.lawgiver.exceptions import ParsingError
-from ftw.lawgiver.testing import WDL_ZCML
+from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.lawgiver.wdl.parser import convert_statement
-from unittest2 import TestCase
+from ftw.testing import MockTestCase
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.interface.verify import verifyObject
 
 
-class TestParser(TestCase):
+class TestParser(MockTestCase):
 
-    layer = WDL_ZCML
+    layer = ZCML_FIXTURE
 
     def parse_lines(self, *lines):
         parser = getUtility(IWorkflowSpecificationParser)
@@ -216,7 +216,7 @@ class TestParser(TestCase):
                           str(cm.exception))
 
 
-class TestConvertStatement(TestCase):
+class TestConvertStatement(MockTestCase):
 
     def assert_statement(self, expected_result, text):
         result = convert_statement(text)
