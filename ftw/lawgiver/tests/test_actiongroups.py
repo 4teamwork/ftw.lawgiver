@@ -1,35 +1,21 @@
 from ftw.lawgiver.actiongroups import ActionGroupRegistry
 from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.testing import META_ZCML
-from ftw.testing import MockTestCase
+from ftw.lawgiver.tests.base import BaseTest
 from zope.component import getUtility
 from zope.configuration.exceptions import ConfigurationError
 from zope.interface.verify import verifyClass
 
 
-CONFIGURE = '''
-<configure xmlns:lawgiver="http://namespaces.zope.org/lawgiver">
-%s
-</configure>
-'''
-
-
-class BaseTest(MockTestCase):
+class TestBundlesZCML(BaseTest):
 
     layer = META_ZCML
-
-    def load_zcml(self, *lines):
-        zcml = CONFIGURE % '\n'.join(lines)
-        self.layer.load_zcml_string(zcml)
 
     def get_registry(self):
         return getUtility(IActionGroupRegistry)
 
-
-class TestBundlesZCML(BaseTest):
-
     def test_directive_registers_and_updates_registry(self):
-        self.load_zcml(
+        self.load_map_permissions_zcml(
             '<lawgiver:map_permissions',
             '    action_group="view"',
             '    permissions="Access contents information" />',
@@ -46,20 +32,25 @@ class TestBundlesZCML(BaseTest):
 
     def test_action_group_required(self):
         with self.assertRaises(ConfigurationError):
-            self.load_zcml(
+            self.load_map_permissions_zcml(
                 '<lawgiver:map_permissions',
                 '    permissions="Access contents information" />',
                 )
 
     def test_permissions_required(self):
         with self.assertRaises(ConfigurationError):
-            self.load_zcml(
+            self.load_map_permissions_zcml(
                 '<lawgiver:map_permissions',
                 '    action_group="view" />',
                 )
 
 
 class TestActionGroupRegistry(BaseTest):
+
+    layer = META_ZCML
+
+    def get_registry(self):
+        return getUtility(IActionGroupRegistry)
 
     def test_registry_implements_interface(self):
         self.assertTrue(
@@ -69,7 +60,7 @@ class TestActionGroupRegistry(BaseTest):
         verifyClass(IActionGroupRegistry, ActionGroupRegistry)
 
     def test_get_action_groups_for_workflow_GLOBAL(self):
-        self.load_zcml(
+        self.load_map_permissions_zcml(
             '<lawgiver:map_permissions',
             '    action_group="view"',
             '    permissions="Access contents information" />',
@@ -94,7 +85,7 @@ class TestActionGroupRegistry(BaseTest):
              'edit': set([u'Modify portal content'])})
 
     def test_get_action_groups_for_workflow_SPECIFIC_OVERRIDE(self):
-        self.load_zcml(
+        self.load_map_permissions_zcml(
             '<lawgiver:map_permissions',
             '    action_group="view"',
             '    permissions="Access contents information,',
@@ -137,7 +128,7 @@ class TestActionGroupRegistry(BaseTest):
                           u'A custom permission for foo'])})
 
     def test_get_action_group_for_permission(self):
-        self.load_zcml(
+        self.load_map_permissions_zcml(
             '<lawgiver:map_permissions',
             '    action_group="view"',
             '    permissions="View" />',
@@ -198,7 +189,7 @@ class TestActionGroupRegistry(BaseTest):
 
     def test_detect_possible_missing_comma(self):
         with self.assertRaises(ConfigurationError) as cm:
-            self.load_zcml(
+            self.load_map_permissions_zcml(
                 '<lawgiver:map_permissions',
                 '    action_group="view"',
                 '    permissions="Access contents information',
@@ -211,7 +202,7 @@ class TestActionGroupRegistry(BaseTest):
             str(cm.exception))
 
     def test_trailing_comma_works(self):
-        self.load_zcml(
+        self.load_map_permissions_zcml(
             '<lawgiver:map_permissions',
             '    action_group="view"',
             '    permissions="Access contents information,',

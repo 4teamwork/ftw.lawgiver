@@ -2,7 +2,7 @@ from StringIO import StringIO
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.tests import workflowxml
-from ftw.lawgiver.tests.base import XMLTestCase
+from ftw.lawgiver.tests.base import BaseTest
 from ftw.lawgiver.wdl.specification import Specification
 from ftw.lawgiver.wdl.specification import Status
 from ftw.lawgiver.wdl.specification import Transition
@@ -11,7 +11,7 @@ from zope.component import queryUtility
 from zope.interface.verify import verifyObject
 
 
-class TestGenerator(XMLTestCase):
+class TestGenerator(BaseTest):
 
     layer = ZCML_FIXTURE
 

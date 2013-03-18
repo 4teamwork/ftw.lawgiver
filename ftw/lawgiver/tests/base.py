@@ -1,8 +1,36 @@
 from StringIO import StringIO
+from ftw.testing import MockTestCase
 from lxml import etree
-from unittest2 import TestCase
 
-class XMLTestCase(TestCase):
+
+CONFIGURE = '''
+<configure xmlns:lawgiver="http://namespaces.zope.org/lawgiver">
+%s
+</configure>
+'''
+
+
+class BaseTest(MockTestCase):
+
+    def map_permissions(self, permissions, action_group, workflow_name=None):
+        self.load_map_permissions_zcml(
+            '<lawgiver:map_permissions',
+            '    action_group="%s"' % action_group,
+            '    permissions="%s"' % ','.join(permissions),
+            '    %s />' % (
+                workflow_name and 'workflow="%s"' % workflow_name or ''))
+
+    def load_map_permissions_zcml(self, *lines):
+        zcml = CONFIGURE % '\n'.join(lines)
+        self.layer.load_zcml_string(zcml)
+
+    def register_permissions(self, **kwargs):
+        self.layer.load_zcml_string(
+            '<configure xmlns="http://namespaces.zope.org/zope"'
+            '           i18n_domain="foo">%s'
+            '</configure>' % '\n'.join(
+                map(lambda item: '<permission id="%s" title="%s"/>' % item,
+                    kwargs.items())))
 
     def _canonicalize_xml(self, text):
         parser = etree.XMLParser(remove_blank_text=True)
