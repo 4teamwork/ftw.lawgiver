@@ -13,6 +13,7 @@ class WorkflowGenerator(object):
 
     def __init__(self):
         self.workflow_id = None
+        self.specification = None
 
     def __call__(self, workflow_id, specification, result_stream):
         self.workflow_id = workflow_id
@@ -36,8 +37,8 @@ class WorkflowGenerator(object):
         root = etree.Element("dc-workflow")
         root.set('workflow_id', self.workflow_id)
         root.set('title', self.specification.title.decode('utf-8'))
-        root.set('description', self.specification.description and \
-                     self.specification.description.decode('utf-8') or '')
+        root.set('description', self.specification.description and
+                 self.specification.description.decode('utf-8') or '')
 
         root.set('initial_state', self._status_id(
                 self.specification.get_initial_status()))
