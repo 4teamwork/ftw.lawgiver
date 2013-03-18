@@ -56,3 +56,8 @@ TRANSITION = '''
 
 GUARDS = '<guard>%s</guard>'
 GUARD_ROLE = '<guard-role>%s</guard-role>'
+
+# Disable the transition by a condition guard, because there
+# were no statements about who can do the transtion.
+GUARDS_DISABLED = GUARDS % (
+    '<guard-expression>python: False</guard-expression>')

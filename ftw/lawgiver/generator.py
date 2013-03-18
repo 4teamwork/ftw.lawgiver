@@ -109,6 +109,20 @@ class WorkflowGenerator(object):
                    '?workflow_action=%s' % self._transition_id(transition))
         action.text = transition.title.decode('utf-8')
 
+        roles = self.specification.get_roles_for_action_group_in_status(
+            transition.title, transition.src_status)
+        guards = etree.SubElement(node, 'guard')
+        if roles:
+            for role in roles:
+                rolenode = etree.SubElement(guards, 'guard-role')
+                rolenode.text = role.decode('utf-8')
+
+        else:
+            # Disable the transition by a condition guard, because there
+            # were no statements about who can do the transtion.
+            xprnode = etree.SubElement(guards, 'guard-expression')
+            xprnode.text = u'python: False'
+
     def _add_variables(self, doc):
         # The variables are static - we use always the same.
         for node in html.fragments_fromstring(VARIABLES):

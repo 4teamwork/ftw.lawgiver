@@ -106,13 +106,13 @@ class TestGenerator(BaseTest):
                     'id': 'workflow--TRANSITION--barize--foo_bar',
                     'title': 'b\xc3\xa4rize',
                     'target_state': 'workflow--STATUS--bar',
-                    'guards': ''},
+                    'guards': workflowxml.GUARDS_DISABLED},
 
                 workflowxml.TRANSITION % {
                     'id': 'workflow--TRANSITION--fuize--bar_foo',
                     'title': 'f\xc3\xbcize',
                     'target_state': 'workflow--STATUS--foo',
-                    'guards': ''},
+                    'guards': workflowxml.GUARDS_DISABLED},
 
                 ))
 
@@ -183,3 +183,63 @@ class TestGenerator(BaseTest):
                 xml_status_defininition))
 
         self.assert_xml(expected, result.getvalue())
+
+    def test_workflow_guarded_transitions(self):
+        spec = Specification(title='Workflow',
+                             initial_status_title='Private')
+        spec.role_mapping['employee'] = 'Editor'
+        spec.role_mapping['boss'] = 'Reviewer'
+
+        private = spec.states['Private'] = Status('Private', [
+                ('employee', 'publish'),
+                ('boss', 'publish')])
+
+        published = spec.states['Published'] = Status('Published', [
+                ('boss', 'retract')])
+
+        spec.transitions.append(Transition('publish', private, published))
+        spec.transitions.append(Transition('retract', published, private))
+
+        spec.validate()
+
+        result = StringIO()
+        getUtility(IWorkflowGenerator)('wf', spec, result)
+
+        expected = workflowxml.WORKFLOW % {
+            'id': 'wf',
+            'title': 'Workflow',
+            'description': '',
+            'initial_status': 'wf--STATUS--private'} % ''.join((
+
+                workflowxml.STATUS % {
+                    'title': 'Private',
+                    'id': 'wf--STATUS--private',
+                    } % workflowxml.EXIT_TRANSITION % (
+                    'wf--TRANSITION--publish--private_published'),
+
+                workflowxml.STATUS % {
+                    'title': 'Published',
+                    'id': 'wf--STATUS--published',
+                    } % workflowxml.EXIT_TRANSITION % (
+                    'wf--TRANSITION--retract--published_private'),
+
+                workflowxml.TRANSITION % {
+                    'id': 'wf--TRANSITION--publish--private_published',
+                    'title': 'publish',
+                    'target_state': 'wf--STATUS--published',
+                    'guards': workflowxml.GUARDS % ''.join((
+                            workflowxml.GUARD_ROLE % 'Editor',
+                            workflowxml.GUARD_ROLE % 'Reviewer',
+                            ))},
+
+                workflowxml.TRANSITION % {
+                    'id': 'wf--TRANSITION--retract--published_private',
+                    'title': 'retract',
+                    'target_state': 'wf--STATUS--private',
+                    'guards': workflowxml.GUARDS % (
+                        workflowxml.GUARD_ROLE % 'Reviewer',
+                        )},
+
+                ))
+
+        self.assert_definition_xmls(expected, result.getvalue())
