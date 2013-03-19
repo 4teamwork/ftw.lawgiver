@@ -44,7 +44,7 @@
     description) in specification file
   - [ ] Document UI / views with screenshots
 
-- Future [0/2]
-  - [ ] Suppor for comments or another possibility for documenting
+- Future [1/2]
+  - [X] Support for comments or another possibility for documenting
     decisions in a free form.
   - [ ] Worklist support.
