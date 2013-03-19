@@ -46,12 +46,15 @@ setup(name='ftw.lawgiver',
       install_requires=[
 
         'Products.GenericSetup',
+        'lxml',
+        'plone.i18n',
         'setuptools',
         'zope.component',
         'zope.configuration',
         'zope.i18nmessageid',
         'zope.interface',
         'zope.schema',
+        'zope.security',
 
         ],
 
