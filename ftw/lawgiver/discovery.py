@@ -1,0 +1,41 @@
+from Products.CMFCore.utils import getToolByName
+from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
+from operator import itemgetter
+from operator import methodcaller
+from zope.component import adapts
+from zope.interface import Interface
+from zope.interface import implements
+import os
+
+
+FILENAME = 'specification.txt'
+
+
+class WorkflowSpecificationDiscovery(object):
+    implements(IWorkflowSpecificationDiscovery)
+    adapts(Interface, Interface)
+
+    def __init__(self, context, request):
+        self.context = context
+        self.request = request
+
+    def discover(self):
+        result = set()
+        map(result.update,
+            map(self._get_specification_files, self._get_profile_paths()))
+        return list(result)
+
+    def _get_specification_files(self, profile_directory):
+        workflows_dir = os.path.join(profile_directory, 'workflows')
+        if not os.path.isdir(workflows_dir):
+            return
+
+        for name in os.listdir(workflows_dir):
+            specpath = os.path.join(workflows_dir, name, 'specification.txt')
+            if os.path.isfile(specpath):
+                yield specpath
+
+    def _get_profile_paths(self):
+        setup_tool = getToolByName(self.context, 'portal_setup')
+        paths = map(itemgetter('path'), setup_tool.listProfileInfo())
+        return map(str, filter(methodcaller('startswith', '/'), paths))

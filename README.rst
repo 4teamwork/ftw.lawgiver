@@ -259,33 +259,21 @@ We have the principle that any user / role is NOT allowed do anything by default
       Anyone can view this content.
 
 
-Registering a workflow specification
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Workflow specification discovery
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Assuming we have a workflow specification stored in
-``profiles/default/workflows/my_custom_workflow/specification.txt`` we need
-to tell ftw.lawgiver where it is in order to generate the workflow XML.
-This is done in ZCML:
+All workflow directories in registered generic setup profiles
+are automatically scanned for workflow specifications.
+Just place a ``specification.txt`` in a workflow directory and it
+should be automatically discovered.
 
-.. code:: xml
+Example paths:
 
-    <configure
-        xmlns="http://namespaces.zope.org/zope"
-        xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
-        i18n_domain="my.package">
+- Specification: ``profiles/default/workflows/my_custom_workflow/specification.txt``
+- Workflow XML: ``profiles/default/workflows/my_custom_workflow/definition.txt``
 
-        <include package="ftw.lawgiver" file="meta.zcml" />
-
-        <lawgiver:workflows
-            directory="profiles/default/workflows"
-            />
-
-    </configure>
-
-We are registering the "workflows" directory of our generic setup profile
-here.
-The lawgiver now checks for every workflow in this directory whether there is
-a ``specification.txt`` and registers it dynamically.
+In this example it is assumed that ``profiles/default`` is a registered generic setup
+profile directory.
 
 
 Internationalization

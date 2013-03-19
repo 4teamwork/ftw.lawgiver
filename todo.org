@@ -1,5 +1,5 @@
 
-- Implementation [4/6]
+- Implementation [5/6]
   - [X] Action Groups [3/3]
     - [X] action group registry
     - [X] ZCML directive for mapping permissions to action
@@ -30,9 +30,7 @@
       can easily be diffed
   - [X] workflow generator: make sure it breaks when the action of a
     statement is neither an action group nor a transition.
-  - [ ] Workflow specification discovery [0/2]
-    - [ ] implement a ZCML meta directive (``lawgiver:workflows``)
-    - [ ] specification detection in the known workflow directories
+  - [X] Workflow specification discovery [0/0]
   - [ ] user-interface [0/6]
     - [ ] view listing all known specifications
     - [ ] details view: show the specification

@@ -8,6 +8,7 @@
 
     <utility factory=".generator.WorkflowGenerator" />
     <utility factory=".collector.DefaultPermissionCollector" name="" />
+    <adapter factory=".discovery.WorkflowSpecificationDiscovery" />
 
     <genericsetup:registerProfile
         name="default"

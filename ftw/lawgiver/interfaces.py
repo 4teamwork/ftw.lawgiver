@@ -71,3 +71,38 @@ class IPermissionCollector(Interface):
         default <permission> ZCML or by registering it in an initialize
         function (Archetypes).
         """
+
+
+class IWorkflowSpecificationDiscovery(Interface):
+    """The workflow specification discovery adapter finds workflow
+    specifications in generic setup profiles.
+
+    A valid workflow specification file has a path (relative to a generic
+    setup profile) with the format:
+    `workflows/${workflow ID}/specification.txt`.
+
+    Example:
+
+    - package name: `my.package`
+
+    - generic setup profile path:
+    `.../src/my.package/my/package/profiles/default`
+
+    - workflow id: `basic_intranet_workflow`
+
+    - workflow specification:
+    `.../profiles/default/workflows/basic_intranet_workflow/specification.txt`
+
+    - workflow definition:
+    `.../profiles/default/workflows/basic_intranet_workflow/definition.xml`
+    """
+
+    def __init__(context, request):
+        """The adapter adapts context and request.
+        The request is adapted so that it can be easily customized with
+        browser layers.
+        """
+
+    def discover():
+        """Returns a list absolute paths to specification text files.
+        """
