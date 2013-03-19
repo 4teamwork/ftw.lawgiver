@@ -6,6 +6,11 @@
 from zope.interface import Interface
 
 
+class ILawgiverLayer(Interface):
+    """ftw.lawgiver package browser layer.
+    """
+
+
 class IActionGroupRegistry(Interface):
     """An action group registry is an utility which knows all the action
     groups and which permissions are mapped to which action group.

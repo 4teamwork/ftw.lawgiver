@@ -1,5 +1,7 @@
 from Products.CMFCore.utils import getToolByName
+from ftw.lawgiver.interfaces import ILawgiverLayer
 from ftw.lawgiver.testing import LAWGIVER_FUNCTIONAL_TESTING
+from plone.browserlayer.utils import registered_layers
 from unittest2 import TestCase
 
 
@@ -15,3 +17,8 @@ class TestInstallation(TestCase):
             'ftw.lawgiver:default')
         self.assertNotEqual(version, None)
         self.assertNotEqual(version, 'unknown')
+
+    def test_request_layer_active(self):
+        layers = registered_layers()
+        self.assertIn(ILawgiverLayer, layers,
+                      'Browser layer "ILawgiverLayer" is not installed.')
