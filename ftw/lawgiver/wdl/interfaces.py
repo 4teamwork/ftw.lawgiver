@@ -12,8 +12,9 @@ class IWorkflowSpecificationParser(Interface):
     to a abstract syntax tree.
     """
 
-    def __call__(stream):
+    def __call__(stream, silent=False):
         """Parse the stream and return the validated abstract syntax tree.
+        If `silent` is `True` it returns `None` on any error.
         """
 
 

@@ -64,13 +64,22 @@ class SpecificationParser(object):
         self._config = None
         self._spec = None
 
-    def __call__(self, stream):
-        self._parse(stream)
+    def __call__(self, stream, silent=False):
+        try:
+            return self._parse(stream)
+        except ParsingError:
+            if silent:
+                return None
+            else:
+                raise
+
+    def _parse(self, stream):
+        self._read_stream(stream)
         self._convert()
         self._post_converting()
         return self._spec
 
-    def _parse(self, stream):
+    def _read_stream(self, stream):
         """Parse `stream` into a configparser `self._config` object.
         """
 

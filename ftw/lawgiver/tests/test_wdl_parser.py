@@ -14,10 +14,13 @@ class TestParser(MockTestCase):
 
     layer = ZCML_FIXTURE
 
-    def parse_lines(self, *lines):
+    def parse_lines(self, *lines, **kwargs):
         parser = getUtility(IWorkflowSpecificationParser)
         stream = StringIO('\n'.join(lines))
-        return parser(stream)
+        if kwargs.get('silent'):
+            return parser(stream, silent=True)
+        else:
+            return parser(stream)
 
     def test_component_registered(self):
         self.assertTrue(
@@ -38,16 +41,22 @@ class TestParser(MockTestCase):
 
         self.assertEquals(result.title, 'a Workflow')
 
-    def test_only_one_section_allowd(self):
+    def test_only_one_section_allowed(self):
+        lines = (
+            '[foo]',
+            '',
+            '[bar]')
+
         with self.assertRaises(ParsingError) as cm:
-            self.parse_lines(
-                '[foo]',
-                '',
-                '[bar]')
+            self.parse_lines(*lines)
 
         self.assertEquals('Exactly one ini-style section is required, '
                           'containing the workflow title.',
                           str(cm.exception))
+
+        self.assertEquals(
+            None, self.parse_lines(*lines, silent=True),
+            'Parser should not raise an exception when silent=True')
 
     def test_description(self):
         spec = self.parse_lines(
@@ -162,16 +171,22 @@ class TestParser(MockTestCase):
             set(map(unicode, spec.transitions)))
 
     def test_invalid_transition_line(self):
-        with self.assertRaises(ParsingError) as cm:
-            self.parse_lines(
+        lines = (
             '[Foo]',
             '',
             'Transitions:',
             '  this is invalid')
 
+        with self.assertRaises(ParsingError) as cm:
+            self.parse_lines(*lines)
+
         self.assertEquals(
             'Transition line has an invalid format: "this is invalid"',
             str(cm.exception))
+
+        self.assertEquals(
+            None, self.parse_lines(*lines, silent=True),
+            'Parser should not raise an exception when silent=True')
 
     def test_role_mapping(self):
         spec = self.parse_lines(
@@ -186,15 +201,21 @@ class TestParser(MockTestCase):
                           spec.role_mapping)
 
     def test_invalid_role_mapping_line(self):
+        lines = (
+            '[Foo]',
+            'Role Mapping:',
+            '  this is wrong')
+
         with self.assertRaises(ParsingError) as cm:
-            self.parse_lines(
-                '[Foo]',
-                'Role Mapping:',
-                '  this is wrong')
+            self.parse_lines(*lines)
 
         self.assertEquals(
             'Invalid format in role mapping: "this is wrong"',
             str(cm.exception))
+
+        self.assertEquals(
+            None, self.parse_lines(*lines, silent=True),
+            'Parser should not raise an exception when silent=True')
 
     def test_general_statements(self):
         spec = self.parse_lines(
@@ -207,13 +228,19 @@ class TestParser(MockTestCase):
                           spec.generals)
 
     def test_fails_when_no_consumer_for_option(self):
+        lines = (
+            '[Foo]',
+            'bar = baz')
+
         with self.assertRaises(ParsingError) as cm:
-            self.parse_lines(
-                '[Foo]',
-                'bar = baz')
+            self.parse_lines(*lines)
 
         self.assertEquals('The option "bar" is not valid.',
                           str(cm.exception))
+
+        self.assertEquals(
+            None, self.parse_lines(*lines, silent=True),
+            'Parser should not raise an exception when silent=True')
 
 
 class TestConvertStatement(MockTestCase):
