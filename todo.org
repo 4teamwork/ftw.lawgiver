@@ -1,5 +1,5 @@
 
-- Implementation [2/5]
+- Implementation [4/6]
   - [X] Action Groups [3/3]
     - [X] action group registry
     - [X] ZCML directive for mapping permissions to action
@@ -23,12 +23,12 @@
         - can for transitions
       - [X] general statements
       - [X] state definition
-  - [ ] implement workflow generator
+  - [X] implement workflow generator
     - accepts a workflow specification object
     - returns a definition.xml
     - result should be consistent regarding sorting etc, so that it
       can easily be diffed
-  - [ ] workflow generator: make sure it breaks when the action of a
+  - [X] workflow generator: make sure it breaks when the action of a
     statement is neither an action group nor a transition.
   - [ ] Workflow specification discovery [0/2]
     - [ ] implement a ZCML meta directive (``lawgiver:workflows``)
@@ -46,7 +46,7 @@
     description) in specification file
   - [ ] Document UI / views with screenshots
 
-- Future [0/1]
+- Future [0/2]
   - [ ] Suppor for comments or another possibility for documenting
     decisions in a free form.
   - [ ] Worklist support.

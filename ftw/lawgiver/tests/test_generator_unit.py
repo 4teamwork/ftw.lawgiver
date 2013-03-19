@@ -243,3 +243,38 @@ class TestGenerator(BaseTest):
                 ))
 
         self.assert_definition_xmls(expected, result.getvalue())
+
+    def test_workflow_with_unkown_action_raises(self):
+        self.register_permissions(**{
+                'cmf.ModifyPortalContent': 'Modify portal content',
+                'zope2.View': 'View',
+                'zope2.AccessContentsInformation': \
+                    'Access contents information'})
+
+        self.map_permissions(['View', 'Access contents information'], 'view')
+        self.map_permissions(['Modify portal content'], 'edit')
+
+        spec = Specification(title='Workflow',
+                             initial_status_title='Foo')
+        spec.role_mapping['writer'] = 'Editor'
+        spec.role_mapping['admin'] = 'Administrator'
+
+        foo = spec.states['Foo'] = Status('Foo', [
+                ('writer', 'view'),
+                ('writer', 'edit'),
+                ('writer', 'publish'),
+                ('admin', 'view'),
+                ('admin', 'publish'),
+                ('admin', 'bar')])
+
+        spec.transitions.append(Transition('publish', foo, foo))
+        spec.validate()
+
+        result = StringIO()
+        generator = getUtility(IWorkflowGenerator)
+
+        with self.assertRaises(Exception) as cm:
+            generator('example-workflow', spec, result)
+
+        self.assertEquals('Action "bar" is neither action group nor transition.',
+                          str(cm.exception))
