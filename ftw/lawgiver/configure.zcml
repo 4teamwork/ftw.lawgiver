@@ -4,6 +4,7 @@
     i18n_domain="ftw.lawgiver">
 
     <include package=".wdl" />
+    <include package=".browser" />
     <include file="actiongroups.zcml" />
 
     <utility factory=".generator.WorkflowGenerator" />
