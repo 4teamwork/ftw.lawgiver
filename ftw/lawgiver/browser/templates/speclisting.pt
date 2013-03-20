@@ -30,7 +30,15 @@
             profile.
         </p>
 
-        PETER
+        <dl class="specifications">
+            <tal:SPEC tal:repeat="spec view/specifications">
+                <dt>
+                    <a tal:content="spec/link_text"
+                       tal:attributes="href spec/href"/>
+                </dt>
+                <dd tal:content="spec/description" />
+            </tal:SPEC>
+        </dl>
 
     </div>
 </html>
