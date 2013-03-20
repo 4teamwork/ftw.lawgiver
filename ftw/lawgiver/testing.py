@@ -54,3 +54,22 @@ LAWGIVER_INTEGRATION_TESTING = IntegrationTesting(
     bases=(LAWGIVER_FIXTURE, ), name="ftw.lawgiver:integration")
 LAWGIVER_FUNCTIONAL_TESTING = FunctionalSplinterTesting(
     bases=(LAWGIVER_FIXTURE, ), name="ftw.lawgiver:functional")
+
+
+class TestingSpecificationsLayer(PloneSandboxLayer):
+
+    defaultBases = (LAWGIVER_FUNCTIONAL_TESTING, )
+
+    def setUpZope(self, app, configurationContext):
+        import ftw.lawgiver.tests
+
+        xmlconfig.file('spec-discovery.zcml',
+                       ftw.lawgiver.tests,
+                       context=configurationContext)
+
+        xmlconfig.file('custom-workflow.zcml',
+                       ftw.lawgiver.tests,
+                       context=configurationContext)
+
+
+SPECIFICATIONS_FUNCTIONAL = TestingSpecificationsLayer()

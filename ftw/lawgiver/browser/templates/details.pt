@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/prefs_main_template/macros/master"
+      i18n:domain="ftw.lawgiver">
+
+    <div metal:fill-slot="prefs_configlet_main"
+         tal:define="spec view/specification;
+                     workflow_name view/workflow_name;
+                     permissions view/get_permissions">
+
+        <h1 class="documentFirstHeading"
+            tal:content="spec/title|workflow_name" />
+
+        <a href=""
+           class="link-parent"
+           tal:attributes="href string:$portal_url/@@lawgiver-list-specs"
+           i18n:translate="label_up_to_specification_listing">
+            Up to specification listing
+        </a>
+
+        <dl class="collapsible collapsedOnLoad specification">
+
+            <dt class="collapsibleHeader"
+                i18:translate="">
+                Specification
+            </dt>
+            <dd class="collapsibleContent">
+                <pre tal:content="view/raw_specification" />
+            </dd>
+
+        </dl>
+
+        <dl class="collapsible collapsedOnLoad permission-mapping">
+
+            <dt class="collapsibleHeader"
+                i18:translate="">
+                Permission mapping
+            </dt>
+            <dd class="collapsibleContent"
+                tal:define="managed permissions/managed">
+                <dl tal:repeat="group managed">
+                    <dt tal:content="group" />
+                    <dd>
+                        <ul tal:define="perms python: managed[group]">
+                            <li tal:repeat="perm perms"
+                                tal:content="perm" />
+                        </ul>
+                    </dd>
+                </dl>
+            </dd>
+
+        </dl>
+
+
+        <dl class="collapsible collapsedOnLoad unmanaged-permissions">
+
+            <dt class="collapsibleHeader"
+                i18:translate="">
+                Unmanaged permissions
+            </dt>
+            <dd class="collapsibleContent">
+                <ul>
+                    <li tal:repeat="perm permissions/unmanaged"
+                        tal:content="perm" />
+                </ul>
+            </dd>
+
+        </dl>
+
+
+    </div>
+</html>

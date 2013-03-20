@@ -1,5 +1,6 @@
 from ftw.testing import browser
 from ftw.testing.pages import Plone
+from operator import attrgetter
 
 
 class SpecItem(object):
@@ -12,13 +13,13 @@ class SpecItem(object):
         return self.dtnode.find_by_xpath('a').text
 
     def link_href(self):
-        return self.dtnode.find_by_xpath('a')['href']
+        return self.dtnode.find_by_xpath('a').first['href']
 
     def description(self):
         return self.ddnode.text
 
     def click(self):
-        self.dtnode.find_by_xpath('a').click()
+        browser().find_link_by_text(self.link_text()).click()
 
     def __repr__(self):
         return '<SpecItem "%s">' % self.link_text()
@@ -48,3 +49,29 @@ class SpecsListing(Plone):
                 return spec
 
         raise KeyError('Specification link with text "%s" not found' % text)
+
+
+class SpecDetails(Plone):
+
+    def get_specification_text(self):
+        return browser().find_by_css('dl.specification dd pre').first.text
+
+    def get_specification_mapping(self):
+        mapping = {}
+
+        groups = browser().find_by_css('dl.permission-mapping dd dl dt')
+        for actiongroup in groups:
+            groupname = actiongroup.text
+
+            permissionlist = actiongroup.find_by_xpath(
+                'following-sibling::*[self::dd]').first
+
+            permissions = map(attrgetter('text'),
+                              permissionlist.find_by_css('li'))
+            mapping[groupname] = permissions
+
+        return mapping
+
+    def get_unmanaged_permissions(self):
+        return map(attrgetter('text'),
+                   browser().find_by_css('dl.unmanaged-permissions dd li'))

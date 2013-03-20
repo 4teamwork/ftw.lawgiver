@@ -16,10 +16,16 @@ class ListSpecifications(BrowserView):
         return sorted(specs, key=lambda spec: spec['link_text'])
 
     def _get_spec_item(self, path):
+        discovery = getMultiAdapter((self.context, self.request),
+                                    IWorkflowSpecificationDiscovery)
+
         workflow_name = os.path.basename(os.path.dirname(path))
         item = {'link_text': workflow_name,
                 'description': '',
-                'href': ''}
+                'href': '/'.join((
+                    self.context.absolute_url(),
+                    '@@lawgiver-spec-details',
+                    discovery.hash(path)))}
 
         specification = self._get_specification_by_path(path)
         if specification and specification.title:
