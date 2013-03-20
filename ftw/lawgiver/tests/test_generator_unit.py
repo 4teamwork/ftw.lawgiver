@@ -1,29 +1,48 @@
 from StringIO import StringIO
-from ftw.lawgiver.interfaces import IWorkflowGenerator
-from ftw.lawgiver.testing import ZCML_FIXTURE
+from ftw.lawgiver.collector import DefaultPermissionCollector
+from ftw.lawgiver.generator import WorkflowGenerator
+from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.tests import workflowxml
 from ftw.lawgiver.tests.base import BaseTest
 from ftw.lawgiver.wdl.specification import Specification
 from ftw.lawgiver.wdl.specification import Status
 from ftw.lawgiver.wdl.specification import Transition
-from zope.component import getUtility
-from zope.component import queryUtility
-from zope.interface.verify import verifyObject
+from ftw.testing import ComponentRegistryLayer
+from zope.component import getGlobalSiteManager
+
+
+class GeneratorLayer(ComponentRegistryLayer):
+
+    def setUp(self):
+        super(GeneratorLayer, self).setUp()
+
+        import ftw.lawgiver.tests
+        self.load_zcml_file('generator.zcml', ftw.lawgiver.tests)
+
+
+GENERATOR_ZCML = GeneratorLayer()
 
 
 class TestGenerator(BaseTest):
 
-    layer = ZCML_FIXTURE
+    layer = GENERATOR_ZCML
 
-    def test_component_registered(self):
-        self.assertTrue(queryUtility(IWorkflowGenerator),
-                        'The IWorkflowGenerator utility is not registerd.')
+    def setUp(self):
+        super(TestGenerator, self).setUp()
+        getGlobalSiteManager().registerUtility(
+            factory=DefaultPermissionCollector,
+            provided=IPermissionCollector)
 
-    def test_component_implements_interface(self):
-        component = getUtility(IWorkflowGenerator)
-        self.assertTrue(IWorkflowGenerator.providedBy(component))
+        # The IActionGroupRegistry utility registration is lazy.
+        # Map a fake permission so that the utility is registered.
+        self.map_permissions(['__fake_permission__'],
+                             '__force_registry_registration__')
 
-        verifyObject(IWorkflowGenerator, component)
+        import zope.security
+        self.layer.load_zcml_file('meta.zcml', zope.security)
+
+        import plone.i18n.normalizer
+        self.layer.load_zcml_file('configure.zcml', plone.i18n.normalizer)
 
     def test_simple_workflow(self):
         spec = Specification(title='Example Workflow',
@@ -33,7 +52,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        getUtility(IWorkflowGenerator)('example-workflow', spec, result)
+        WorkflowGenerator()('example-workflow', spec, result)
 
         expected = workflowxml.WORKFLOW % {
             'id': 'example-workflow',
@@ -56,7 +75,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        getUtility(IWorkflowGenerator)('workflow', spec, result)
+        WorkflowGenerator()('workflow', spec, result)
 
         expected = workflowxml.WORKFLOW % {
             'id': 'workflow',
@@ -82,7 +101,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        getUtility(IWorkflowGenerator)('workflow', spec, result)
+        WorkflowGenerator()('workflow', spec, result)
 
         expected = workflowxml.WORKFLOW % {
             'id': 'workflow',
@@ -143,7 +162,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        getUtility(IWorkflowGenerator)('example-workflow', spec, result)
+        WorkflowGenerator()('example-workflow', spec, result)
 
 
         xml_permissions_declaration = ''.join((
@@ -203,7 +222,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        getUtility(IWorkflowGenerator)('wf', spec, result)
+        WorkflowGenerator()('wf', spec, result)
 
         expected = workflowxml.WORKFLOW % {
             'id': 'wf',
@@ -271,7 +290,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        generator = getUtility(IWorkflowGenerator)
+        generator = WorkflowGenerator()
 
         with self.assertRaises(Exception) as cm:
             generator('example-workflow', spec, result)
