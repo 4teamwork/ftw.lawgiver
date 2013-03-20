@@ -22,10 +22,26 @@
             Up to specification listing
         </a>
 
+        <table class="listing vertical spec-metadata">
+            <tr>
+                <th i18n:translate="">Workflow ID:</th>
+                <td tal:content="workflow_name" />
+            </tr>
+
+            <tr>
+                <th i18n:translate="">Specification file:</th>
+                <td tal:content="view/get_spec_path" />
+            </tr>
+
+            <tr>
+                <th i18n:translate="">Workflow definition file:</th>
+                <td tal:content="view/get_definition_path" />
+            </tr>
+        </table>
+
         <dl class="collapsible collapsedOnLoad specification">
 
-            <dt class="collapsibleHeader"
-                i18:translate="">
+            <dt class="collapsibleHeader" i18:translate="">
                 Specification
             </dt>
             <dd class="collapsibleContent">
@@ -36,8 +52,7 @@
 
         <dl class="collapsible collapsedOnLoad permission-mapping">
 
-            <dt class="collapsibleHeader"
-                i18:translate="">
+            <dt class="collapsibleHeader" i18:translate="">
                 Permission mapping
             </dt>
             <dd class="collapsibleContent"
@@ -58,8 +73,7 @@
 
         <dl class="collapsible collapsedOnLoad unmanaged-permissions">
 
-            <dt class="collapsibleHeader"
-                i18:translate="">
+            <dt class="collapsibleHeader" i18:translate="">
                 Unmanaged permissions
             </dt>
             <dd class="collapsibleContent">

@@ -53,6 +53,16 @@ class SpecsListing(Plone):
 
 class SpecDetails(Plone):
 
+    def get_spec_metadata_table(self):
+        data = []
+
+        for row in browser().find_by_css('table.spec-metadata tr'):
+            th = row.find_by_xpath('th').first
+            td = row.find_by_xpath('td').first
+            data.append((th.text, td.text))
+
+        return data
+
     def get_specification_text(self):
         return browser().find_by_css('dl.specification dd pre').first.text
 

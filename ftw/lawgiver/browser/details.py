@@ -27,23 +27,23 @@ class SpecDetails(BrowserView):
 
     def specification(self):
         parser = getUtility(IWorkflowSpecificationParser)
-        path = self._get_spec_path()
+        path = self.get_spec_path()
 
         with open(path) as specfile:
             # handle errors
             return parser(specfile, silent=True)
 
     def workflow_name(self):
-        path = self._get_spec_path()
+        path = self.get_spec_path()
         return os.path.basename(os.path.dirname(path))
 
     def raw_specification(self):
-        path = self._get_spec_path()
+        path = self.get_spec_path()
         with open(path) as specfile:
             # handle errors
             return specfile.read()
 
-    def _get_spec_path(self):
+    def get_spec_path(self):
         discovery = getMultiAdapter((self.context, self.request),
                                     IWorkflowSpecificationDiscovery)
 
@@ -57,6 +57,12 @@ class SpecDetails(BrowserView):
                     self._spec_hash))
 
         return path
+
+    def get_definition_path(self):
+        """Path to workflow definition file.
+        """
+        return os.path.join(os.path.dirname(self.get_spec_path()),
+                            'definition.xml')
 
     def get_permissions(self):
         managed = {}
