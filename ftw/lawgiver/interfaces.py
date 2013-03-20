@@ -119,7 +119,7 @@ class IWorkflowSpecificationDiscovery(Interface):
         it is unsafe - the hash should be used in this case.
         """
 
-    def unhash(hash):
+    def unhash(hash_):
         """Returns the path to a specification for a hash.
         Only registered paths (which are returned by `discover`) are returned.
         If there is no match `None` is returned.
