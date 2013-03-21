@@ -1,11 +1,16 @@
+from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
 from ftw.lawgiver.tests.pages import SpecDetails
 from ftw.lawgiver.tests.pages import SpecsListing
+from ftw.testing import browser
 from ftw.testing.pages import Plone
 from operator import itemgetter
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
+from plone.app.testing import applyProfile
 from unittest2 import TestCase
+from zope.component import getMultiAdapter
+import os
 
 
 class TestSpecificationDetailsView(TestCase):
@@ -17,10 +22,30 @@ class TestSpecificationDetailsView(TestCase):
 
         SpecsListing().open()
         SpecsListing().get_specification_by_text(
-            'My Custom Workflow (my_custom_workflow)').click()
+            'Bar Workflow (wf-bar)').click()
+
+    def tearDown(self):
+        path = self.get_bar_XML_path()
+        if os.path.exists(path):
+            os.remove(path)
+
+        super(TestSpecificationDetailsView, self).tearDown()
+
+    def get_bar_XML_path(self):
+        # The definition.xml may or may not exist - the path is returned
+        # any way.
+        portal = self.layer['portal']
+        discovery = getMultiAdapter((portal, portal.REQUEST),
+                                    IWorkflowSpecificationDiscovery)
+
+        paths = [path for path in discovery.discover()
+                if path.endswith('wf-bar/specification.txt')]
+        assert len(paths) == 1, \
+            'Failure in teardown when trying to delete the wf-bar xml'
+        return paths[0].replace('specification.txt', 'definition.xml')
 
     def test_details_view_heading(self):
-        self.assertEquals('My Custom Workflow',
+        self.assertEquals('Bar Workflow',
                           Plone().get_first_heading(),
                           'Workflow title is wrong.')
 
@@ -37,24 +62,24 @@ class TestSpecificationDetailsView(TestCase):
         metadata = dict(metadata)
 
         self.assertEquals(
-            'my_custom_workflow', metadata['Workflow ID:'],
+            'wf-bar', metadata['Workflow ID:'],
             'Workflow ID in metadata table is wrong.')
 
         self.assertTrue(
             metadata['Specification file:'].endswith(
-                '/my_custom_workflow/specification.txt'),
+                '/wf-bar/specification.txt'),
             'Is the spec file (%s) not a specification.txt?' % (
                 metadata['Specification file:']))
 
         self.assertTrue(
             metadata['Workflow definition file:'].endswith(
-                '/my_custom_workflow/definition.xml'),
+                '/wf-bar/definition.xml'),
             'Is the workflow file (%s) not a definition.xml?' % (
                 metadata['Workflow definition file:']))
 
     def test_specification_text(self):
         self.assertIn(
-            'Status Private:',
+            'Status Published:',
             SpecDetails().get_specification_text(),
             'Seems the specification file is not printed in the view.')
 
@@ -86,3 +111,42 @@ class TestSpecificationDetailsView(TestCase):
         self.assertIn(
             'Plone Site Setup: Calendar', unmanaged,
             'Expected permission to be unmanaged.')
+
+    def test_workflow_not_installed(self):
+        Plone().assert_portal_message(
+            'error', 'The workflow wf-bar is not installed yet.')
+        self.assertTrue(
+            SpecDetails().button_write(),
+            'The Button "Write workflow definition" is not visible?')
+
+        self.assertFalse(
+            SpecDetails().button_write_and_import(),
+            'The Button "Write and Import Workflow" should not be visible')
+
+        self.assertFalse(
+            SpecDetails().button_reindex(),
+            'The Button "Update security settings" should not be visible')
+
+    def test_write_workflow_XML(self):
+        path = self.get_bar_XML_path()
+        self.assertFalse(os.path.exists(path),
+                         'Expected %s to not exist yet.' % path)
+
+        SpecDetails().button_write().click()
+        self.assertTrue(os.path.exists(path),
+                        'Expected %s to exist now.' % path)
+
+    # def test_write_and_import(self):
+    #     # the workflow is not yet installed, therefore we don't see the button
+    #     self.assertFalse(
+    #         SpecDetails().button_write_and_import(),
+    #         'The Button "Write and Import Workflow" should not be visible')
+
+    #     # install the workflow (gs profile)
+    #     applyProfile(self.layer['portal'], 'ftw.lawgiver.tests:bar')
+
+    #     # reload the page, now there should be the button
+    #     browser().reload()
+    #     self.assertTrue(
+    #         SpecDetails().button_write_and_import(),
+    #         'The Button "Write and Import Workflow" should now be visible')

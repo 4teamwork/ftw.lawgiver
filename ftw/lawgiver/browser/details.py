@@ -1,4 +1,8 @@
+from Products.CMFCore.utils import getToolByName
+from Products.statusmessages.interfaces import IStatusMessage
+from ftw.lawgiver import _
 from ftw.lawgiver.interfaces import IActionGroupRegistry
+from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from zope.component import getMultiAdapter
@@ -25,13 +29,45 @@ class SpecDetails(BrowserView):
         self._spec_hash = name
         return self
 
-    def specification(self):
+    def __call__(self, *args, **kwargs):
+        self.specification = self._load_specification()
+
+        if self.specification:
+            if 'write_workflow' in self.request.form:
+                self.write_workflow()
+
+        return super(SpecDetails, self).__call__(*args, **kwargs)
+
+    def write_workflow(self):
+        generator = getUtility(IWorkflowGenerator)
+
+        with open(self.get_definition_path(), 'w+') as result_file:
+            generator(self.workflow_name(), self.specification, result_file)
+
+        IStatusMessage(self.request).add(
+            _(u'info_workflow_generated',
+              default=u'The workflow was generated to ${path}',
+              mapping={'path': self.get_definition_path()}))
+
+    def _load_specification(self):
         parser = getUtility(IWorkflowSpecificationParser)
         path = self.get_spec_path()
 
         with open(path) as specfile:
-            # handle errors
-            return parser(specfile, silent=True)
+            try:
+                return parser(specfile)
+            except Exception, exc:
+                IStatusMessage(self.request).add(
+                    _(u'error_parsing_error',
+                      default=u'The specification file could not be'
+                      u' parsed: ${error}',
+                      mapping={'error': str(exc)}),
+                    type='error')
+                return None
+
+    def is_workflow_installed(self):
+        wftool = getToolByName(self.context, 'portal_workflow')
+        return wftool.getWorkflowById(self.workflow_name()) and True or False
 
     def workflow_name(self):
         path = self.get_spec_path()
@@ -87,6 +123,9 @@ class SpecDetails(BrowserView):
                 if group not in managed:
                     managed[group] = []
                 managed[group].append(permission.title)
+
+        map(list.sort, managed.values())
+        unmanaged.sort()
 
         return {'managed': managed,
                 'unmanaged': unmanaged}

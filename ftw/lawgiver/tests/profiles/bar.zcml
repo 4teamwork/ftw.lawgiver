@@ -4,9 +4,9 @@
     i18n_domain="ftw.lawgiver.tests">
 
     <genericsetup:registerProfile
-        name="spec-discovery"
-        title="ftw.lawgiver.tests: spec-discovery"
-        directory="spec-discovery"
+        name="bar"
+        title="ftw.lawgiver.tests: bar"
+        directory="bar"
         description=""
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />

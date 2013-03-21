@@ -17,7 +17,9 @@ class TestSpecificationListingsView(TestCase):
 
         specs = SpecsListing().get_specifications()
         self.assertEquals(
-            ['My Custom Workflow (my_custom_workflow)',
+            ['Bar Workflow (wf-bar)',
+             'Foo Workflow (wf-foo)',
+             'My Custom Workflow (my_custom_workflow)',
              'another-spec-based-workflow',
              'spec-based-workflow'],
 
@@ -34,7 +36,9 @@ class TestSpecificationListingsView(TestCase):
             {'another-spec-based-workflow': '',
              'My Custom Workflow (my_custom_workflow)': \
                  'A three state publication workflow',
-             'spec-based-workflow': ''},
+             'spec-based-workflow': '',
+             'Bar Workflow (wf-bar)': 'Always published',
+             'Foo Workflow (wf-foo)': 'Just for testing.'},
 
             dict(map(lambda spec: (spec.link_text(), spec.description()),
                      specs)))

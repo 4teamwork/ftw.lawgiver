@@ -6,7 +6,7 @@
     <genericsetup:registerProfile
         name="custom-workflow"
         title="ftw.lawgiver.tests: custom-workflow"
-        directory="profiles/custom-workflow"
+        directory="custom-workflow"
         description=""
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />

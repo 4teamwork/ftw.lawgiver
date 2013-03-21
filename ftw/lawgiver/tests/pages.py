@@ -85,3 +85,12 @@ class SpecDetails(Plone):
     def get_unmanaged_permissions(self):
         return map(attrgetter('text'),
                    browser().find_by_css('dl.unmanaged-permissions dd li'))
+
+    def button_write(self):
+        return self.get_button('Write workflow definition')
+
+    def button_write_and_import(self):
+        return self.get_button('Write and Import Workflow')
+
+    def button_reindex(self):
+        return self.get_button('Update security settings')

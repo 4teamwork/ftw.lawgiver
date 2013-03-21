@@ -71,5 +71,13 @@ class TestingSpecificationsLayer(PloneSandboxLayer):
                        ftw.lawgiver.tests,
                        context=configurationContext)
 
+        xmlconfig.file('profiles/foo.zcml',
+                       ftw.lawgiver.tests,
+                       context=configurationContext)
+
+        xmlconfig.file('profiles/bar.zcml',
+                       ftw.lawgiver.tests,
+                       context=configurationContext)
+
 
 SPECIFICATIONS_FUNCTIONAL = TestingSpecificationsLayer()
