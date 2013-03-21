@@ -45,7 +45,7 @@
             </table>
         </fieldset>
 
-        <fieldset>
+        <fieldset tal:condition="spec">
             <legend i18n:translate="">Update Workflow Definition</legend>
 
             <form tal:attributes="action request/URL"

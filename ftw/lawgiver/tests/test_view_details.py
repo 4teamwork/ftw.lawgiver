@@ -181,3 +181,43 @@ class TestSpecificationDetailsView(TestCase):
         SpecDetails().button_reindex().click()
         Plone().assert_portal_message(
             'info', 'Security update: 0 objects updated.')
+
+
+class TestSpecificationDetailsViewBROKEN(TestCase):
+
+    layer = SPECIFICATIONS_FUNCTIONAL
+
+    def setUp(self):
+        Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
+
+        SpecsListing().open()
+
+        # the workflow spec of "spec-based-workflow" is broken.
+        SpecsListing().get_specification_by_text(
+            'spec-based-workflow').click()
+
+    def test_heading_shows_wfid(self):
+        self.assertEquals('spec-based-workflow',
+                          Plone().get_first_heading(),
+                          'Workflow title is wrong.')
+
+    def test_error_messages_shown(self):
+        Plone().assert_portal_message(
+            'error',
+            'The specification file could not be parsed:'
+            ' Exactly one ini-style section is required,'
+            ' containing the workflow title.')
+
+    def test_buttons_not_shown(self):
+        # on error, show no buttons
+        self.assertFalse(
+            SpecDetails().button_write(),
+            'The Button "Write workflow definition" should not be visible')
+
+        self.assertFalse(
+            SpecDetails().button_write_and_import(),
+            'The Button "Write and Import Workflow" should not be visible')
+
+        self.assertFalse(
+            SpecDetails().button_reindex(),
+            'The Button "Update security settings" should not be visible')
