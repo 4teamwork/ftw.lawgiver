@@ -41,6 +41,7 @@ class WorkflowGenerator(object):
 
         self._add_variables(doc)
         etree.ElementTree(doc).write(result_stream,
+                                     pretty_print=True,
                                      xml_declaration=True,
                                      encoding='utf-8')
 
