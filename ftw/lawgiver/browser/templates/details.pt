@@ -109,7 +109,7 @@
         </fieldset>
 
         <fieldset>
-            <legend i18n:translate="">Sepcification details</legend>
+            <legend i18n:translate="">Specification details</legend>
 
             <dl class="collapsible collapsedOnLoad specification">
 
