@@ -1,4 +1,5 @@
 from Products.CMFCore.utils import getToolByName
+from Products.GenericSetup.utils import importObjects
 from Products.statusmessages.interfaces import IStatusMessage
 from ftw.lawgiver import _
 from ftw.lawgiver.interfaces import IActionGroupRegistry
@@ -21,6 +22,7 @@ class SpecDetails(BrowserView):
     def __init__(self, context, request):
         super(SpecDetails, self).__init__(context, request)
         self._spec_hash = None
+        self.specification = None
 
     def publishTraverse(self, request, name):
         # stop traversing, we have arrived
@@ -36,6 +38,9 @@ class SpecDetails(BrowserView):
             if 'write_workflow' in self.request.form:
                 self.write_workflow()
 
+            if 'write_and_import' in self.request.form:
+                self.write_and_import_workflow()
+
         return super(SpecDetails, self).__call__(*args, **kwargs)
 
     def write_workflow(self):
@@ -46,8 +51,42 @@ class SpecDetails(BrowserView):
 
         IStatusMessage(self.request).add(
             _(u'info_workflow_generated',
-              default=u'The workflow was generated to ${path}',
+              default=u'The workflow was generated to ${path}.',
               mapping={'path': self.get_definition_path()}))
+
+    def write_and_import_workflow(self):
+        self.write_workflow()
+
+        setup_tool = getToolByName(self.context, 'portal_setup')
+        profile_id = self._find_profile_name_for_workflow()
+        import_context = setup_tool._getImportContext(
+            profile_id, None, None)
+
+        workflow = self._get_workflow_obj()
+        parent_path = 'workflows/'
+        importObjects(workflow, parent_path, import_context)
+
+        IStatusMessage(self.request).add(
+            _(u'info_workflow_imported',
+              default=u'The workflow ${wfname} was generated imported.',
+              mapping={'wfname': self.workflow_name()}))
+
+    def _get_workflow_obj(self):
+        wftool = getToolByName(self.context, 'portal_workflow')
+        return wftool[self.workflow_name()]
+
+    def _find_profile_name_for_workflow(self):
+        setup_tool = getToolByName(self.context, 'portal_setup')
+        profile_path = os.path.abspath(os.path.join(
+                os.path.dirname(self.get_definition_path()),
+                '..', '..'))
+
+        for profile in setup_tool.listProfileInfo():
+            if profile.get('path') == profile_path:
+                return 'profile-%s' % profile.get('id')
+
+        raise AttributeError('Profile for workflow %s not found' % (
+                self.get_definition_path()))
 
     def _load_specification(self):
         parser = getUtility(IWorkflowSpecificationParser)

@@ -1,3 +1,4 @@
+from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
 from ftw.lawgiver.tests.pages import SpecDetails
@@ -11,6 +12,7 @@ from plone.app.testing import applyProfile
 from unittest2 import TestCase
 from zope.component import getMultiAdapter
 import os
+import transaction
 
 
 class TestSpecificationDetailsView(TestCase):
@@ -136,17 +138,38 @@ class TestSpecificationDetailsView(TestCase):
         self.assertTrue(os.path.exists(path),
                         'Expected %s to exist now.' % path)
 
-    # def test_write_and_import(self):
-    #     # the workflow is not yet installed, therefore we don't see the button
-    #     self.assertFalse(
-    #         SpecDetails().button_write_and_import(),
-    #         'The Button "Write and Import Workflow" should not be visible')
+    def test_write_and_import(self):
+        def get_workflow():
+            wftool = getToolByName(self.layer['portal'], 'portal_workflow')
+            return wftool.get('wf-bar')
 
-    #     # install the workflow (gs profile)
-    #     applyProfile(self.layer['portal'], 'ftw.lawgiver.tests:bar')
+        # the workflow is not yet installed, therefore we don't see the button
+        self.assertFalse(
+            SpecDetails().button_write_and_import(),
+            'The Button "Write and Import Workflow" should not be visible')
 
-    #     # reload the page, now there should be the button
-    #     browser().reload()
-    #     self.assertTrue(
-    #         SpecDetails().button_write_and_import(),
-    #         'The Button "Write and Import Workflow" should now be visible')
+        # we have no definition.xml yet - lets generate it first
+        SpecDetails().button_write().click()
+
+        # install the workflow (gs profile)
+        applyProfile(self.layer['portal'], 'ftw.lawgiver.tests:bar')
+        transaction.commit()
+
+        # reload the page, now there should be the button
+        browser().reload()
+        self.assertTrue(
+            SpecDetails().button_write_and_import(),
+            'The Button "Write and Import Workflow" should now be visible')
+
+        self.assertEquals('Bar Workflow', get_workflow().title,
+                          'Workflow title wrong after initial import.')
+
+        # Change the workflow title in the database
+        get_workflow().title = 'Wrong title'
+        transaction.commit()
+
+        # reimport with our button
+        SpecDetails().button_write_and_import().click()
+        self.assertEquals(
+            'Bar Workflow', get_workflow().title,
+            'Workflow title - write / reimport seems not working?')
