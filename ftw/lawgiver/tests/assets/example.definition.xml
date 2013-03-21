@@ -116,7 +116,6 @@
   <action url="%(content_url)s/content_status_modify?workflow_action=my_custom_workflow--TRANSITION--retract--pending_private" category="workflow" icon="">retract</action>
   <guard>
    <guard-role>Editor</guard-role>
-   <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
  <transition transition_id="my_custom_workflow--TRANSITION--retract--published_private" title="retract" new_state="my_custom_workflow--STATUS--private" trigger="USER" before_script="" after_script="">

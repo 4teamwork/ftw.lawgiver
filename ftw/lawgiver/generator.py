@@ -101,7 +101,8 @@ class WorkflowGenerator(object):
         return node
 
     def _apply_specification_statements(self, status_nodes, transition_nodes):
-        transition_statements = set()
+        transition_statements = dict([(status, set()) for status in
+                                      status_nodes.keys()])
 
         for status, snode in status_nodes.items():
             statements = set(status.statements) | set(
@@ -109,7 +110,7 @@ class WorkflowGenerator(object):
 
             status_stmts, trans_stmts = self._distinguish_statements(
                 statements)
-            transition_statements.update(trans_stmts)
+            transition_statements[status].update(trans_stmts)
             self._apply_status_statements(snode, status_stmts)
 
         self._apply_transition_statements(transition_statements,
@@ -130,7 +131,7 @@ class WorkflowGenerator(object):
         for transition, node in nodes.items():
             guards = etree.SubElement(node, 'guard')
 
-            for customer_role, action in statements:
+            for customer_role, action in statements[transition.src_status]:
                 if action != transition.title:
                     continue
 
