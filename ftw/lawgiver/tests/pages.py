@@ -28,9 +28,13 @@ class SpecItem(object):
 class SpecsListing(Plone):
 
     def open(self):
-        browser().visit('/'.join((self.portal_url, '@@lawgiver-list-specs')))
+        browser().visit(self.listing_url)
         assert self.get_template_class() == 'template-lawgiver-list-specs', \
             'Not on @@lawgiver-list-specs view!?: %s' % browser().url
+
+    @property
+    def listing_url(self):
+        return '/'.join((self.portal_url, '@@lawgiver-list-specs'))
 
     def get_specifications(self):
         result = []
