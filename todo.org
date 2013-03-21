@@ -1,5 +1,5 @@
 
-- Implementation [5/6]
+- Implementation [6/6]
   - [X] Action Groups [3/3]
     - [X] action group registry
     - [X] ZCML directive for mapping permissions to action
@@ -31,13 +31,13 @@
   - [X] workflow generator: make sure it breaks when the action of a
     statement is neither an action group nor a transition.
   - [X] Workflow specification discovery [0/0]
-  - [ ] user-interface [0/6]
-    - [ ] view listing all known specifications
-    - [ ] details view: show the specification
-    - [ ] details view: show the used permissions mapping
-    - [ ] details view: button for writing the definition.xml
-    - [ ] details view: button for writing / importing the definition.xml
-    - [ ] details view: button for reindexing security for this workflow
+  - [X] user-interface [6/6]
+    - [X] view listing all known specifications
+    - [X] details view: show the specification
+    - [X] details view: show the used permissions mapping
+    - [X] details view: button for writing the definition.xml
+    - [X] details view: button for writing / importing the definition.xml
+    - [X] details view: button for reindexing security for this workflow
 
 - Documentation [0/2]
   - [ ] Better documentation for workflow properties (title /
