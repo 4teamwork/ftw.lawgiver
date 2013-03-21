@@ -90,19 +90,19 @@
                         <i tal:attributes="title definition_path">definition.xml</i> and
                         then the workflow is imported using Generic Setup.
                     </p>
-
-                    <input type="submit"
-                           i18n:attributes="value button_update_security"
-                           name="update_security"
-                           value="Update security settings" />
-
-                    <p class="discreet" i18n:translate="description_update_security">
-                        When the "<span i18n:name="button_title"
-                        i18n:translate="button_update_security">Update security settings</span>"
-                        button is clicked the security of all (!) objects in your database are updated.
-                        This is the same button as in portal_workflow.
-                    </p>
                 </tal:WORKFLOW_INSTALLED>
+
+                <input type="submit"
+                       i18n:attributes="value button_update_security"
+                       name="update_security"
+                       value="Update security settings" />
+
+                <p class="discreet" i18n:translate="description_update_security">
+                    When the "<span i18n:name="button_title"
+                    i18n:translate="button_update_security">Update security settings</span>"
+                    button is clicked the security of all (!) objects in your database are updated.
+                    This is the same button as in portal_workflow.
+                </p>
 
             </form>
 

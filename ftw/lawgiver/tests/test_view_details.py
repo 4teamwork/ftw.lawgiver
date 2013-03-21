@@ -125,9 +125,9 @@ class TestSpecificationDetailsView(TestCase):
             SpecDetails().button_write_and_import(),
             'The Button "Write and Import Workflow" should not be visible')
 
-        self.assertFalse(
+        self.assertTrue(
             SpecDetails().button_reindex(),
-            'The Button "Update security settings" should not be visible')
+            'The Button "Update security settings" is not visible?')
 
     def test_write_workflow_XML(self):
         path = self.get_bar_XML_path()
@@ -173,3 +173,11 @@ class TestSpecificationDetailsView(TestCase):
         self.assertEquals(
             'Bar Workflow', get_workflow().title,
             'Workflow title - write / reimport seems not working?')
+
+        Plone().assert_portal_message(
+            'info', 'Workflow wf-bar successfully imported.')
+
+    def test_update_security(self):
+        SpecDetails().button_reindex().click()
+        Plone().assert_portal_message(
+            'info', 'Security update: 0 objects updated.')

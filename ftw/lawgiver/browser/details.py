@@ -41,6 +41,9 @@ class SpecDetails(BrowserView):
             if 'write_and_import' in self.request.form:
                 self.write_and_import_workflow()
 
+        if 'update_security' in self.request.form:
+            self.update_security()
+
         return super(SpecDetails, self).__call__(*args, **kwargs)
 
     def write_workflow(self):
@@ -68,8 +71,17 @@ class SpecDetails(BrowserView):
 
         IStatusMessage(self.request).add(
             _(u'info_workflow_imported',
-              default=u'The workflow ${wfname} was generated imported.',
+              default=u'Workflow ${wfname} successfully imported.',
               mapping={'wfname': self.workflow_name()}))
+
+    def update_security(self):
+        wftool = getToolByName(self.context, 'portal_workflow')
+        updated_objects = wftool.updateRoleMappings()
+
+        IStatusMessage(self.request).add(
+            _(u'info_security_updated',
+              default=u'Security update: ${amount} objects updated.',
+              mapping={'amount': updated_objects}))
 
     def _get_workflow_obj(self):
         wftool = getToolByName(self.context, 'portal_workflow')
