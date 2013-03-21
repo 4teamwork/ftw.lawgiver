@@ -8,8 +8,11 @@ version = '1.0.dev0'
 tests_require = [
 
     'Products.CMFCore',
+    'Zope2',
     'ftw.testing',
     'plone.app.testing',
+    'plone.browserlayer',
+    'transaction',
     'unittest2',
     'z3c.autoinclude',
     'zope.configuration',
@@ -45,7 +48,9 @@ setup(name='ftw.lawgiver',
 
       install_requires=[
 
+        'Products.CMFCore',
         'Products.GenericSetup',
+        'Products.statusmessages',
         'lxml',
         'plone.i18n',
         'setuptools',
@@ -53,6 +58,7 @@ setup(name='ftw.lawgiver',
         'zope.configuration',
         'zope.i18nmessageid',
         'zope.interface',
+        'zope.publisher',
         'zope.schema',
         'zope.security',
 
