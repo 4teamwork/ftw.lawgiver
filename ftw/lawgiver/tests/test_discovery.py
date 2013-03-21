@@ -25,7 +25,7 @@ class SpecDiscoveryGSProfileLayer(PloneSandboxLayer):
 
     def setUpZope(self, app, configurationContext):
         import ftw.lawgiver.tests
-        xmlconfig.file('spec-discovery.zcml',
+        xmlconfig.file('profiles/spec-discovery.zcml',
                        ftw.lawgiver.tests,
                        context=configurationContext)
 
