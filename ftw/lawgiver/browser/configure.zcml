@@ -1,0 +1,23 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser">
+
+    <browser:page
+        name="lawgiver-list-specs"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        template="templates/speclisting.pt"
+        class=".speclisting.ListSpecifications"
+        permission="cmf.ManagePortal"
+        layer="ftw.lawgiver.interfaces.ILawgiverLayer"
+        />
+
+    <browser:page
+        name="lawgiver-spec-details"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        template="templates/details.pt"
+        class=".details.SpecDetails"
+        permission="cmf.ManagePortal"
+        layer="ftw.lawgiver.interfaces.ILawgiverLayer"
+        />
+
+</configure>

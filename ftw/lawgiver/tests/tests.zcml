@@ -3,9 +3,10 @@
     i18n_domain="ftw.lawgiver">
 
     <include package="Products.GenericSetup" file="meta.zcml" />
-    <include package="plone.i18n.normalizer" />
-
     <include package="zope.security" file="meta.zcml" />
+    <include package="Products.Five" file="meta.zcml" />
+
+    <include package="Products.CMFCore" file="permissions.zcml" />
 
     <include package="ftw.lawgiver" />
 

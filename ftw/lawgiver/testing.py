@@ -1,5 +1,5 @@
 from ftw.testing import ComponentRegistryLayer
-from plone.app.testing import FunctionalTesting
+from ftw.testing import FunctionalSplinterTesting
 from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
@@ -52,5 +52,32 @@ class LawgiverLayer(PloneSandboxLayer):
 LAWGIVER_FIXTURE = LawgiverLayer()
 LAWGIVER_INTEGRATION_TESTING = IntegrationTesting(
     bases=(LAWGIVER_FIXTURE, ), name="ftw.lawgiver:integration")
-LAWGIVER_FUNCTIONAL_TESTING = FunctionalTesting(
+LAWGIVER_FUNCTIONAL_TESTING = FunctionalSplinterTesting(
     bases=(LAWGIVER_FIXTURE, ), name="ftw.lawgiver:functional")
+
+
+class TestingSpecificationsLayer(PloneSandboxLayer):
+
+    defaultBases = (LAWGIVER_FUNCTIONAL_TESTING, )
+
+    def setUpZope(self, app, configurationContext):
+        import ftw.lawgiver.tests
+
+        xmlconfig.file('profiles/spec-discovery.zcml',
+                       ftw.lawgiver.tests,
+                       context=configurationContext)
+
+        xmlconfig.file('profiles/custom-workflow.zcml',
+                       ftw.lawgiver.tests,
+                       context=configurationContext)
+
+        xmlconfig.file('profiles/foo.zcml',
+                       ftw.lawgiver.tests,
+                       context=configurationContext)
+
+        xmlconfig.file('profiles/bar.zcml',
+                       ftw.lawgiver.tests,
+                       context=configurationContext)
+
+
+SPECIFICATIONS_FUNCTIONAL = TestingSpecificationsLayer()

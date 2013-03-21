@@ -1,0 +1,8 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="ftw.lawgiver">
+
+    <include package="ftw.lawgiver" file="meta.zcml" />
+    <include package="plone.i18n.normalizer" />
+
+</configure>

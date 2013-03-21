@@ -1,0 +1,117 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-03-21 16:29+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Preferred-Encodings: utf-8 latin1\n"
+
+#: ftw/lawgiver/browser/templates/details.pt:127
+msgid "Permission mapping"
+msgstr "Mapping der Berechtigungen"
+
+#: ftw/lawgiver/browser/templates/details.pt:116
+msgid "Specification"
+msgstr "Spezifikation"
+
+#: ftw/lawgiver/browser/templates/details.pt:112
+msgid "Specification details"
+msgstr "Spezifikation Details"
+
+#: ftw/lawgiver/browser/templates/details.pt:37
+msgid "Specification file:"
+msgstr "Workflow Spezifikation:"
+
+#: ftw/lawgiver/browser/templates/details.pt:72
+msgid "The workflow ${workflow} is not installed yet."
+msgstr "Der Workflow ${workflow} wurde noch nicht installiert."
+
+#: ftw/lawgiver/browser/templates/details.pt:148
+msgid "Unmanaged permissions"
+msgstr "Vom Worfklow nicht verwaltete Berechtigungen"
+
+#: ftw/lawgiver/browser/templates/details.pt:49
+msgid "Update Workflow Definition"
+msgstr "Workflow-Definition aktualisieren"
+
+#: ftw/lawgiver/browser/templates/details.pt:32
+msgid "Workflow ID:"
+msgstr "Workflow ID:"
+
+#: ftw/lawgiver/browser/templates/details.pt:28
+msgid "Workflow Metadata"
+msgstr "Workflow Metadaten"
+
+#: ftw/lawgiver/browser/templates/details.pt:42
+msgid "Workflow definition file:"
+msgstr "Workflow Definition:"
+
+#. Default: "Update security settings"
+#: ftw/lawgiver/browser/templates/details.pt:95
+msgid "button_update_security"
+msgstr "Sicherheit aktualisieren"
+
+#. Default: "Write and Import Workflow"
+#: ftw/lawgiver/browser/templates/details.pt:81
+msgid "button_write_and_import"
+msgstr "Workflow-Definition aktualisieren und Workflow importieren"
+
+#. Default: "Write workflow definition"
+#: ftw/lawgiver/browser/templates/details.pt:54
+msgid "button_write_wf_definition"
+msgstr "Workflow-Definition aktualisieren"
+
+#. Default: "This view lists all workflow specifications. Workflow specifications are identified by the \"specification.txt\" in the corresponding workflow directory of any generic setup profile."
+#: ftw/lawgiver/browser/templates/speclisting.pt:25
+msgid "description_manage_upgrades"
+msgstr "Diese Ansicht zeigt alle Workflow-Spezifikationen an. Workflow-Spezifikationen werden anhand des der Datei \"specification.txt\" im entsprechenden Workflow-Verzeichnis des Generic-Setup Profils erkannt."
+
+#. Default: "When the \"${button_title}\" button is clicked the security of all (!) objects in your database are updated. This is the same button as in portal_workflow."
+#: ftw/lawgiver/browser/templates/details.pt:101
+msgid "description_update_security"
+msgstr "Der Button \"${button_title}\" aktualisiert die Sicherheitseinstellungen aller (!) objekte auf dieser Plone-Seite. Dies ist der gleiche Button wie der \"Update security settings\" in portal_workflow."
+
+#. Default: "When the \"${button_title}\" button is clicked the workflow is generated and written to the <i title=\"${DYNAMIC_CONTENT}\">definition.xml</i> and then the workflow is imported using Generic Setup."
+#: ftw/lawgiver/browser/templates/details.pt:90
+msgid "description_write_and_import"
+msgstr "Der Button \"${button_title}\" generiert den Workflow neu und schreibt ih in die Datei <i title=\\\"${DYNAMIC_CONTENT}\\\">definition.xml</i>. Anschliessend wird der Workflow mittels Generic Setup in dieser Plone-Seite installiert."
+
+#. Default: "When the \"${button_title}\" button is clicked the workflow is generated and written to the <i title=\"${DYNAMIC_CONTENT}\">definition.xml</i>. The database / portal_workflow is not changed."
+#: ftw/lawgiver/browser/templates/details.pt:63
+msgid "description_write_wf_definition"
+msgstr "Der Button \"${button_title}\" generiert den Workflow neu und schreibt ih in die Datei <i title=\\\"${DYNAMIC_CONTENT}\\\">definition.xml</i>. Die Datenbank wird nicht verändert."
+
+#. Default: "The specification file could not be parsed: ${error}"
+#: ftw/lawgiver/browser/details.py:112
+msgid "error_parsing_error"
+msgstr "Die Datei mit der Workflow-Spezifikation konnte nicht gelesen werden: ${error}"
+
+#. Default: "Security update: ${amount} objects updated."
+#: ftw/lawgiver/browser/details.py:82
+msgid "info_security_updated"
+msgstr "Siecherheitsupdate: ${amount} Objekte wurden aktualisiert."
+
+#. Default: "The workflow was generated to ${path}."
+#: ftw/lawgiver/browser/details.py:56
+msgid "info_workflow_generated"
+msgstr "Der Workflow wurde generiert: ${path}."
+
+#. Default: "Workflow ${wfname} successfully imported."
+#: ftw/lawgiver/browser/details.py:73
+msgid "info_workflow_imported"
+msgstr "Der Workflow ${wfname} wurde auf dieser Plone-Seite installiert."
+
+#. Default: "Up to specification listing"
+#: ftw/lawgiver/browser/templates/details.pt:20
+msgid "label_up_to_specification_listing"
+msgstr "Zurück zur Auflistung der Spezifikationen."
+
+#. Default: "Workflow Specifications"
+#: ftw/lawgiver/browser/templates/speclisting.pt:12
+msgid "title_manage_upgrades"
+msgstr "Workflow Spezifikationen"

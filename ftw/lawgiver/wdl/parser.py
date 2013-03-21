@@ -1,10 +1,10 @@
-from ConfigParser import RawConfigParser
 from ftw.lawgiver.exceptions import ParsingError
+from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.lawgiver.wdl.specification import Specification
 from ftw.lawgiver.wdl.specification import Status
 from ftw.lawgiver.wdl.specification import Transition
-from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from zope.interface import implements
+import ConfigParser
 import re
 
 
@@ -67,7 +67,7 @@ class SpecificationParser(object):
     def __call__(self, stream, silent=False):
         try:
             return self._parse(stream)
-        except ParsingError:
+        except (ParsingError, ConfigParser.ParsingError):
             if silent:
                 return None
             else:
@@ -83,7 +83,7 @@ class SpecificationParser(object):
         """Parse `stream` into a configparser `self._config` object.
         """
 
-        self._config = RawConfigParser()
+        self._config = ConfigParser.RawConfigParser()
         self._config.optionxform = str  # do not lowercase tokens
         self._config.readfp(stream)
 

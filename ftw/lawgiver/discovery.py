@@ -5,6 +5,7 @@ from operator import methodcaller
 from zope.component import adapts
 from zope.interface import Interface
 from zope.interface import implements
+import hashlib
 import os
 
 
@@ -24,6 +25,15 @@ class WorkflowSpecificationDiscovery(object):
         map(result.update,
             map(self._get_specification_files, self._get_profile_paths()))
         return list(result)
+
+    def hash(self, path):
+        return hashlib.md5(path).hexdigest()
+
+    def unhash(self, hash_):
+        for path in self.discover():
+            if self.hash(path) == hash_:
+                return path
+        return None
 
     def _get_specification_files(self, profile_directory):
         workflows_dir = os.path.join(profile_directory, 'workflows')

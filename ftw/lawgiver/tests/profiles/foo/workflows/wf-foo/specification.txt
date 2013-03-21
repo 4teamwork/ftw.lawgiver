@@ -1,0 +1,25 @@
+[Foo Workflow]
+Description: Just for testing.
+Initial Status: Private
+
+
+
+Role mapping:
+  editor => Editor
+  everyone => Anonymous
+
+
+Status Private:
+  An editor can view this content.
+  An editor can edit this content.
+  An editor can publish this content.
+
+Status Published:
+  An editor can view this content.
+  An editor can edit this content.
+  An editor can retract this content.
+  Everyone can view this content.
+
+Transitions:
+  publish (Private => Published)
+  retract (Published => Private)

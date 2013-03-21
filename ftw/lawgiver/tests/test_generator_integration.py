@@ -1,9 +1,13 @@
 from StringIO import StringIO
+from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.tests.base import BaseTest
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from zope.component import getUtility
+from zope.component import provideUtility
+from zope.component import queryUtility
+from zope.interface.verify import verifyObject
 import os
 
 
@@ -21,6 +25,15 @@ class TestGeneratorIntegration(BaseTest):
     def setUp(self):
         super(TestGeneratorIntegration, self).setUp()
 
+        import plone.i18n.normalizer
+        provideUtility(plone.i18n.normalizer.idnormalizer,
+                       plone.i18n.normalizer.IIDNormalizer)
+
+        # use an empty permission mapping registry
+        registry = getUtility(IActionGroupRegistry)
+        self._ori_permissions = registry._permissions
+        registry._permissions = {}
+
         self.register_permissions(**{
                 'cmf.ModifyPortalContent': 'Modify portal content',
                 'zope2.View': 'View',
@@ -37,6 +50,21 @@ class TestGeneratorIntegration(BaseTest):
         self.map_permissions(['Delete objects'], 'delete')
         self.map_permissions(['Add portal content'], 'add')
         self.map_permissions(['Access future portal content'], 'view future')
+
+    def tearDown(self):
+        registry = getUtility(IActionGroupRegistry)
+        registry._permissions = self._ori_permissions
+        super(TestGeneratorIntegration, self).tearDown()
+
+    def test_component_registered(self):
+        self.assertTrue(queryUtility(IWorkflowGenerator),
+                        'The IWorkflowGenerator utility is not registered.')
+
+    def test_component_implements_interface(self):
+        component = getUtility(IWorkflowGenerator)
+        self.assertTrue(IWorkflowGenerator.providedBy(component))
+
+        verifyObject(IWorkflowGenerator, component)
 
     def test_generate_xml(self):
         parser = getUtility(IWorkflowSpecificationParser)

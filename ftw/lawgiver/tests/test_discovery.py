@@ -25,7 +25,7 @@ class SpecDiscoveryGSProfileLayer(PloneSandboxLayer):
 
     def setUpZope(self, app, configurationContext):
         import ftw.lawgiver.tests
-        xmlconfig.file('spec-discovery.zcml',
+        xmlconfig.file('profiles/spec-discovery.zcml',
                        ftw.lawgiver.tests,
                        context=configurationContext)
 
@@ -70,3 +70,32 @@ class TestWorkflowSpecificationDiscovery(TestCase):
             set([prefix + 'spec-based-workflow/specification.txt',
                  prefix + 'another-spec-based-workflow/specification.txt']),
             set(result))
+
+    def test_hash_unhash(self):
+        # Do not test with an literal hash becuase it is based on the path
+        # where the project is checked out - and therefore it may change.
+        # That's why we test hash / unhash in combination.
+        component = getMultiAdapter((self.portal, self.portal.REQUEST),
+                                    IWorkflowSpecificationDiscovery)
+
+        path = component.discover()[0]
+        hash_ = component.hash(path)
+        self.assertNotEquals(path, hash_, 'The hash should not be the path.')
+
+        self.assertEquals(
+            path, component.unhash(hash_),
+            'Hashing and unhashing a path does not result in the same path.')
+
+    def test_unhash_does_not_unhash_unkown_paths(self):
+        # Unhashing unknown hashes would by a security issues, since an
+        # intruder may make the parser parse files which were not meant to
+        # be parsed.
+
+        component = getMultiAdapter((self.portal, self.portal.REQUEST),
+                                    IWorkflowSpecificationDiscovery)
+
+        hash_ = component.hash('/tmp')
+        self.assertEquals(
+            None, component.unhash(hash_),
+            'The unhashing method should not accept hashed paths which'
+            ' are not registered as specification file.')

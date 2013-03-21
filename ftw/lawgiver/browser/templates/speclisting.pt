@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/prefs_main_template/macros/master"
+      i18n:domain="ftw.lawgiver">
+
+    <div metal:fill-slot="prefs_configlet_main">
+
+        <h1 class="documentFirstHeading"
+            i18n:translate="title_manage_upgrades">
+            Workflow Specifications
+        </h1>
+
+        <a href=""
+           class="link-parent"
+           tal:attributes="href string:$portal_url/@@overview-controlpanel"
+           i18n:translate="label_up_to_plone_setup"
+           i18n:domain="plone">
+            Up to Site Setup
+        </a>
+
+        <p i18n:translate="description_manage_upgrades"
+           class="discreet">
+            This view lists all workflow specifications.
+            Workflow specifications are identified by the "specification.txt"
+            in the corresponding workflow directory of any generic setup
+            profile.
+        </p>
+
+        <dl class="specifications">
+            <tal:SPEC tal:repeat="spec view/specifications">
+                <dt>
+                    <a tal:content="spec/link_text"
+                       tal:attributes="href spec/href"/>
+                </dt>
+                <dd tal:content="spec/description" />
+            </tal:SPEC>
+        </dl>
+
+    </div>
+</html>

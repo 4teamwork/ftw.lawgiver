@@ -111,3 +111,16 @@ class IWorkflowSpecificationDiscovery(Interface):
     def discover():
         """Returns a list absolute paths to specification text files.
         """
+
+    def hash(path):
+        """Returns a static hash for a `path`, which can be used as ID for
+        the specification.
+        The path should not be used as ID in browser communication becuase
+        it is unsafe - the hash should be used in this case.
+        """
+
+    def unhash(hash_):
+        """Returns the path to a specification for a hash.
+        Only registered paths (which are returned by `discover`) are returned.
+        If there is no match `None` is returned.
+        """
