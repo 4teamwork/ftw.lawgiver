@@ -295,6 +295,16 @@ On this view you can generate the workflow (automatically saved in the
 ``definition.xml`` in the same directory as the ``specification.txt``) and you
 can install the workflow / update the security.
 
+.. image:: https://raw.github.com/4teamwork/ftw.lawgiver/master/docs/screenshot-workflow-details.png
+
+
+Example
+-------
+
+In our tests we have an up to date
+`example specification.txt <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt>`_, from which the
+`definition.xml <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/definition.xml>`_
+is generated.
 
 
 Links
