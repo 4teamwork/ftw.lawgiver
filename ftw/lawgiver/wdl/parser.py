@@ -158,7 +158,8 @@ class SpecificationParser(object):
                 raise ParsingError('Invalid format in role mapping: "%s"' % (
                         line))
 
-            mapping.update(dict([match.groups()]))
+            customer_role, plone_role = match.groups()
+            mapping[customer_role.lower()] = plone_role
 
     @consumer(r'^[Gg]eneral$')
     def _convert_general_statements(self, match, value, specargs):

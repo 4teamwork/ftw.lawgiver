@@ -14,8 +14,9 @@ Transitions:
 # It is possible to add comments with a hash character.
 
 Role mapping:
-  editor-in-chief => Reviewer
   editor => Editor
+# Editor in chief is in capital letters to show that it is not case sensitive here.
+  Editor-In-Chief => Reviewer
   everyone => Anonymous
   administrator => Site Administrator
 
