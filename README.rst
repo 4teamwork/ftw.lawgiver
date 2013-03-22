@@ -8,11 +8,10 @@ ftw.lawgiver generates Plone workflows based on a human readable specification w
 
 .. parsed-literal::
 
-    ALPHA SOFTWARE: ftw.lawgiver has no stable release yet.
-    Please inspect the generated workflows carefully before using them in
-    a production environment.
-    Help us improve the software by creating tickets in our issue tracker
-    if you encounter any problems.
+    ALPHA SOFTWARE:
+    ftw.lawgiver has no stable release yet.
+    Please inspect the generated workflows carefully before using them in a production environment.
+    Help us improve the software by creating tickets in our issue tracker if you encounter any problems.
 
 ----
 
