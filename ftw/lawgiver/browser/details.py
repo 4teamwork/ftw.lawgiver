@@ -112,7 +112,7 @@ class SpecDetails(BrowserView):
                     _(u'error_parsing_error',
                       default=u'The specification file could not be'
                       u' parsed: ${error}',
-                      mapping={'error': str(exc)}),
+                      mapping={'error': str(exc).decode('utf-8')}),
                     type='error')
                 return None
 
