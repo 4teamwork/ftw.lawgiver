@@ -21,7 +21,7 @@
 
 
     <lawgiver:map_permissions
-        action_group="view inactive content"
+        action_group="view inactive objects"
         permissions="
                      Access inactive portal content,
                      "
