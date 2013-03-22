@@ -277,14 +277,6 @@ In this example it is assumed that ``profiles/default`` is a registered generic 
 profile directory.
 
 
-Internationalization
-~~~~~~~~~~~~~~~~~~~~
-
-The package supports internationalization and is translated to English and
-German.
-If you need to use another language we look forward to your pull request.
-
-
 Generating the workflow
 -----------------------
 
