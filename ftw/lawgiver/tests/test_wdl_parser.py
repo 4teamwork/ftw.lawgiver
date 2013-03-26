@@ -278,6 +278,11 @@ class TestConvertStatement(MockTestCase):
             ('administrator', 'view'),
             'An administrator can always view this content.')
 
+    def test_any_statements(self):
+        self.assert_statement(
+            ('administrator', 'delete'),
+            'An administrator can delete any content.')
+
     def test_add_new_content_statements(self):
         self.assert_statement(
             ('editor', 'add'),

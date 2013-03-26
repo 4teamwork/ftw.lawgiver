@@ -39,6 +39,7 @@ def convert_statement(statement):
         r'| this conte[nx]t\.?'
         r'| the conte[nx]t\.?'
         r'| that conte[nx]t\.?'
+        r'| any conte[nx]t\.?'
         r'| new content\.?'
         r'| content\.?'
         r')$',

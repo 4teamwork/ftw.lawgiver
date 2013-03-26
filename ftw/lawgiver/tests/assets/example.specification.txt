@@ -24,7 +24,7 @@ Role mapping:
 General:
   An administrator can always view the content
   An administrator can always edit the content
-  An administrator can always delete the content
+  An administrator can always delete any content
   An administrator can always publish the content.
 
 
