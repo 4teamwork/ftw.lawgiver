@@ -9,7 +9,7 @@ tests_require = [
 
     'Products.CMFCore',
     'Zope2',
-    'ftw.testing',
+    'ftw.testing [splinter]',
     'plone.app.testing',
     'plone.browserlayer',
     'transaction',
