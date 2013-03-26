@@ -8,7 +8,7 @@
 
     <include package=".wdl" />
     <include package=".browser" />
-    <include file="actiongroups.zcml" />
+    <include file="lawgiver.zcml" />
 
     <utility factory=".generator.WorkflowGenerator" />
     <utility factory=".collector.DefaultPermissionCollector" name="" />
