@@ -14,7 +14,6 @@
                      Access contents information,
                      CMFEditions: Access previous versions,
                      List folder contents,
-                     Portlets: View dashboard,
                      View,
                      "
         />
@@ -44,7 +43,6 @@
                      PloneFormGen: Edit Mail Addresses,
                      PloneFormGen: Edit Python Fields,
                      PloneFormGen: Edit TALES Fields,
-                     Portlets: Manage own portlets,
                      Portlets: Manage portlets,
                      "
         />
@@ -231,6 +229,8 @@
                      Plone Site Setup: TinyMCE,
                      Plone Site Setup: Types,
                      Plone Site Setup: Users and Groups,
+                     Portlets: Manage own portlets,
+                     Portlets: View dashboard,
                      Query Vocabulary,
                      Reply to item,
                      Review comments,
