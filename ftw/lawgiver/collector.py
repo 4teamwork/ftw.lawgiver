@@ -1,27 +1,43 @@
 from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.interfaces import IPermissionCollector
-from zope.component import getUtilitiesFor
+from operator import itemgetter
 from zope.component import getUtility
+from zope.component.hooks import getSite
 from zope.interface import implements
-from zope.security.interfaces import IPermission
 
 
 class DefaultPermissionCollector(object):
     implements(IPermissionCollector)
 
     def collect(self, workflow_name):
-        registry = getUtility(IActionGroupRegistry)
-        action_groups = registry.get_action_groups_for_workflow(workflow_name)
-        if not action_groups:
+        grouped = self.get_grouped_permissions(workflow_name)
+        if not grouped:
             return []
+        return sorted(reduce(list.__add__, grouped.values()))
 
-        return filter(self.is_permission_registered,
-                      reduce(list.__add__,
-                             map(list, action_groups.values())))
+    def get_grouped_permissions(self, workflow_name, unmanaged=False):
+        registry = getUtility(IActionGroupRegistry)
+        result = {}
 
-    def is_permission_registered(self, permission_title):
-        # XXX This should be cached.
-        for _id, component in getUtilitiesFor(IPermission):
-            if component.title == permission_title:
-                return True
-        return False
+        for perm in self._get_permissions():
+            action_group = registry.get_action_group_for_permission(
+                perm, workflow_name=workflow_name)
+            if action_group is None and not unmanaged:
+                continue
+
+            elif action_group is None:
+                action_group = 'unmanaged'
+
+            if action_group not in result:
+                result[action_group] = set()
+
+            result[action_group].add(perm)
+
+        for key, value in result.items():
+            result[key] = sorted(value)
+
+        return result
+
+    def _get_permissions(self):
+        site = getSite()
+        return map(itemgetter(0), site.ac_inherited_permissions(1))

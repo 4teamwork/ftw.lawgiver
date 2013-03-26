@@ -16,6 +16,7 @@ tests_require = [
     'unittest2',
     'z3c.autoinclude',
     'zope.configuration',
+    'zope.security',
 
     ]
 
@@ -60,7 +61,6 @@ setup(name='ftw.lawgiver',
         'zope.interface',
         'zope.publisher',
         'zope.schema',
-        'zope.security',
 
         ],
 

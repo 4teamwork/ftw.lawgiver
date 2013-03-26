@@ -1,6 +1,9 @@
 from StringIO import StringIO
 from ftw.testing import MockTestCase
 from lxml import etree
+from zope.component import getSiteManager
+from zope.component.hooks import getSite
+from zope.component.hooks import setSite
 
 
 CONFIGURE = '''
@@ -37,7 +40,32 @@ def definition_xml_node_sorter(nodea, nodeb):
     return 0
 
 
+class FakeSite(object):
+
+    def __init__(self):
+        self._permissions = []
+
+    def register_permission(self, name):
+        self._permissions.append((name, ))
+
+    def ac_inherited_permissions(self, all=0):
+        if all:
+            return self._permissions
+        else:
+            # When all=0 on a real site the result is reduced.
+            # We do not want that in any situation, therefore we let the
+            # tests fail when all=0 for detecting this.
+            return []
+
+    getSiteManager = getSiteManager
+
+
 class BaseTest(MockTestCase):
+
+    def setUp(self):
+        super(BaseTest, self).setUp()
+        site = FakeSite()
+        setSite(site)
 
     def map_permissions(self, permissions, action_group, workflow_name=None):
         self.load_map_permissions_zcml(
@@ -52,12 +80,17 @@ class BaseTest(MockTestCase):
         self.layer.load_zcml_string(zcml)
 
     def register_permissions(self, **kwargs):
-        self.layer.load_zcml_string(
-            '<configure xmlns="http://namespaces.zope.org/zope"'
-            '           i18n_domain="foo">%s'
-            '</configure>' % '\n'.join(
-                map(lambda item: '<permission id="%s" title="%s"/>' % item,
-                    kwargs.items())))
+        site = getSite()
+        if site is None:
+            site = FakeSite()
+            setSite(site)
+        else:
+            assert isinstance(site, FakeSite), \
+                'There is already a site (getSite) which is not FakeSite -' +\
+                ' using register_permissions does not work..'
+
+        for id_, name in kwargs.items():
+            site.register_permission(name)
 
     def _canonicalize_xml(self, text, node_sorter=None):
         parser = etree.XMLParser(remove_blank_text=True)

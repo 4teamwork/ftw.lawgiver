@@ -29,16 +29,11 @@ class TestDefaultPermissionCollector(BaseTest):
 
     layer = META_ZCML
 
-    def setUp(self):
-        super(TestDefaultPermissionCollector, self).setUp()
-        import zope.security
-        self.layer.load_zcml_file('meta.zcml', zope.security)
-
     @property
     def collector(self):
         return DefaultPermissionCollector()
 
-    def test_collect_permissions_DEFAULT(self):
+    def test_get_grouped_permissions_DEFAULT(self):
         self.register_permissions(**{
                 'cmf.AddPortalContent': 'Add portal content',
                 'zope2.View': 'View'})
@@ -46,16 +41,17 @@ class TestDefaultPermissionCollector(BaseTest):
         self.map_permissions(['View'], 'view')
         self.map_permissions(['Add portal content'], 'edit')
 
-        self.assertEquals(set(['Add portal content', 'View']),
-                          set(self.collector.collect('foo')))
+        self.assertEquals({'edit': ['Add portal content'],
+                           'view': ['View']},
+                          self.collector.get_grouped_permissions('foo'))
 
-    def test_collect_permissions_NON_DEFAULT(self):
+    def test_get_grouped_permissions_NON_DEFAULT(self):
         self.register_permissions(**{'zope2.View': 'View'})
         self.map_permissions(['View'], 'view', workflow_name='foo')
 
-        self.assertEquals([], self.collector.collect('bar'))
+        self.assertEquals({}, self.collector.get_grouped_permissions('bar'))
 
-    def test_collect_permissions_MIXED(self):
+    def test_get_grouped_permissions_MIXED(self):
         self.register_permissions(**{
                 'cmf.AddPortalContent': 'Add portal content',
                 'zope2.View': 'View'})
@@ -63,10 +59,69 @@ class TestDefaultPermissionCollector(BaseTest):
         self.map_permissions(['View'], 'view', workflow_name='foo')
         self.map_permissions(['Add portal content'], 'edit')
 
-        self.assertEquals(['Add portal content'],
-                          self.collector.collect('bar'))
+        self.assertEquals(
+            {'edit': ['Add portal content']},
+            self.collector.get_grouped_permissions('bar'))
 
-    def test_collect_permissions_UNREGISTERED(self):
+    def test_get_grouped_permissions_UNREGISTERED(self):
+        self.register_permissions(**{'zope2.View': 'View'})
+
+        self.map_permissions(['View'], 'view')
+        self.map_permissions(['Add portal content'], 'edit')
+
+        self.assertEquals({'view': ['View']},
+                          self.collector.get_grouped_permissions('bar'))
+
+    def test_get_grouped_permissions_UNMANAGED(self):
+        self.register_permissions(**{
+                'cmf.AddPortalContent': 'Add portal content',
+                'zope2.View': 'View',
+                'cmf.ManageProperties': 'Manage properties'})
+
+        self.map_permissions(['View'], 'view', workflow_name='foo')
+        self.map_permissions(['Add portal content'], 'edit')
+
+        self.assertEquals(
+            {'edit': ['Add portal content'],
+             'unmanaged': ['Manage properties', 'View']},
+            self.collector.get_grouped_permissions('bar', unmanaged=True))
+
+        self.assertEquals(
+            {'edit': ['Add portal content'],
+             'view': ['View'],
+             'unmanaged': ['Manage properties']},
+            self.collector.get_grouped_permissions('foo', unmanaged=True))
+
+    def test_collect_DEFAULT(self):
+        self.register_permissions(**{
+                'cmf.AddPortalContent': 'Add portal content',
+                'zope2.View': 'View'})
+
+        self.map_permissions(['View'], 'view')
+        self.map_permissions(['Add portal content'], 'edit')
+
+        self.assertEquals(['Add portal content', 'View'],
+                          self.collector.collect('foo'))
+
+    def test_collect_NON_DEFAULT(self):
+        self.register_permissions(**{'zope2.View': 'View'})
+        self.map_permissions(['View'], 'view', workflow_name='foo')
+
+        self.assertEquals([], self.collector.collect('bar'))
+
+    def test_collect_MIXED(self):
+        self.register_permissions(**{
+                'cmf.AddPortalContent': 'Add portal content',
+                'zope2.View': 'View'})
+
+        self.map_permissions(['View'], 'view', workflow_name='foo')
+        self.map_permissions(['Add portal content'], 'edit')
+
+        self.assertEquals(
+            ['Add portal content'],
+            self.collector.collect('bar'))
+
+    def test_collect_UNREGISTERED(self):
         self.register_permissions(**{'zope2.View': 'View'})
 
         self.map_permissions(['View'], 'view')
@@ -74,14 +129,3 @@ class TestDefaultPermissionCollector(BaseTest):
 
         self.assertEquals(['View'],
                           self.collector.collect('bar'))
-
-    def test_is_permission_registered__YES(self):
-        self.register_permissions(**{
-                'cmf.ListFolderContents': 'List folder contents'})
-
-        self.assertTrue(self.collector.is_permission_registered(
-                'List folder contents'))
-
-    def test_is_permission_registered__NO(self):
-        self.assertFalse(self.collector.is_permission_registered(
-                'List folder contents'))

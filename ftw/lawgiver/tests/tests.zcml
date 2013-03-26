@@ -3,7 +3,6 @@
     i18n_domain="ftw.lawgiver">
 
     <include package="Products.GenericSetup" file="meta.zcml" />
-    <include package="zope.security" file="meta.zcml" />
     <include package="Products.Five" file="meta.zcml" />
 
     <include package="Products.CMFCore" file="permissions.zcml" />

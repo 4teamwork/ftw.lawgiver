@@ -2,17 +2,15 @@ from Products.CMFCore.utils import getToolByName
 from Products.GenericSetup.utils import importObjects
 from Products.statusmessages.interfaces import IStatusMessage
 from ftw.lawgiver import _
-from ftw.lawgiver.interfaces import IActionGroupRegistry
+from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from zope.component import getMultiAdapter
-from zope.component import getUtilitiesFor
 from zope.component import getUtility
 from zope.interface import implementer
 from zope.publisher.browser import BrowserView
 from zope.publisher.interfaces import IPublishTraverse
-from zope.security.interfaces import IPermission
 import os.path
 
 
@@ -152,31 +150,12 @@ class SpecDetails(BrowserView):
                             'definition.xml')
 
     def get_permissions(self):
-        managed = {}
-        unmanaged = []
         workflow_name = self.workflow_name()
-
-        registry = getUtility(IActionGroupRegistry)
-        for _name, permission in getUtilitiesFor(IPermission):
-            if ',' in permission.title:
-                # permissions with commas in the title are not supported
-                # because it conflicts with the comma separated ZCML.
-                # e.g. "Public, everyone can access"
-                continue
-
-            group = registry.get_action_group_for_permission(
-                permission.title, workflow_name=workflow_name)
-
-            if not group:
-                unmanaged.append(permission.title)
-
-            else:
-                if group not in managed:
-                    managed[group] = []
-                managed[group].append(permission.title)
-
-        map(list.sort, managed.values())
-        unmanaged.sort()
+        collector = getUtility(IPermissionCollector)
+        managed = collector.get_grouped_permissions(
+            workflow_name, unmanaged=True)
+        unmanaged = managed['unmanaged']
+        del managed['unmanaged']
 
         return {'managed': managed,
                 'unmanaged': unmanaged}

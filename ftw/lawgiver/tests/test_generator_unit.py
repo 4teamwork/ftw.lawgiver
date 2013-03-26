@@ -38,9 +38,6 @@ class TestGenerator(BaseTest):
         self.map_permissions(['__fake_permission__'],
                              '__force_registry_registration__')
 
-        import zope.security
-        self.layer.load_zcml_file('meta.zcml', zope.security)
-
         import plone.i18n.normalizer
         self.layer.load_zcml_file('configure.zcml', plone.i18n.normalizer)
 

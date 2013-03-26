@@ -68,13 +68,13 @@ class IPermissionCollector(Interface):
         """Return a list of permission titles to manage.
         """
 
-    def is_permission_registered(permission_title):
-        """Returns `True` when the permission with the `permission_title`
-        is registered as IPermission utility.
-
-        Registering the utility is usually done either by using the
-        default <permission> ZCML or by registering it in an initialize
-        function (Archetypes).
+    def get_grouped_permissions(workflow_name, unmanaged=False):
+        """Returns a dict with an action group / permissions mapping.
+        The keys are action groups, the values are lists of permissions
+        (strings).
+        If `unmanaged` is `True`, a action group "unmanaged" is added,
+        containing all known permissions which are not in another action
+        group.
         """
 
 
