@@ -43,6 +43,13 @@
                      PloneFormGen: Edit Mail Addresses,
                      PloneFormGen: Edit Python Fields,
                      PloneFormGen: Edit TALES Fields,
+                     "
+        />
+
+
+    <lawgiver:map_permissions
+        action_group="manage portlets"
+        permissions="
                      Portlets: Manage portlets,
                      "
         />
@@ -67,7 +74,6 @@
                      Add portal topics,
                      PloneFormGen: Add Content,
                      plone.app.collection: Add Collection,
-                     plone.portlet.collection: Add collection portlet,
 
                      "
         />
@@ -250,6 +256,7 @@
                      WebDAV Unlock items,
                      WebDAV access,
                      plone.app.blob: Add Blob,
+                     plone.portlet.collection: Add collection portlet,
                      plone.portlet.static: Add static portlet,
 
                      "
