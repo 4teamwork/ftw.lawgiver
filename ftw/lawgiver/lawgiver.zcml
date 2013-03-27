@@ -275,5 +275,24 @@
                      "
         />
 
+    <!-- When loading zope.security ZCML we have duplicate permissions for
+         view, public, etc. where the zope.security permissions are registered in
+         manage_access with the message id rather the translation default, which we
+         do not want to add to the workflow. Therefore we mark them as unmanaged -->
+
+    <lawgiver:map_permissions
+        action_group="__unmanaged__"
+        workflow="__unmanaged__"
+        permissions="
+                     change-security-settings-permission,
+                     manage-content-permission,
+                     manage-services-permission,
+                     manage-site-permission,
+                     public-permission,
+                     view-permission,
+                     "
+        />
+
+
 
 </configure>
