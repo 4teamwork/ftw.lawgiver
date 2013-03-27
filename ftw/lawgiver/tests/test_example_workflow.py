@@ -1,5 +1,5 @@
-from ftw.lawgiver import WorkflowTest
 from ftw.lawgiver.testing import LAWGIVER_INTEGRATION_TESTING
+from ftw.lawgiver.tests.base import WorkflowTest
 
 
 class TestExampleWorkflow(WorkflowTest):

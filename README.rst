@@ -303,7 +303,7 @@ workflow:
 
 .. code:: python
 
-    from ftw.lawgiver import WorkflowTest
+    from ftw.lawgiver.tests.base import WorkflowTest
     from my.package.testing import MY_INTEGRATION_TESTING
 
 
