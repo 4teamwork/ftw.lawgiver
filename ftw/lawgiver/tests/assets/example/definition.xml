@@ -1,0 +1,558 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dc-workflow workflow_id="example" title="My Custom Workflow" description="A three state publication workflow" initial_state="example--STATUS--private" state_variable="review_state" manager_bypass="False">
+  <permission>ATContentTypes Topic: Add ATBooleanCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATCurrentAuthorCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATDateCriteria</permission>
+  <permission>ATContentTypes Topic: Add ATDateRangeCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATListCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATPathCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATPortalTypeCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATReferenceCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATRelativePathCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATSelectionCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATSimpleIntCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATSimpleStringCriterion</permission>
+  <permission>ATContentTypes Topic: Add ATSortCriterion</permission>
+  <permission>ATContentTypes: Add Document</permission>
+  <permission>ATContentTypes: Add Event</permission>
+  <permission>ATContentTypes: Add File</permission>
+  <permission>ATContentTypes: Add Folder</permission>
+  <permission>ATContentTypes: Add Image</permission>
+  <permission>ATContentTypes: Add Large Plone Folder</permission>
+  <permission>ATContentTypes: Add Link</permission>
+  <permission>ATContentTypes: Add News Item</permission>
+  <permission>Access contents information</permission>
+  <permission>Access future portal content</permission>
+  <permission>Access inactive portal content</permission>
+  <permission>Add Folders</permission>
+  <permission>Add portal content</permission>
+  <permission>Add portal events</permission>
+  <permission>Add portal folders</permission>
+  <permission>Add portal topics</permission>
+  <permission>CMFEditions: Access previous versions</permission>
+  <permission>CMFEditions: Apply version control</permission>
+  <permission>CMFEditions: Checkout to location</permission>
+  <permission>CMFEditions: Manage versioning policies</permission>
+  <permission>CMFEditions: Revert to previous versions</permission>
+  <permission>CMFEditions: Save new version</permission>
+  <permission>Change local roles</permission>
+  <permission>Content rules: Manage rules</permission>
+  <permission>Copy or Move</permission>
+  <permission>Delete objects</permission>
+  <permission>List folder contents</permission>
+  <permission>List undoable changes</permission>
+  <permission>Manage properties</permission>
+  <permission>Modify constrain types</permission>
+  <permission>Modify portal content</permission>
+  <permission>Modify view template</permission>
+  <permission>Portlets: Manage portlets</permission>
+  <permission>Sharing page: Delegate Contributor role</permission>
+  <permission>Sharing page: Delegate Editor role</permission>
+  <permission>Sharing page: Delegate Reader role</permission>
+  <permission>Sharing page: Delegate Reviewer role</permission>
+  <permission>Sharing page: Delegate roles</permission>
+  <permission>Take ownership</permission>
+  <permission>Undo changes</permission>
+  <permission>View</permission>
+  <permission>plone.app.collection: Add Collection</permission>
+  <state state_id="example--STATUS--pending" title="Pending">
+    <exit-transition transition_id="example--TRANSITION--reject--pending_private"/>
+    <exit-transition transition_id="example--TRANSITION--retract--pending_private"/>
+    <exit-transition transition_id="example--TRANSITION--publish--pending_published"/>
+    <permission-map name="ATContentTypes Topic: Add ATBooleanCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATCurrentAuthorCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATDateCriteria" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATDateRangeCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATListCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATPathCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATPortalTypeCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATReferenceCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATRelativePathCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSelectionCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSimpleIntCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSimpleStringCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSortCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes: Add Document" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Event" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add File" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Image" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Large Plone Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Link" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add News Item" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Access contents information" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Access future portal content" acquired="False"/>
+    <permission-map name="Access inactive portal content" acquired="False"/>
+    <permission-map name="Add Folders" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal events" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal folders" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal topics" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Access previous versions" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Apply version control" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Checkout to location" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Manage versioning policies" acquired="False"/>
+    <permission-map name="CMFEditions: Revert to previous versions" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Save new version" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Change local roles" acquired="False"/>
+    <permission-map name="Content rules: Manage rules" acquired="False"/>
+    <permission-map name="Copy or Move" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Delete objects" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="List undoable changes" acquired="False"/>
+    <permission-map name="Manage properties" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Modify constrain types" acquired="False"/>
+    <permission-map name="Modify portal content" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Modify view template" acquired="False"/>
+    <permission-map name="Portlets: Manage portlets" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Contributor role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Editor role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Reader role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Reviewer role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate roles" acquired="False"/>
+    <permission-map name="Take ownership" acquired="False"/>
+    <permission-map name="Undo changes" acquired="False"/>
+    <permission-map name="View" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.collection: Add Collection" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+  </state>
+  <state state_id="example--STATUS--private" title="Private">
+    <exit-transition transition_id="example--TRANSITION--publish--private_published"/>
+    <exit-transition transition_id="example--TRANSITION--submit-for-publication--private_pending"/>
+    <permission-map name="ATContentTypes Topic: Add ATBooleanCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATCurrentAuthorCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATDateCriteria" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATDateRangeCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATListCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATPathCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATPortalTypeCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATReferenceCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATRelativePathCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSelectionCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSimpleIntCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSimpleStringCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSortCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes: Add Document" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Event" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add File" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Image" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Large Plone Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Link" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add News Item" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Access contents information" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Access future portal content" acquired="False"/>
+    <permission-map name="Access inactive portal content" acquired="False"/>
+    <permission-map name="Add Folders" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal events" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal folders" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal topics" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Access previous versions" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Apply version control" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Checkout to location" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Manage versioning policies" acquired="False"/>
+    <permission-map name="CMFEditions: Revert to previous versions" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Save new version" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Change local roles" acquired="False"/>
+    <permission-map name="Content rules: Manage rules" acquired="False"/>
+    <permission-map name="Copy or Move" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Delete objects" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="List undoable changes" acquired="False"/>
+    <permission-map name="Manage properties" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Modify constrain types" acquired="False"/>
+    <permission-map name="Modify portal content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Modify view template" acquired="False"/>
+    <permission-map name="Portlets: Manage portlets" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Contributor role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Editor role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Reader role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Reviewer role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate roles" acquired="False"/>
+    <permission-map name="Take ownership" acquired="False"/>
+    <permission-map name="Undo changes" acquired="False"/>
+    <permission-map name="View" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.collection: Add Collection" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+  </state>
+  <state state_id="example--STATUS--published" title="Published">
+    <exit-transition transition_id="example--TRANSITION--retract--published_private"/>
+    <permission-map name="ATContentTypes Topic: Add ATBooleanCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATCurrentAuthorCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATDateCriteria" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATDateRangeCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATListCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATPathCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATPortalTypeCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATReferenceCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATRelativePathCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSelectionCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSimpleIntCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSimpleStringCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes Topic: Add ATSortCriterion" acquired="False"/>
+    <permission-map name="ATContentTypes: Add Document" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Event" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add File" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Image" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Large Plone Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add Link" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="ATContentTypes: Add News Item" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Access contents information" acquired="False">
+      <permission-role>Anonymous</permission-role>
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Access future portal content" acquired="False"/>
+    <permission-map name="Access inactive portal content" acquired="False"/>
+    <permission-map name="Add Folders" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal events" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal folders" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Add portal topics" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Access previous versions" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Apply version control" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Checkout to location" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Manage versioning policies" acquired="False"/>
+    <permission-map name="CMFEditions: Revert to previous versions" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="CMFEditions: Save new version" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Change local roles" acquired="False"/>
+    <permission-map name="Content rules: Manage rules" acquired="False"/>
+    <permission-map name="Copy or Move" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Delete objects" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="List folder contents" acquired="False">
+      <permission-role>Anonymous</permission-role>
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="List undoable changes" acquired="False"/>
+    <permission-map name="Manage properties" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Modify constrain types" acquired="False"/>
+    <permission-map name="Modify portal content" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Modify view template" acquired="False"/>
+    <permission-map name="Portlets: Manage portlets" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Contributor role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Editor role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Reader role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Reviewer role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate roles" acquired="False"/>
+    <permission-map name="Take ownership" acquired="False"/>
+    <permission-map name="Undo changes" acquired="False"/>
+    <permission-map name="View" acquired="False">
+      <permission-role>Anonymous</permission-role>
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.collection: Add Collection" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+  </state>
+  <transition new_state="example--STATUS--published" title="publish" transition_id="example--TRANSITION--publish--private_published" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example--TRANSITION--publish--private_published">publish</action>
+    <guard>
+      <guard-role>Site Administrator</guard-role>
+      <guard-role>Reviewer</guard-role>
+    </guard>
+  </transition>
+  <transition new_state="example--STATUS--published" title="publish" transition_id="example--TRANSITION--publish--pending_published" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example--TRANSITION--publish--pending_published">publish</action>
+    <guard>
+      <guard-role>Site Administrator</guard-role>
+      <guard-role>Reviewer</guard-role>
+    </guard>
+  </transition>
+  <transition new_state="example--STATUS--private" title="reject" transition_id="example--TRANSITION--reject--pending_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example--TRANSITION--reject--pending_private">reject</action>
+    <guard>
+      <guard-role>Reviewer</guard-role>
+    </guard>
+  </transition>
+  <transition new_state="example--STATUS--private" title="retract" transition_id="example--TRANSITION--retract--pending_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example--TRANSITION--retract--pending_private">retract</action>
+    <guard>
+      <guard-role>Editor</guard-role>
+    </guard>
+  </transition>
+  <transition new_state="example--STATUS--private" title="retract" transition_id="example--TRANSITION--retract--published_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example--TRANSITION--retract--published_private">retract</action>
+    <guard>
+      <guard-role>Reviewer</guard-role>
+      <guard-role>Editor</guard-role>
+    </guard>
+  </transition>
+  <transition new_state="example--STATUS--pending" title="submit for publication" transition_id="example--TRANSITION--submit-for-publication--private_pending" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example--TRANSITION--submit-for-publication--private_pending">submit for publication</action>
+    <guard>
+      <guard-role>Editor</guard-role>
+    </guard>
+  </transition>
+  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
+    <description>Previous transition</description>
+    <default>
+      <expression>transition/getId|nothing</expression>
+    </default>
+    <guard/>
+  </variable>
+  <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
+    <description>The ID of the user who performed the previous transition</description>
+    <default>
+      <expression>user/getId</expression>
+    </default>
+    <guard/>
+  </variable>
+  <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
+    <description>Comment about the last transition</description>
+    <default>
+      <expression>python:state_change.kwargs.get('comment', '')</expression>
+    </default>
+    <guard/>
+  </variable>
+  <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
+    <description>Provides access to workflow history</description>
+    <default>
+      <expression>state_change/getHistory</expression>
+    </default>
+    <guard>
+      <guard-permission>Request review</guard-permission>
+      <guard-permission>Review portal content</guard-permission>
+    </guard>
+  </variable>
+  <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
+    <description>When the previous transition was performed</description>
+    <default>
+      <expression>state_change/getDateTime</expression>
+    </default>
+    <guard/>
+  </variable>
+</dc-workflow>

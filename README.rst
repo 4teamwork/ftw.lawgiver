@@ -291,6 +291,61 @@ can install the workflow / update the security.
 .. image:: https://raw.github.com/4teamwork/ftw.lawgiver/master/docs/screenshot-workflow-details.png
 
 
+Testing the workflow
+--------------------
+
+It is important to detect when you have to rebuild your workflow.
+It is also important to dected permissions from third party addons which
+are not yet mapped to action groups.
+
+By subclassing the `WorkflowTest` it is easy to write a test for your
+workflow:
+
+.. code:: python
+
+    from ftw.lawgiver import WorkflowTest
+    from my.package.testing import MY_INTEGRATION_TESTING
+
+
+    class TestMyWorkflow(WorkflowTest):
+
+        # The workflow path may be a path relative to the this file or
+        # an absolute path.
+        workflow_path = '../profiles/default/workflows/my-workflow'
+
+        # Use an integration testing layer.
+        layer = MY_INTEGRATION_TESTING
+
+What is tested?
+
+- The test will fail when your workflow (`definition.xml`) needs to be
+  regenerated. This may be because new permissions should be managed.
+
+- The test will faile when you install new addons which provide new
+  permisisons. The permissions should be mapped to action groups or marked
+  as unmanaged explicitly:
+
+.. code:: xml
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
+        i18n_domain="ftw.lawgiver">
+
+        <include package="ftw.lawgiver" file="meta.zcml" />
+
+
+        <lawgiver:map_permissions
+            action_group="__unmanaged__"
+            workflow="__unmanaged__"
+            permissions="ATContentTypes: Upload via url,
+                         ATContentTypes: View history"
+            />
+
+    </configure>
+
+
+
 Example
 -------
 

@@ -1,0 +1,8 @@
+from ftw.lawgiver import WorkflowTest
+from ftw.lawgiver.testing import LAWGIVER_INTEGRATION_TESTING
+
+
+class TestExampleWorkflow(WorkflowTest):
+
+    workflow_path = 'assets/example'
+    layer = LAWGIVER_INTEGRATION_TESTING
