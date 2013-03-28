@@ -10,7 +10,7 @@ WORKFLOW = '''<?xml version="1.0"?>
              description="%(description)s"
              state_variable="review_state"
              initial_state="%(initial_status)s"
-             manager_bypass="False">
+             manager_bypass="True">
 %%s
 %---VARIABLES---%
 </dc-workflow>

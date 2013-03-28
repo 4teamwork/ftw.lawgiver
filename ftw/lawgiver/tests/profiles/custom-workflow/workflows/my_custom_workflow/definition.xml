@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<dc-workflow workflow_id="my_custom_workflow" title="My Custom Workflow" description="A three state publication workflow" initial_state="my_custom_workflow--STATUS--private" state_variable="review_state" manager_bypass="False">
+<dc-workflow workflow_id="my_custom_workflow" title="My Custom Workflow" description="A three state publication workflow" initial_state="my_custom_workflow--STATUS--private" state_variable="review_state" manager_bypass="True">
   <permission>Access contents information</permission>
   <permission>Access future portal content</permission>
   <permission>Access inactive portal content</permission>
