@@ -134,6 +134,58 @@ class TestGenerator(BaseTest):
 
         self.assert_xml(expected, result.getvalue())
 
+    def test_workflow_with_custom_transition_url(self):
+        spec = Specification(
+            title='WF',
+            initial_status_title='Foo',
+            custom_transition_url='%%(content_url)s/custom_wf_action'
+            '?workflow_action=%(transition)s')
+        foo = spec.states['Foo'] = Status('Foo', [])
+        bar = spec.states['Bar'] = Status('Bar', [])
+
+        spec.transitions.append(Transition('b\xc3\xa4rize', foo, bar))
+        spec.transitions.append(Transition('f\xc3\xbcize', bar, foo))
+        spec.validate()
+
+        result = StringIO()
+        WorkflowGenerator()('workflow', spec, result)
+
+        expected = workflowxml.WORKFLOW % {
+            'id': 'workflow',
+            'title': 'WF',
+            'description': '',
+            'initial_status': 'workflow--STATUS--foo'} % ''.join((
+
+                workflowxml.STATUS % {
+                    'title': 'Bar',
+                    'id': 'workflow--STATUS--bar',
+                    } % (workflowxml.EXIT_TRANSITION %
+                         'workflow--TRANSITION--fuize--bar_foo'),
+
+                workflowxml.STATUS % {
+                    'title': 'Foo',
+                    'id': 'workflow--STATUS--foo',
+                    } % (workflowxml.EXIT_TRANSITION %
+                         'workflow--TRANSITION--barize--foo_bar'),
+
+                workflowxml.TRANSITION_WITH_CUSTOM_URL % {
+                    'id': 'workflow--TRANSITION--barize--foo_bar',
+                    'title': 'b\xc3\xa4rize',
+                    'target_state': 'workflow--STATUS--bar',
+                    'guards': workflowxml.GUARDS_DISABLED,
+                    'url_viewname': 'custom_wf_action'},
+
+                workflowxml.TRANSITION_WITH_CUSTOM_URL % {
+                    'id': 'workflow--TRANSITION--fuize--bar_foo',
+                    'title': 'f\xc3\xbcize',
+                    'target_state': 'workflow--STATUS--foo',
+                    'guards': workflowxml.GUARDS_DISABLED,
+                    'url_viewname': 'custom_wf_action'},
+
+                ))
+
+        self.assert_xml(expected, result.getvalue())
+
     def test_workflow_with_managed_permissions(self):
         self.register_permissions(**{
                 'cmf.ModifyPortalContent': 'Modify portal content',

@@ -38,6 +38,7 @@ PERMISSION_ROLE = '''
 '''
 
 
+
 TRANSITION = '''
 <transition transition_id="%(id)s"
             title="%(title)s"
@@ -53,6 +54,9 @@ TRANSITION = '''
 </transition>
 
 '''
+
+TRANSITION_WITH_CUSTOM_URL = TRANSITION.replace(
+    '/content_status_modify', '/%(url_viewname)s')
 
 GUARDS = '<guard>%s</guard>'
 GUARD_ROLE = '<guard-role>%s</guard-role>'

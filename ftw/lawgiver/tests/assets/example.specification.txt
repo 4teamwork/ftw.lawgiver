@@ -11,6 +11,8 @@ Transitions:
   publish (Pending => Published)
   retract (Published => Private)
 
+transition-url = %%(content_url)s/custom_wf_action?workflow_action=%(transition)s
+
 # It is possible to add comments with a hash character.
 
 Role mapping:
