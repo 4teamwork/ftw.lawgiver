@@ -61,6 +61,7 @@ setup(name='ftw.lawgiver',
         'zope.interface',
         'zope.publisher',
         'zope.schema',
+        'collective.deletepermission',
 
         ],
 
