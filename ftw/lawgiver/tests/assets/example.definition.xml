@@ -93,40 +93,40 @@
   </permission-map>
  </state>
  <transition transition_id="my_custom_workflow--TRANSITION--publish--pending_published" title="publish" new_state="my_custom_workflow--STATUS--published" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=my_custom_workflow--TRANSITION--publish--pending_published" category="workflow" icon="">publish</action>
+  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--publish--pending_published" category="workflow" icon="">publish</action>
   <guard>
    <guard-role>Reviewer</guard-role>
    <guard-role>Site Administrator</guard-role>
   </guard>
  </transition>
  <transition transition_id="my_custom_workflow--TRANSITION--publish--private_published" title="publish" new_state="my_custom_workflow--STATUS--published" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=my_custom_workflow--TRANSITION--publish--private_published" category="workflow" icon="">publish</action>
+  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--publish--private_published" category="workflow" icon="">publish</action>
   <guard>
    <guard-role>Reviewer</guard-role>
    <guard-role>Site Administrator</guard-role>
   </guard>
  </transition>
  <transition transition_id="my_custom_workflow--TRANSITION--reject--pending_private" title="reject" new_state="my_custom_workflow--STATUS--private" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=my_custom_workflow--TRANSITION--reject--pending_private" category="workflow" icon="">reject</action>
+  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--reject--pending_private" category="workflow" icon="">reject</action>
   <guard>
    <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
  <transition transition_id="my_custom_workflow--TRANSITION--retract--pending_private" title="retract" new_state="my_custom_workflow--STATUS--private" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=my_custom_workflow--TRANSITION--retract--pending_private" category="workflow" icon="">retract</action>
+  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--retract--pending_private" category="workflow" icon="">retract</action>
   <guard>
    <guard-role>Editor</guard-role>
   </guard>
  </transition>
  <transition transition_id="my_custom_workflow--TRANSITION--retract--published_private" title="retract" new_state="my_custom_workflow--STATUS--private" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=my_custom_workflow--TRANSITION--retract--published_private" category="workflow" icon="">retract</action>
+  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--retract--published_private" category="workflow" icon="">retract</action>
   <guard>
    <guard-role>Reviewer</guard-role>
    <guard-role>Editor</guard-role>
   </guard>
  </transition>
  <transition transition_id="my_custom_workflow--TRANSITION--submit-for-publication--private_pending" title="submit for publication" new_state="my_custom_workflow--STATUS--pending" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=my_custom_workflow--TRANSITION--submit-for-publication--private_pending" category="workflow" icon="">submit for publication</action>
+  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--submit-for-publication--private_pending" category="workflow" icon="">submit for publication</action>
   <guard>
    <guard-role>Editor</guard-role>
   </guard>

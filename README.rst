@@ -277,6 +277,22 @@ In this example it is assumed that ``profiles/default`` is a registered generic 
 profile directory.
 
 
+Changing Transition URLs
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sometimes the transition URLs need to point to another view.
+This can be achieved by using the `transition-url` option, where a string can be passed which
+will then be substituted with the `transition` id.
+Be sure to use a double `%%` for parts which should not be replaced when generating the workflow,
+such as the `%%(content_url)s`.
+
+Example:
+
+.. code:: rst
+
+    transition-url = %%(content_url)s/custom_wf_action?workflow_action=%(transition)s
+
+
 Generating the workflow
 -----------------------
 

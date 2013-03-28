@@ -94,8 +94,13 @@ class WorkflowGenerator(object):
         action = etree.SubElement(node, 'action')
         action.set('category', 'workflow')
         action.set('icon', '')
-        action.set('url', '%%(content_url)s/content_status_modify'
-                   '?workflow_action=%s' % self._transition_id(transition))
+
+        url_struct = self.specification.custom_transition_url or \
+            '%%(content_url)s/content_status_modify' + \
+            '?workflow_action=%(transition)s'
+
+        action.set('url', url_struct % {
+                'transition': self._transition_id(transition)})
         action.text = transition.title.decode('utf-8')
 
         return node

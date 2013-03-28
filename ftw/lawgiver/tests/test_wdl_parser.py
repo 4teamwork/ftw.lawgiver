@@ -72,6 +72,22 @@ class TestParser(MockTestCase):
 
         self.assertEquals(spec.description, 'The Description')
 
+    def test_transition_url(self):
+        spec = self.parse_lines('[foo]')
+        self.assertEquals(spec.custom_transition_url, None)
+
+        spec = self.parse_lines(
+            '[foo]',
+            'Transition-URL = foo?id=%(transition)s')
+
+        self.assertEquals(spec.custom_transition_url, 'foo?id=%(transition)s')
+
+        spec = self.parse_lines(
+            '[foo]',
+            'transition-url = foo?id=%(transition)s')
+
+        self.assertEquals(spec.custom_transition_url, 'foo?id=%(transition)s')
+
     def test_states(self):
         spec = self.parse_lines(
             '[Foo]',

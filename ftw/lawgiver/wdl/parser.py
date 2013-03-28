@@ -115,6 +115,10 @@ class SpecificationParser(object):
     def _convert_initial_status(self, match, value, specargs):
         specargs['initial_status_title'] = value
 
+    @consumer(r'^[Tt]ransition[- ](URL|url)$')
+    def _convert_transition_url(self, match, value, specargs):
+        specargs['custom_transition_url'] = value
+
     @consumer(r'^[Ss]tatus (.*)$')
     def _convert_status(self, match, value, specargs):
         title = match.groups()[0]
