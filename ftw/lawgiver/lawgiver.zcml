@@ -74,6 +74,7 @@
                      Add portal events,
                      Add portal folders,
                      Add portal topics,
+                     Delete objects,
                      PloneFormGen: Add Content,
                      plone.app.collection: Add Collection,
 
@@ -83,9 +84,7 @@
 
     <lawgiver:map_permissions
         action_group="delete"
-        permissions="
-                     Delete objects,
-                     "
+        permissions="Delete portal content"
         />
 
 

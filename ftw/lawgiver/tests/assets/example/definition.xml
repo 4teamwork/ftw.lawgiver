@@ -39,6 +39,7 @@
   <permission>Content rules: Manage rules</permission>
   <permission>Copy or Move</permission>
   <permission>Delete objects</permission>
+  <permission>Delete portal content</permission>
   <permission>List folder contents</permission>
   <permission>List undoable changes</permission>
   <permission>Manage properties</permission>
@@ -159,6 +160,10 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Delete objects" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Delete portal content" acquired="False">
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
@@ -307,6 +312,10 @@
     <permission-map name="Delete objects" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Delete portal content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="List folder contents" acquired="False">
@@ -442,6 +451,10 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Delete objects" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Delete portal content" acquired="False">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="List folder contents" acquired="False">
