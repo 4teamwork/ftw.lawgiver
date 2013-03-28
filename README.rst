@@ -361,6 +361,22 @@ What is tested?
     </configure>
 
 
+Specialities
+------------
+
+Deleting content
+~~~~~~~~~~~~~~~~
+
+The ftw.lawgiver uses `collective.deletepermission`_.
+If you generate a workflow using lawgiver and install it in production without lawgiver, be sure
+to install `collective.deletepermission`_!
+
+`collective.deletepermission`_ solves a delete problem which occurs in certain situations by
+adding a new delete permission. See its readme for further details.
+
+For beeing able to delete a content, the user should have the "delete" action
+group (`Delete portal content`) on the content but also "add" (`Delete objects`) on the parent content
+
 
 Example
 -------
@@ -369,6 +385,7 @@ In our tests we have an up to date
 `example specification.txt <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt>`_, from which the
 `definition.xml <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/definition.xml>`_
 is generated.
+
 
 
 Links
@@ -386,3 +403,5 @@ Copyright
 This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
 ``ftw.lawgiver`` is licensed under GNU General Public License, version 2.
+
+.. _collective.deletepermission: https://github.com/4teamwork/collective.deletepermission
