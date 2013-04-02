@@ -92,6 +92,7 @@
         action_group="change security"
         permissions="
                      Change local roles,
+                     Sharing page: Delegate Administrator role,
                      Sharing page: Delegate Contributor role,
                      Sharing page: Delegate Editor role,
                      Sharing page: Delegate Reader role,
@@ -139,6 +140,8 @@
         permissions="
 
                      ATContentTypes: Upload via url,
+                     Kupu: Manage libraries,
+                     Kupu: Query libraries,
                      ATContentTypes: View history,
                      Access Transient Objects,
                      Access arbitrary user session data,
@@ -172,6 +175,7 @@
                      Add Placeful Workflow Tools,
                      Add Plone Language Tools,
                      Add Plone Tools,
+                     Add PloneFormGen Tools,
                      Add PlonePAS Tools,
                      Add Pluggable Index,
                      Add Plugin Registrys,
