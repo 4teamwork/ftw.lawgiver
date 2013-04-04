@@ -2,6 +2,10 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser">
 
+    <browser:resourceDirectory
+        name="ftw.lawgiver-resources"
+        directory="resources" />
+
     <browser:page
         name="lawgiver-list-specs"
         for="Products.CMFPlone.interfaces.IPloneSiteRoot"

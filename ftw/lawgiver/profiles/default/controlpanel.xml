@@ -7,6 +7,7 @@
                category="Products"
                url_expr="string:${portal_url}/@@lawgiver-list-specs"
                condition_expr=""
+               icon_expr="string:${portal_url}/++resource++ftw.lawgiver-resources/lawgiver-icon.png"
                visible="True">
         <permission>Manage portal</permission>
     </configlet>
