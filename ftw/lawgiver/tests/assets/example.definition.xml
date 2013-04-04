@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <dc-workflow workflow_id="my_custom_workflow" title="My Custom Workflow" description="A three state publication workflow" state_variable="review_state" initial_state="my_custom_workflow--STATUS--private" manager_bypass="True">
+ <permission>ATContentTypes: Add Image</permission>
  <permission>Access contents information</permission>
  <permission>Access future portal content</permission>
  <permission>Add portal content</permission>
@@ -10,6 +11,10 @@
   <exit-transition transition_id="my_custom_workflow--TRANSITION--publish--pending_published"/>
   <exit-transition transition_id="my_custom_workflow--TRANSITION--reject--pending_private"/>
   <exit-transition transition_id="my_custom_workflow--TRANSITION--retract--pending_private"/>
+  <permission-map acquired="False" name="ATContentTypes: Add Image">
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -38,6 +43,10 @@
  <state state_id="my_custom_workflow--STATUS--private" title="Private">
   <exit-transition transition_id="my_custom_workflow--TRANSITION--publish--private_published"/>
   <exit-transition transition_id="my_custom_workflow--TRANSITION--submit-for-publication--private_pending"/>
+  <permission-map acquired="False" name="ATContentTypes: Add Image">
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -67,6 +76,10 @@
  </state>
  <state state_id="my_custom_workflow--STATUS--published" title="Published">
   <exit-transition transition_id="my_custom_workflow--TRANSITION--retract--published_private"/>
+  <permission-map acquired="False" name="ATContentTypes: Add Image">
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Anonymous</permission-role>
    <permission-role>Editor</permission-role>

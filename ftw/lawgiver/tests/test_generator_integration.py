@@ -43,12 +43,15 @@ class TestGeneratorIntegration(BaseTest):
                 'cmf.AddPortalContent': 'Add portal content',
                 'cmf.AccessFuturePortalContent': \
                     'Access future portal content',
+                'ATContentTypes: Add Image': 'ATContentTypes: Add Image',
                 })
 
         self.map_permissions(['View', 'Access contents information'], 'view')
         self.map_permissions(['Modify portal content'], 'edit')
         self.map_permissions(['Delete objects'], 'delete')
-        self.map_permissions(['Add portal content'], 'add')
+        self.map_permissions(['Add portal content',
+                              'ATContentTypes: Add Image'],
+                             'add')
         self.map_permissions(['Access future portal content'], 'view future')
 
     def tearDown(self):
