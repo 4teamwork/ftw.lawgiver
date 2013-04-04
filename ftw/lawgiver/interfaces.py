@@ -47,6 +47,13 @@ class IWorkflowGenerator(Interface):
         the ``result_stream``.
         """
 
+    def get_translations(worfklow_id, specification):
+        """Returns a mapping (dict) where the keys are message ids and the
+        values default translations.
+        Contains translations for states and transitions with the generated
+        ids.
+        """
+
 
 class IPermissionCollector(Interface):
     """The permission collector utility decides which permissions will be

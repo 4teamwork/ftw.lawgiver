@@ -45,6 +45,21 @@ class WorkflowGenerator(object):
                                      xml_declaration=True,
                                      encoding='utf-8')
 
+    def get_translations(self, workflow_id, specification):
+        self.workflow_id = workflow_id
+
+        result = {}
+
+        for status in specification.states.values():
+            result[self._status_id(status)] = status.title
+
+        for transition in specification.transitions:
+            result[self._transition_id(transition)] = transition.title
+
+        self.workflow_id = None
+        return result
+
+
     def _create_document(self):
         root = etree.Element("dc-workflow")
         root.set('workflow_id', self.workflow_id)

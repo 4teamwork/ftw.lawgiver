@@ -157,6 +157,24 @@
 
             </dl>
 
+            <dl class="collapsible collapsedOnLoad translations">
+
+                <dt class="collapsibleHeader" i18n:translate="">
+                    Translations
+                </dt>
+
+                <dd class="collapsibleContent">
+                    <i i18n:translate="">Template</i>
+                    <pre class="pot"
+                         tal:content="view/pot_data" />
+
+                    <i i18n:translate="">Default translations</i>
+                    <pre class="po"
+                         tal:content="view/po_data" />
+                </dd>
+
+            </dl>
+
         </fieldset>
 
     </div>

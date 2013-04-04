@@ -90,6 +90,12 @@ class SpecDetails(Plone):
         return map(attrgetter('text'),
                    browser().find_by_css('dl.unmanaged-permissions dd li'))
 
+    def get_translations_pot(self):
+        return browser().find_by_css('dl.translations dd pre.pot').first.text
+
+    def get_translations_po(self):
+        return browser().find_by_css('dl.translations dd pre.po').first.text
+
     def button_write(self):
         return self.get_button('Write workflow definition')
 

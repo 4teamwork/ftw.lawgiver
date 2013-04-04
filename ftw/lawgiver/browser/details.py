@@ -159,3 +159,32 @@ class SpecDetails(BrowserView):
 
         return {'managed': managed,
                 'unmanaged': unmanaged}
+
+    def pot_data(self):
+        return self._get_translations(fill_default=False)
+
+    def po_data(self):
+        return self._get_translations(fill_default=True)
+
+    def _get_translations(self, fill_default):
+        if self.specification is None:
+            return ''
+
+        generator = getUtility(IWorkflowGenerator)
+
+        translations = generator.get_translations(self.workflow_name(),
+                                                  self.specification)
+
+        lines = []
+        for msgid in sorted(translations.keys()):
+            if fill_default:
+                default = translations[msgid]
+            else:
+                default = ''
+
+            lines.extend((
+                    'msgid "%s"' % msgid.decode('utf-8'),
+                    'msgstr "%s"' % default.decode('utf-8'),
+                    ''))
+
+        return '\n'.join(lines).strip()

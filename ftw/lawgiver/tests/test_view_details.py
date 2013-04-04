@@ -114,6 +114,28 @@ class TestSpecificationDetailsView(TestCase):
             'Plone Site Setup: Calendar', unmanaged,
             'Expected permission to be unmanaged.')
 
+    def test_translations_pot(self):
+        data = SpecDetails().get_translations_pot().strip()
+
+        self.assertMultiLineEqual(
+            '\n'.join((
+                    'msgid "wf-bar--STATUS--published"',
+                    'msgstr ""',
+                    )),
+            data,
+            'The translation template content is wrong.')
+
+    def test_translations_po(self):
+        data = SpecDetails().get_translations_po().strip()
+
+        self.assertMultiLineEqual(
+            '\n'.join((
+                    'msgid "wf-bar--STATUS--published"',
+                    'msgstr "Published"',
+                    )),
+            data,
+            'The default translation content is wrong.')
+
     def test_workflow_not_installed(self):
         Plone().assert_portal_message(
             'error', 'The workflow wf-bar is not installed yet.')

@@ -346,3 +346,34 @@ class TestGenerator(BaseTest):
 
         self.assertEquals('Action "bar" is neither action group nor transition.',
                           str(cm.exception))
+
+
+    def test_get_translations(self):
+        spec = Specification(title='Workflow',
+                             initial_status_title='Private')
+        spec.role_mapping['employee'] = 'Editor'
+        spec.role_mapping['boss'] = 'Reviewer'
+
+        private = spec.states['Private'] = Status('Private', [
+                ('employee', 'publish'),
+                ('boss', 'publish')])
+
+        published = spec.states['Published'] = Status('Published', [
+                ('boss', 'retract')])
+
+        spec.transitions.append(Transition('publish', private, published))
+        spec.transitions.append(Transition('retract', published, private))
+
+        spec.validate()
+
+        result = WorkflowGenerator().get_translations('wf', spec)
+
+        self.assertEquals(
+            {'wf--STATUS--private': 'Private',
+             'wf--STATUS--published': 'Published',
+             'wf--TRANSITION--publish--private_published': 'publish',
+             'wf--TRANSITION--retract--published_private': 'retract',
+             },
+
+            result,
+            'Translations are wrong')
