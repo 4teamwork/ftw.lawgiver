@@ -152,7 +152,8 @@ class WorkflowGenerator(object):
 
     def _get_roles_for_permission(self, permission, statements):
         agregistry = getUtility(IActionGroupRegistry)
-        action_group = agregistry.get_action_group_for_permission(permission)
+        action_group = agregistry.get_action_group_for_permission(
+            permission, self.workflow_id)
 
         customer_roles = (role for (role, group) in statements
                           if group == action_group)

@@ -12,7 +12,7 @@
   <exit-transition transition_id="my_custom_workflow--TRANSITION--reject--pending_private"/>
   <exit-transition transition_id="my_custom_workflow--TRANSITION--retract--pending_private"/>
   <permission-map acquired="False" name="ATContentTypes: Add Image">
-   <permission-role>Editor</permission-role>
+   <permission-role>Site Administrator</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="Access contents information" acquired="False">
@@ -45,6 +45,7 @@
   <exit-transition transition_id="my_custom_workflow--TRANSITION--submit-for-publication--private_pending"/>
   <permission-map acquired="False" name="ATContentTypes: Add Image">
    <permission-role>Editor</permission-role>
+   <permission-role>Site Administrator</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="Access contents information" acquired="False">
@@ -77,8 +78,7 @@
  <state state_id="my_custom_workflow--STATUS--published" title="Published">
   <exit-transition transition_id="my_custom_workflow--TRANSITION--retract--published_private"/>
   <permission-map acquired="False" name="ATContentTypes: Add Image">
-   <permission-role>Editor</permission-role>
-   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Anonymous</permission-role>

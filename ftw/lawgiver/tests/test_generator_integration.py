@@ -53,6 +53,8 @@ class TestGeneratorIntegration(BaseTest):
                               'ATContentTypes: Add Image'],
                              'add')
         self.map_permissions(['Access future portal content'], 'view future')
+        self.map_permissions(['ATContentTypes: Add Image'], 'edit',
+                             workflow_name='my_custom_workflow')
 
     def tearDown(self):
         registry = getUtility(IActionGroupRegistry)
