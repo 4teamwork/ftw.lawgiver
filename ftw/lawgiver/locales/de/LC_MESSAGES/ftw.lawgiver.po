@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-03-21 16:29+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"PO-Revision-Date: 2013-04-10 10:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -94,7 +94,7 @@ msgstr "Die Datei mit der Workflow-Spezifikation konnte nicht gelesen werden: ${
 #. Default: "Security update: ${amount} objects updated."
 #: ftw/lawgiver/browser/details.py:82
 msgid "info_security_updated"
-msgstr "Siecherheitsupdate: ${amount} Objekte wurden aktualisiert."
+msgstr "Sicherheitsupdate: ${amount} Objekte wurden aktualisiert."
 
 #. Default: "The workflow was generated to ${path}."
 #: ftw/lawgiver/browser/details.py:56
