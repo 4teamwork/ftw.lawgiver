@@ -10,7 +10,8 @@ class Specification(object):
     def __init__(self, title, description=None,
                  states=None, initial_status_title=None,
                  transitions=None, role_mapping=None, generals=None,
-                 custom_transition_url=None):
+                 custom_transition_url=None,
+                 role_inheritance=None):
         self.title = title
         self.description = description
         self._initial_status_title = initial_status_title
@@ -19,6 +20,7 @@ class Specification(object):
         self.role_mapping = role_mapping or {}
         self.generals = generals or []
         self.custom_transition_url = custom_transition_url
+        self.role_inheritance = role_inheritance or []
 
     def __repr__(self):
         return '<Specification "%s">' % self.title
@@ -39,9 +41,10 @@ class Specification(object):
 class Status(object):
     implements(IStatus)
 
-    def __init__(self, title, statements):
+    def __init__(self, title, statements, role_inheritance=None):
         self.title = title
         self.statements = statements
+        self.role_inheritance = role_inheritance or []
 
     def __repr__(self):
         return '<Status "%s">' % self.title

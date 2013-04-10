@@ -29,6 +29,8 @@ PERMISSION_MAP = '''
         </permission-map>
 '''
 
+EMPTY_PERMISSION_MAP = '<permission-map acquired="False" name="%s"/>'
+
 PERMISSION = '''
 <permission>%s</permission>
 '''

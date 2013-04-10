@@ -67,7 +67,6 @@ class FakeSite(object):
     getSiteManager = getSiteManager
 
 
-
 class XMLDiffTestCase(unittest2.TestCase):
 
     def _canonicalize_xml(self, text, node_sorter=None):
@@ -141,6 +140,59 @@ class BaseTest(MockTestCase, XMLDiffTestCase):
 
         for id_, name in kwargs.items():
             site.register_permission(name)
+
+
+class EqualityTestCase(XMLDiffTestCase):
+
+    def test_equality(self):
+        if self._is_base_test():
+            return
+
+        assert getattr(self, 'specifications', None), \
+            'Setup of %s wrong: no specifications defined (equality test)' % (
+            type(self).__name__)
+
+        definitions = {}
+
+        for path in self.specifications:
+            spec = self.get_spec(path)
+            definitions[path] = StringIO()
+            self.generate_workflow(spec, definitions[path])
+
+        pairs = []
+        reduce(lambda a, b: pairs.append((a, b)) or b, definitions)
+
+        for name_a, name_b in pairs:
+            locals()['__traceback_info__'] = name_a, name_b
+            self.assert_definition_xmls(
+                definitions[name_a].getvalue(),
+                definitions[name_b].getvalue())
+
+    def generate_workflow(self, spec, result):
+        name = type(self).__name__
+        generator = getUtility(IWorkflowGenerator)
+        generator(name, spec, result)
+        result.seek(0)
+
+    def get_spec(self, path):
+        parser = getUtility(IWorkflowSpecificationParser)
+
+        with open(self.get_absolute_path(path)) as spec_file:
+            return parser(spec_file)
+
+    def get_absolute_path(self, path):
+        if path.startswith('/'):
+            return path
+
+        else:
+            return os.path.join(
+                    os.path.dirname(resolve(self.__module__).__file__),
+                    path)
+
+    def _is_base_test(self):
+        """Detect that the class was not subclassed so we can skip the tests.
+        """
+        return type(self) == EqualityTestCase
 
 
 class WorkflowTest(XMLDiffTestCase):

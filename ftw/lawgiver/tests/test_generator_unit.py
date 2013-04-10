@@ -1,6 +1,7 @@
 from StringIO import StringIO
 from ftw.lawgiver.collector import DefaultPermissionCollector
 from ftw.lawgiver.generator import WorkflowGenerator
+from ftw.lawgiver.generator import resolve_inherited_roles
 from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.tests import workflowxml
 from ftw.lawgiver.tests.base import BaseTest
@@ -8,6 +9,7 @@ from ftw.lawgiver.wdl.specification import Specification
 from ftw.lawgiver.wdl.specification import Status
 from ftw.lawgiver.wdl.specification import Transition
 from ftw.testing import ComponentRegistryLayer
+from unittest2 import TestCase
 from zope.component import getGlobalSiteManager
 
 
@@ -377,3 +379,175 @@ class TestGenerator(BaseTest):
 
             result,
             'Translations are wrong')
+
+    def test_inherited_roles(self):
+        self.register_permissions(**{
+                'cmf.ModifyPortalContent': 'Modify portal content',
+                'zope2.View': 'View',
+                'zope2.AccessContentsInformation': \
+                    'Access contents information',
+                'cmf.ManagePortal': 'Manage portal'})
+
+        self.map_permissions(['View', 'Access contents information'], 'view')
+        self.map_permissions(['Modify portal content'], 'edit')
+
+        spec = Specification(
+            title='Workflow',
+            initial_status_title='Foo',
+            # general inheritance
+            role_inheritance=[('chief', 'admin')])
+
+        spec.role_mapping['writer'] = 'Editor'
+        spec.role_mapping['admin'] = 'Administrator'
+        spec.role_mapping['chief'] = 'Manager'
+        spec.role_mapping['reader'] = 'Reader'
+
+        spec.states['Foo'] = foo = Status(
+            'Foo',
+            [('writer', 'view'),
+             ('writer', 'edit'),
+             ('writer', 'publish')],
+
+            # inheritance in status
+            role_inheritance=[('admin', 'writer'),
+                              ('reader', 'chief')])
+
+        spec.states['Bar'] = bar = Status(
+            'Bar',
+            [('admin', 'retract')])
+
+        spec.transitions.append(Transition('publish', foo, bar))
+        spec.transitions.append(Transition('retract', bar, foo))
+
+        spec.validate()
+
+        result = StringIO()
+        WorkflowGenerator()('example-workflow', spec, result)
+
+        xml_permissions_declaration = ''.join((
+                workflowxml.PERMISSION % 'Access contents information',
+                workflowxml.PERMISSION % 'Modify portal content',
+                workflowxml.PERMISSION % 'View',
+                ))
+
+        xml_foo_defininition = workflowxml.STATUS % {
+            'title': 'Foo',
+            'id': 'example-workflow--STATUS--foo',
+            } % ''.join((
+
+                workflowxml.EXIT_TRANSITION % (
+                    'example-workflow--TRANSITION--publish--foo_bar'),
+
+                (workflowxml.PERMISSION_MAP %
+                 'Access contents information') % ''.join((
+                        workflowxml.PERMISSION_ROLE % 'Administrator',
+                        workflowxml.PERMISSION_ROLE % 'Editor',
+                        workflowxml.PERMISSION_ROLE % 'Manager',
+                        workflowxml.PERMISSION_ROLE % 'Reader')),
+
+                (workflowxml.PERMISSION_MAP %
+                 'Modify portal content') % ''.join((
+                        workflowxml.PERMISSION_ROLE % 'Administrator',
+                        workflowxml.PERMISSION_ROLE % 'Editor',
+                        workflowxml.PERMISSION_ROLE % 'Manager',
+                        workflowxml.PERMISSION_ROLE % 'Reader')),
+
+                (workflowxml.PERMISSION_MAP % 'View') % ''.join((
+                        workflowxml.PERMISSION_ROLE % 'Administrator',
+                        workflowxml.PERMISSION_ROLE % 'Editor',
+                        workflowxml.PERMISSION_ROLE % 'Manager',
+                        workflowxml.PERMISSION_ROLE % 'Reader')),
+                ))
+
+        xml_bar_defininition = workflowxml.STATUS % {
+            'title': 'Bar',
+            'id': 'example-workflow--STATUS--bar',
+            } % ''.join((
+
+                workflowxml.EXIT_TRANSITION % (
+                    'example-workflow--TRANSITION--retract--bar_foo'),
+
+                workflowxml.EMPTY_PERMISSION_MAP % (
+                    'Access contents information'),
+                workflowxml.EMPTY_PERMISSION_MAP % 'Modify portal content',
+                workflowxml.EMPTY_PERMISSION_MAP % 'View',
+                ))
+
+        xml_publish_transition = workflowxml.TRANSITION % {
+            'id': 'example-workflow--TRANSITION--publish--foo_bar',
+            'title': 'publish',
+            'target_state': 'example-workflow--STATUS--bar',
+            'guards': workflowxml.GUARDS % ''.join((
+                    workflowxml.GUARD_ROLE % 'Administrator',
+                    workflowxml.GUARD_ROLE % 'Editor',
+                    workflowxml.GUARD_ROLE % 'Manager',
+                    workflowxml.GUARD_ROLE % 'Reader',
+                    ))}
+
+        xml_retract_transition = workflowxml.TRANSITION % {
+            'id': 'example-workflow--TRANSITION--retract--bar_foo',
+            'title': 'retract',
+            'target_state': 'example-workflow--STATUS--foo',
+            'guards': workflowxml.GUARDS % ''.join((
+                    workflowxml.GUARD_ROLE % 'Administrator',
+                    workflowxml.GUARD_ROLE % 'Manager',
+                    ))}
+
+        expected = workflowxml.WORKFLOW % {
+            'id': 'example-workflow',
+            'title': 'Workflow',
+            'description': '',
+            'initial_status': 'example-workflow--STATUS--foo'} % ''.join((
+                xml_permissions_declaration,
+                xml_bar_defininition,
+                xml_foo_defininition,
+                xml_publish_transition,
+                xml_retract_transition))
+
+        self.assert_xml(expected, result.getvalue())
+
+
+class TestResolveInheritedRoles(TestCase):
+
+    def test_basic(self):
+        self.assertEquals(
+            set(['Foo', 'Bar']),
+            set(resolve_inherited_roles(['Foo'], [('Bar', 'Foo')])))
+
+    def test_not_matching(self):
+        self.assertEquals(
+            set(['Foo']),
+            set(resolve_inherited_roles(['Foo'], [('Bar', 'Baz')])))
+
+        self.assertEquals(
+            set(['Foo']),
+            set(resolve_inherited_roles(['Foo'], [('Foo', 'Bar')])))
+
+    def test_multi_stage(self):
+        expected = set(['Foo', 'Bar', 'Baz'])
+        roles = ['Foo']
+
+        self.assertEquals(
+            expected,
+            set(resolve_inherited_roles(
+                    roles,
+                    [('Bar', 'Foo'),
+                     ('Baz', 'Bar')])))
+
+        self.assertEquals(
+            expected,
+            set(resolve_inherited_roles(
+                    roles,
+                    [('Baz', 'Bar'),
+                     ('Bar', 'Foo')])))
+
+    def test_circular(self):
+        expected = set(['Foo', 'Bar', 'Baz'])
+        roles = ['Foo']
+        role_inheritance = [('Foo', 'Bar'),
+                            ('Bar', 'Baz'),
+                            ('Baz', 'Foo')]
+
+        self.assertEquals(
+            expected,
+            set(resolve_inherited_roles(roles, role_inheritance)))

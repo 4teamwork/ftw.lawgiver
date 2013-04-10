@@ -1,0 +1,31 @@
+[Role Inheritance Workflow]
+# Example one two with inherited roles.
+# Should give the same result as the example one with manual definitions.
+Initial Status: Foo
+
+
+
+Role mapping:
+  editor => Editor
+  editor-in-chief => Reviewer
+  administrator => Site Administrator
+
+
+General:
+  An administrator can always perform the same actions as an editor.
+  An administrator can always perform the same actions as an editor-in-chief.
+
+
+Status Foo:
+  An editor-in-chief can perform the same actions as an editor.
+  An editor can view this content.
+  An editor can edit this content.
+
+
+
+
+
+Status Bar:
+  An editor can view this content.
+  An editor-in-chief can view this content.
+  An editor-in-chief can edit this content.

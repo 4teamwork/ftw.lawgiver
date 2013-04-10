@@ -3,6 +3,8 @@ from ftw.lawgiver.exceptions import ParsingError
 from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
+from ftw.lawgiver.wdl.parser import PERMISSION_STATEMENT
+from ftw.lawgiver.wdl.parser import ROLE_INHERITANCE_STATEMENT
 from ftw.lawgiver.wdl.parser import convert_statement
 from ftw.testing import MockTestCase
 from zope.component import getUtility
@@ -258,6 +260,30 @@ class TestParser(MockTestCase):
             None, self.parse_lines(*lines, silent=True),
             'Parser should not raise an exception when silent=True')
 
+    def test_general_role_inheritance(self):
+        spec = self.parse_lines(
+            '[Foo]',
+            '',
+            'General:',
+            '  An administrator can always perform the same actions '
+            'as an editor.')
+
+        self.assertEquals([('administrator', 'editor')],
+                          spec.role_inheritance)
+
+    def test_status_role_inheritance(self):
+        spec = self.parse_lines(
+            '[Foo]',
+            '',
+            'Status Foo:',
+            '  An administrator can always perform the same as a editor.')
+
+        self.assertEquals([],
+                          spec.role_inheritance)
+
+        self.assertEquals([('administrator', 'editor')],
+                          spec.states.values()[0].role_inheritance)
+
 
 class TestConvertStatement(MockTestCase):
 
@@ -270,42 +296,42 @@ class TestConvertStatement(MockTestCase):
             '\nStatement: "%s"' % text)
 
     def test_simple_context_specific_statements(self):
-        self.assert_statement(('editor', 'view'),
+        self.assert_statement((PERMISSION_STATEMENT, ('editor', 'view')),
                               'An editor can view this content.')
 
-        self.assert_statement(('supervisor', 'edit'),
+        self.assert_statement((PERMISSION_STATEMENT, ('supervisor', 'edit')),
                               'A supervisor can edit this content')
 
     def test_anyone_statements(self):
-        self.assert_statement(('anyone', 'view'),
+        self.assert_statement((PERMISSION_STATEMENT, ('anyone', 'view')),
                               'Anyone can view this content.')
 
     def test_context_less_statements(self):
-        self.assert_statement(('editor', 'publish'),
+        self.assert_statement((PERMISSION_STATEMENT, ('editor', 'publish')),
                               'An editor can publish.')
 
     def test_multi_word_statements(self):
         self.assert_statement(
-            ('editor in chief', 'manage portlets'),
+            (PERMISSION_STATEMENT, ('editor in chief', 'manage portlets')),
             'A editor in chief can manage portlets on this context.')
 
     def test_always_statements(self):
         self.assert_statement(
-            ('administrator', 'view'),
+            (PERMISSION_STATEMENT, ('administrator', 'view')),
             'An administrator can always view this content.')
 
     def test_any_statements(self):
         self.assert_statement(
-            ('administrator', 'delete'),
+            (PERMISSION_STATEMENT, ('administrator', 'delete')),
             'An administrator can delete any content.')
 
     def test_add_new_content_statements(self):
         self.assert_statement(
-            ('editor', 'add'),
+            (PERMISSION_STATEMENT, ('editor', 'add')),
             'An editor can add new content.')
 
         self.assert_statement(
-            ('editor', 'add'),
+            (PERMISSION_STATEMENT, ('editor', 'add')),
             'An editor can add content.')
 
     def test_bad_statement(self):

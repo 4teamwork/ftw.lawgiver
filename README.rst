@@ -260,6 +260,37 @@ We have the principle that any user / role is NOT allowed do anything by default
       Anyone can view this content.
 
 
+Role inheritance
+~~~~~~~~~~~~~~~~
+
+Roles can be inherited from other roles, globally and for a single status:
+
+.. code:: rst
+
+    [Role Inheritance Workflow]
+    Initial Status: Foo
+
+    Role mapping:
+      editor => Editor
+      editor-in-chief => Reviewer
+      administrator => Site Administrator
+
+    General:
+      An administrator can always perform the same actions as an editor.
+      An administrator can always perform the same actions as an editor-in-chief.
+
+    Status Foo:
+      An editor-in-chief can perform the same actions as an editor.
+      An editor can view this content.
+      An editor can edit this content.
+
+    Status Bar:
+      An editor can view this content.
+      An editor-in-chief can view this content.
+      An editor-in-chief can edit this content.
+
+
+
 Workflow specification discovery
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -124,38 +124,58 @@ class WorkflowGenerator(object):
         transition_statements = dict([(status, set()) for status in
                                       status_nodes.keys()])
 
+        per_status_role_inheritance = {}
+
         for status, snode in status_nodes.items():
             statements = set(status.statements) | set(
                 self.specification.generals)
 
+            role_inheritance = self._get_merged_role_inheritance(status)
+            per_status_role_inheritance[status] = role_inheritance
+
             status_stmts, trans_stmts = self._distinguish_statements(
                 statements)
             transition_statements[status].update(trans_stmts)
-            self._apply_status_statements(snode, status_stmts)
+
+            self._apply_status_statements(snode, status_stmts,
+                                          role_inheritance)
 
         self._apply_transition_statements(transition_statements,
-                                          transition_nodes)
+                                          transition_nodes,
+                                          per_status_role_inheritance)
 
-    def _apply_status_statements(self, snode, statements):
+    def _apply_status_statements(self, snode, statements, role_inheritance):
         for permission in self.managed_permissions:
             pnode = etree.SubElement(snode, 'permission-map')
             pnode.set('name', permission)
             pnode.set('acquired', 'False')
 
-            for role in self._get_roles_for_permission(permission,
-                                                       statements):
+            roles = self._get_roles_for_permission(permission, statements)
+            roles = resolve_inherited_roles(roles, role_inheritance)
+
+            for role in roles:
                 rolenode = etree.SubElement(pnode, 'permission-role')
                 rolenode.text = role.decode('utf-8')
 
-    def _apply_transition_statements(self, statements, nodes):
+    def _apply_transition_statements(self, statements, nodes,
+                                     per_status_role_inheritance):
         for transition, node in nodes.items():
             guards = etree.SubElement(node, 'guard')
 
+            role_inheritance = per_status_role_inheritance.get(
+                transition.src_status, [])
+
+            roles = []
             for customer_role, action in statements[transition.src_status]:
                 if action != transition.title:
                     continue
 
                 role = self.specification.role_mapping[customer_role]
+                roles.append(role)
+
+            roles = resolve_inherited_roles(roles, role_inheritance)
+
+            for role in roles:
                 rolenode = etree.SubElement(guards, 'guard-role')
                 rolenode.text = role.decode('utf-8')
 
@@ -233,3 +253,49 @@ class WorkflowGenerator(object):
         normalizer = getUtility(INormalizer)
         result = normalizer.normalize(text)
         return result.decode('utf-8')
+
+    def _get_merged_role_inheritance(self, status):
+        """
+        - merges status role inheritance and global (general)
+        role inheritance
+
+        - translates customer roles into plone roles
+        """
+
+        customer_roles = set(self.specification.role_inheritance)
+        customer_roles.update(set(status.role_inheritance))
+
+        result = []
+        for inheritor_role, base_role in customer_roles:
+            result.append((
+                    self.specification.role_mapping[inheritor_role],
+                    self.specification.role_mapping[base_role]))
+
+        return result
+
+def resolve_inherited_roles(roles, role_inheritance):
+    if not role_inheritance:
+        return roles
+
+    roles = roles[:]
+
+    # role_inheritance is: [('inheritor', 'base'), ('inheritor2', 'base')]
+    # make: {'base': ['inheritor', 'inheritor2']}
+    base_roles = set(zip(*role_inheritance)[1])
+    mapping = dict([(key, []) for key in base_roles])
+    for inheritor, base in role_inheritance:
+        mapping[base].append(inheritor)
+
+    def _recurse(role, mapping, result):
+        if role not in mapping:
+            return
+
+        for alias in mapping[role]:
+            if alias not in result:
+                result.append(alias)
+                _recurse(alias, mapping, result)
+
+    for role in roles[:]:
+        _recurse(role, mapping, roles)
+
+    return sorted(roles)

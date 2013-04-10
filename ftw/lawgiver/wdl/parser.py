@@ -27,7 +27,44 @@ def consumer(constraint):
     return _decorator
 
 
+PERMISSION_STATEMENT = 'permission statement'
+ROLE_INHERITANCE_STATEMENT = 'role inheritance statement'
+
+
 def convert_statement(statement):
+    result = _convert_role_inheritance_statement(statement)
+    if result:
+        return ROLE_INHERITANCE_STATEMENT, result
+
+    result = _convert_permission_statement(statement)
+    if result:
+        return PERMISSION_STATEMENT, result
+
+    raise ParsingError('Unkown statement format: "%s"' % statement)
+
+
+def _convert_role_inheritance_statement(statement):
+    text = statement.lower()
+    # remove leading prefixes
+    text = re.sub(r'^(?:[Aa] |[Aa]n )', '', text)
+
+    # always
+    text = text.replace(' can always ', ' can ')
+
+    if 'can perform' not in text:
+        return None
+
+    text = re.sub(
+        r'(?:\.$'
+        r'| perform the same(?: actions)? as a[n]?'
+        r')',
+        '', text)
+
+    text = re.sub(' +', ' ', text)
+    return tuple(text.split(' can '))
+
+
+def _convert_permission_statement(statement):
     text = statement
     # remove leading prefixes
     text = re.sub(r'^(?:[Aa] |[Aa]n )', '', text)
@@ -51,7 +88,7 @@ def convert_statement(statement):
     try:
         role, action = text.split(' can ')
     except ValueError:
-        raise ParsingError('Unkown statement format: "%s"' % statement)
+        return None
 
     role = role.lower()
     return role, action
@@ -124,12 +161,19 @@ class SpecificationParser(object):
         title = match.groups()[0]
 
         statements = []
+        role_inheritance = []
+
         if value.strip():
             lines = map(str.strip, value.strip().split('\n'))
             for line in lines:
-                statements.append(convert_statement(line))
+                type_, item = convert_statement(line)
+                if type_ == PERMISSION_STATEMENT:
+                    statements.append(item)
+                elif type_ == ROLE_INHERITANCE_STATEMENT:
+                    role_inheritance.append(item)
 
-        specargs['states'][title] = Status(title, statements)
+        specargs['states'][title] = Status(title, statements,
+                                           role_inheritance)
 
     @consumer(r'^[Tt]ransitions$')
     def _convert_transitions(self, match, value, specargs):
@@ -169,9 +213,16 @@ class SpecificationParser(object):
     @consumer(r'^[Gg]eneral$')
     def _convert_general_statements(self, match, value, specargs):
         statements = specargs['generals'] = []
+        role_inheritance = specargs['role_inheritance'] = []
+
         lines = map(str.strip, value.strip().split('\n'))
         for line in lines:
-            statements.append(convert_statement(line))
+            type_, item = convert_statement(line)
+            if type_ == PERMISSION_STATEMENT:
+                statements.append(item)
+
+            elif type_ == ROLE_INHERITANCE_STATEMENT:
+                role_inheritance.append(item)
 
     def _post_converting(self):
         for transition in self._spec.transitions:
