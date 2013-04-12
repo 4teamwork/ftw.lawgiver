@@ -290,5 +290,5 @@ class WorkflowTest(XMLDiffTestCase):
         self.maxDiff = None
         self.assertEquals(
             [], unmapped,
-            'There are default Plone permissions which are not yet mapped'
-            ' to action groups.')
+            'There are permissions which are not yet mapped'
+            ' to action groups, nor marked as not to manage.')
