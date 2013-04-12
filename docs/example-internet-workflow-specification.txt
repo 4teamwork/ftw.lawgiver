@@ -1,0 +1,72 @@
+[Example Internet Publication Workflow]
+
+Initial Status: Entwurf
+
+Role mapping:
+  Gast => Reader
+  Autor => Editor
+  Redaktor => Reviewer
+  Internetbenutzer => Anonymous
+  Verwalter => Site Administrator
+  System Administrator => Manager
+
+General:
+  A Autor can always perform the same actions as a Gast.
+  A Redaktor can always perform the same actions as a Autor.
+  A Verwalter can always perform the same actions as a Redaktor.
+  A System Administrator can always perform the same actions as a Verwalter.
+
+  A System Administrator can always manage.
+
+  A Verwalter can always view any content.
+  A Verwalter can always view inactive objects.
+  A Verwalter can always edit any content.
+  A Verwalter can always add new content.
+  A Verwalter can always delete any content.
+  A Verwalter can always change security.
+  A Verwalter can always manage portlets.
+  A Verwalter can always veröffentlichen.
+  A Verwalter can always zurückziehen.
+  A Verwalter can always zurückweisen.
+  A Verwalter can always einreichen.
+
+
+Transitions:
+# Entwurf
+  einreichen (Entwurf => Eingereicht)
+  veröffentlichen (Entwurf => Veröffentlicht)
+# Eingereicht
+  veröffentlichen (Eingereicht => Veröffentlicht)
+  zurückziehen (Eingereicht => Entwurf)
+  zurückweisen (Eingereicht => Entwurf)
+# Veröffentlicht
+  zurückziehen (Veröffentlicht => Entwurf)
+
+
+Status Entwurf:
+  A Gast can view this content.
+
+  A Autor can add new content.
+  A Autor can view inactive objects.
+  A Autor can edit this content.
+  A Autor can delete this content.
+  A Autor can einreichen.
+
+
+Status Eingereicht:
+  A Autor can view this content.
+  A Autor can add new content.
+  A Autor can zurückziehen.
+
+  A Redaktor can edit this content.
+  A Redaktor can delete this content.
+  A Redaktor can veröffentlichen.
+
+
+Status Veröffentlicht:
+  A Internetbenutzer can view this content.
+
+  A Autor can add new content.
+
+  A Redaktor can edit this content.
+  A Redaktor can zurückziehen.
