@@ -1,8 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
 from ftw.lawgiver.tests.pages import SpecDetails
-from ftw.lawgiver.tests.pages import SpecsListing
-from ftw.testing import browser
 from ftw.testing.pages import Plone
 from operator import itemgetter
 from plone.app.testing import SITE_OWNER_NAME
@@ -16,6 +14,10 @@ import transaction
 BAR_DEFINITION_XML = os.path.abspath(os.path.join(
         os.path.dirname(__file__),
         'profiles', 'bar', 'workflows', 'wf-bar', 'definition.xml'))
+
+INVALID_WORKFLOW_DEFINITION_XML = os.path.abspath(os.path.join(
+        os.path.dirname(__file__),
+        'profiles', 'spec-discovery', 'workflows', 'invalid-spec', 'definition.xml'))
 
 
 def remove_definition_xml(path=BAR_DEFINITION_XML):
@@ -300,3 +302,32 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
         self.assertFalse(
             SpecDetails().button_reindex(),
             'The Button "Update security settings" should not be visible')
+
+    def test_definitionXML_not_touched_on_error(self):
+        with open(INVALID_WORKFLOW_DEFINITION_XML, 'w+') as file_:
+            file_.write('some contents')
+
+        SpecDetails().open('Invalid Workflow (invalid-spec)')
+
+        self.assertTrue(
+            SpecDetails().button_write_and_import(),
+            'The Button "Write and Import Workflow" in "Invalid Workflow"'
+            ' should be visible but is not.')
+        SpecDetails().button_write_and_import().click()
+
+        self.assertGreater(
+            os.path.getsize(INVALID_WORKFLOW_DEFINITION_XML), 0,
+            'The definition.xml (%s) is empty, but it should not be touched'
+            'since we had an error while generating.' % (
+                INVALID_WORKFLOW_DEFINITION_XML))
+
+        self.maxDiff = None
+        self.assertEquals([], Plone().portal_text_messages()['info'],
+                          'Expecting no "info" portal messages.')
+
+        self.assertEquals(['Error while generating the workflow: Action "viewX" is'
+                           ' neither action group nor transition.'],
+                          Plone().portal_text_messages()['error'],
+                          'Expecting only the workflow generation error.')
+
+        remove_definition_xml(INVALID_WORKFLOW_DEFINITION_XML)

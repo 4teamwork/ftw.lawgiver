@@ -1,6 +1,7 @@
 from Products.CMFCore.utils import getToolByName
 from Products.GenericSetup.utils import importObjects
 from Products.statusmessages.interfaces import IStatusMessage
+from ZODB.POSException import ConflictError
 from ftw.lawgiver import _
 from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.interfaces import IWorkflowGenerator
@@ -8,10 +9,12 @@ from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from zope.component import getMultiAdapter
 from zope.component import getUtility
+from zope.component.hooks import getSite
 from zope.interface import implementer
 from zope.publisher.browser import BrowserView
 from zope.publisher.interfaces import IPublishTraverse
 import os.path
+import sys
 
 
 @implementer(IPublishTraverse)
@@ -46,17 +49,37 @@ class SpecDetails(BrowserView):
 
     def write_workflow(self):
         generator = getUtility(IWorkflowGenerator)
+        try:
+            generator(self.workflow_name(), self.specification)
 
-        with open(self.get_definition_path(), 'w+') as result_file:
-            generator(self.workflow_name(), self.specification).write(result_file)
+        except ConflictError:
+            raise
 
-        IStatusMessage(self.request).add(
-            _(u'info_workflow_generated',
-              default=u'The workflow was generated to ${path}.',
-              mapping={'path': self.get_definition_path()}))
+        except Exception, exc:
+            getSite().error_log.raising(sys.exc_info())
+
+            IStatusMessage(self.request).add(
+                _(u'error_while_generating_workflow',
+                  default=u'Error while generating the workflow: ${msg}',
+                  mapping={'msg': str(exc)}),
+                type='error')
+
+            return False
+
+        else:
+            with open(self.get_definition_path(), 'w+') as result_file:
+                generator.write(result_file)
+
+            IStatusMessage(self.request).add(
+                _(u'info_workflow_generated',
+                  default=u'The workflow was generated to ${path}.',
+                  mapping={'path': self.get_definition_path()}))
+
+            return True
 
     def write_and_import_workflow(self):
-        self.write_workflow()
+        if not self.write_workflow():
+            return
 
         setup_tool = getToolByName(self.context, 'portal_setup')
         profile_id = self._find_profile_name_for_workflow()
@@ -116,6 +139,8 @@ class SpecDetails(BrowserView):
             try:
                 return parser(specfile)
             except Exception, exc:
+                getSite().error_log.raising(sys.exc_info())
+
                 IStatusMessage(self.request).add(
                     _(u'error_parsing_error',
                       default=u'The specification file could not be'
