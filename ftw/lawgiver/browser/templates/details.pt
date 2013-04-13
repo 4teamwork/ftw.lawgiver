@@ -77,31 +77,33 @@
 
                 <tal:WORKFLOW_NOT_INSTALLED tal:condition="not:workflow_installed">
 
-                    <dl class="portalMessage error">
+                    <dl class="portalMessage warning">
                         <dd i18n:translate="">
                             The workflow
                             <i i18n:name="workflow" tal:content="workflow_name" />
                             is not installed yet.
+                            Installing the workflow with the
+                            "<span i18n:name="button_title"
+                            i18n:translate="button_write_and_import">Write and Import Workflow</span>"
+                            button does not configure the policy, so no portal type
+                            will have this workflow.
                         </dd>
                     </dl>
 
                 </tal:WORKFLOW_NOT_INSTALLED>
 
-                <tal:WORKFLOW_INSTALLED tal:condition="workflow_installed">
+                <input type="submit"
+                       i18n:attributes="value button_write_and_import"
+                       name="write_and_import"
+                       value="Write and Import Workflow" />
 
-                    <input type="submit"
-                           i18n:attributes="value button_write_and_import"
-                           name="write_and_import"
-                           value="Write and Import Workflow" />
-
-                    <p class="discreet" i18n:translate="description_write_and_import">
-                        When the "<span i18n:name="button_title"
-                        i18n:translate="button_write_and_import">Write and Import Workflow</span>"
-                        button is clicked the workflow is generated and written to the
-                        <i tal:attributes="title definition_path">definition.xml</i> and
-                        then the workflow is imported using Generic Setup.
-                    </p>
-                </tal:WORKFLOW_INSTALLED>
+                <p class="discreet" i18n:translate="description_write_and_import">
+                    When the "<span i18n:name="button_title"
+                    i18n:translate="button_write_and_import">Write and Import Workflow</span>"
+                    button is clicked the workflow is generated and written to the
+                    <i tal:attributes="title definition_path">definition.xml</i> and
+                    then the workflow is imported using Generic Setup.
+                </p>
 
                 <input type="submit"
                        i18n:attributes="value button_update_security"

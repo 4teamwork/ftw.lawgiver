@@ -77,6 +77,15 @@ class SpecDetails(Plone):
 
         return data
 
+    def is_workflow_installed(self):
+        metadata = dict(self.get_spec_metadata_table())
+        value = metadata['Workflow installed:']
+        assert value in ('Yes', 'No'), \
+            'Unkown "Workflow installed:" value: %s' % str(value)
+
+        return value == 'Yes'
+
+
     def get_specification_text(self):
         return browser().find_by_css('dl.specification dd pre').first.text
 
