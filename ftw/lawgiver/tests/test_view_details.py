@@ -18,9 +18,9 @@ BAR_DEFINITION_XML = os.path.abspath(os.path.join(
         'profiles', 'bar', 'workflows', 'wf-bar', 'definition.xml'))
 
 
-def remove_definition_xml():
-    if os.path.exists(BAR_DEFINITION_XML):
-        os.remove(BAR_DEFINITION_XML)
+def remove_definition_xml(path=BAR_DEFINITION_XML):
+    if os.path.exists(path):
+        os.remove(path)
 
 
 class TestBARSpecificationDetailsViewINSTALLED(TestCase):
@@ -186,6 +186,9 @@ class TestBARSpecificationDetailsViewNOT_INSTALLED(TestCase):
         Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
         SpecDetails().open('Bar Workflow (wf-bar)')
 
+    def tearDown(self):
+        remove_definition_xml()
+
     def test_spec_metadata_table(self):
         metadata = SpecDetails().get_spec_metadata_table()
 
@@ -269,21 +272,14 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
     def setUp(self):
         Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
 
-        SpecsListing().open()
-
-        # the workflow spec of "spec-based-workflow" is broken.
-        SpecsListing().get_specification_by_text(
-            'spec-based-workflow').click()
-
-    def tearDown(self):
-        remove_definition_xml()
-
     def test_heading_shows_wfid(self):
+        SpecDetails().open('spec-based-workflow')
         self.assertEquals('spec-based-workflow',
                           Plone().get_first_heading(),
                           'Workflow title is wrong.')
 
     def test_error_messages_shown(self):
+        SpecDetails().open('spec-based-workflow')
         Plone().assert_portal_message(
             'error',
             'The specification file could not be parsed:'
@@ -291,6 +287,7 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
             ' containing the workflow title.')
 
     def test_buttons_not_shown(self):
+        SpecDetails().open('spec-based-workflow')
         # on error, show no buttons
         self.assertFalse(
             SpecDetails().button_write(),
