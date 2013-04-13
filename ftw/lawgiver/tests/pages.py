@@ -57,6 +57,15 @@ class SpecsListing(Plone):
 
 class SpecDetails(Plone):
 
+    def open(self, workflow_label):
+        """Opens the workflow specification details view for a workflow.
+        The passed workflow label is of the format "title (id)" if the
+        specification can be parsed, otherwise just the title.
+        """
+        SpecsListing().open()
+        SpecsListing().get_specification_by_text(workflow_label).click()
+        self.assert_body_class('template-lawgiver-spec-details')
+
     def get_spec_metadata_table(self):
         data = []
 
