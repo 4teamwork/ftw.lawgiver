@@ -68,7 +68,8 @@ class TestWorkflowSpecificationDiscovery(TestCase):
         prefix = 'profiles/spec-discovery/workflows/'
         self.assertEquals(
             set([prefix + 'spec-based-workflow/specification.txt',
-                 prefix + 'another-spec-based-workflow/specification.txt']),
+                 prefix + 'another-spec-based-workflow/specification.txt',
+                 prefix + 'invalid-spec/specification.txt']),
             set(result))
 
     def test_hash_unhash(self):
