@@ -17,8 +17,9 @@ class WorkflowGenerator(object):
         self.workflow_id = None
         self.specification = None
         self.managed_permissions = None
+        self.document = None
 
-    def __call__(self, workflow_id, specification, result_stream):
+    def __call__(self, workflow_id, specification):
         self.workflow_id = workflow_id
         self.specification = specification
         self.managed_permissions = sorted(
@@ -40,10 +41,18 @@ class WorkflowGenerator(object):
         self._apply_specification_statements(status_nodes, transition_nodes)
 
         self._add_variables(doc)
-        etree.ElementTree(doc).write(result_stream,
-                                     pretty_print=True,
-                                     xml_declaration=True,
-                                     encoding='utf-8')
+        self.document = doc
+        return self
+
+    def write(self, result_stream):
+        if self.document is None:
+            raise RuntimeError(
+                'The specification was not yet generated. Call the generator first.')
+
+        etree.ElementTree(self.document).write(result_stream,
+                                               pretty_print=True,
+                                               xml_declaration=True,
+                                               encoding='utf-8')
 
     def get_translations(self, workflow_id, specification):
         self.workflow_id = workflow_id

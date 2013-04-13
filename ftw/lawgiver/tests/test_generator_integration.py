@@ -80,7 +80,7 @@ class TestGeneratorIntegration(BaseTest):
 
         result = StringIO()
         generator = getUtility(IWorkflowGenerator)
-        generator('my_custom_workflow', spec, result)
+        generator('my_custom_workflow', spec).write(result)
 
         expected_path = os.path.join(ASSETS, 'example.definition.xml')
         with open(expected_path) as expected_file:

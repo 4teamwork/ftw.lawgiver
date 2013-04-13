@@ -42,9 +42,9 @@ class IWorkflowGenerator(Interface):
     from a ``ISpecification`` object.
     """
 
-    def __call__(worfklow_id, specification, result_stream):
-        """Converts the ``specification`` into XML and writes the result on
-        the ``result_stream``.
+    def __call__(worfklow_id, specification):
+        """Converts the ``specification`` into XML. Call `write` afterwards
+        to write the result to a stream.
         """
 
     def get_translations(worfklow_id, specification):
@@ -52,6 +52,10 @@ class IWorkflowGenerator(Interface):
         values default translations.
         Contains translations for states and transitions with the generated
         ids.
+        """
+
+    def write(result_stream):
+        """Writes the previously generated XML to a stream.
         """
 
 

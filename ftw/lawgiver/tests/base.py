@@ -171,7 +171,7 @@ class EqualityTestCase(XMLDiffTestCase):
     def generate_workflow(self, spec, result):
         name = type(self).__name__
         generator = getUtility(IWorkflowGenerator)
-        generator(name, spec, result)
+        generator(name, spec).write(result)
         result.seek(0)
 
     def get_spec(self, path):
@@ -253,7 +253,7 @@ class WorkflowTest(XMLDiffTestCase):
 
         with open(self.get_path('result.xml'), 'w+') as result_file:
             generator = getUtility(IWorkflowGenerator)
-            generator(self.get_name(), spec, result_file)
+            generator(self.get_name(), spec).write(result_file)
             result_file.seek(0)
             result = result_file.read()
 

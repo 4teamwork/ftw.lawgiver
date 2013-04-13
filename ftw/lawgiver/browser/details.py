@@ -48,7 +48,7 @@ class SpecDetails(BrowserView):
         generator = getUtility(IWorkflowGenerator)
 
         with open(self.get_definition_path(), 'w+') as result_file:
-            generator(self.workflow_name(), self.specification, result_file)
+            generator(self.workflow_name(), self.specification).write(result_file)
 
         IStatusMessage(self.request).add(
             _(u'info_workflow_generated',
