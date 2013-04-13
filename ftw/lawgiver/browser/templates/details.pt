@@ -42,6 +42,17 @@
                     <th i18n:translate="">Workflow definition file:</th>
                     <td tal:content="definition_path" />
                 </tr>
+
+                <tr>
+                    <th i18n:translate="">Workflow installed:</th>
+                    <td tal:condition="workflow_installed"
+                        i18n:translate="">
+                        Yes
+                    </td>
+                    <td tal:condition="not:workflow_installed">
+                        <span style="color:red" i18n:translate="">No</span>
+                    </td>
+                </tr>
             </table>
         </fieldset>
 

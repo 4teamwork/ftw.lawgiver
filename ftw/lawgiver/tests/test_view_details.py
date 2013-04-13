@@ -55,7 +55,8 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
         self.assertEquals(
             ['Workflow ID:',
              'Specification file:',
-             'Workflow definition file:'],
+             'Workflow definition file:',
+             'Workflow installed:'],
             map(itemgetter(0), metadata),
             'Metadata table has wrong headers.')
 
@@ -76,6 +77,10 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
                 '/wf-bar/definition.xml'),
             'Is the workflow file (%s) not a definition.xml?' % (
                 metadata['Workflow definition file:']))
+
+        self.assertEquals(
+            'Yes', metadata['Workflow installed:'],
+            'The workflow IS installed, but it says that it is NOT.')
 
     def test_specification_text(self):
         self.assertIn(
@@ -179,6 +184,39 @@ class TestBARSpecificationDetailsViewNOT_INSTALLED(TestCase):
     def setUp(self):
         Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
         SpecDetails().open('Bar Workflow (wf-bar)')
+
+    def test_spec_metadata_table(self):
+        metadata = SpecDetails().get_spec_metadata_table()
+
+        self.assertEquals(
+            ['Workflow ID:',
+             'Specification file:',
+             'Workflow definition file:',
+             'Workflow installed:'],
+            map(itemgetter(0), metadata),
+            'Metadata table has wrong headers.')
+
+        metadata = dict(metadata)
+
+        self.assertEquals(
+            'wf-bar', metadata['Workflow ID:'],
+            'Workflow ID in metadata table is wrong.')
+
+        self.assertTrue(
+            metadata['Specification file:'].endswith(
+                '/wf-bar/specification.txt'),
+            'Is the spec file (%s) not a specification.txt?' % (
+                metadata['Specification file:']))
+
+        self.assertTrue(
+            metadata['Workflow definition file:'].endswith(
+                '/wf-bar/definition.xml'),
+            'Is the workflow file (%s) not a definition.xml?' % (
+                metadata['Workflow definition file:']))
+
+        self.assertEquals(
+            'No', metadata['Workflow installed:'],
+            'The workflow is NOT installed, but it says that it IS.')
 
     def test_workflow_not_installed(self):
         Plone().assert_portal_message(

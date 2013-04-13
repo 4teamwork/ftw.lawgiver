@@ -72,7 +72,8 @@ class SpecDetails(Plone):
         for row in browser().find_by_css('table.spec-metadata tr'):
             th = row.find_by_xpath('th').first
             td = row.find_by_xpath('td').first
-            data.append((th.text, td.text))
+            data.append((self.normalize_whitespace(th.text),
+                         self.normalize_whitespace(td.text)))
 
         return data
 
