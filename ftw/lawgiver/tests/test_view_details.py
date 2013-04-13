@@ -37,7 +37,7 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
         SpecDetails().open('Bar Workflow (wf-bar)')
         SpecDetails().button_write().click()
         applyProfile(self.layer['portal'], 'ftw.lawgiver.tests:bar')
-        self.remove_definition_xml()
+        remove_definition_xml()
         transaction.commit()
 
         SpecDetails().open('Bar Workflow (wf-bar)')
