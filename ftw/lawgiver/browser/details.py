@@ -63,7 +63,7 @@ class SpecDetails(BrowserView):
         import_context = setup_tool._getImportContext(
             profile_id, None, None)
 
-        workflow = self._get_workflow_obj()
+        workflow = self._get_or_create_workflow_obj()
         parent_path = 'workflows/'
         importObjects(workflow, parent_path, import_context)
 
@@ -81,9 +81,19 @@ class SpecDetails(BrowserView):
               default=u'Security update: ${amount} objects updated.',
               mapping={'amount': updated_objects}))
 
-    def _get_workflow_obj(self):
+    def _get_or_create_workflow_obj(self):
         wftool = getToolByName(self.context, 'portal_workflow')
-        return wftool[self.workflow_name()]
+        name = self.workflow_name()
+
+        if name not in wftool.objectIds():
+            import Products
+            factory = next(info['instance'] for info in Products.meta_types
+                           if info['name'] == 'Workflow')
+            assert factory, 'Could not find meta_type factory for "Workflow".'
+
+            wftool._setObject(name, factory(name))
+
+        return wftool[name]
 
     def _find_profile_name_for_workflow(self):
         setup_tool = getToolByName(self.context, 'portal_setup')

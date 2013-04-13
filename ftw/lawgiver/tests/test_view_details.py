@@ -1,5 +1,4 @@
 from Products.CMFCore.utils import getToolByName
-from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
 from ftw.lawgiver.tests.pages import SpecDetails
 from ftw.lawgiver.tests.pages import SpecsListing
@@ -10,41 +9,41 @@ from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.app.testing import applyProfile
 from unittest2 import TestCase
-from zope.component import getMultiAdapter
 import os
 import transaction
 
 
-class TestSpecificationDetailsView(TestCase):
+BAR_DEFINITION_XML = os.path.abspath(os.path.join(
+        os.path.dirname(__file__),
+        'profiles', 'bar', 'workflows', 'wf-bar', 'definition.xml'))
+
+
+def remove_definition_xml():
+    if os.path.exists(BAR_DEFINITION_XML):
+        os.remove(BAR_DEFINITION_XML)
+
+
+class TestBARSpecificationDetailsViewINSTALLED(TestCase):
+    """Tests the specification details view of the workflow "wf-bar"
+    with the workflow installed.
+    """
 
     layer = SPECIFICATIONS_FUNCTIONAL
 
     def setUp(self):
         Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
 
-        SpecsListing().open()
-        SpecsListing().get_specification_by_text(
-            'Bar Workflow (wf-bar)').click()
+        # generate the workflow and import it
+        SpecDetails().open('Bar Workflow (wf-bar)')
+        SpecDetails().button_write().click()
+        applyProfile(self.layer['portal'], 'ftw.lawgiver.tests:bar')
+        self.remove_definition_xml()
+        transaction.commit()
+
+        SpecDetails().open('Bar Workflow (wf-bar)')
 
     def tearDown(self):
-        path = self.get_bar_XML_path()
-        if os.path.exists(path):
-            os.remove(path)
-
-        super(TestSpecificationDetailsView, self).tearDown()
-
-    def get_bar_XML_path(self):
-        # The definition.xml may or may not exist - the path is returned
-        # any way.
-        portal = self.layer['portal']
-        discovery = getMultiAdapter((portal, portal.REQUEST),
-                                    IWorkflowSpecificationDiscovery)
-
-        paths = [path for path in discovery.discover()
-                if path.endswith('wf-bar/specification.txt')]
-        assert len(paths) == 1, \
-            'Failure in teardown when trying to delete the wf-bar xml'
-        return paths[0].replace('specification.txt', 'definition.xml')
+        remove_definition_xml()
 
     def test_details_view_heading(self):
         self.assertEquals('Bar Workflow',
@@ -57,7 +56,8 @@ class TestSpecificationDetailsView(TestCase):
         self.assertEquals(
             ['Workflow ID:',
              'Specification file:',
-             'Workflow definition file:'],
+             'Workflow definition file:',
+             'Workflow installed:'],
             map(itemgetter(0), metadata),
             'Metadata table has wrong headers.')
 
@@ -78,6 +78,10 @@ class TestSpecificationDetailsView(TestCase):
                 '/wf-bar/definition.xml'),
             'Is the workflow file (%s) not a definition.xml?' % (
                 metadata['Workflow definition file:']))
+
+        self.assertEquals(
+            'Yes', metadata['Workflow installed:'],
+            'The workflow IS installed, but it says that it is NOT.')
 
     def test_specification_text(self):
         self.assertIn(
@@ -136,52 +140,18 @@ class TestSpecificationDetailsView(TestCase):
             data,
             'The default translation content is wrong.')
 
-    def test_workflow_not_installed(self):
-        Plone().assert_portal_message(
-            'error', 'The workflow wf-bar is not installed yet.')
-        self.assertTrue(
-            SpecDetails().button_write(),
-            'The Button "Write workflow definition" is not visible?')
-
-        self.assertFalse(
-            SpecDetails().button_write_and_import(),
-            'The Button "Write and Import Workflow" should not be visible')
-
-        self.assertTrue(
-            SpecDetails().button_reindex(),
-            'The Button "Update security settings" is not visible?')
-
     def test_write_workflow_XML(self):
-        path = self.get_bar_XML_path()
-        self.assertFalse(os.path.exists(path),
-                         'Expected %s to not exist yet.' % path)
+        self.assertFalse(os.path.exists(BAR_DEFINITION_XML),
+                         'Expected %s to not exist yet.' % BAR_DEFINITION_XML)
 
         SpecDetails().button_write().click()
-        self.assertTrue(os.path.exists(path),
-                        'Expected %s to exist now.' % path)
+        self.assertTrue(os.path.exists(BAR_DEFINITION_XML),
+                        'Expected %s to exist now.' % BAR_DEFINITION_XML)
 
     def test_write_and_import(self):
         def get_workflow():
             wftool = getToolByName(self.layer['portal'], 'portal_workflow')
             return wftool.get('wf-bar')
-
-        # the workflow is not yet installed, therefore we don't see the button
-        self.assertFalse(
-            SpecDetails().button_write_and_import(),
-            'The Button "Write and Import Workflow" should not be visible')
-
-        # we have no definition.xml yet - lets generate it first
-        SpecDetails().button_write().click()
-
-        # install the workflow (gs profile)
-        applyProfile(self.layer['portal'], 'ftw.lawgiver.tests:bar')
-        transaction.commit()
-
-        # reload the page, now there should be the button
-        browser().reload()
-        self.assertTrue(
-            SpecDetails().button_write_and_import(),
-            'The Button "Write and Import Workflow" should now be visible')
 
         self.assertEquals('Bar Workflow', get_workflow().title,
                           'Workflow title wrong after initial import.')
@@ -205,6 +175,93 @@ class TestSpecificationDetailsView(TestCase):
             'info', 'Security update: 0 objects updated.')
 
 
+class TestBARSpecificationDetailsViewNOT_INSTALLED(TestCase):
+    """Tests the specification details view of the workflow "wf-bar"
+    with the workflow NOT installed.
+    """
+
+    layer = SPECIFICATIONS_FUNCTIONAL
+
+    def setUp(self):
+        Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
+        SpecDetails().open('Bar Workflow (wf-bar)')
+
+    def test_spec_metadata_table(self):
+        metadata = SpecDetails().get_spec_metadata_table()
+
+        self.assertEquals(
+            ['Workflow ID:',
+             'Specification file:',
+             'Workflow definition file:',
+             'Workflow installed:'],
+            map(itemgetter(0), metadata),
+            'Metadata table has wrong headers.')
+
+        metadata = dict(metadata)
+
+        self.assertEquals(
+            'wf-bar', metadata['Workflow ID:'],
+            'Workflow ID in metadata table is wrong.')
+
+        self.assertTrue(
+            metadata['Specification file:'].endswith(
+                '/wf-bar/specification.txt'),
+            'Is the spec file (%s) not a specification.txt?' % (
+                metadata['Specification file:']))
+
+        self.assertTrue(
+            metadata['Workflow definition file:'].endswith(
+                '/wf-bar/definition.xml'),
+            'Is the workflow file (%s) not a definition.xml?' % (
+                metadata['Workflow definition file:']))
+
+        self.assertEquals(
+            'No', metadata['Workflow installed:'],
+            'The workflow is NOT installed, but it says that it IS.')
+
+    def test_workflow_not_installed(self):
+        Plone().assert_portal_message(
+            'warning',
+            'The workflow wf-bar is not installed yet.'
+            ' Installing the workflow with the "Write and Import Workflow"'
+            ' button does not configure the policy, so no portal type will'
+            ' have this workflow.')
+
+        self.assertTrue(
+            SpecDetails().button_write(),
+            'The Button "Write workflow definition" is not visible?')
+
+        self.assertTrue(
+            SpecDetails().button_write_and_import(),
+            'The Button "Write and Import Workflow" is not visible?')
+
+        self.assertTrue(
+            SpecDetails().button_reindex(),
+            'The Button "Update security settings" is not visible?')
+
+    def test_write_and_import(self):
+        def get_workflow():
+            wftool = getToolByName(self.layer['portal'], 'portal_workflow')
+            return wftool.get('wf-bar')
+
+        self.assertEquals(None, get_workflow(),
+                          'Expected workflow wf-bar not to be installed, but it was')
+        self.assertFalse(SpecDetails().is_workflow_installed(),
+                         'Details view says the workflow is installed, but it is not')
+
+        SpecDetails().button_write_and_import().click()
+        self.assertEquals(
+            'Bar Workflow', get_workflow().title,
+            'Workflow title - write / reimport seems not working?')
+
+        Plone().assert_portal_message(
+            'info', 'Workflow wf-bar successfully imported.')
+
+        self.assertTrue(
+            SpecDetails().is_workflow_installed(),
+            'The workflow should be installed, but the details view says it is not')
+
+
 class TestSpecificationDetailsViewBROKEN(TestCase):
 
     layer = SPECIFICATIONS_FUNCTIONAL
@@ -217,6 +274,9 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
         # the workflow spec of "spec-based-workflow" is broken.
         SpecsListing().get_specification_by_text(
             'spec-based-workflow').click()
+
+    def tearDown(self):
+        remove_definition_xml()
 
     def test_heading_shows_wfid(self):
         self.assertEquals('spec-based-workflow',

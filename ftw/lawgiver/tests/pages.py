@@ -57,15 +57,34 @@ class SpecsListing(Plone):
 
 class SpecDetails(Plone):
 
+    def open(self, workflow_label):
+        """Opens the workflow specification details view for a workflow.
+        The passed workflow label is of the format "title (id)" if the
+        specification can be parsed, otherwise just the title.
+        """
+        SpecsListing().open()
+        SpecsListing().get_specification_by_text(workflow_label).click()
+        self.assert_body_class('template-lawgiver-spec-details')
+
     def get_spec_metadata_table(self):
         data = []
 
         for row in browser().find_by_css('table.spec-metadata tr'):
             th = row.find_by_xpath('th').first
             td = row.find_by_xpath('td').first
-            data.append((th.text, td.text))
+            data.append((self.normalize_whitespace(th.text),
+                         self.normalize_whitespace(td.text)))
 
         return data
+
+    def is_workflow_installed(self):
+        metadata = dict(self.get_spec_metadata_table())
+        value = metadata['Workflow installed:']
+        assert value in ('Yes', 'No'), \
+            'Unkown "Workflow installed:" value: %s' % str(value)
+
+        return value == 'Yes'
+
 
     def get_specification_text(self):
         return browser().find_by_css('dl.specification dd pre').first.text
