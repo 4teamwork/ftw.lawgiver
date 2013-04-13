@@ -19,6 +19,7 @@ class TestSpecificationListingsView(TestCase):
         self.assertEquals(
             ['Bar Workflow (wf-bar)',
              'Foo Workflow (wf-foo)',
+             'Invalid Workflow (invalid-spec)',
              'My Custom Workflow (my_custom_workflow)',
              'another-spec-based-workflow',
              'spec-based-workflow'],
@@ -38,7 +39,9 @@ class TestSpecificationListingsView(TestCase):
                  'A three state publication workflow',
              'spec-based-workflow': '',
              'Bar Workflow (wf-bar)': 'Always published',
-             'Foo Workflow (wf-foo)': 'Just for testing.'},
+             'Foo Workflow (wf-foo)': 'Just for testing.',
+             'Invalid Workflow (invalid-spec)': 'This workflow cannot be built ' +\
+                 'because it has invalid statements.'},
 
             dict(map(lambda spec: (spec.link_text(), spec.description()),
                      specs)))

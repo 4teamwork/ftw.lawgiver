@@ -1,0 +1,13 @@
+[Invalid Workflow]
+Description: This workflow cannot be built because it has invalid statements.
+Initial Status: Published
+
+
+Role mapping:
+    editor => Editor
+
+
+Status Published:
+# The typo "viewX" is by intention and necessary for testing the
+# behavior on such errors.
+    An editor can viewX the content.

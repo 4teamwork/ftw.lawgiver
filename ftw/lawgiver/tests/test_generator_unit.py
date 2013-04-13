@@ -51,7 +51,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        WorkflowGenerator()('example-workflow', spec, result)
+        WorkflowGenerator()('example-workflow', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {
             'id': 'example-workflow',
@@ -74,7 +74,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        WorkflowGenerator()('workflow', spec, result)
+        WorkflowGenerator()('workflow', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {
             'id': 'workflow',
@@ -100,7 +100,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        WorkflowGenerator()('workflow', spec, result)
+        WorkflowGenerator()('workflow', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {
             'id': 'workflow',
@@ -150,7 +150,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        WorkflowGenerator()('workflow', spec, result)
+        WorkflowGenerator()('workflow', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {
             'id': 'workflow',
@@ -213,7 +213,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        WorkflowGenerator()('example-workflow', spec, result)
+        WorkflowGenerator()('example-workflow', spec).write(result)
 
 
         xml_permissions_declaration = ''.join((
@@ -273,7 +273,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        WorkflowGenerator()('wf', spec, result)
+        WorkflowGenerator()('wf', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {
             'id': 'wf',
@@ -340,11 +340,10 @@ class TestGenerator(BaseTest):
         spec.transitions.append(Transition('publish', foo, foo))
         spec.validate()
 
-        result = StringIO()
         generator = WorkflowGenerator()
 
         with self.assertRaises(Exception) as cm:
-            generator('example-workflow', spec, result)
+            generator('example-workflow', spec)
 
         self.assertEquals('Action "bar" is neither action group nor transition.',
                           str(cm.exception))
@@ -422,7 +421,7 @@ class TestGenerator(BaseTest):
         spec.validate()
 
         result = StringIO()
-        WorkflowGenerator()('example-workflow', spec, result)
+        WorkflowGenerator()('example-workflow', spec).write(result)
 
         xml_permissions_declaration = ''.join((
                 workflowxml.PERMISSION % 'Access contents information',

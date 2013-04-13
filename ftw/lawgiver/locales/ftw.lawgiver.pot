@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-21 16:29+0000\n"
+"POT-Creation-Date: 2013-04-13 13:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,23 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: ftw.lawgiver\n"
 
-#: ftw/lawgiver/browser/templates/details.pt:127
+#: ftw/lawgiver/browser/templates/details.pt:184
+msgid "Default translations"
+msgstr ""
+
+#: ftw/lawgiver/browser/templates/details.pt:53
+msgid "No"
+msgstr ""
+
+#: ftw/lawgiver/browser/templates/details.pt:140
 msgid "Permission mapping"
 msgstr ""
 
-#: ftw/lawgiver/browser/templates/details.pt:116
+#: ftw/lawgiver/browser/templates/details.pt:129
 msgid "Specification"
 msgstr ""
 
-#: ftw/lawgiver/browser/templates/details.pt:112
+#: ftw/lawgiver/browser/templates/details.pt:125
 msgid "Specification details"
 msgstr ""
 
@@ -33,15 +41,23 @@ msgstr ""
 msgid "Specification file:"
 msgstr ""
 
-#: ftw/lawgiver/browser/templates/details.pt:72
-msgid "The workflow ${workflow} is not installed yet."
+#: ftw/lawgiver/browser/templates/details.pt:180
+msgid "Template"
 msgstr ""
 
-#: ftw/lawgiver/browser/templates/details.pt:148
+#: ftw/lawgiver/browser/templates/details.pt:86
+msgid "The workflow ${workflow} is not installed yet. Installing the workflow with the "${button_title}" button does not configure the policy, so no portal type will have this workflow."
+msgstr ""
+
+#: ftw/lawgiver/browser/templates/details.pt:175
+msgid "Translations"
+msgstr ""
+
+#: ftw/lawgiver/browser/templates/details.pt:161
 msgid "Unmanaged permissions"
 msgstr ""
 
-#: ftw/lawgiver/browser/templates/details.pt:49
+#: ftw/lawgiver/browser/templates/details.pt:60
 msgid "Update Workflow Definition"
 msgstr ""
 
@@ -57,18 +73,26 @@ msgstr ""
 msgid "Workflow definition file:"
 msgstr ""
 
+#: ftw/lawgiver/browser/templates/details.pt:47
+msgid "Workflow installed:"
+msgstr ""
+
+#: ftw/lawgiver/browser/templates/details.pt:48
+msgid "Yes"
+msgstr ""
+
 #. Default: "Update security settings"
-#: ftw/lawgiver/browser/templates/details.pt:95
+#: ftw/lawgiver/browser/templates/details.pt:108
 msgid "button_update_security"
 msgstr ""
 
 #. Default: "Write and Import Workflow"
-#: ftw/lawgiver/browser/templates/details.pt:81
+#: ftw/lawgiver/browser/templates/details.pt:86
 msgid "button_write_and_import"
 msgstr ""
 
 #. Default: "Write workflow definition"
-#: ftw/lawgiver/browser/templates/details.pt:54
+#: ftw/lawgiver/browser/templates/details.pt:65
 msgid "button_write_wf_definition"
 msgstr ""
 
@@ -78,37 +102,42 @@ msgid "description_manage_upgrades"
 msgstr ""
 
 #. Default: "When the \"${button_title}\" button is clicked the security of all (!) objects in your database are updated. This is the same button as in portal_workflow."
-#: ftw/lawgiver/browser/templates/details.pt:101
+#: ftw/lawgiver/browser/templates/details.pt:114
 msgid "description_update_security"
 msgstr ""
 
 #. Default: "When the \"${button_title}\" button is clicked the workflow is generated and written to the <i title=\"${DYNAMIC_CONTENT}\">definition.xml</i> and then the workflow is imported using Generic Setup."
-#: ftw/lawgiver/browser/templates/details.pt:90
+#: ftw/lawgiver/browser/templates/details.pt:104
 msgid "description_write_and_import"
 msgstr ""
 
 #. Default: "When the \"${button_title}\" button is clicked the workflow is generated and written to the <i title=\"${DYNAMIC_CONTENT}\">definition.xml</i>. The database / portal_workflow is not changed."
-#: ftw/lawgiver/browser/templates/details.pt:63
+#: ftw/lawgiver/browser/templates/details.pt:74
 msgid "description_write_wf_definition"
 msgstr ""
 
 #. Default: "The specification file could not be parsed: ${error}"
-#: ftw/lawgiver/browser/details.py:112
+#: ftw/lawgiver/browser/details.py:145
 msgid "error_parsing_error"
 msgstr ""
 
+#. Default: "Error while generating the workflow: ${msg}"
+#: ftw/lawgiver/browser/details.py:62
+msgid "error_while_generating_workflow"
+msgstr ""
+
 #. Default: "Security update: ${amount} objects updated."
-#: ftw/lawgiver/browser/details.py:82
+#: ftw/lawgiver/browser/details.py:103
 msgid "info_security_updated"
 msgstr ""
 
 #. Default: "The workflow was generated to ${path}."
-#: ftw/lawgiver/browser/details.py:56
+#: ftw/lawgiver/browser/details.py:74
 msgid "info_workflow_generated"
 msgstr ""
 
 #. Default: "Workflow ${wfname} successfully imported."
-#: ftw/lawgiver/browser/details.py:73
+#: ftw/lawgiver/browser/details.py:94
 msgid "info_workflow_imported"
 msgstr ""
 
