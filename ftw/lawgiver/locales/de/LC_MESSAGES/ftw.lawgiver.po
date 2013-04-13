@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-03-21 16:29+0000\n"
+"POT-Creation-Date: 2013-04-13 13:18+0000\n"
 "PO-Revision-Date: 2013-04-10 10:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,15 +11,23 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-#: ftw/lawgiver/browser/templates/details.pt:127
+#: ftw/lawgiver/browser/templates/details.pt:184
+msgid "Default translations"
+msgstr "Standard Übersetzungen"
+
+#: ftw/lawgiver/browser/templates/details.pt:53
+msgid "No"
+msgstr "Nein"
+
+#: ftw/lawgiver/browser/templates/details.pt:140
 msgid "Permission mapping"
 msgstr "Mapping der Berechtigungen"
 
-#: ftw/lawgiver/browser/templates/details.pt:116
+#: ftw/lawgiver/browser/templates/details.pt:129
 msgid "Specification"
 msgstr "Spezifikation"
 
-#: ftw/lawgiver/browser/templates/details.pt:112
+#: ftw/lawgiver/browser/templates/details.pt:125
 msgid "Specification details"
 msgstr "Spezifikation Details"
 
@@ -27,15 +35,23 @@ msgstr "Spezifikation Details"
 msgid "Specification file:"
 msgstr "Workflow Spezifikation:"
 
-#: ftw/lawgiver/browser/templates/details.pt:72
-msgid "The workflow ${workflow} is not installed yet."
-msgstr "Der Workflow ${workflow} wurde noch nicht installiert."
+#: ftw/lawgiver/browser/templates/details.pt:180
+msgid "Template"
+msgstr "Vorlage"
 
-#: ftw/lawgiver/browser/templates/details.pt:148
+#: ftw/lawgiver/browser/templates/details.pt:86
+msgid "The workflow ${workflow} is not installed yet. Installing the workflow with the "${button_title}" button does not configure the policy, so no portal type will have this workflow."
+msgstr "Der Workflow ${workflow} ist noch nicht installiert. Wenn der Workflow mit dem Button \"${button_title}\" installiert wird die Workflow Policy nicht angepasst, d.H. kein Typ wird diesen Workflow automatisch benutzen."
+
+#: ftw/lawgiver/browser/templates/details.pt:175
+msgid "Translations"
+msgstr "Übersetzungen"
+
+#: ftw/lawgiver/browser/templates/details.pt:161
 msgid "Unmanaged permissions"
 msgstr "Vom Worfklow nicht verwaltete Berechtigungen"
 
-#: ftw/lawgiver/browser/templates/details.pt:49
+#: ftw/lawgiver/browser/templates/details.pt:60
 msgid "Update Workflow Definition"
 msgstr "Workflow-Definition aktualisieren"
 
@@ -51,18 +67,26 @@ msgstr "Workflow Metadaten"
 msgid "Workflow definition file:"
 msgstr "Workflow Definition:"
 
+#: ftw/lawgiver/browser/templates/details.pt:47
+msgid "Workflow installed:"
+msgstr "Workflow installiert:"
+
+#: ftw/lawgiver/browser/templates/details.pt:48
+msgid "Yes"
+msgstr "Ja"
+
 #. Default: "Update security settings"
-#: ftw/lawgiver/browser/templates/details.pt:95
+#: ftw/lawgiver/browser/templates/details.pt:108
 msgid "button_update_security"
 msgstr "Sicherheit aktualisieren"
 
 #. Default: "Write and Import Workflow"
-#: ftw/lawgiver/browser/templates/details.pt:81
+#: ftw/lawgiver/browser/templates/details.pt:86
 msgid "button_write_and_import"
 msgstr "Workflow-Definition aktualisieren und Workflow importieren"
 
 #. Default: "Write workflow definition"
-#: ftw/lawgiver/browser/templates/details.pt:54
+#: ftw/lawgiver/browser/templates/details.pt:65
 msgid "button_write_wf_definition"
 msgstr "Workflow-Definition aktualisieren"
 
@@ -72,37 +96,42 @@ msgid "description_manage_upgrades"
 msgstr "Diese Ansicht zeigt alle Workflow-Spezifikationen an. Workflow-Spezifikationen werden anhand des der Datei \"specification.txt\" im entsprechenden Workflow-Verzeichnis des Generic-Setup Profils erkannt."
 
 #. Default: "When the \"${button_title}\" button is clicked the security of all (!) objects in your database are updated. This is the same button as in portal_workflow."
-#: ftw/lawgiver/browser/templates/details.pt:101
+#: ftw/lawgiver/browser/templates/details.pt:114
 msgid "description_update_security"
 msgstr "Der Button \"${button_title}\" aktualisiert die Sicherheitseinstellungen aller (!) objekte auf dieser Plone-Seite. Dies ist der gleiche Button wie der \"Update security settings\" in portal_workflow."
 
 #. Default: "When the \"${button_title}\" button is clicked the workflow is generated and written to the <i title=\"${DYNAMIC_CONTENT}\">definition.xml</i> and then the workflow is imported using Generic Setup."
-#: ftw/lawgiver/browser/templates/details.pt:90
+#: ftw/lawgiver/browser/templates/details.pt:104
 msgid "description_write_and_import"
 msgstr "Der Button \"${button_title}\" generiert den Workflow neu und schreibt ih in die Datei <i title=\\\"${DYNAMIC_CONTENT}\\\">definition.xml</i>. Anschliessend wird der Workflow mittels Generic Setup in dieser Plone-Seite installiert."
 
 #. Default: "When the \"${button_title}\" button is clicked the workflow is generated and written to the <i title=\"${DYNAMIC_CONTENT}\">definition.xml</i>. The database / portal_workflow is not changed."
-#: ftw/lawgiver/browser/templates/details.pt:63
+#: ftw/lawgiver/browser/templates/details.pt:74
 msgid "description_write_wf_definition"
 msgstr "Der Button \"${button_title}\" generiert den Workflow neu und schreibt ih in die Datei <i title=\\\"${DYNAMIC_CONTENT}\\\">definition.xml</i>. Die Datenbank wird nicht verändert."
 
 #. Default: "The specification file could not be parsed: ${error}"
-#: ftw/lawgiver/browser/details.py:112
+#: ftw/lawgiver/browser/details.py:145
 msgid "error_parsing_error"
 msgstr "Die Datei mit der Workflow-Spezifikation konnte nicht gelesen werden: ${error}"
 
+#. Default: "Error while generating the workflow: ${msg}"
+#: ftw/lawgiver/browser/details.py:62
+msgid "error_while_generating_workflow"
+msgstr "Fehler beim generieren des Workflows: ${msg}"
+
 #. Default: "Security update: ${amount} objects updated."
-#: ftw/lawgiver/browser/details.py:82
+#: ftw/lawgiver/browser/details.py:103
 msgid "info_security_updated"
 msgstr "Sicherheitsupdate: ${amount} Objekte wurden aktualisiert."
 
 #. Default: "The workflow was generated to ${path}."
-#: ftw/lawgiver/browser/details.py:56
+#: ftw/lawgiver/browser/details.py:74
 msgid "info_workflow_generated"
 msgstr "Der Workflow wurde generiert: ${path}."
 
 #. Default: "Workflow ${wfname} successfully imported."
-#: ftw/lawgiver/browser/details.py:73
+#: ftw/lawgiver/browser/details.py:94
 msgid "info_workflow_imported"
 msgstr "Der Workflow ${wfname} wurde auf dieser Plone-Seite installiert."
 
