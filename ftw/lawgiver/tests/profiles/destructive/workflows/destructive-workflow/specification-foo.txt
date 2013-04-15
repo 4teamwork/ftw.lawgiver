@@ -1,0 +1,14 @@
+[Destructive Workflow]
+Initial Status: Foo
+
+
+Role mapping:
+  everybody => Anonymous
+  administrator => Manager
+
+
+Status Foo:
+  Everybody can view the content.
+  An administrator can view the content.
+  An administrator can edit the content.
+  An administrator can delete the content.

@@ -1,13 +1,16 @@
 from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
 from ftw.lawgiver.tests.pages import SpecDetails
+from ftw.lawgiver.tests.pages import SpecDetailsConfirmation
 from ftw.testing.pages import Plone
 from operator import itemgetter
+from operator import methodcaller
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.app.testing import applyProfile
 from unittest2 import TestCase
 import os
+import shutil
 import transaction
 
 
@@ -331,3 +334,83 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
                           'Expecting only the workflow generation error.')
 
         remove_definition_xml(INVALID_WORKFLOW_DEFINITION_XML)
+
+
+DESTRUCTIVE_WF_DIR = os.path.abspath(os.path.join(
+        os.path.dirname(__file__),
+        'profiles', 'destructive', 'workflows', 'destructive-workflow'))
+
+
+class TestDestructiveImport(TestCase):
+
+    layer = SPECIFICATIONS_FUNCTIONAL
+
+    def setUp(self):
+        Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
+
+    def tearDown(self):
+        paths = [
+            os.path.join(DESTRUCTIVE_WF_DIR, 'specification.txt'),
+            os.path.join(DESTRUCTIVE_WF_DIR, 'definition.xml'),]
+
+        for path in paths:
+            if os.path.exists(path):
+                os.remove(path)
+
+    def use_spec(self, postfix):
+        src = os.path.join(DESTRUCTIVE_WF_DIR, 'specification-%s.txt' % (
+                postfix))
+        dest = os.path.join(DESTRUCTIVE_WF_DIR, 'specification.txt')
+
+        shutil.copyfile(src, dest)
+
+    def get_states(self):
+        wftool = getToolByName(self.layer['portal'], 'portal_workflow')
+        states = map(methodcaller('title'),
+                     wftool.get('destructive-workflow').states)
+        return states
+
+    def assert_current_states(self, *postfixes):
+        states = self.get_states()
+        expected = ['Destructive-Workflow--Status--%s' % postfix
+                    for postfix in postfixes]
+
+        self.assertEquals(
+            set(expected), set(states),
+            'Workflow states of destructive workflow not as expected')
+
+    def test_destruction_confirmation_on_import(self):
+        self.use_spec('foo')
+        SpecDetails().open('Destructive Workflow (destructive-workflow)')
+        SpecDetails().button_write_and_import().click()
+        Plone().assert_portal_message(
+            'info', 'Workflow destructive-workflow successfully imported.')
+        self.assert_current_states('Foo')
+
+        self.use_spec('bar')
+        SpecDetails().open('Destructive Workflow (destructive-workflow)')
+        SpecDetails().button_write_and_import().click()
+
+        # not yet updated
+        self.assert_current_states('Foo')
+
+        # confirmation dialog displayed
+        self.assertTrue(
+            SpecDetailsConfirmation().is_confirmation_dialog_opened(),
+            'Expected to be on a confirmation dialog, but was not')
+
+        self.assertEquals(
+            'Importing this workflow renames or removes states.'
+            ' Changing states can reset the workflow status of affected'
+            ' objects to the initial state.',
+            SpecDetailsConfirmation().get_confirmation_dialog_text())
+
+        # No changes on cancel
+        SpecDetailsConfirmation().cancel()
+        self.assert_current_states('Foo')
+
+        SpecDetails().button_write_and_import().click()
+        SpecDetailsConfirmation().confirm()
+        Plone().assert_portal_message(
+            'info', 'Workflow destructive-workflow successfully imported.')
+        self.assert_current_states('Foo', 'Bar')

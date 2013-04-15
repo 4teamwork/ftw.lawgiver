@@ -379,6 +379,21 @@ class TestGenerator(BaseTest):
             result,
             'Translations are wrong')
 
+    def test_get_states(self):
+        spec = Specification(title='Workflow',
+                             initial_status_title='Private')
+
+        private = spec.states['Private'] = Status('Private', [])
+        published = spec.states['Published'] = Status('Published', [])
+        result = WorkflowGenerator().get_states('wf', spec)
+
+        self.assertEquals(
+            ['wf--STATUS--private',
+             'wf--STATUS--published'],
+
+            result,
+            'Wrong state IDs in generator.get_states()')
+
     def test_inherited_roles(self):
         self.register_permissions(**{
                 'cmf.ModifyPortalContent': 'Modify portal content',

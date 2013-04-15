@@ -79,5 +79,9 @@ class TestingSpecificationsLayer(PloneSandboxLayer):
                        ftw.lawgiver.tests,
                        context=configurationContext)
 
+        xmlconfig.file('profiles/destructive.zcml',
+                       ftw.lawgiver.tests,
+                       context=configurationContext)
+
 
 SPECIFICATIONS_FUNCTIONAL = TestingSpecificationsLayer()

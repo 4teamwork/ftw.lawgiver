@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/prefs_main_template/macros/master"
+      i18n:domain="ftw.lawgiver">
+
+    <div metal:fill-slot="prefs_configlet_main"
+         tal:define="spec view/specification;
+                     workflow_name view/workflow_name;
+                     permissions view/get_permissions;
+                     definition_path view/get_definition_path;
+                     workflow_installed view/is_workflow_installed">
+
+        <h1 class="documentFirstHeading"
+            i18n:translate="">
+            Warning: Destructive Changes
+        </h1>
+
+
+        <form tal:attributes="action request/URL"
+              method="POST">
+
+            <p i18n:translate=""
+               class="confirmation-message">
+                Importing this workflow renames or removes states.
+                Changing states can reset the workflow status of affected
+                objects to the initial state.
+            </p>
+
+            <b i18n:translate="">Removed / renamed states:</b>
+            <ul>
+                <li tal:repeat="state_id view/removing_states"
+                    tal:content="state_id" />
+            </ul>
+
+            <input tal:repeat="name request/form"
+                   type="hidden"
+                   tal:attributes="name name;
+                                   value python: request.form.get(name)"
+                   />
+
+            <input type="submit"
+                   name="confirmation.confirmed"
+                   class="destructive"
+                   i18n:translate="value"
+                   value="I know what I am doing" />
+
+            <input type="submit"
+                   name="confirmation.cancelled"
+                   class="standalone"
+                   i18n:translate="value"
+                   value="I am on production" />
+
+        </form>
+
+    </div>
+</html>

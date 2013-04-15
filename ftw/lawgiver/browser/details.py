@@ -1,4 +1,5 @@
 from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.GenericSetup.utils import importObjects
 from Products.statusmessages.interfaces import IStatusMessage
 from ZODB.POSException import ConflictError
@@ -20,6 +21,8 @@ import sys
 @implementer(IPublishTraverse)
 class SpecDetails(BrowserView):
 
+    confirmation = ViewPageTemplateFile('templates/import-confirmation.pt')
+
     def __init__(self, context, request):
         super(SpecDetails, self).__init__(context, request)
         self._spec_hash = None
@@ -35,6 +38,9 @@ class SpecDetails(BrowserView):
     def __call__(self, *args, **kwargs):
         self.specification = self._load_specification()
 
+        if 'confirmation.cancelled' in self.request.form:
+            return self.reload()
+
         if 'update_security' in self.request.form:
             self.update_security()
             return self.reload()
@@ -47,8 +53,7 @@ class SpecDetails(BrowserView):
             return self.reload()
 
         if 'write_and_import' in self.request.form:
-            self.write_and_import_workflow()
-            return self.reload()
+            return self.write_and_import_workflow()
 
         return self.index()
 
@@ -58,6 +63,33 @@ class SpecDetails(BrowserView):
         such as writing the workflow.
         """
         return self.request.RESPONSE.redirect(self.request.URL)
+
+    def is_confirmed(self):
+        return 'confirmation.confirmed' in self.request.form
+
+    def render_confirmation(self):
+        return self.confirmation()
+
+    def is_destructive(self):
+        return len(self.removing_states()) > 0
+
+    def removing_states(self):
+        """Returns the states that will be removed upon writing and importing
+        the current spec.
+        """
+        wftool = getToolByName(self.context, 'portal_workflow')
+        wf = wftool.get(self.workflow_name())
+
+        if not wf:
+            return []
+
+        current_states = wf.states.keys()
+
+        generator = getUtility(IWorkflowGenerator)
+        new_states = generator.get_states(
+            self.workflow_name(), self.specification)
+
+        return list(set(current_states) - set(new_states))
 
     def write_workflow(self):
         generator = getUtility(IWorkflowGenerator)
@@ -90,8 +122,11 @@ class SpecDetails(BrowserView):
             return True
 
     def write_and_import_workflow(self):
+        if self.is_destructive() and not self.is_confirmed():
+            return self.render_confirmation()
+
         if not self.write_workflow():
-            return
+            return self.reload()
 
         setup_tool = getToolByName(self.context, 'portal_setup')
         profile_id = self._find_profile_name_for_workflow()
@@ -106,6 +141,8 @@ class SpecDetails(BrowserView):
             _(u'info_workflow_imported',
               default=u'Workflow ${wfname} successfully imported.',
               mapping={'wfname': self.workflow_name()}))
+
+        return self.reload()
 
     def update_security(self):
         wftool = getToolByName(self.context, 'portal_workflow')

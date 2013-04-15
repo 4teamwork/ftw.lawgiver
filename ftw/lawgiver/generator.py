@@ -68,6 +68,14 @@ class WorkflowGenerator(object):
         self.workflow_id = None
         return result
 
+    def get_states(self, workflow_id, specification):
+        self.workflow_id = workflow_id
+        result = []
+
+        for status in specification.states.values():
+            result.append(self._status_id(status))
+
+        return result
 
     def _create_document(self):
         root = etree.Element("dc-workflow")

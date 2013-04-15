@@ -123,3 +123,18 @@ class SpecDetails(Plone):
 
     def button_reindex(self):
         return self.get_button('Update security settings')
+
+class SpecDetailsConfirmation(SpecDetails):
+
+    def is_confirmation_dialog_opened(self):
+        return len(browser().find_by_css('.confirmation-message')) > 0
+
+    def get_confirmation_dialog_text(self):
+        return self.normalize_whitespace(
+            browser().find_by_css('.confirmation-message').first.text)
+
+    def confirm(self):
+        self.click_button("I know what I am doing")
+
+    def cancel(self):
+        self.click_button("I am on production")

@@ -54,6 +54,11 @@ class IWorkflowGenerator(Interface):
         ids.
         """
 
+    def get_states(workflow_id, specification):
+        """Returns the state IDs that will be generated for this
+        specification.
+        """
+
     def write(result_stream):
         """Writes the previously generated XML to a stream.
         """
