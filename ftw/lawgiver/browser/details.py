@@ -35,17 +35,29 @@ class SpecDetails(BrowserView):
     def __call__(self, *args, **kwargs):
         self.specification = self._load_specification()
 
-        if self.specification:
-            if 'write_workflow' in self.request.form:
-                self.write_workflow()
-
-            if 'write_and_import' in self.request.form:
-                self.write_and_import_workflow()
-
         if 'update_security' in self.request.form:
             self.update_security()
+            return self.reload()
 
-        return super(SpecDetails, self).__call__(*args, **kwargs)
+        if not self.specification:
+            return self.index()
+
+        if 'write_workflow' in self.request.form:
+            self.write_workflow()
+            return self.reload()
+
+        if 'write_and_import' in self.request.form:
+            self.write_and_import_workflow()
+            return self.reload()
+
+        return self.index()
+
+    def reload(self):
+        """Redirects to itself for purging request data, so
+        that a Ctrl-R reloads the page and does not execute things
+        such as writing the workflow.
+        """
+        return self.request.RESPONSE.redirect(self.request.URL)
 
     def write_workflow(self):
         generator = getUtility(IWorkflowGenerator)
