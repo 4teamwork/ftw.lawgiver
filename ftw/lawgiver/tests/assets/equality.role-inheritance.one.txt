@@ -19,10 +19,13 @@ Role mapping:
 Status Foo:
   An editor can view this content.
   An editor can edit this content.
+  An editor can access the worklist.
   An editor-in-chief can view this content.
   An editor-in-chief can edit this content.
+  An editor-in-chief can access the worklist.
   An administrator can view this content.
   An administrator can edit this content.
+  An administrator can access the worklist.
 
 
 Status Bar:

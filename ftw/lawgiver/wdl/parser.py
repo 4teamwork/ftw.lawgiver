@@ -29,9 +29,14 @@ def consumer(constraint):
 
 PERMISSION_STATEMENT = 'permission statement'
 ROLE_INHERITANCE_STATEMENT = 'role inheritance statement'
+WORKLIST_STATEMENT = 'worklist statement'
 
 
 def convert_statement(statement):
+    result = _convert_worklist_statement(statement)
+    if result:
+        return WORKLIST_STATEMENT, result
+
     result = _convert_role_inheritance_statement(statement)
     if result:
         return ROLE_INHERITANCE_STATEMENT, result
@@ -43,14 +48,31 @@ def convert_statement(statement):
     raise ParsingError('Unkown statement format: "%s"' % statement)
 
 
-def _convert_role_inheritance_statement(statement):
-    text = statement.lower()
+def _cleanup_statement(statement):
+    """Removes prefix and literals which are not intersting in general.
+    """
     # remove leading prefixes
-    text = re.sub(r'^(?:[Aa] |[Aa]n )', '', text)
+    statement = re.sub(r'^(?:[Aa] |[Aa]n )', '', statement)
 
     # always
-    text = text.replace(' can always ', ' can ')
+    statement = statement.replace(' can always ', ' can ')
 
+    return statement
+
+
+def _convert_worklist_statement(statement):
+    text = _cleanup_statement(statement.lower())
+
+    match = re.match(r'(.*?) can access the worklist.?', text)
+    if match:
+        return match.groups()[0]
+
+    else:
+        return None
+
+
+def _convert_role_inheritance_statement(statement):
+    text = _cleanup_statement(statement.lower())
     if 'can perform' not in text:
         return None
 
@@ -65,9 +87,7 @@ def _convert_role_inheritance_statement(statement):
 
 
 def _convert_permission_statement(statement):
-    text = statement
-    # remove leading prefixes
-    text = re.sub(r'^(?:[Aa] |[Aa]n )', '', text)
+    text = _cleanup_statement(statement)
 
     # remove trailing "this content" and such.
     text = re.sub(
@@ -162,6 +182,7 @@ class SpecificationParser(object):
 
         statements = []
         role_inheritance = []
+        worklist_viewers = []
 
         if value.strip():
             lines = map(str.strip, value.strip().split('\n'))
@@ -171,9 +192,12 @@ class SpecificationParser(object):
                     statements.append(item)
                 elif type_ == ROLE_INHERITANCE_STATEMENT:
                     role_inheritance.append(item)
+                elif type_ == WORKLIST_STATEMENT:
+                    worklist_viewers.append(item)
 
         specargs['states'][title] = Status(title, statements,
-                                           role_inheritance)
+                                           role_inheritance,
+                                           worklist_viewers)
 
     @consumer(r'^[Tt]ransitions$')
     def _convert_transitions(self, match, value, specargs):
@@ -223,6 +247,10 @@ class SpecificationParser(object):
 
             elif type_ == ROLE_INHERITANCE_STATEMENT:
                 role_inheritance.append(item)
+
+            elif type_ == WORKLIST_STATEMENT:
+                raise ParsingError('Worklist statements are not allowed'
+                                   ' in the "General" section.')
 
     def _post_converting(self):
         for transition in self._spec.transitions:

@@ -41,10 +41,12 @@ class Specification(object):
 class Status(object):
     implements(IStatus)
 
-    def __init__(self, title, statements, role_inheritance=None):
+    def __init__(self, title, statements, role_inheritance=None,
+                 worklist_viewers=None):
         self.title = title
         self.statements = statements
         self.role_inheritance = role_inheritance or []
+        self.worklist_viewers = worklist_viewers or []
 
     def __repr__(self):
         return '<Status "%s">' % self.title

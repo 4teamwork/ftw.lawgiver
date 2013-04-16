@@ -290,6 +290,26 @@ Roles can be inherited from other roles, globally and for a single status:
       An editor-in-chief can edit this content.
 
 
+Worklists
+~~~~~~~~~
+
+Worlists are automatically generated for you when you grant access to the worklist:
+
+.. code:: rst
+
+    [A workflow]
+    ...
+
+    Status Pending:
+      An editor-in-chief can access the worklist.
+
+Those "can access the worklist" statements do not work in the "General" section, they
+need to be defined a "Status" section.
+
+For each status with "can access the worklist" statements a worklist is generated, guarded
+with the role for which there is a statement.
+
+
 
 Workflow specification discovery
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

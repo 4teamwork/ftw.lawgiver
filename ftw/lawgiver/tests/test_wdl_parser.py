@@ -4,7 +4,7 @@ from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.lawgiver.wdl.parser import PERMISSION_STATEMENT
-from ftw.lawgiver.wdl.parser import ROLE_INHERITANCE_STATEMENT
+from ftw.lawgiver.wdl.parser import WORKLIST_STATEMENT
 from ftw.lawgiver.wdl.parser import convert_statement
 from ftw.testing import MockTestCase
 from zope.component import getUtility
@@ -284,6 +284,38 @@ class TestParser(MockTestCase):
         self.assertEquals([('administrator', 'editor')],
                           spec.states.values()[0].role_inheritance)
 
+    def test_worklist_viewers(self):
+        spec = self.parse_lines(
+            '[Foo]',
+            '',
+            'Status Foo:',
+            '  An Editor-In-Chief can access the worklist.',
+            '  A reviewer can access the worklist.')
+
+        self.assertEquals(
+            ['editor-in-chief',
+             'reviewer'],
+            spec.states.values()[0].worklist_viewers)
+
+    def test_general_worklists_not_possible(self):
+        # Worklist statements in the "General:" section are not allowed
+        # because it is too implicit: we cannot tell which states are
+        # "review" states and should have worklists.
+
+        # It would result in a worklist for each status, which would
+        # always display all contents of the site in the worklist..
+
+        with self.assertRaises(ParsingError) as cm:
+            self.parse_lines(
+                '[Foo]',
+                '',
+                'General:',
+                '  A reviewer can access the worklist.')
+
+        self.assertEquals(
+            str(cm.exception),
+            'Worklist statements are not allowed in the "General" section.')
+
 
 class TestConvertStatement(MockTestCase):
 
@@ -341,3 +373,12 @@ class TestConvertStatement(MockTestCase):
         self.assertEquals(
             'Unkown statement format: "This is not a statement."',
             str(cm.exception))
+
+    def test_worklist_statement(self):
+        self.assert_statement(
+            (WORKLIST_STATEMENT, 'administrator'),
+            'An Administrator can access the worklist.')
+
+        self.assert_statement(
+            (WORKLIST_STATEMENT, 'editor in chief'),
+            'An Editor in chief can access the worklist.')
