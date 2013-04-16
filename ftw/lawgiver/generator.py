@@ -47,7 +47,8 @@ class WorkflowGenerator(object):
     def write(self, result_stream):
         if self.document is None:
             raise RuntimeError(
-                'The specification was not yet generated. Call the generator first.')
+                'The specification was not yet generated.'
+                ' Call the generator first.')
 
         etree.ElementTree(self.document).write(result_stream,
                                                pretty_print=True,
@@ -137,7 +138,8 @@ class WorkflowGenerator(object):
 
         return node
 
-    def _apply_specification_statements(self, status_nodes, transition_nodes):
+    def _apply_specification_statements(self, status_nodes,
+                                        transition_nodes):
         transition_statements = dict([(status, set()) for status in
                                       status_nodes.keys()])
 
@@ -289,6 +291,7 @@ class WorkflowGenerator(object):
                     self.specification.role_mapping[base_role]))
 
         return result
+
 
 def resolve_inherited_roles(roles, role_inheritance):
     if not role_inheritance:

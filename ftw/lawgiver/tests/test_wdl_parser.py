@@ -4,7 +4,6 @@ from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.lawgiver.wdl.parser import PERMISSION_STATEMENT
-from ftw.lawgiver.wdl.parser import ROLE_INHERITANCE_STATEMENT
 from ftw.lawgiver.wdl.parser import convert_statement
 from ftw.testing import MockTestCase
 from zope.component import getUtility

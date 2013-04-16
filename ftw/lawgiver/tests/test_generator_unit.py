@@ -383,8 +383,8 @@ class TestGenerator(BaseTest):
         spec = Specification(title='Workflow',
                              initial_status_title='Private')
 
-        private = spec.states['Private'] = Status('Private', [])
-        published = spec.states['Published'] = Status('Published', [])
+        spec.states['Private'] = Status('Private', [])
+        spec.states['Published'] = Status('Published', [])
         result = WorkflowGenerator().get_states('wf', spec)
 
         self.assertEquals(
