@@ -52,6 +52,7 @@ Status Pending:
   An editor-in-chief can add new content.
   An editor-in-chief can publish.
   An editor-in-chief can reject.
+  An editor-in-chief can access the worklist.
 
 Status Published:
   An editor can view this content.

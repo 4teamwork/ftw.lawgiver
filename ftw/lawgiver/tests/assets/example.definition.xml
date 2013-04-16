@@ -144,6 +144,13 @@
    <guard-role>Editor</guard-role>
   </guard>
  </transition>
+ <worklist worklist_id="my_custom_workflow--WORKLIST--pending" title="">
+  <action url="%(portal_url)s/search?review_state=my_custom_workflow--STATUS--pending" category="global" icon="">Pending (%(count)d)</action>
+  <guard>
+   <guard-role>Reviewer</guard-role>
+  </guard>
+  <match name="review_state" values="my_custom_workflow--STATUS--pending"/>
+ </worklist>
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>

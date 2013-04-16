@@ -26,6 +26,7 @@ class WorkflowGenerator(object):
             getUtility(IPermissionCollector).collect(workflow_id))
 
         doc = self._create_document()
+        self.document = doc
 
         status_nodes = {}
         for status in sorted(specification.states.values(),
@@ -41,7 +42,6 @@ class WorkflowGenerator(object):
         self._apply_specification_statements(status_nodes, transition_nodes)
 
         self._add_variables(doc)
-        self.document = doc
         return self
 
     def write(self, result_stream):
@@ -159,6 +159,8 @@ class WorkflowGenerator(object):
             self._apply_status_statements(snode, status_stmts,
                                           role_inheritance)
 
+            self._add_worklist_when_necessary(status, role_inheritance)
+
         self._apply_transition_statements(transition_statements,
                                           transition_nodes,
                                           per_status_role_inheritance)
@@ -203,6 +205,35 @@ class WorkflowGenerator(object):
                 # were no statements about who can do the transtion.
                 xprnode = etree.SubElement(guards, 'guard-expression')
                 xprnode.text = u'python: False'
+
+    def _add_worklist_when_necessary(self, status, role_inheritance):
+        if not status.worklist_viewers:
+            return False
+
+        worklist = etree.SubElement(self.document, 'worklist')
+        worklist.set('title', '')
+        worklist.set('worklist_id', self._worklist_id(status))
+
+        action = etree.SubElement(worklist, 'action')
+        action.set('category', 'global')
+        action.set('icon', '')
+        action.set('url', '%%(portal_url)s/search?review_state=%s' % (
+                self._status_id(status)))
+        action.text = '%s (%%(count)d)' % status.title.decode('utf-8')
+
+        match = etree.SubElement(worklist, 'match')
+        match.set('name', 'review_state')
+        match.set('values', self._status_id(status))
+
+        guards = etree.SubElement(worklist, 'guard')
+
+        roles = [self.specification.role_mapping[crole]
+                 for crole in status.worklist_viewers]
+        roles = resolve_inherited_roles(roles, role_inheritance)
+
+        for role in roles:
+            rolenode = etree.SubElement(guards, 'guard-role')
+            rolenode.text = role.decode('utf-8')
 
     def _get_roles_for_permission(self, permission, statements):
         agregistry = getUtility(IActionGroupRegistry)
@@ -263,6 +294,10 @@ class WorkflowGenerator(object):
 
     def _status_id(self, status):
         return '%s--STATUS--%s' % (
+            self.workflow_id, self._normalize(status.title))
+
+    def _worklist_id(self, status):
+        return '%s--WORKLIST--%s' % (
             self.workflow_id, self._normalize(status.title))
 
     def _normalize(self, text):

@@ -67,3 +67,11 @@ GUARD_ROLE = '<guard-role>%s</guard-role>'
 # were no statements about who can do the transtion.
 GUARDS_DISABLED = GUARDS % (
     '<guard-expression>python: False</guard-expression>')
+
+WORKLIST = '''
+<worklist worklist_id="%(id)s" title="">
+  <action url="%%(portal_url)s/search?review_state=%(status_id)s" category="global" icon="">%(status_title)s (%%(count)d)</action>
+  %(guards)s
+  <match name="review_state" values="%(status_id)s"/>
+</worklist>
+'''

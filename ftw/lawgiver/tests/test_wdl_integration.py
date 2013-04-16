@@ -51,6 +51,14 @@ class TestExampleSpecification(MockTestCase):
 
             private.statements)
 
+    def test_private_worklist_viewers(self):
+        pending = self.spec.states['Private']
+
+        self.assertEquals(
+            [],
+
+            pending.worklist_viewers)
+
     def test_pending_statements(self):
         pending = self.spec.states['Pending']
 
@@ -67,6 +75,14 @@ class TestExampleSpecification(MockTestCase):
 
             pending.statements)
 
+    def test_pending_worklist_viewers(self):
+        pending = self.spec.states['Pending']
+
+        self.assertEquals(
+            ['editor-in-chief'],
+
+            pending.worklist_viewers)
+
     def test_published_statements(self):
         published = self.spec.states['Published']
 
@@ -80,6 +96,14 @@ class TestExampleSpecification(MockTestCase):
              ('everyone', 'view')],
 
             published.statements)
+
+    def test_published_worklist_viewers(self):
+        pending = self.spec.states['Published']
+
+        self.assertEquals(
+            [],
+
+            pending.worklist_viewers)
 
     def test_initial_state(self):
         self.assertEquals(self.spec.states['Private'],

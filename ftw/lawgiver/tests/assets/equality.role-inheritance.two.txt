@@ -20,6 +20,7 @@ Status Foo:
   An editor-in-chief can perform the same actions as an editor.
   An editor can view this content.
   An editor can edit this content.
+  An editor can access the worklist.
 
 
 

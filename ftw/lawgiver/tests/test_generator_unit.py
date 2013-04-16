@@ -520,6 +520,46 @@ class TestGenerator(BaseTest):
 
         self.assert_xml(expected, result.getvalue())
 
+    def test_worklists(self):
+        spec = Specification(title='Workflow',
+                             initial_status_title='Pending')
+        spec.role_mapping['employee'] = 'Editor'
+        spec.role_mapping['boss'] = 'Reviewer'
+
+        spec.states['Pending'] = Status(
+            'Pending', [],
+            worklist_viewers=['employee', 'boss'])
+
+        spec.validate()
+
+        result = StringIO()
+        WorkflowGenerator()('wf', spec).write(result)
+
+        expected = workflowxml.WORKFLOW % {
+            'id': 'wf',
+            'title': 'Workflow',
+            'description': '',
+            'initial_status': 'wf--STATUS--pending'} % ''.join((
+
+                workflowxml.STATUS_STANDALONE % {
+                    'title': 'Pending',
+                    'id': 'wf--STATUS--pending',
+                    },
+
+                workflowxml.WORKLIST % {
+                    'id': 'wf--WORKLIST--pending',
+                    'status_id': 'wf--STATUS--pending',
+                    'status_title': 'Pending',
+                    'guards': workflowxml.GUARDS % ''.join((
+                            workflowxml.GUARD_ROLE % 'Editor',
+                            workflowxml.GUARD_ROLE % 'Reviewer',
+                            ))
+                    },
+
+                ))
+
+        self.assert_definition_xmls(expected, result.getvalue())
+
 
 class TestResolveInheritedRoles(TestCase):
 
