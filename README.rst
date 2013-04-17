@@ -2,7 +2,8 @@ ftw.lawgiver
 ============
 
 ``ftw.lawgiver`` generates Plone workflows based on a human readable
-specification written in a custom DSL (domain specific language).
+specification written in a custom
+`DSL http://en.wikipedia.org/wiki/Domain-specific_language`_.
 
 ----
 
@@ -41,12 +42,12 @@ to convey to customer.
 How it works
 ------------
 
-``ftw.lawgiver`` helps solving these problems by using a domain specific
-language (DSL) for describing how a workflow should work.  The lawgiver then
-generates the complete workflow definition (``definition.xml``) based on this
-specification.  By separating this specification from the resulting workflow
-definition (which is in XML) the specification does not have to use
-permissions--handling the permissions is the job of the lawgiver.
+``ftw.lawgiver`` helps solving these problems by using a DSL to describe how
+a workflow should work. The lawgiver then generates the complete workflow
+definition (``definition.xml``) based on this specification.  By separating this
+specification from the resulting workflow definition (which is in XML) the
+specification does not have to use permissions--handling the permissions is the
+job of the lawgiver.
 
 Using the specification file the workflow can easily be regenerated at any time
 and will handle additional permissions automatically when regenerated. However,
