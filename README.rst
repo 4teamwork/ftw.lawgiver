@@ -1,8 +1,8 @@
 ftw.lawgiver
 ============
 
-ftw.lawgiver generates Plone workflows based on a human readable specification written in a custom DSL (domain specific language).
-
+ftw.lawgiver generates Plone workflows based on a human readable specification
+written in a custom DSL (domain specific language).
 
 ----
 
@@ -21,19 +21,38 @@ ftw.lawgiver generates Plone workflows based on a human readable specification w
 Motivation
 ----------
 
-Developing and maintaining complex Plone workflows is a time-consuming and cumbersome endeavor. Dozens of permissions need to be managed for different roles and different workflow states. Usually, this has to be done directly in the ZMI of Zope by selecting or unselecting thousands of checkboxes. This process has been shown to be very tedious and prone to errors. Furthermore, it is no simple task to document the workflow and the associated design decisions which led to the resulting configuration of permissions and roles. The extension or adaption of an existing workflow becomes very difficult, leading to workflows which are barely maintainable.
+Developing and maintaining complex Plone workflows is a time-consuming and
+cumbersome endeavor. Dozens of permissions need to be managed for different
+roles and different workflow states. Usually, this has to be done directly in
+the ZMI of Zope by selecting or unselecting thousands of checkboxes. This
+process has been shown to be very tedious and prone to errors. Furthermore, it
+is no simple task to document the workflow and the associated design decisions
+which led to the resulting configuration of permissions and roles. The extension
+or adaption of an existing workflow becomes very difficult, leading to workflows
+which are barely maintainable.
 
-Another problem poses the communication between workflow integrator and customer. The security system of Zope is based on a role-based access control (RBAC) which is intrinsically complex due to its use of roles, permissions, and workflow states. Experience has shown that these security concepts can be hard to convey to customer.
+Another problem poses the communication between workflow integrator and
+customer. The security system of Zope is based on a role-based access control
+(RBAC) which is intrinsically complex due to its use of roles, permissions, and
+workflow states. Experience has shown that these security concepts can be hard
+to convey to customer.
+
 
 How it works
 ------------
 
-ftw.lawgiver helps solving these problems by using a domain specific language (DSL) for describing how a workflow should work.
-The lawgiver then generates the complete workflow definition (``definition.xml``) based on this specification.
-By separating this specification from the resulting workflow definition (which is in XML) the specification does not have to use permissions--handling the permissions is the job of the lawgiver.
+ftw.lawgiver helps solving these problems by using a domain specific language
+(DSL) for describing how a workflow should work.  The lawgiver then generates
+the complete workflow definition (``definition.xml``) based on this
+specification.  By separating this specification from the resulting workflow
+definition (which is in XML) the specification does not have to use
+permissions--handling the permissions is the job of the lawgiver.
 
-Using the specification file the workflow can easily be regenerated at any time and will handle additional permissions automatically when regenerated. However, it is still the task of the developer to regenerate the ``definition.xml`` when more or other permissions have to be managed. He or she have to make sure that the workflow is properly installed with an upgrade step /
-reindexing security.
+Using the specification file the workflow can easily be regenerated at any time
+and will handle additional permissions automatically when regenerated. However,
+it is still the task of the developer to regenerate the ``definition.xml`` when
+more or other permissions have to be managed. He or she have to make sure that
+the workflow is properly installed with an upgrade step / reindexing security.
 
 
 Installation
@@ -59,20 +78,23 @@ Runs with `Plone <http://www.plone.org/>`_ `4.3`.
 Action groups
 -------------
 
-In the specification we use the concept of so called action groups for describing what a role is allowed to do. It basically groups together a bunch of semantically similar Plone / Zope permissions so that we only have to define the workflow based on these action groups and not on individual permissions.
+In the specification we use the concept of so called action groups for
+describing what a role is allowed to do. It basically groups together a bunch of
+semantically similar Plone / Zope permissions so that we only have to define the
+workflow based on these action groups and not on individual permissions.
 
-For example there is an ``Access`` action group which contains permissions
-such as ``View`` and ``Access Contents Information``.
+For example there is an ``Access`` action group which contains permissions such
+as ``View`` and ``Access Contents Information``.
 
 
 Registering permissions to an action group
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The registration of a permission to an action group should be done in the
-package where the permission is defined.
-This allows to keep changes of the permissions and action group registrations
-together in branches, for reviews etc.
-ftw.lawgiver already assigns default Plone / Zope permissions to action groups.
+package where the permission is defined.  This allows to keep changes of the
+permissions and action group registrations together in branches, for reviews
+etc.  ftw.lawgiver already assigns default Plone / Zope permissions to action
+groups.
 
 The registration is done in ZCML.
 Here is an example ``lawgiver.zcml``:
@@ -174,16 +196,20 @@ The states and transitions are defined in simple lists:
       Publish (Pending => Published)
       Reject (Published => Private)
 
-The asterisk (`*`) in the state list indicates that this state is the
-initial state.
-We are not using any internal ids for workflow states or transitions. Instead, we use the same labels which the user will actually see--the ids are automatically generated by ftw.lawgiver.
+The asterisk (`*`) in the state list indicates that this state is the initial
+state.  We are not using any internal ids for workflow states or
+transitions. Instead, we use the same labels which the user will actually
+see--the ids are automatically generated by ftw.lawgiver.
 
 
 Role mapping
 ~~~~~~~~~~~~
 
-In Plone we have a given set of rather technical roles (e.g. Editor, Contributor, Reader) which may not apply for all use cases in real life. The customer may have own roles with different names.
-Since the existing roles are already well established in Plone it is usually not a good thing to add new roles to Plone. It is better to try to reuse the existing roles.
+In Plone we have a given set of rather technical roles (e.g. Editor,
+Contributor, Reader) which may not apply for all use cases in real life. The
+customer may have own roles with different names.  Since the existing roles are
+already well established in Plone it is usually not a good thing to add new
+roles to Plone. It is better to try to reuse the existing roles.
 
 Because the customer has different labels for his roles we need to map
 customer roles to Plone roles:
@@ -196,16 +222,19 @@ customer roles to Plone roles:
       everyone => Anonymous
 
 In our example we have only "normal" editors and an "editor-in-chief" who can
-review and publish the contents.
-We do not have to use the Contributor role since our editors can edit, add new content, and request a review for existing content. Therefore, it is not necessary to distinguish Editor and Contributor role.
+review and publish the contents.  We do not have to use the Contributor role
+since our editors can edit, add new content, and request a review for existing
+content. Therefore, it is not necessary to distinguish Editor and Contributor
+role.
 
 
 General statements
 ~~~~~~~~~~~~~~~~~~
 
-Usually there are some general statements, for example that a user with adminstrator role can always edit the contents on any workflow state.
-Such statements should not be repeated for every state but defined once as
-a general statement.
+Usually there are some general statements, for example that a user with
+adminstrator role can always edit the contents on any workflow state.  Such
+statements should not be repeated for every state but defined once as a general
+statement.
 
 An example:
 
@@ -222,8 +251,9 @@ These general statements apply for all states.
 Describing states
 ~~~~~~~~~~~~~~~~~
 
-For each state we describe the actions a user with a certain role can do.
-We have the principle that any user / role is NOT allowed do anything by default, we have to explicitly list every action he will be allowed to perform.
+For each state we describe the actions a user with a certain role can do.  We
+have the principle that any user / role is NOT allowed do anything by default,
+we have to explicitly list every action he will be allowed to perform.
 
 .. code:: rst
 
@@ -303,12 +333,11 @@ Worlists are automatically generated for you when you grant access to the workli
     Status Pending:
       An editor-in-chief can access the worklist.
 
-Those "can access the worklist" statements do not work in the "General" section, they
-need to be defined a "Status" section.
+Those "can access the worklist" statements do not work in the "General" section,
+they need to be defined a "Status" section.
 
-For each status with "can access the worklist" statements a worklist is generated, guarded
-with the role for which there is a statement.
-
+For each status with "can access the worklist" statements a worklist is
+generated, guarded with the role for which there is a statement.
 
 
 Workflow specification discovery
@@ -331,10 +360,10 @@ profile directory.
 Changing Transition URLs
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Sometimes the transition URLs need to point to another view.
-This can be achieved by using the `transition-url` option, where a string can be passed which
-will then be substituted with the `transition` id.
-Be sure to use a double `%%` for parts which should not be replaced when generating the workflow,
+Sometimes the transition URLs need to point to another view.  This can be
+achieved by using the `transition-url` option, where a string can be passed
+which will then be substituted with the `transition` id.  Be sure to use a
+double `%%` for parts which should not be replaced when generating the workflow,
 such as the `%%(content_url)s`.
 
 Example:
@@ -347,9 +376,9 @@ Example:
 Generating the workflow
 -----------------------
 
-For generating the workflow go to the lawgiver control panel (in the
-Plone control panel).
-There you can see a list of all workflows and by selecting one you can see the specification and other details, such as the action groups.
+For generating the workflow go to the lawgiver control panel (in the Plone
+control panel).  There you can see a list of all workflows and by selecting one
+you can see the specification and other details, such as the action groups.
 
 On this view you can generate the workflow (automatically saved in the
 ``definition.xml`` in the same directory as the ``specification.txt``) and you
@@ -418,15 +447,17 @@ Specialities
 Deleting content
 ~~~~~~~~~~~~~~~~
 
-The ftw.lawgiver uses `collective.deletepermission`_.
-If you generate a workflow using lawgiver and install it in production without lawgiver, be sure
+The ftw.lawgiver uses `collective.deletepermission`_.  If you generate a
+workflow using lawgiver and install it in production without lawgiver, be sure
 to install `collective.deletepermission`_!
 
-`collective.deletepermission`_ solves a delete problem which occurs in certain situations by
-adding a new delete permission. See its readme for further details.
+`collective.deletepermission`_ solves a delete problem which occurs in certain
+situations by adding a new delete permission. See its readme for further
+details.
 
 For beeing able to delete a content, the user should have the "delete" action
-group (`Delete portal content`) on the content but also "add" (`Delete objects`) on the parent content
+group (`Delete portal content`) on the content but also "add" (`Delete objects`)
+on the parent content
 
 
 Example
@@ -436,7 +467,6 @@ In our tests we have an up to date
 `example specification.txt <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt>`_, from which the
 `definition.xml <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/definition.xml>`_
 is generated.
-
 
 
 Links
