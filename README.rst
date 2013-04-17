@@ -36,7 +36,7 @@ Another problem poses the communication between workflow integrator and
 customer. The security system of Zope is based on a role-based access control
 (RBAC) which is intrinsically complex due to its use of roles, permissions, and
 workflow states. Experience has shown that these security concepts can be hard
-to convey to customer.
+to convey to customers.
 
 
 How it works
@@ -162,7 +162,6 @@ This can be easily achieved by also defining the workflow in the ZCML:
             />
 
     </configure>
-
 
 
 The workflow specification
@@ -324,7 +323,8 @@ Roles can be inherited from other roles, globally and for a single status:
 Worklists
 ~~~~~~~~~
 
-Worlists are automatically generated for you when you grant access to the worklist:
+Worklists are automatically generated for you when you grant access to the
+worklist:
 
 .. code:: rst
 
@@ -346,8 +346,8 @@ Workflow specification discovery
 
 All workflow directories in registered generic setup profiles
 are automatically scanned for workflow specifications.
-Just place a ``specification.txt`` in a workflow directory and it
-should be automatically discovered.
+Just place a ``specification.txt`` in a workflow directory and ``ftw.lawgiver``
+will discover it automatically.
 
 Example paths:
 
@@ -378,7 +378,7 @@ Generating the workflow
 -----------------------
 
 For generating the workflow go to the lawgiver control panel (in the Plone
-control panel).  There you can see a list of all workflows and by selecting one
+control panel). There you can see a list of all workflows and by selecting one
 you can see the specification and other details, such as the action groups.
 
 On this view you can generate the workflow (automatically saved in the
