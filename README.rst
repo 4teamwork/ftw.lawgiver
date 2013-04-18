@@ -3,7 +3,7 @@ ftw.lawgiver
 
 ``ftw.lawgiver`` generates Plone workflows based on a human readable
 specification written in a custom
-`DSL http://en.wikipedia.org/wiki/Domain-specific_language`_.
+`DSL <http://en.wikipedia.org/wiki/Domain-specific_language>`_.
 
 ----
 
