@@ -487,3 +487,7 @@ This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 ``ftw.lawgiver`` is licensed under GNU General Public License, version 2.
 
 .. _collective.deletepermission: https://github.com/4teamwork/collective.deletepermission
+
+.. image:: https://cruel-carlota.pagodabox.com/ef218e7bdb19163396b77d70f31e984e
+   :alt: githalytics.com
+   :target: http://githalytics.com/4teamwork/ftw.lawgiver
