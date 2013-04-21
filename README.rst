@@ -5,17 +5,6 @@ ftw.lawgiver
 specification written in a custom
 `DSL <http://en.wikipedia.org/wiki/Domain-specific_language>`_.
 
-----
-
-.. parsed-literal::
-
-    ALPHA SOFTWARE:
-    ftw.lawgiver has no stable release yet.
-    Please inspect the generated workflows carefully before using them in a production environment.
-    Help us improve the software by creating tickets in our issue tracker if you encounter any problems.
-
-----
-
 .. contents:: Table of Contents
 
 
