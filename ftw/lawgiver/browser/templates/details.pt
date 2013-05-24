@@ -78,7 +78,7 @@
                 <tal:WORKFLOW_NOT_INSTALLED tal:condition="not:workflow_installed">
 
                     <dl class="portalMessage warning">
-                        <dd i18n:translate="">
+                        <dd i18n:translate="warning_workflow_not_installed">
                             The workflow
                             <i i18n:name="workflow" tal:content="workflow_name" />
                             is not installed yet.

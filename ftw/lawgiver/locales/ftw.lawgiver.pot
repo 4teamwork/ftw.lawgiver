@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-04-13 13:18+0000\n"
+"POT-Creation-Date: 2013-05-24 09:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,12 +21,20 @@ msgstr ""
 msgid "Default translations"
 msgstr ""
 
+#: ftw/lawgiver/browser/templates/import-confirmation.pt:26
+msgid "Importing this workflow renames or removes states. Changing states can reset the workflow status of affected objects to the initial state."
+msgstr ""
+
 #: ftw/lawgiver/browser/templates/details.pt:53
 msgid "No"
 msgstr ""
 
 #: ftw/lawgiver/browser/templates/details.pt:140
 msgid "Permission mapping"
+msgstr ""
+
+#: ftw/lawgiver/browser/templates/import-confirmation.pt:33
+msgid "Removed / renamed states:"
 msgstr ""
 
 #: ftw/lawgiver/browser/templates/details.pt:129
@@ -45,10 +53,6 @@ msgstr ""
 msgid "Template"
 msgstr ""
 
-#: ftw/lawgiver/browser/templates/details.pt:86
-msgid "The workflow ${workflow} is not installed yet. Installing the workflow with the "${button_title}" button does not configure the policy, so no portal type will have this workflow."
-msgstr ""
-
 #: ftw/lawgiver/browser/templates/details.pt:175
 msgid "Translations"
 msgstr ""
@@ -59,6 +63,10 @@ msgstr ""
 
 #: ftw/lawgiver/browser/templates/details.pt:60
 msgid "Update Workflow Definition"
+msgstr ""
+
+#: ftw/lawgiver/browser/templates/import-confirmation.pt:17
+msgid "Warning: Destructive Changes"
 msgstr ""
 
 #: ftw/lawgiver/browser/templates/details.pt:32
@@ -117,27 +125,27 @@ msgid "description_write_wf_definition"
 msgstr ""
 
 #. Default: "The specification file could not be parsed: ${error}"
-#: ftw/lawgiver/browser/details.py:145
+#: ftw/lawgiver/browser/details.py:194
 msgid "error_parsing_error"
 msgstr ""
 
 #. Default: "Error while generating the workflow: ${msg}"
-#: ftw/lawgiver/browser/details.py:62
+#: ftw/lawgiver/browser/details.py:106
 msgid "error_while_generating_workflow"
 msgstr ""
 
 #. Default: "Security update: ${amount} objects updated."
-#: ftw/lawgiver/browser/details.py:103
+#: ftw/lawgiver/browser/details.py:152
 msgid "info_security_updated"
 msgstr ""
 
 #. Default: "The workflow was generated to ${path}."
-#: ftw/lawgiver/browser/details.py:74
+#: ftw/lawgiver/browser/details.py:118
 msgid "info_workflow_generated"
 msgstr ""
 
 #. Default: "Workflow ${wfname} successfully imported."
-#: ftw/lawgiver/browser/details.py:94
+#: ftw/lawgiver/browser/details.py:141
 msgid "info_workflow_imported"
 msgstr ""
 
@@ -149,5 +157,14 @@ msgstr ""
 #. Default: "Workflow Specifications"
 #: ftw/lawgiver/browser/templates/speclisting.pt:12
 msgid "title_manage_upgrades"
+msgstr ""
+
+#: ftw/lawgiver/browser/templates/import-confirmation.pt:45
+msgid "value"
+msgstr ""
+
+#. Default: "The workflow ${workflow} is not installed yet. Installing the workflow with the \"${button_title}\" button does not configure the policy, so no portal type will have this workflow."
+#: ftw/lawgiver/browser/templates/details.pt:86
+msgid "warning_workflow_not_installed"
 msgstr ""
 
