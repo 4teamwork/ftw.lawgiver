@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-24 09:33+0000\n"
+"POT-Creation-Date: 2013-05-24 11:26+0000\n"
 "PO-Revision-Date: 2013-04-10 10:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,6 +14,14 @@ msgstr ""
 #: ftw/lawgiver/browser/templates/details.pt:184
 msgid "Default translations"
 msgstr "Standard Übersetzungen"
+
+#: ftw/lawgiver/browser/templates/import-confirmation.pt:51
+msgid "I am on production"
+msgstr "Das ist ein Produktivsystem"
+
+#: ftw/lawgiver/browser/templates/import-confirmation.pt:45
+msgid "I know what I am doing"
+msgstr "Ich weiss was ich mache"
 
 #: ftw/lawgiver/browser/templates/import-confirmation.pt:26
 msgid "Importing this workflow renames or removes states. Changing states can reset the workflow status of affected objects to the initial state."
@@ -153,12 +161,7 @@ msgstr "Zurück zur Auflistung der Spezifikationen."
 msgid "title_manage_upgrades"
 msgstr "Workflow Spezifikationen"
 
-#: ftw/lawgiver/browser/templates/import-confirmation.pt:45
-msgid "value"
-msgstr "Wert"
-
 #. Default: "The workflow ${workflow} is not installed yet. Installing the workflow with the \"${button_title}\" button does not configure the policy, so no portal type will have this workflow."
 #: ftw/lawgiver/browser/templates/details.pt:86
 msgid "warning_workflow_not_installed"
 msgstr "Der Workflow ${workflow} ist noch nicht installiert. Wenn der Workflow mit dem Button \"${button_title}\" installiert wird die Workflow Policy nicht angepasst, d.H. kein Typ wird diesen Workflow automatisch benutzen."
-

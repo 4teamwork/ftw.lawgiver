@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2013-05-24 09:33+0000\n"
+"POT-Creation-Date: 2013-05-24 11:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,14 @@ msgstr ""
 
 #: ftw/lawgiver/browser/templates/details.pt:184
 msgid "Default translations"
+msgstr ""
+
+#: ftw/lawgiver/browser/templates/import-confirmation.pt:51
+msgid "I am on production"
+msgstr ""
+
+#: ftw/lawgiver/browser/templates/import-confirmation.pt:45
+msgid "I know what I am doing"
 msgstr ""
 
 #: ftw/lawgiver/browser/templates/import-confirmation.pt:26
@@ -157,10 +165,6 @@ msgstr ""
 #. Default: "Workflow Specifications"
 #: ftw/lawgiver/browser/templates/speclisting.pt:12
 msgid "title_manage_upgrades"
-msgstr ""
-
-#: ftw/lawgiver/browser/templates/import-confirmation.pt:45
-msgid "value"
 msgstr ""
 
 #. Default: "The workflow ${workflow} is not installed yet. Installing the workflow with the \"${button_title}\" button does not configure the policy, so no portal type will have this workflow."

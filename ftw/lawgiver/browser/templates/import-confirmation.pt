@@ -45,13 +45,13 @@
             <input type="submit"
                    name="confirmation.confirmed"
                    class="destructive"
-                   i18n:translate="value"
+                   i18n:attributes="value"
                    value="I know what I am doing" />
 
             <input type="submit"
                    name="confirmation.cancelled"
                    class="standalone"
-                   i18n:translate="value"
+                   i18n:attributes="value"
                    value="I am on production" />
 
         </form>
