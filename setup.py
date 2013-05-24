@@ -6,7 +6,7 @@ version = '1.0.dev0'
 
 
 tests_require = [
-
+    'zope.dottedname',
     'Products.CMFCore',
     'Zope2',
     'ftw.testing [splinter]',
@@ -17,7 +17,6 @@ tests_require = [
     'z3c.autoinclude',
     'zope.configuration',
     'zope.security',
-
     ]
 
 
@@ -48,10 +47,12 @@ setup(name='ftw.lawgiver',
       zip_safe=False,
 
       install_requires=[
-
         'Products.CMFCore',
         'Products.GenericSetup',
         'Products.statusmessages',
+        'ZODB3',
+        'Zope2',
+        'collective.deletepermission',
         'lxml',
         'plone.i18n',
         'setuptools',
@@ -61,8 +62,6 @@ setup(name='ftw.lawgiver',
         'zope.interface',
         'zope.publisher',
         'zope.schema',
-        'collective.deletepermission',
-
         ],
 
       tests_require=tests_require,
