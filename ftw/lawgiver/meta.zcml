@@ -9,4 +9,11 @@
         handler=".meta.mapPermissions"
         />
 
+    <meta:directive
+        namespace="http://namespaces.zope.org/lawgiver"
+        name="ignore"
+        schema=".meta.IIgnorePermissionsDirective"
+        handler=".meta.ignorePermissions"
+        />
+
 </configure>

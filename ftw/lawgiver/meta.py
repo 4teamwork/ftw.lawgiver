@@ -29,6 +29,22 @@ class IMapPermissionsDirective(Interface):
         required=False)
 
 
+class IIgnorePermissionsDirective(Interface):
+
+    permissions = CommaSeparatedText(
+        title=u'Permissions',
+        description=u'A list of permissions',
+        required=True)
+
+    workflow = TextLine(
+        title=u'The name of the workflow',
+        description=u'By default the directive contents'
+        u' apply to all workflows. Set the name of the'
+        u' workflow here for making it workflow specific.',
+        default=None,
+        required=False)
+
+
 def mapPermissions(_context, **kwargs):
     """Map permissions to an action group.
     """
@@ -49,3 +65,25 @@ def mapPermissions(_context, **kwargs):
         provideUtility(component)
 
     component.update(**kwargs)
+
+
+def ignorePermissions(_context, **kwargs):
+    """Ignore permissions for a workflow.
+    """
+
+    permissions = kwargs['permissions']
+    for permission in permissions:
+        if '   ' in permission:
+            raise ConfigurationError(
+                'Seems that a comma is missing in the "permissions"'
+                ' attribute of the lawgiver:map_permissions tag.')
+
+    if permissions[-1] == '':
+        permissions.pop()
+
+    component = queryUtility(IActionGroupRegistry)
+    if component is None:
+        component = ActionGroupRegistry()
+        provideUtility(component)
+
+    component.ignore(**kwargs)

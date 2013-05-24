@@ -421,9 +421,8 @@ What is tested?
         <include package="ftw.lawgiver" file="meta.zcml" />
 
 
-        <lawgiver:map_permissions
-            action_group="__unmanaged__"
-            workflow="__unmanaged__"
+        <lawgiver:ignore
+            workflow="my_workflow"
             permissions="ATContentTypes: Upload via url,
                          ATContentTypes: View history"
             />
