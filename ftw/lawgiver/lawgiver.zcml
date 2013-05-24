@@ -134,9 +134,7 @@
         />
 
 
-    <lawgiver:map_permissions
-        action_group="__unmanaged__"
-        workflow="__unmanaged__"
+    <lawgiver:ignore
         permissions="
 
                      ATContentTypes: Upload via url,
@@ -287,9 +285,7 @@
     <!-- we do not use "Request review" / "Review portal content" by
          default, since we use role-based transition guards. -->
 
-    <lawgiver:map_permissions
-        action_group="__unmanaged__"
-        workflow="__unmanaged__"
+    <lawgiver:ignore
         permissions="
                      Review portal content,
                      Request review,
@@ -301,9 +297,7 @@
          manage_access with the message id rather the translation default, which we
          do not want to add to the workflow. Therefore we mark them as unmanaged -->
 
-    <lawgiver:map_permissions
-        action_group="__unmanaged__"
-        workflow="__unmanaged__"
+    <lawgiver:ignore
         permissions="
                      change-security-settings-permission,
                      manage-content-permission,

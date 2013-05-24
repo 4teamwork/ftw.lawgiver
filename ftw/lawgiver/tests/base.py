@@ -268,10 +268,8 @@ class WorkflowTest(XMLDiffTestCase):
         unmapped = []
         registry = getUtility(IActionGroupRegistry)
 
-        # We use the the workflow_name __unmanaged__ since the permissions
-        # we do not want to manage by default are registered on this fake
-        # workflow so that we can track whether we are not managing them
-        # by intention.
+        explicitly_ignored_permissions = registry.get_ignored_permissions(
+            workflow_name=self.get_name())
 
         for item in self.layer['portal'].ac_inherited_permissions(1):
             permission = item[0]
@@ -282,9 +280,11 @@ class WorkflowTest(XMLDiffTestCase):
                 # e.g. "Public, everyone can access"
                 continue
 
-            if not registry.get_action_group_for_permission(
-                permission, workflow_name='__unmanaged__'):
+            if registry.get_action_group_for_permission(
+                permission, workflow_name=self.get_name()):
+                continue
 
+            if permission not in explicitly_ignored_permissions:
                 unmapped.append(permission)
 
         self.maxDiff = None
