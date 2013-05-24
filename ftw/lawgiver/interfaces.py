@@ -21,6 +21,12 @@ class IActionGroupRegistry(Interface):
         optional only for a specific `workflow`.
         """
 
+    def ignore(permissions, workflow=None):
+        """Ignore permissions for all workflows or for a single workflow.
+        This will cause that these permissions are not managed by the
+        workflow at all.
+        """
+
     def get_action_groups_for_workflow(workflow_name):
         """Returns a action groups to permissions mapping for a specific
         workflow (by `workflow_name`).
@@ -34,6 +40,11 @@ class IActionGroupRegistry(Interface):
         Optional the `workflow_name` can be passed to make the query workflow
         specific.
         If the permission is not mapped, None is returned.
+        """
+
+    def get_ignored_permissions(workflow_name=None):
+        """Returns all ignored permissions in general or for a specific
+        workflow.
         """
 
 

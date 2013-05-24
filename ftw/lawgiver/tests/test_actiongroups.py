@@ -45,6 +45,50 @@ class TestBundlesZCML(BaseTest):
                 )
 
 
+class TestIgnoreZCML(BaseTest):
+
+    layer = META_ZCML
+
+    def get_registry(self):
+        return getUtility(IActionGroupRegistry)
+
+    def test_directive_registers_and_updates_registry(self):
+        self.load_map_permissions_zcml(
+            '<lawgiver:ignore',
+            '    permissions="Access contents information,'
+            '                 View'
+            '                " />',
+
+            '<lawgiver:ignore',
+            '    workflow="foo"',
+            '    permissions="List folder contents" />',
+            )
+
+        registry = self.get_registry()
+        self.assertEquals(
+            {None: set([u'Access contents information', u'View']),
+             u'foo': set([u'List folder contents'])},
+
+            dict(registry._ignores))
+
+    def test_permissions_required(self):
+        with self.assertRaises(ConfigurationError):
+            self.load_map_permissions_zcml(
+                '<lawgiver:ignore',
+                '    workflow="foo" />')
+
+    def test_invalid_permission_syntax_detected(self):
+        with self.assertRaises(ConfigurationError) as context_manager:
+            self.load_map_permissions_zcml(
+                '<lawgiver:ignore',
+                '    permissions="Foo'
+                '                 Bar" />')
+
+        exception_message = str(context_manager.exception)
+        self.assertIn('ConfigurationError: Seems that a comma is missing',
+                      exception_message)
+
+
 class TestActionGroupRegistry(BaseTest):
 
     layer = META_ZCML
@@ -215,3 +259,66 @@ class TestActionGroupRegistry(BaseTest):
             sorted(registry._permissions.keys()),
 
             'Trailing comma seems not to be working in map_permissions ZCML.')
+
+    def test_getting_ignored_permissions(self):
+        self.load_map_permissions_zcml(
+            '<lawgiver:ignore',
+            '    permissions="Access contents information" />',
+            )
+
+        registry = self.get_registry()
+
+        self.assertEqual(set([u'Access contents information']),
+                         registry.get_ignored_permissions())
+
+    def test_getting_ignored_permissions_for_a_workflow(self):
+        self.load_map_permissions_zcml(
+            '<lawgiver:ignore',
+            '    permissions="Access contents information" />',
+
+            '<lawgiver:ignore',
+            '    workflow="foo"'
+            '    permissions="View" />',
+            )
+
+        registry = self.get_registry()
+
+        self.assertEqual(set([u'Access contents information', u'View']),
+                         registry.get_ignored_permissions('foo'))
+
+    def test_ignoring_permissions_removes_them_from_groups(self):
+        self.load_map_permissions_zcml(
+            '<lawgiver:map_permissions',
+            '    action_group="view"',
+            '    permissions="Access contents information,'
+            '                 List folder contents,'
+            '                 View" />',
+
+            '<lawgiver:ignore',
+            '    permissions="Access contents information" />',
+
+            '<lawgiver:ignore',
+            '    workflow="my_workflow"'
+            '    permissions="List folder contents" />',
+            )
+
+        registry = self.get_registry()
+
+        self.assertEqual(
+            {'view': set([u'View'])},
+            registry.get_action_groups_for_workflow('my_workflow'))
+
+        self.assertEqual(
+            None,
+            registry.get_action_group_for_permission(
+                'Access contents information'))
+
+        self.assertEqual(
+            None,
+            registry.get_action_group_for_permission(
+                'List folder contents', workflow_name='my_workflow'))
+
+        self.assertEqual(
+            'view',
+            registry.get_action_group_for_permission(
+                'List folder contents'))
