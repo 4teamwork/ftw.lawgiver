@@ -107,7 +107,6 @@
         action_group="manage"
         permissions="
 
-                     CMFEditions: Manage versioning policies,
                      Content rules: Manage rules,
                      List undoable changes,
                      Modify constrain types,
@@ -188,6 +187,7 @@
                      Allow sendto,
                      Archetypes Tests: Protected Type View,
                      Archetypes Tests: Protected Type Write,
+                     CMFEditions: Manage versioning policies,
                      CMFEditions: Purge version,
                      CMFPlacefulWorkflow: Manage workflow policies,
                      Change Browser Id Manager,

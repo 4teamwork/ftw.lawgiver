@@ -19,7 +19,6 @@
   <permission>CMFEditions: Access previous versions</permission>
   <permission>CMFEditions: Apply version control</permission>
   <permission>CMFEditions: Checkout to location</permission>
-  <permission>CMFEditions: Manage versioning policies</permission>
   <permission>CMFEditions: Revert to previous versions</permission>
   <permission>CMFEditions: Save new version</permission>
   <permission>Change local roles</permission>
@@ -118,7 +117,6 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="CMFEditions: Manage versioning policies" acquired="False"/>
     <permission-map name="CMFEditions: Revert to previous versions" acquired="False">
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
@@ -252,7 +250,6 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="CMFEditions: Manage versioning policies" acquired="False"/>
     <permission-map name="CMFEditions: Revert to previous versions" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -386,7 +383,6 @@
     <permission-map name="CMFEditions: Checkout to location" acquired="False">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="CMFEditions: Manage versioning policies" acquired="False"/>
     <permission-map name="CMFEditions: Revert to previous versions" acquired="False">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
