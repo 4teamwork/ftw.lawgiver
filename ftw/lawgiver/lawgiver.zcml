@@ -22,6 +22,7 @@
     <lawgiver:map_permissions
         action_group="view inactive objects"
         permissions="
+                     Access future portal content,
                      Access inactive portal content,
                      "
         />
@@ -35,7 +36,6 @@
                      CMFEditions: Checkout to location,
                      CMFEditions: Revert to previous versions,
                      CMFEditions: Save new version,
-                     Copy or Move,
                      Manage properties,
                      Modify portal content,
                      PloneFormGen: Edit Advanced Fields,
@@ -106,6 +106,16 @@
         action_group="manage"
         permissions="
 
+                     Modify constrain types,
+                     Modify view template,
+
+                     "
+        />
+
+
+    <lawgiver:ignore
+        permissions="
+
                      ATContentTypes Topic: Add ATBooleanCriterion,
                      ATContentTypes Topic: Add ATCurrentAuthorCriterion,
                      ATContentTypes Topic: Add ATDateCriteria,
@@ -119,27 +129,7 @@
                      ATContentTypes Topic: Add ATSimpleIntCriterion,
                      ATContentTypes Topic: Add ATSimpleStringCriterion,
                      ATContentTypes Topic: Add ATSortCriterion,
-                     Access future portal content,
-                     CMFEditions: Manage versioning policies,
-                     Content rules: Manage rules,
-                     List undoable changes,
-                     Modify constrain types,
-                     Modify view template,
-                     PloneFormGen: Add Data Savers,
-                     PloneFormGen: Add Mailers,
-                     PloneFormGen: Download Saved Input,
-                     Undo changes,
-
-                     "
-        />
-
-
-    <lawgiver:ignore
-        permissions="
-
                      ATContentTypes: Upload via url,
-                     Kupu: Manage libraries,
-                     Kupu: Query libraries,
                      ATContentTypes: View history,
                      Access Transient Objects,
                      Access arbitrary user session data,
@@ -190,6 +180,7 @@
                      Allow sendto,
                      Archetypes Tests: Protected Type View,
                      Archetypes Tests: Protected Type Write,
+                     CMFEditions: Manage versioning policies,
                      CMFEditions: Purge version,
                      CMFPlacefulWorkflow: Manage workflow policies,
                      Change Browser Id Manager,
@@ -211,6 +202,8 @@
                      Change portal topics,
                      Change proxy roles,
                      Change user folder,
+                     Content rules: Manage rules,
+                     Copy or Move,
                      Create Transient Objects,
                      Define permissions,
                      Delete Groups,
@@ -218,7 +211,10 @@
                      FTP access,
                      Five: Add TTW View Template,
                      Import/Export objects,
+                     Kupu: Manage libraries,
+                     Kupu: Query libraries,
                      List portal members,
+                     List undoable changes,
                      Log Site Errors,
                      Log to the Event Log,
                      Mail forgotten password,
@@ -252,6 +248,9 @@
                      Plone Site Setup: Types,
                      Plone Site Setup: Users and Groups,
                      PloneFormGen: Add Custom Scripts,
+                     PloneFormGen: Add Data Savers,
+                     PloneFormGen: Add Mailers,
+                     PloneFormGen: Download Saved Input,
                      Portlets: Manage own portlets,
                      Portlets: View dashboard,
                      Query Vocabulary,
@@ -262,6 +261,7 @@
                      Set Group Ownership,
                      Set own password,
                      Set own properties,
+                     Undo changes,
                      Use Database Methods,
                      Use external editor,
                      Use mailhost services,
