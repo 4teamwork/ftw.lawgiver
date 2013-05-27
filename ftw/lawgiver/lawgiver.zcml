@@ -22,6 +22,7 @@
     <lawgiver:map_permissions
         action_group="view inactive objects"
         permissions="
+                     Access future portal content,
                      Access inactive portal content,
                      "
         />
@@ -106,7 +107,6 @@
         action_group="manage"
         permissions="
 
-                     Access future portal content,
                      CMFEditions: Manage versioning policies,
                      Content rules: Manage rules,
                      List undoable changes,
