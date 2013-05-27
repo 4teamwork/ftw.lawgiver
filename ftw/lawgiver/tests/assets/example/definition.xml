@@ -22,12 +22,10 @@
   <permission>CMFEditions: Revert to previous versions</permission>
   <permission>CMFEditions: Save new version</permission>
   <permission>Change local roles</permission>
-  <permission>Content rules: Manage rules</permission>
   <permission>Copy or Move</permission>
   <permission>Delete objects</permission>
   <permission>Delete portal content</permission>
   <permission>List folder contents</permission>
-  <permission>List undoable changes</permission>
   <permission>Manage properties</permission>
   <permission>Modify constrain types</permission>
   <permission>Modify portal content</permission>
@@ -39,7 +37,6 @@
   <permission>Sharing page: Delegate Reviewer role</permission>
   <permission>Sharing page: Delegate roles</permission>
   <permission>Take ownership</permission>
-  <permission>Undo changes</permission>
   <permission>View</permission>
   <permission>plone.app.collection: Add Collection</permission>
   <state state_id="example--STATUS--pending" title="Pending">
@@ -126,7 +123,6 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Change local roles" acquired="False"/>
-    <permission-map name="Content rules: Manage rules" acquired="False"/>
     <permission-map name="Copy or Move" acquired="False">
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
@@ -144,7 +140,6 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="List undoable changes" acquired="False"/>
     <permission-map name="Manage properties" acquired="False">
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
@@ -162,7 +157,6 @@
     <permission-map name="Sharing page: Delegate Reviewer role" acquired="False"/>
     <permission-map name="Sharing page: Delegate roles" acquired="False"/>
     <permission-map name="Take ownership" acquired="False"/>
-    <permission-map name="Undo changes" acquired="False"/>
     <permission-map name="View" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -261,7 +255,6 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Change local roles" acquired="False"/>
-    <permission-map name="Content rules: Manage rules" acquired="False"/>
     <permission-map name="Copy or Move" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -281,7 +274,6 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="List undoable changes" acquired="False"/>
     <permission-map name="Manage properties" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -301,7 +293,6 @@
     <permission-map name="Sharing page: Delegate Reviewer role" acquired="False"/>
     <permission-map name="Sharing page: Delegate roles" acquired="False"/>
     <permission-map name="Take ownership" acquired="False"/>
-    <permission-map name="Undo changes" acquired="False"/>
     <permission-map name="View" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -390,7 +381,6 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Change local roles" acquired="False"/>
-    <permission-map name="Content rules: Manage rules" acquired="False"/>
     <permission-map name="Copy or Move" acquired="False">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
@@ -407,7 +397,6 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="List undoable changes" acquired="False"/>
     <permission-map name="Manage properties" acquired="False">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
@@ -423,7 +412,6 @@
     <permission-map name="Sharing page: Delegate Reviewer role" acquired="False"/>
     <permission-map name="Sharing page: Delegate roles" acquired="False"/>
     <permission-map name="Take ownership" acquired="False"/>
-    <permission-map name="Undo changes" acquired="False"/>
     <permission-map name="View" acquired="False">
       <permission-role>Anonymous</permission-role>
       <permission-role>Editor</permission-role>

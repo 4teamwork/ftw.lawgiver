@@ -107,11 +107,8 @@
         action_group="manage"
         permissions="
 
-                     Content rules: Manage rules,
-                     List undoable changes,
                      Modify constrain types,
                      Modify view template,
-                     Undo changes,
 
                      "
         />
@@ -206,6 +203,7 @@
                      Change portal topics,
                      Change proxy roles,
                      Change user folder,
+                     Content rules: Manage rules,
                      Create Transient Objects,
                      Define permissions,
                      Delete Groups,
@@ -216,6 +214,7 @@
                      Kupu: Manage libraries,
                      Kupu: Query libraries,
                      List portal members,
+                     List undoable changes,
                      Log Site Errors,
                      Log to the Event Log,
                      Mail forgotten password,
@@ -262,6 +261,7 @@
                      Set Group Ownership,
                      Set own password,
                      Set own properties,
+                     Undo changes,
                      Use Database Methods,
                      Use external editor,
                      Use mailhost services,
