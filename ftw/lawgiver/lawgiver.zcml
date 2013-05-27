@@ -111,9 +111,6 @@
                      List undoable changes,
                      Modify constrain types,
                      Modify view template,
-                     PloneFormGen: Add Data Savers,
-                     PloneFormGen: Add Mailers,
-                     PloneFormGen: Download Saved Input,
                      Undo changes,
 
                      "
@@ -252,6 +249,9 @@
                      Plone Site Setup: Types,
                      Plone Site Setup: Users and Groups,
                      PloneFormGen: Add Custom Scripts,
+                     PloneFormGen: Add Data Savers,
+                     PloneFormGen: Add Mailers,
+                     PloneFormGen: Download Saved Input,
                      Portlets: Manage own portlets,
                      Portlets: View dashboard,
                      Query Vocabulary,
