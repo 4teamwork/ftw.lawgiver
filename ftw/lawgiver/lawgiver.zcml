@@ -89,7 +89,7 @@
 
 
     <lawgiver:map_permissions
-        action_group="change security"
+        action_group="manage security"
         permissions="
                      Change local roles,
                      Sharing page: Delegate Administrator role,
@@ -103,7 +103,7 @@
         />
 
     <lawgiver:map_permissions
-        action_group="manage"
+        action_group="manage content"
         permissions="
 
                      Modify constrain types,
