@@ -22,7 +22,6 @@
   <permission>CMFEditions: Revert to previous versions</permission>
   <permission>CMFEditions: Save new version</permission>
   <permission>Change local roles</permission>
-  <permission>Copy or Move</permission>
   <permission>Delete objects</permission>
   <permission>Delete portal content</permission>
   <permission>List folder contents</permission>
@@ -123,10 +122,6 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Change local roles" acquired="False"/>
-    <permission-map name="Copy or Move" acquired="False">
-      <permission-role>Reviewer</permission-role>
-      <permission-role>Site Administrator</permission-role>
-    </permission-map>
     <permission-map name="Delete objects" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -255,11 +250,6 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Change local roles" acquired="False"/>
-    <permission-map name="Copy or Move" acquired="False">
-      <permission-role>Editor</permission-role>
-      <permission-role>Reviewer</permission-role>
-      <permission-role>Site Administrator</permission-role>
-    </permission-map>
     <permission-map name="Delete objects" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -381,9 +371,6 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Change local roles" acquired="False"/>
-    <permission-map name="Copy or Move" acquired="False">
-      <permission-role>Site Administrator</permission-role>
-    </permission-map>
     <permission-map name="Delete objects" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
