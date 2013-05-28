@@ -103,7 +103,7 @@
         />
 
     <lawgiver:map_permissions
-        action_group="manage content"
+        action_group="manage content settings"
         permissions="
 
                      Modify constrain types,
