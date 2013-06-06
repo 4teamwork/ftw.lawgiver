@@ -62,7 +62,10 @@ Installation
 Compatibility
 -------------
 
-Runs with `Plone <http://www.plone.org/>`_ `4.3`.
+Plone 4.3
+
+.. image:: https://jenkins.4teamwork.ch/job/ftw.lawgiver-master-test-plone-4.3.x.cfg/badge/icon
+   :target: https://jenkins.4teamwork.ch/job/ftw.lawgiver-master-test-plone-4.3.x.cfg
 
 
 Action groups
