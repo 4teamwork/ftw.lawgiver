@@ -410,8 +410,8 @@ What is tested?
 - The test will fail when your workflow (`definition.xml`) needs to be
   regenerated. This may be because new permissions should be managed.
 
-- The test will faile when you install new addons which provide new
-  permisisons. The permissions should be mapped to action groups or marked
+- The test will fail when you install new addons which provide new
+  permissions. The permissions should be mapped to action groups or marked
   as unmanaged explicitly:
 
 .. code:: xml
