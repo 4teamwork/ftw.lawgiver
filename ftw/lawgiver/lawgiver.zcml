@@ -277,6 +277,7 @@
                      plone.portlet.collection: Add collection portlet,
                      plone.portlet.static: Add static portlet,
                      plone.resource: Export ZIP file,
+                     plone.resourceeditor: Manage Sources,
 
                      "
         />

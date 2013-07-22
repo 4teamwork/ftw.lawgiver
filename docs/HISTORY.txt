@@ -5,7 +5,8 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Ignore plone.resourceeditor permission for workflows.
+  [jone]
 
 
 1.0 (2013-05-28)
