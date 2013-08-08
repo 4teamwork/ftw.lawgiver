@@ -1,3 +1,6 @@
+from ftw.builder.testing import BUILDER_LAYER
+from ftw.builder.testing import functional_session_factory
+from ftw.builder.testing import set_builder_session_factory
 from ftw.testing import ComponentRegistryLayer
 from ftw.testing import FunctionalSplinterTesting
 from plone.app.testing import IntegrationTesting
@@ -33,7 +36,7 @@ ZCML_FIXTURE = ZCMLLayer()
 
 class LawgiverLayer(PloneSandboxLayer):
 
-    defaultBases = (PLONE_FIXTURE, )
+    defaultBases = (PLONE_FIXTURE, BUILDER_LAYER)
 
     def setUpZope(self, app, configurationContext):
         xmlconfig.string(
@@ -51,7 +54,9 @@ LAWGIVER_FIXTURE = LawgiverLayer()
 LAWGIVER_INTEGRATION_TESTING = IntegrationTesting(
     bases=(LAWGIVER_FIXTURE, ), name="ftw.lawgiver:integration")
 LAWGIVER_FUNCTIONAL_TESTING = FunctionalSplinterTesting(
-    bases=(LAWGIVER_FIXTURE, ), name="ftw.lawgiver:functional")
+    bases=(LAWGIVER_FIXTURE,
+           set_builder_session_factory(functional_session_factory)),
+    name="ftw.lawgiver:functional")
 
 
 class TestingSpecificationsLayer(PloneSandboxLayer):
