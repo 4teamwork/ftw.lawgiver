@@ -23,6 +23,11 @@ Role mapping:
   administrator => Site Administrator
 
 
+Visible roles:
+  editor
+  Editor-In-Chief
+
+
 General:
   An administrator can always view the content
   An administrator can always edit the content

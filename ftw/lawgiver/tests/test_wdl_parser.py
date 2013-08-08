@@ -235,6 +235,21 @@ class TestParser(MockTestCase):
             None, self.parse_lines(*lines, silent=True),
             'Parser should not raise an exception when silent=True')
 
+    def test_visible_roles(self):
+        spec = self.parse_lines(
+            '[Foo]',
+            '',
+            'Role mapping:',
+            '  editor => Editor',
+            '  editor in-chief => Reviewer'
+            '',
+            'Visible roles:',
+            '  editor',
+            '  editor in-chief')
+
+        self.assertEquals(['editor', 'editor in-chief'],
+                          spec.visible_roles)
+
     def test_general_statements(self):
         spec = self.parse_lines(
             '[Foo]',

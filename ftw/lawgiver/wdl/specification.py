@@ -11,7 +11,8 @@ class Specification(object):
                  states=None, initial_status_title=None,
                  transitions=None, role_mapping=None, generals=None,
                  custom_transition_url=None,
-                 role_inheritance=None):
+                 role_inheritance=None,
+                 visible_roles=None):
         self.title = title
         self.description = description
         self._initial_status_title = initial_status_title
@@ -21,6 +22,7 @@ class Specification(object):
         self.generals = generals or []
         self.custom_transition_url = custom_transition_url
         self.role_inheritance = role_inheritance or []
+        self.visible_roles = visible_roles
 
     def __repr__(self):
         return '<Specification "%s">' % self.title
@@ -36,6 +38,12 @@ class Specification(object):
             raise ValueError(
                 'Definition of initial status "%s" not found.' % (
                     self._initial_status_title))
+
+        if self.visible_roles:
+            for role in self.visible_roles:
+                if role not in self.role_mapping:
+                    raise ValueError(
+                        '"%s" in visible roles is not in role mapping.' % (role))
 
 
 class Status(object):

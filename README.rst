@@ -312,6 +312,46 @@ Roles can be inherited from other roles, globally and for a single status:
       An editor-in-chief can edit this content.
 
 
+Roles in sharing view
+~~~~~~~~~~~~~~~~~~~~~
+
+By default the ``@@sharing`` view lists some default Plone roles:
+
+- Can add (`Contributor`)
+- Can edit (`Editor`)
+- Can review (`Reviewer`)
+- Can view (`Reader`)
+
+Often the workflow does not use all of those roles, or uses different ones.
+Lawgiver allows you to configure which roles are showing up in at the ``sharing``
+view. If your users are granting roles on the ``@@sharing`` view, you should probably
+configure the roles so that they have meanigful names and only the relevant ones
+are listed.
+
+Lawgiver also allows you to change the translation of theese roles
+(see `Translating roles`_) and adding new roles (see `Registering custom roles`_).
+
+If you want to customize the displayed roles for your workflow, you
+can do this right in your workflow specification:
+
+.. code:: rst
+
+    [A workflow]
+
+    Role mapping:
+      editor => Editor
+      editor-in-chief => Reviewer
+      administrator => Site Administrator
+
+    Visible roles:
+      editor
+      editor-in-chief
+
+The lawgiver then sets the permissions required for managing a role correctly.
+The listed roles all have to be registered properly in ZCML
+(see `Registering custom roles`_).
+
+
 Worklists
 ~~~~~~~~~
 
@@ -450,6 +490,7 @@ and can be modified when in need.
 
 The lawgiver automatically looks up the right translation of the roles, depending
 on your workflow.
+
 
 Registering custom roles
 ~~~~~~~~~~~~~~~~~~~~~~~~

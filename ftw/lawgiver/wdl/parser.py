@@ -234,6 +234,12 @@ class SpecificationParser(object):
             customer_role, plone_role = match.groups()
             mapping[customer_role.lower()] = plone_role
 
+    @consumer(r'^[Vv]isible [Rr]oles$')
+    def _convert_visible_roles(self, match, value, specargs):
+        lines = map(lambda line: line.strip().lower(),
+                    value.strip().split('\n'))
+        specargs['visible_roles'] = lines
+
     @consumer(r'^[Gg]eneral$')
     def _convert_general_statements(self, match, value, specargs):
         statements = specargs['generals'] = []

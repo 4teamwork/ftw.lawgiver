@@ -121,7 +121,9 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="Change local roles" acquired="False"/>
+    <permission-map name="Change local roles" acquired="False">
+        <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="Delete objects" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -147,11 +149,19 @@
     <permission-map name="Modify view template" acquired="False"/>
     <permission-map name="Portlets: Manage portlets" acquired="False"/>
     <permission-map name="Sharing page: Delegate Contributor role" acquired="False"/>
-    <permission-map name="Sharing page: Delegate Editor role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Editor role" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="Sharing page: Delegate Reader role" acquired="False"/>
-    <permission-map name="Sharing page: Delegate Reviewer role" acquired="False"/>
-    <permission-map name="Sharing page: Delegate roles" acquired="False"/>
-    <permission-map name="Take ownership" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Sharing page: Delegate roles" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Take ownership" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="View" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -249,7 +259,9 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="Change local roles" acquired="False"/>
+    <permission-map name="Change local roles" acquired="False">
+        <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="Delete objects" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -278,11 +290,19 @@
     <permission-map name="Modify view template" acquired="False"/>
     <permission-map name="Portlets: Manage portlets" acquired="False"/>
     <permission-map name="Sharing page: Delegate Contributor role" acquired="False"/>
-    <permission-map name="Sharing page: Delegate Editor role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Editor role" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="Sharing page: Delegate Reader role" acquired="False"/>
-    <permission-map name="Sharing page: Delegate Reviewer role" acquired="False"/>
-    <permission-map name="Sharing page: Delegate roles" acquired="False"/>
-    <permission-map name="Take ownership" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Sharing page: Delegate roles" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Take ownership" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="View" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -370,7 +390,9 @@
     <permission-map name="CMFEditions: Save new version" acquired="False">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="Change local roles" acquired="False"/>
+    <permission-map name="Change local roles" acquired="False">
+        <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="Delete objects" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -394,11 +416,19 @@
     <permission-map name="Modify view template" acquired="False"/>
     <permission-map name="Portlets: Manage portlets" acquired="False"/>
     <permission-map name="Sharing page: Delegate Contributor role" acquired="False"/>
-    <permission-map name="Sharing page: Delegate Editor role" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Editor role" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="Sharing page: Delegate Reader role" acquired="False"/>
-    <permission-map name="Sharing page: Delegate Reviewer role" acquired="False"/>
-    <permission-map name="Sharing page: Delegate roles" acquired="False"/>
-    <permission-map name="Take ownership" acquired="False"/>
+    <permission-map name="Sharing page: Delegate Reviewer role" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Sharing page: Delegate roles" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Take ownership" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="View" acquired="False">
       <permission-role>Anonymous</permission-role>
       <permission-role>Editor</permission-role>
