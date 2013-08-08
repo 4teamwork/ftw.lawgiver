@@ -66,6 +66,9 @@ class WorkflowGenerator(object):
         for transition in specification.transitions:
             result[self._transition_id(transition)] = transition.title
 
+        for customerrole, plonerole in specification.role_mapping.items():
+            result[self._role_id(plonerole)] = customerrole
+
         self.workflow_id = None
         return result
 
@@ -295,6 +298,9 @@ class WorkflowGenerator(object):
     def _status_id(self, status):
         return '%s--STATUS--%s' % (
             self.workflow_id, self._normalize(status.title))
+
+    def _role_id(self, role):
+        return '%s--ROLE--%s' % (self.workflow_id, role)
 
     def _worklist_id(self, status):
         return '%s--WORKLIST--%s' % (

@@ -128,6 +128,9 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
 
         self.assertMultiLineEqual(
             '\n'.join((
+                    'msgid "wf-bar--ROLE--Editor"',
+                    'msgstr ""',
+                    '',
                     'msgid "wf-bar--STATUS--published"',
                     'msgstr ""',
                     )),
@@ -139,6 +142,9 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
 
         self.assertMultiLineEqual(
             '\n'.join((
+                    'msgid "wf-bar--ROLE--Editor"',
+                    'msgstr "editor"',
+                    '',
                     'msgid "wf-bar--STATUS--published"',
                     'msgstr "Published"',
                     )),
