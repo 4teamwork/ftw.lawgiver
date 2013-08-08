@@ -9,6 +9,7 @@
     <include package=".wdl" />
     <include package=".browser" />
     <include file="lawgiver.zcml" />
+    <include file="localroles.zcml" />
 
     <utility factory=".generator.WorkflowGenerator" />
     <utility factory=".collector.DefaultPermissionCollector" name="" />

@@ -86,5 +86,9 @@ class TestingSpecificationsLayer(PloneSandboxLayer):
                        ftw.lawgiver.tests,
                        context=configurationContext)
 
+        xmlconfig.file('profiles/role-translation.zcml',
+                       ftw.lawgiver.tests,
+                       context=configurationContext)
+
 
 SPECIFICATIONS_FUNCTIONAL = TestingSpecificationsLayer()

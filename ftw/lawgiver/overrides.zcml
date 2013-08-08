@@ -1,0 +1,26 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="ftw.lawgiver">
+
+    <utility
+        name="Reader"
+        factory=".localroles.reader_role_utility"
+        />
+
+    <utility
+        name="Editor"
+        factory=".localroles.editor_role_utility"
+        />
+
+    <utility
+        name="Contributor"
+        factory=".localroles.contributor_role_utility"
+        />
+
+    <utility
+        name="Reviewer"
+        factory=".localroles.reviewer_role_utility"
+        />
+
+</configure>
