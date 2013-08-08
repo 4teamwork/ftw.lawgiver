@@ -433,6 +433,64 @@ What is tested?
     </configure>
 
 
+Translating roles
+-----------------
+
+The lawgiver extends Plone's role translation system so that the
+roles in the ``@@sharing`` view can be translated per workflow.
+
+This is done through the Plone standard role utilites, allowing addon
+tools to also use the corrent role translation without the need of
+customization.
+
+The lawgiver provides example translations (`plone.pot` / `plone.po`) in
+the lawgiver control panel, which can easily be copied to your local plone
+translations (`locales`). Theese translations also include role translations
+and can be modified when in need.
+
+The lawgiver automatically looks up the right translation of the roles, depending
+on your workflow.
+
+Registering custom roles
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can easily register custom roles for display in the ``sharing`` view.
+
+Create a ``localroles.py`` package in your package, setting up the role:
+
+.. code:: python
+
+    from ftw.lawgiver.localroles import create_dynamic_role
+
+    integrator_role_utility, integrator_role_adapter = create_dynamic_role(
+        'Integrator', 'Sharing page: Delegate Integrator role')
+
+and register the utility and adapter in your ZCML:
+
+.. code:: xml
+
+    <configure xmlns="http://namespaces.zope.org/zope">
+
+        <utility
+            name="Integrator"
+            factory=".localroles.integrator_role_utility"
+            />
+
+        <adapter
+            name="Integrator"
+            factory=".localroles.integrator_role_adapter"
+            />
+
+    </configure>
+
+**Why an adapter and a utility?**
+
+Plone uses a utility per default, but a utilty has no context and is hard to
+customize. The lawgiver utility just calls the adapter with (adapting context
+and request) so that we can change the role translation depending on the
+workflow of the current context.
+
+
 Specialities
 ------------
 
