@@ -16,4 +16,11 @@
         handler=".meta.ignorePermissions"
         />
 
+    <meta:directive
+        namespace="http://namespaces.zope.org/lawgiver"
+        name="role"
+        schema=".meta.ISharingPageRoleDirective"
+        handler=".meta.sharingPageRole"
+        />
+
 </configure>

@@ -312,46 +312,6 @@ Roles can be inherited from other roles, globally and for a single status:
       An editor-in-chief can edit this content.
 
 
-Roles in sharing view
-~~~~~~~~~~~~~~~~~~~~~
-
-By default the ``@@sharing`` view lists some default Plone roles:
-
-- Can add (`Contributor`)
-- Can edit (`Editor`)
-- Can review (`Reviewer`)
-- Can view (`Reader`)
-
-Often the workflow does not use all of those roles, or uses different ones.
-Lawgiver allows you to configure which roles are showing up in at the ``sharing``
-view. If your users are granting roles on the ``@@sharing`` view, you should probably
-configure the roles so that they have meanigful names and only the relevant ones
-are listed.
-
-Lawgiver also allows you to change the translation of theese roles
-(see `Translating roles`_) and adding new roles (see `Registering custom roles`_).
-
-If you want to customize the displayed roles for your workflow, you
-can do this right in your workflow specification:
-
-.. code:: rst
-
-    [A workflow]
-
-    Role mapping:
-      editor => Editor
-      editor-in-chief => Reviewer
-      administrator => Site Administrator
-
-    Visible roles:
-      editor
-      editor-in-chief
-
-The lawgiver then sets the permissions required for managing a role correctly.
-The listed roles all have to be registered properly in ZCML
-(see `Registering custom roles`_).
-
-
 Worklists
 ~~~~~~~~~
 
@@ -473,8 +433,52 @@ What is tested?
     </configure>
 
 
-Translating roles
------------------
+Customizing the sharing view
+----------------------------
+
+Lawgiver allows you to customize the sharing view to your needs.
+
+
+Roles in sharing view
+~~~~~~~~~~~~~~~~~~~~~
+
+By default the ``@@sharing`` view lists some default Plone roles:
+
+- Can add (`Contributor`)
+- Can edit (`Editor`)
+- Can review (`Reviewer`)
+- Can view (`Reader`)
+
+Often the workflow does not use all of those roles, or uses different ones.
+Lawgiver allows you to configure which roles are showing up in at the ``sharing``
+view. If your users are granting roles on the ``@@sharing`` view, you should probably
+configure the roles so that they have meanigful names and only the relevant ones
+are listed.
+
+If you want to customize the displayed roles for your workflow, you
+can do this right in your workflow specification:
+
+.. code:: rst
+
+    [A workflow]
+
+    Role mapping:
+      editor => Editor
+      editor-in-chief => Reviewer
+      administrator => Site Administrator
+
+    Visible roles:
+      editor
+      editor-in-chief
+
+The lawgiver then sets the permissions required for managing a role correctly.
+This works for registered roles. Plone only registers `Contributor`, `Editor`,
+`Reviewer` and `Reader` by default.
+See the `Registering additional roles`_ section.
+
+
+Translating the roles
+~~~~~~~~~~~~~~~~~~~~~
 
 The lawgiver extends Plone's role translation system so that the
 roles in the ``@@sharing`` view can be translated per workflow.
@@ -492,44 +496,43 @@ The lawgiver automatically looks up the right translation of the roles, dependin
 on your workflow.
 
 
-Registering custom roles
-~~~~~~~~~~~~~~~~~~~~~~~~
+Registering additional roles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can easily register custom roles for display in the ``sharing`` view.
+You can easily register custom roles or Plone default roles which are not visible
+by default (such as `Site Manager`).
 
-Create a ``localroles.py`` package in your package, setting up the role:
-
-.. code:: python
-
-    from ftw.lawgiver.localroles import create_dynamic_role
-
-    integrator_role_utility, integrator_role_adapter = create_dynamic_role(
-        'Integrator', 'Sharing page: Delegate Integrator role')
-
-and register the utility and adapter in your ZCML:
+Use the lawgiver directive for registering new roles:
 
 .. code:: xml
 
-    <configure xmlns="http://namespaces.zope.org/zope">
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
+        i18n_domain="my.package">
 
-        <utility
-            name="Integrator"
-            factory=".localroles.integrator_role_utility"
-            />
+        <include package="ftw.lawgiver" file="meta.zcml" />
 
-        <adapter
-            name="Integrator"
-            factory=".localroles.integrator_role_adapter"
-            />
+        <lawgiver:role name="Site Manager" />
 
     </configure>
 
-**Why an adapter and a utility?**
+The `lawgiver:role` directive does all the required things for you, such as
+registering the permission in zope, mapping the permission to the default
+lawgiver `manage security` action group and registering the required utility
+and adapter.
 
-Plone uses a utility per default, but a utilty has no context and is hard to
-customize. The lawgiver utility just calls the adapter with (adapting context
-and request) so that we can change the role translation depending on the
-workflow of the current context.
+Optional arguments:
+
+- ``permission``: the required permission for granting this role. The permission
+  is automatically generated as ``Sharing page: Delegate [ROLE] role``.
+
+- ``register_permission``: automatically registers the permissions in Zope. This
+  is ``True`` by default.
+
+- ``map_permission``: automatically map the permission to the default lawgiver
+  ``manage security`` action group. Lawgiver will also re-map the permission
+  according to your ``Visible roles`` configuration in the workflow specification.
 
 
 Specialities
