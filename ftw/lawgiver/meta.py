@@ -1,11 +1,17 @@
+from AccessControl.security import PermissionDirective
 from ftw.lawgiver.actiongroups import ActionGroupRegistry
 from ftw.lawgiver.interfaces import IActionGroupRegistry
+from ftw.lawgiver.interfaces import IDynamicRoleAdapter
+from ftw.lawgiver.localroles import create_dynamic_role
 from ftw.lawgiver.schema import CommaSeparatedText
 from zope.component import provideUtility
 from zope.component import queryUtility
 from zope.configuration.exceptions import ConfigurationError
 from zope.interface import Interface
+from zope.schema import Bool
 from zope.schema import TextLine
+import zope.component.zcml
+import zope.security.zcml
 
 
 class IMapPermissionsDirective(Interface):
@@ -43,6 +49,32 @@ class IIgnorePermissionsDirective(Interface):
         u' workflow here for making it workflow specific.',
         default=None,
         required=False)
+
+
+class ISharingPageRoleDirective(Interface):
+
+    name = TextLine(
+        title=u'Role name',
+        description=u'The name of the role.',
+        required=True)
+
+    permission = TextLine(
+        title=u'Required permission',
+        description=u'The required permission for delegating this role.',
+        required=False)
+
+    register_permission = Bool(
+        title=u'Register required permission',
+        description=u'Register the required permission in Zope.',
+        required=False,
+        default=True)
+
+    map_permission = Bool(
+        title=u'Map required permission for lawgiver',
+        description=u'Map required permission to the default lawgiver action '
+        u'gorup "manage security".',
+        required=False,
+        default=True)
 
 
 def mapPermissions(_context, **kwargs):
@@ -87,3 +119,34 @@ def ignorePermissions(_context, **kwargs):
         provideUtility(component)
 
     component.ignore(**kwargs)
+
+
+def sharingPageRole(_context, name, permission=None,
+                    register_permission=True, map_permission=True):
+    """Register a role for display on the sharing page.
+    """
+
+    role_utility_factory, role_adapter_factory = create_dynamic_role(name, permission)
+
+    if permission is None:
+        permission = 'Sharing page: Delegate %s role' % name
+
+    zope.component.zcml.utility(_context,
+                                factory=role_utility_factory,
+                                name=name)
+
+    zope.component.zcml.adapter(_context,
+                                provides=IDynamicRoleAdapter,
+                                factory=[role_adapter_factory],
+                                for_=(Interface, Interface),
+                                name=name)
+
+    if register_permission:
+        permission_id = '.'.join((_context.context.package.__name__,
+                                  'Delegate%s' % (name.replace(' ', ''))))
+        PermissionDirective(_context, id=permission_id, title=permission).after()
+
+    if map_permission:
+        mapPermissions(_context,
+                       permissions=[permission],
+                       action_group='manage security')

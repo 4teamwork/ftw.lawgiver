@@ -5,7 +5,18 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- **Support for configuring visible roles in sharing view.**
+  The specification now allows to define a list of roles which
+  should appear one the sharing view.
+  [jone]
+
+- **Context / workflow sensitive role translations for sharing view.**
+  Dynamic roles: replacing Plone's default roles utilities,
+  allowing us to change the translation of the role for the
+  sharing view depending on the workflow of the current context.
+  Lawgiver's new default role utility / adapter provides per-workflow
+  translations of the roles.
+  [jone]
 
 
 1.1 (2013-08-08)

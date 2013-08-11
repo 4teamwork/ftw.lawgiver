@@ -374,6 +374,8 @@ class TestGenerator(BaseTest):
              'wf--STATUS--published': 'Published',
              'wf--TRANSITION--publish--private_published': 'publish',
              'wf--TRANSITION--retract--published_private': 'retract',
+             'wf--ROLE--Editor': 'employee',
+             'wf--ROLE--Reviewer': 'boss',
              },
 
             result,

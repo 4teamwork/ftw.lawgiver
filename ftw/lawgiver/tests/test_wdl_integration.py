@@ -129,6 +129,10 @@ class TestExampleSpecification(MockTestCase):
              'administrator': 'Site Administrator'},
             self.spec.role_mapping)
 
+    def test_visible_roles(self):
+        self.assertEquals(['editor', 'editor-in-chief'],
+                          self.spec.visible_roles)
+
     def test_general_statements(self):
         self.assertEquals(
             [('administrator', 'view'),

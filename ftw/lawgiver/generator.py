@@ -4,7 +4,9 @@ from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.variables import VARIABLES
 from lxml import etree
 from lxml import html
+from plone.app.workflow.interfaces import ISharingPageRole
 from plone.i18n.normalizer.interfaces import INormalizer
+from zope.component import getUtilitiesFor
 from zope.component import getUtility
 from zope.interface import implements
 
@@ -22,6 +24,9 @@ class WorkflowGenerator(object):
     def __call__(self, workflow_id, specification):
         self.workflow_id = workflow_id
         self.specification = specification
+        self.ignored_delegate_permissions = self._get_ignored_delegate_permissions(
+            specification)
+
         self.managed_permissions = sorted(
             getUtility(IPermissionCollector).collect(workflow_id))
 
@@ -66,6 +71,9 @@ class WorkflowGenerator(object):
         for transition in specification.transitions:
             result[self._transition_id(transition)] = transition.title
 
+        for customerrole, plonerole in specification.role_mapping.items():
+            result[self._role_id(plonerole)] = customerrole
+
         self.workflow_id = None
         return result
 
@@ -77,6 +85,21 @@ class WorkflowGenerator(object):
             result.append(self._status_id(status))
 
         return result
+
+    def _get_ignored_delegate_permissions(self, specification):
+        if specification.visible_roles is None:
+            # No limitations defined, show all roles.
+            return []
+
+        ignored_permissions = []
+        roles_to_list = map(specification.role_mapping.get,
+                            specification.visible_roles)
+
+        for role_name, utility in getUtilitiesFor(ISharingPageRole):
+            if role_name not in roles_to_list:
+                ignored_permissions.append(utility.required_permission)
+
+        return ignored_permissions
 
     def _create_document(self):
         root = etree.Element("dc-workflow")
@@ -236,6 +259,9 @@ class WorkflowGenerator(object):
             rolenode.text = role.decode('utf-8')
 
     def _get_roles_for_permission(self, permission, statements):
+        if permission in self.ignored_delegate_permissions:
+            return []
+
         agregistry = getUtility(IActionGroupRegistry)
         action_group = agregistry.get_action_group_for_permission(
             permission, self.workflow_id)
@@ -245,7 +271,13 @@ class WorkflowGenerator(object):
 
         plone_roles = (self.specification.role_mapping[cr]
                        for cr in customer_roles)
+
+        plone_roles = self._filter_delegate_roles_for_permissions(
+            plone_roles, permission)
         return sorted(plone_roles)
+
+    def _filter_delegate_roles_for_permissions(self, plone_roles, permission):
+        return plone_roles
 
     def _distinguish_statements(self, statements):
         """Accepts a list of statements (tuples with customer role and action)
@@ -295,6 +327,9 @@ class WorkflowGenerator(object):
     def _status_id(self, status):
         return '%s--STATUS--%s' % (
             self.workflow_id, self._normalize(status.title))
+
+    def _role_id(self, role):
+        return '%s--ROLE--%s' % (self.workflow_id, role)
 
     def _worklist_id(self, status):
         return '%s--WORKLIST--%s' % (
