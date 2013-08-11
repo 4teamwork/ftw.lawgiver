@@ -5,6 +5,9 @@ Changelog
 1.2 (unreleased)
 ----------------
 
+- Support remapping permission per workflow when it is ignored globally. #22
+  [jone]
+
 - **Support for configuring visible roles in sharing view.**
   The specification now allows to define a list of roles which
   should appear one the sharing view.
