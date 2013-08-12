@@ -151,3 +151,21 @@ class IWorkflowSpecificationDiscovery(Interface):
         Only registered paths (which are returned by `discover`) are returned.
         If there is no match `None` is returned.
         """
+
+class IDynamicRoleAdapter(Interface):
+    """The dynamic role adapter allows us to change the title or required
+    permission of a role per context.
+    This makes it possible to translate roles differently for different workflows.
+    """
+
+    def __init__(context, request):
+        """The dynamic role adapter adapts context and request.
+        """
+
+    def get_title():
+        """Returns the title of the role, displayed mainly in the @@sharing view.
+        """
+
+    def get_required_permission():
+        """Returns the permission required assigning users this local role.
+        """

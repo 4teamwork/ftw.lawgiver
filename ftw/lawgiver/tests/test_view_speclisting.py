@@ -21,6 +21,7 @@ class TestSpecificationListingsView(TestCase):
              'Foo Workflow (wf-foo)',
              'Invalid Workflow (invalid-spec)',
              'My Custom Workflow (my_custom_workflow)',
+             'Role Translation Workflow (role-translation)',
              'another-spec-based-workflow',
              'spec-based-workflow'],
 
@@ -37,6 +38,8 @@ class TestSpecificationListingsView(TestCase):
             {'another-spec-based-workflow': '',
              'My Custom Workflow (my_custom_workflow)': \
                  'A three state publication workflow',
+             'Role Translation Workflow (role-translation)': \
+                 'A one state workflow for testing role translation',
              'spec-based-workflow': '',
              'Bar Workflow (wf-bar)': 'Always published',
              'Foo Workflow (wf-foo)': 'Just for testing.',

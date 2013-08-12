@@ -1,0 +1,23 @@
+[Role Translation Workflow]
+Description: A one state workflow for testing role translation
+Initial Status: Default
+
+
+Role mapping:
+  editor-in-chief => Reviewer
+  editor => Editor
+  administrator => Site Administrator
+  system administrator => Manager
+
+
+General:
+  A administrator can always perform the same actions as an editor
+  A system administrator can always perform the same actions as an administrator
+  A system administrator can always manage security.
+
+
+Status Default:
+  An editor can view this content.
+  An editor can edit this content.
+  An editor can delete this content.
+  An editor can add new content.

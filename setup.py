@@ -6,9 +6,9 @@ version = '1.2.dev0'
 
 
 tests_require = [
-    'zope.dottedname',
     'Products.CMFCore',
     'Zope2',
+    'ftw.builder',
     'ftw.testing [splinter]',
     'plone.app.testing',
     'plone.browserlayer',
@@ -16,6 +16,7 @@ tests_require = [
     'unittest2',
     'z3c.autoinclude',
     'zope.configuration',
+    'zope.dottedname',
     'zope.security',
     ]
 

@@ -35,6 +35,19 @@ class TestSpecification(TestCase):
         self.assertEquals('Definition of initial status "Foo" not found.',
                           str(cm.exception))
 
+    def test_VALIDATION_visible_roles_must_be_in_role_mapping(self):
+        obj = Specification('My Workflow',
+                            initial_status_title='Private',
+                            states={'Private': Status('Private', [])},
+                            role_mapping={'editor-in-chief': 'Reviewer'},
+                            visible_roles=['editor-in-chief', 'editor'])
+
+        with self.assertRaises(ValueError) as cm:
+            obj.validate()
+
+        self.assertEquals('"editor" in visible roles is not in role mapping.',
+                          str(cm.exception))
+
 
 class TestStatus(TestCase):
 

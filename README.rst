@@ -433,6 +433,108 @@ What is tested?
     </configure>
 
 
+Customizing the sharing view
+----------------------------
+
+Lawgiver allows you to customize the sharing view to your needs.
+
+
+Roles in sharing view
+~~~~~~~~~~~~~~~~~~~~~
+
+By default the ``@@sharing`` view lists some default Plone roles:
+
+- Can add (`Contributor`)
+- Can edit (`Editor`)
+- Can review (`Reviewer`)
+- Can view (`Reader`)
+
+Often the workflow does not use all of those roles, or uses different ones.
+Lawgiver allows you to configure which roles are showing up in at the ``sharing``
+view. If your users are granting roles on the ``@@sharing`` view, you should probably
+configure the roles so that they have meanigful names and only the relevant ones
+are listed.
+
+If you want to customize the displayed roles for your workflow, you
+can do this right in your workflow specification:
+
+.. code:: rst
+
+    [A workflow]
+
+    Role mapping:
+      editor => Editor
+      editor-in-chief => Reviewer
+      administrator => Site Administrator
+
+    Visible roles:
+      editor
+      editor-in-chief
+
+The lawgiver then sets the permissions required for managing a role correctly.
+This works for registered roles. Plone only registers `Contributor`, `Editor`,
+`Reviewer` and `Reader` by default.
+See the `Registering additional roles`_ section.
+
+
+Translating the roles
+~~~~~~~~~~~~~~~~~~~~~
+
+The lawgiver extends Plone's role translation system so that the
+roles in the ``@@sharing`` view can be translated per workflow.
+
+This is done through the Plone standard role utilites, allowing addon
+tools to also use the corrent role translation without the need of
+customization.
+
+The lawgiver provides example translations (`plone.pot` / `plone.po`) in
+the lawgiver control panel, which can easily be copied to your local plone
+translations (`locales`). Theese translations also include role translations
+and can be modified when in need.
+
+The lawgiver automatically looks up the right translation of the roles, depending
+on your workflow.
+
+
+Registering additional roles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+You can easily register custom roles or Plone default roles which are not visible
+by default (such as `Site Manager`).
+
+Use the lawgiver directive for registering new roles:
+
+.. code:: xml
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
+        i18n_domain="my.package">
+
+        <include package="ftw.lawgiver" file="meta.zcml" />
+
+        <lawgiver:role name="Site Manager" />
+
+    </configure>
+
+The `lawgiver:role` directive does all the required things for you, such as
+registering the permission in zope, mapping the permission to the default
+lawgiver `manage security` action group and registering the required utility
+and adapter.
+
+Optional arguments:
+
+- ``permission``: the required permission for granting this role. The permission
+  is automatically generated as ``Sharing page: Delegate [ROLE] role``.
+
+- ``register_permission``: automatically registers the permissions in Zope. This
+  is ``True`` by default.
+
+- ``map_permission``: automatically map the permission to the default lawgiver
+  ``manage security`` action group. Lawgiver will also re-map the permission
+  according to your ``Visible roles`` configuration in the workflow specification.
+
+
 Specialities
 ------------
 
