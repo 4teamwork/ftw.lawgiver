@@ -57,6 +57,13 @@ class ActionGroupRegistry(object):
         return permission.get(workflow_name, permission.get(None, None))
 
     def get_ignored_permissions(self, workflow_name=None):
-        permissions = set(self._ignores[None])
-        permissions.update(self._ignores[workflow_name])
+        globally_ignored_permissions = set(self._ignores[None])
+        permissions_ignored_by_workflow = set(self._ignores[workflow_name])
+
+        permissions_managed_by_workflow = set(
+            [permission for permission, workflows in self._permissions.items()
+             if workflow_name in workflows])
+
+        permissions = globally_ignored_permissions - permissions_managed_by_workflow
+        permissions.update(permissions_ignored_by_workflow)
         return permissions

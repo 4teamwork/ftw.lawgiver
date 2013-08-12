@@ -322,3 +322,46 @@ class TestActionGroupRegistry(BaseTest):
             'view',
             registry.get_action_group_for_permission(
                 'List folder contents'))
+
+    def test_remap_ignored_permissions_for_a_workflow(self):
+        self.load_map_permissions_zcml(
+            '<lawgiver:ignore',
+            '    permissions="Access contents information" />',
+
+            '<lawgiver:map_permissions',
+            '    action_group="view"',
+            '    workflow="my_workflow"',
+            '    permissions="Access contents information" />',
+            )
+
+        registry = self.get_registry()
+
+        self.assertEqual(
+            {'group': u'view',
+             'ignored': set([]),
+             'view_permissions': set([u'Access contents information'])},
+
+            {'group': registry.get_action_group_for_permission(
+                    'Access contents information', workflow_name='my_workflow'),
+             'ignored': registry.get_ignored_permissions('my_workflow'),
+             'view_permissions': (
+                    registry.get_action_groups_for_workflow(
+                        'my_workflow').get('view'))},
+
+            'Remapping a globally ignored permission to an action group for a'
+            ' specific workflow should make it be re-managed and in the right'
+            ' action group for this workflow, but it does not.')
+
+        self.assertEqual(
+            {'group': None,
+             'ignored': set([u'Access contents information']),
+             'view_permissions': None},
+
+            {'group': registry.get_action_group_for_permission(
+                    'Access contents information', workflow_name='default'),
+             'ignored': registry.get_ignored_permissions('default'),
+             'view_permissions': (
+                    registry.get_action_groups_for_workflow('default').get('view'))},
+
+            'Remapping a globally ignored permission to an action group for a'
+            ' specific workflow should keep it ignored for other workflows')
