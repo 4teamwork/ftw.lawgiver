@@ -38,11 +38,11 @@ class TestExampleSpecification(MockTestCase):
         private = self.spec.states['Private']
 
         self.assertEquals(
-            [('editor', 'view'),
-             ('editor', 'edit'),
-             ('editor', 'delete'),
-             ('editor', 'add'),
-             ('editor', 'submit for publication'),
+            [('edit\xc3\xb6r', 'view'),
+             ('edit\xc3\xb6r', 'edit'),
+             ('edit\xc3\xb6r', 'delete'),
+             ('edit\xc3\xb6r', 'add'),
+             ('edit\xc3\xb6r', 'submit for publication'),
              ('editor-in-chief', 'view'),
              ('editor-in-chief', 'edit'),
              ('editor-in-chief', 'delete'),
@@ -63,9 +63,9 @@ class TestExampleSpecification(MockTestCase):
         pending = self.spec.states['Pending']
 
         self.assertEquals(
-            [('editor', 'view'),
-             ('editor', 'add'),
-             ('editor', 'retract'),
+            [('edit\xc3\xb6r', 'view'),
+             ('edit\xc3\xb6r', 'add'),
+             ('edit\xc3\xb6r', 'retract'),
              ('editor-in-chief', 'view'),
              ('editor-in-chief', 'edit'),
              ('editor-in-chief', 'delete'),
@@ -87,9 +87,9 @@ class TestExampleSpecification(MockTestCase):
         published = self.spec.states['Published']
 
         self.assertEquals(
-            [('editor', 'view'),
-             ('editor', 'add'),
-             ('editor', 'retract'),
+            [('edit\xc3\xb6r', 'view'),
+             ('edit\xc3\xb6r', 'add'),
+             ('edit\xc3\xb6r', 'retract'),
              ('editor-in-chief', 'view'),
              ('editor-in-chief', 'add'),
              ('editor-in-chief', 'retract'),
@@ -124,13 +124,13 @@ class TestExampleSpecification(MockTestCase):
     def test_role_mappings(self):
         self.assertEquals(
             {'editor-in-chief': 'Reviewer',
-             'editor': 'Editor',
+             'edit\xc3\xb6r': 'Editor',
              'everyone': 'Anonymous',
              'administrator': 'Site Administrator'},
             self.spec.role_mapping)
 
     def test_visible_roles(self):
-        self.assertEquals(['editor', 'editor-in-chief'],
+        self.assertEquals(['edit\xc3\xb6r', 'editor-in-chief'],
                           self.spec.visible_roles)
 
     def test_general_statements(self):

@@ -8,6 +8,14 @@ import ConfigParser
 import re
 
 
+class LowerCaseString(str):
+
+    def __new__(klass, text):
+        self = str.__new__(klass, text.lower())
+        self.original = text
+        return self
+
+
 def consumer(constraint):
     """Decorator for consuming a certain kind of option.
     The passed option name constraint is a regular expression used with match.
@@ -232,7 +240,7 @@ class SpecificationParser(object):
                         line))
 
             customer_role, plone_role = match.groups()
-            mapping[customer_role.lower()] = plone_role
+            mapping[LowerCaseString(customer_role)] = plone_role
 
     @consumer(r'^[Vv]isible [Rr]oles$')
     def _convert_visible_roles(self, match, value, specargs):
