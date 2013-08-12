@@ -5,6 +5,7 @@ Initial Status: Published
 
 Role mapping:
   editor => Editor
+  System Administrator => Manager
 
 
 Status Published:
