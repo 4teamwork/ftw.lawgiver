@@ -16,7 +16,7 @@ transition-url = %%(content_url)s/custom_wf_action?workflow_action=%(transition)
 # It is possible to add comments with a hash character.
 
 Role mapping:
-  editor => Editor
+  editör => Editor
 # Editor in chief is in capital letters to show that it is not case sensitive here.
   Editor-In-Chief => Reviewer
   everyone => Anonymous
@@ -24,7 +24,7 @@ Role mapping:
 
 
 Visible roles:
-  editor
+  editör
   Editor-In-Chief
 
 
@@ -36,11 +36,11 @@ General:
 
 
 Status Private:
-  An editor can view this content.
-  An editor can edit this content.
-  An editor can delete this content.
-  An editor can add new content.
-  An editor can submit for publication.
+  An editör can view this content.
+  An editör can edit this content.
+  An editör can delete this content.
+  An editör can add new content.
+  An editör can submit for publication.
   An editor-in-chief can view this content.
   An editor-in-chief can edit this content.
   An editor-in-chief can delete this content.
@@ -48,9 +48,9 @@ Status Private:
   An editor-in-chief can publish this content.
 
 Status Pending:
-  An editor can view this content.
-  An editor can add new content.
-  An editor can retract.
+  An editör can view this content.
+  An editör can add new content.
+  An editör can retract.
   An editor-in-chief can view this content.
   An editor-in-chief can edit this content.
   An editor-in-chief can delete this content.
@@ -60,9 +60,9 @@ Status Pending:
   An editor-in-chief can access the worklist.
 
 Status Published:
-  An editor can view this content.
-  An editor can add new content.
-  An editor can retract this content.
+  An editör can view this content.
+  An editör can add new content.
+  An editör can retract this content.
   An editor-in-chief can view this content.
   An editor-in-chief can add new content.
   An editor-in-chief can retract this content.
