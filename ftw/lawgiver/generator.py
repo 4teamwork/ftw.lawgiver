@@ -169,7 +169,8 @@ class WorkflowGenerator(object):
 
         per_status_role_inheritance = {}
 
-        for status, snode in status_nodes.items():
+        for status, snode in sorted(status_nodes.items(),
+                                    key=lambda item: item[0].title):
             statements = set(status.statements) | set(
                 self.specification.generals)
 
@@ -255,7 +256,7 @@ class WorkflowGenerator(object):
                  for crole in status.worklist_viewers]
         roles = resolve_inherited_roles(roles, role_inheritance)
 
-        for role in roles:
+        for role in sorted(roles):
             rolenode = etree.SubElement(guards, 'guard-role')
             rolenode.text = role.decode('utf-8')
 
