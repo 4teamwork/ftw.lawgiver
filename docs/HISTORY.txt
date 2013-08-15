@@ -5,6 +5,9 @@ Changelog
 1.2 (unreleased)
 ----------------
 
+- Workflow generation: sort worklists so that the result is constant.
+  [jone]
+
 - Support remapping permission per workflow when it is ignored globally. #22
   [jone]
 
