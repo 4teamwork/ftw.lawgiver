@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2 (unreleased)
+1.2 (2013-08-26)
 ----------------
 
 - Workflow generation: sort worklists so that the result is constant.
