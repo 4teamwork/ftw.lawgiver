@@ -5,7 +5,8 @@ Changelog
 1.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Map plone.app.event's "Import Ical" permission to "manage content settings".
+  [jone]
 
 
 1.2 (2013-08-26)

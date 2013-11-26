@@ -108,6 +108,7 @@
 
                      Modify constrain types,
                      Modify view template,
+                     plone.app.event: Import Ical,
 
                      "
         />
