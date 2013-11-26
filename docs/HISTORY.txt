@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.1 (unreleased)
+1.2.1 (2013-11-26)
 ------------------
 
 - Map plone.app.event's "Import Ical" permission to "manage content settings".
