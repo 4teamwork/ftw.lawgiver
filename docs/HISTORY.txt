@@ -5,7 +5,10 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix local roles adapter lookup when no traversal happened beforehand.
+  This is a rare issue occured because of the context guessing happing
+  in the dynamic role adapter lookup (DynamicRolesUtility.get_role_adapter).
+  [jone]
 
 
 1.2.1 (2013-11-26)
