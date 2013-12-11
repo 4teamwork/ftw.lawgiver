@@ -10,7 +10,7 @@ from zope.i18n import translate
 from zope.interface import Interface
 from zope.interface import implementer
 from zope.interface import implements
-
+from OFS.interfaces import IApplication
 
 DEFAULT_ROLE_TITLES = {
     'Reader': PloneMessageFactory(u"title_can_view", default=u"Can view"),
@@ -28,16 +28,24 @@ class DynamicRolesUtility(object):
 
     @property
     def title(self):
-        return self.get_role_adapter().get_title()
+        role_adapter = self.get_role_adapter()
+        if role_adapter:
+            return role_adapter.get_title()
+        return ''
 
     @property
     def required_permission(self):
-        return self.get_role_adapter().get_required_permission()
+        role_adapter = self.get_role_adapter()
+        if role_adapter:
+            return role_adapter.get_required_permission()
+        return ''
 
     def get_role_adapter(self):
         site = getSite()
         request = site.REQUEST
         context = request.PARENTS[0]
+        if IApplication.providedBy(context):
+            return None
         return getMultiAdapter((context, request),
                                IDynamicRoleAdapter,
                                name=self.plonerole)
