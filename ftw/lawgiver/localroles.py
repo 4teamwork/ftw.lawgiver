@@ -1,3 +1,4 @@
+from OFS.interfaces import IApplication
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory
 from ftw.lawgiver.interfaces import IDynamicRoleAdapter
@@ -38,6 +39,8 @@ class DynamicRolesUtility(object):
         site = getSite()
         request = site.REQUEST
         context = request.PARENTS[0]
+        if IApplication.providedBy(context):
+            context = site
         return getMultiAdapter((context, request),
                                IDynamicRoleAdapter,
                                name=self.plonerole)
