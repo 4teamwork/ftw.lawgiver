@@ -1,4 +1,7 @@
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from OFS.interfaces import IApplication
+from Products.CMFCore.interfaces import IContentish
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory
 from ftw.lawgiver.interfaces import IDynamicRoleAdapter
@@ -73,7 +76,14 @@ class DynamicRolesAdapter(object):
 
     def get_local_workflow(self):
         wftool = getToolByName(self.context, 'portal_workflow')
-        workflows = wftool.getWorkflowsFor(self.context)
+
+        context = self.context
+        while context and not IContentish.providedBy(context):
+            context = aq_parent(aq_inner(context))
+        if not context:
+            return None
+
+        workflows = wftool.getWorkflowsFor(context)
         if len(workflows) == 0:
             return None
         else:
