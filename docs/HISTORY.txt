@@ -5,6 +5,9 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
+- Fix wrong role title when traversing over views.
+  [jone]
+
 - Fix local roles adapter lookup when no traversal happened beforehand.
   This is a rare issue occured because of the context guessing happing
   in the dynamic role adapter lookup (DynamicRolesUtility.get_role_adapter).
