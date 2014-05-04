@@ -80,6 +80,7 @@ class SpecificationParser(object):
                 raise
 
     def _parse(self, stream, path=None):
+        locals()['__traceback_info__'] = (stream, path)
         self._read_stream(stream)
         self.language = self._guess_language(path)
         self._convert()
