@@ -49,6 +49,16 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
 
     def tearDown(self):
         remove_definition_xml()
+        self.switch_language('en')
+
+    def switch_language(self, lang_code):
+        language_tool = getToolByName(self.layer['portal'], 'portal_languages')
+        language_tool.manage_setLanguageSettings(
+            lang_code,
+            [lang_code],
+            setUseCombinedLanguageCodes=False,
+            startNeutral=False)
+        transaction.commit()
 
     def test_details_view_heading(self):
         self.assertEquals('Bar Workflow',
@@ -96,26 +106,33 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
 
     def test_permission_mapping(self):
         mapping = SpecDetails().get_specification_mapping()
-        self.assertIn('view', mapping,
+        self.assertIn('view (view)', mapping,
                       'No action group "view" found.')
 
-        self.assertIn('edit', mapping,
+        self.assertIn('edit (edit)', mapping,
                       'No action group "edit" found.')
 
         self.assertIn(
-            'Access contents information', mapping['view'],
+            'Access contents information', mapping['view (view)'],
             'Permission "Access contents information" not in action'
             ' group "view"?')
 
         self.assertNotIn(
-            'Modify portal content', mapping['view'],
+            'Modify portal content', mapping['view (view)'],
             'Permission "Modify portal content" should not be in action'
             ' group "view".')
 
         self.assertIn(
-            'Modify portal content', mapping['edit'],
+            'Modify portal content', mapping['edit (edit)'],
             'Permission "Modify portal content" not in action'
             ' group "edit"?')
+
+    def test_german_permission_mapping(self):
+        self.switch_language('de')
+        SpecDetails().open('Bar Workflow (wf-bar)')
+        mapping = SpecDetails().get_specification_mapping()
+        self.assertIn('ansehen (view)', mapping.keys(),
+                      'No action group "ansehen" found.')
 
     def test_unmanaged_permissions(self):
         unmanaged = SpecDetails().get_unmanaged_permissions()

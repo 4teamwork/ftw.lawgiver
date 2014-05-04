@@ -1,6 +1,7 @@
 from ftw.testing import browser
 from ftw.testing.pages import Plone
 from operator import attrgetter
+import re
 
 
 class SpecItem(object):
@@ -94,7 +95,7 @@ class SpecDetails(Plone):
 
         groups = browser().find_by_css('dl.permission-mapping dd dl dt')
         for actiongroup in groups:
-            groupname = actiongroup.text
+            groupname = re.sub(r'\s+', ' ', actiongroup.text).strip()
 
             permissionlist = actiongroup.find_by_xpath(
                 'following-sibling::*[self::dd]').first
