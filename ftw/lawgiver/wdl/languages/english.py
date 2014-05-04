@@ -5,6 +5,8 @@ import re
 
 class English(LanguageBase):
 
+    filename = 'specification.txt'
+
     constraints = {
         keywords.DESCRIPTION: r'^[Dd]escription$',
         keywords.GENERAL: r'^[Gg]eneral$',

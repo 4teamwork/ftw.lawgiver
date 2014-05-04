@@ -3,6 +3,8 @@ import re
 
 class LanguageBase(object):
 
+    filename = None
+
     constraints = {}
 
     def get_constraint(self, keyword):

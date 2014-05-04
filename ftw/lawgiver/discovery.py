@@ -1,5 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
+from ftw.lawgiver.wdl.languages import LANGUAGES
 from operator import itemgetter
 from operator import methodcaller
 from zope.component import adapts
@@ -7,9 +8,6 @@ from zope.interface import Interface
 from zope.interface import implements
 import hashlib
 import os
-
-
-FILENAME = 'specification.txt'
 
 
 class WorkflowSpecificationDiscovery(object):
@@ -41,9 +39,11 @@ class WorkflowSpecificationDiscovery(object):
             return
 
         for name in os.listdir(workflows_dir):
-            specpath = os.path.join(workflows_dir, name, 'specification.txt')
-            if os.path.isfile(specpath):
-                yield specpath
+            for language in LANGUAGES.values():
+                specpath = os.path.join(workflows_dir, name, language.filename)
+                if os.path.isfile(specpath):
+                    yield specpath
+                    break
 
     def _get_profile_paths(self):
         setup_tool = getToolByName(self.context, 'portal_setup')
