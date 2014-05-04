@@ -12,7 +12,6 @@ from zope.interface import Interface
 from zope.schema import Bool
 from zope.schema import TextLine
 import zope.component.zcml
-import zope.security.zcml
 
 
 class IMapPermissionsDirective(Interface):
