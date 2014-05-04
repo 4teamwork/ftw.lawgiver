@@ -178,7 +178,7 @@ class EqualityTestCase(XMLDiffTestCase):
         parser = getUtility(IWorkflowSpecificationParser)
 
         with open(self.get_absolute_path(path)) as spec_file:
-            return parser(spec_file)
+            return parser(spec_file, path=path)
 
     def get_absolute_path(self, path):
         if path.startswith('/'):
@@ -248,8 +248,9 @@ class WorkflowTest(XMLDiffTestCase):
 
         parser = getUtility(IWorkflowSpecificationParser)
 
-        with open(self.get_path('specification.txt')) as spec_file:
-            spec = parser(spec_file)
+        path = self.get_path('specification.txt')
+        with open(path) as spec_file:
+            spec = parser(spec_file, path=path)
 
         with open(self.get_path('result.xml'), 'w+') as result_file:
             generator = getUtility(IWorkflowGenerator)

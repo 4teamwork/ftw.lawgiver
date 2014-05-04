@@ -7,6 +7,7 @@ from ftw.lawgiver.wdl.specification import Status
 from ftw.lawgiver.wdl.specification import Transition
 from zope.interface import implements
 import ConfigParser
+import os.path
 import re
 
 
@@ -69,17 +70,18 @@ class SpecificationParser(object):
         self._config = None
         self._spec = None
 
-    def __call__(self, stream, silent=False):
+    def __call__(self, stream, path=None, silent=False):
         try:
-            return self._parse(stream)
+            return self._parse(stream, path=path)
         except (ParsingError, ConfigParser.ParsingError):
             if silent:
                 return None
             else:
                 raise
 
-    def _parse(self, stream):
+    def _parse(self, stream, path=None):
         self._read_stream(stream)
+        self.language = self._guess_language(path)
         self._convert()
         self._post_converting()
         return self._spec
@@ -102,8 +104,6 @@ class SpecificationParser(object):
                 'Exactly one ini-style section is required,'
                 ' containing the workflow title.')
 
-        self.language = LANGUAGES['en']
-
         sectionname = self._config.sections()[0]
         specargs = {'title': sectionname,
                     'states': {}}
@@ -112,6 +112,17 @@ class SpecificationParser(object):
             self._call_consumer(name, value, specargs)
 
         self._spec = Specification(**specargs)
+
+    def _guess_language(self, path):
+        if path is None:
+            return LANGUAGES['en']
+
+        filename = os.path.basename(path)
+        for language in LANGUAGES.values():
+            if filename == language.filename:
+                return language
+
+        return LANGUAGES['en']
 
     @consumer(keywords.DESCRIPTION)
     def _convert_description(self, match, value, specargs):

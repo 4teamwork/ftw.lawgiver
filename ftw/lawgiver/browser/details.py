@@ -186,7 +186,7 @@ class SpecDetails(BrowserView):
 
         with open(path) as specfile:
             try:
-                return parser(specfile)
+                return parser(specfile, path=path)
             except Exception, exc:
                 getSite().error_log.raising(sys.exc_info())
 
