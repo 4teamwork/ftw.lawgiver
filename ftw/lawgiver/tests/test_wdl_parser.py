@@ -3,6 +3,7 @@ from ftw.lawgiver.exceptions import ParsingError
 from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
+from ftw.lawgiver.wdl.languages import LANGUAGES
 from ftw.lawgiver.wdl.parser import PERMISSION_STATEMENT
 from ftw.lawgiver.wdl.parser import WORKLIST_STATEMENT
 from ftw.lawgiver.wdl.parser import convert_statement
@@ -335,7 +336,7 @@ class TestParser(MockTestCase):
 class TestConvertStatement(MockTestCase):
 
     def assert_statement(self, expected_result, text):
-        result = convert_statement(text)
+        result = convert_statement(LANGUAGES['en'], text)
         self.assertEquals(
             expected_result, result,
             'Wrong result when converting statement:' +
@@ -383,7 +384,7 @@ class TestConvertStatement(MockTestCase):
 
     def test_bad_statement(self):
         with self.assertRaises(ParsingError) as cm:
-            convert_statement('This is not a statement.')
+            convert_statement(LANGUAGES['en'], 'This is not a statement.')
 
         self.assertEquals(
             'Unkown statement format: "This is not a statement."',
