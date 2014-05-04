@@ -14,7 +14,7 @@ import unittest2
 
 
 CONFIGURE = '''
-<configure xmlns:lawgiver="http://namespaces.zope.org/lawgiver">
+<configure xmlns:lawgiver="http://namespaces.zope.org/lawgiver" i18n_domain="ftw.lawgiver">
 %s
 </configure>
 '''

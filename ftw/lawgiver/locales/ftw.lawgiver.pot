@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-04 10:43+0000\n"
+"POT-Creation-Date: 2014-05-04 11:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,6 +94,10 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "add"
+msgstr ""
+
 #. Default: "Update security settings"
 #: ./ftw/lawgiver/browser/templates/details.pt:108
 msgid "button_update_security"
@@ -107,6 +111,10 @@ msgstr ""
 #. Default: "Write workflow definition"
 #: ./ftw/lawgiver/browser/templates/details.pt:65
 msgid "button_write_wf_definition"
+msgstr ""
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "delete"
 msgstr ""
 
 #. Default: "This view lists all workflow specifications. Workflow specifications are identified by the \"specification.txt\" in the corresponding workflow directory of any generic setup profile."
@@ -127,6 +135,10 @@ msgstr ""
 #. Default: "When the \"${button_title}\" button is clicked the workflow is generated and written to the <i title=\"${DYNAMIC_CONTENT}\">definition.xml</i>. The database / portal_workflow is not changed."
 #: ./ftw/lawgiver/browser/templates/details.pt:74
 msgid "description_write_wf_definition"
+msgstr ""
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "edit"
 msgstr ""
 
 #. Default: "The specification file could not be parsed: ${error}"
@@ -159,9 +171,29 @@ msgstr ""
 msgid "label_up_to_specification_listing"
 msgstr ""
 
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "manage content settings"
+msgstr ""
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "manage portlets"
+msgstr ""
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "manage security"
+msgstr ""
+
 #. Default: "Workflow Specifications"
 #: ./ftw/lawgiver/browser/templates/speclisting.pt:12
 msgid "title_manage_upgrades"
+msgstr ""
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "view"
+msgstr ""
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "view inactive objects"
 msgstr ""
 
 #. Default: "The workflow ${workflow} is not installed yet. Installing the workflow with the \"${button_title}\" button does not configure the policy, so no portal type will have this workflow."

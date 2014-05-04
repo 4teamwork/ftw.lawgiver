@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-04 10:43+0000\n"
+"POT-Creation-Date: 2014-05-04 11:05+0000\n"
 "PO-Revision-Date: 2013-04-10 10:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,6 +91,10 @@ msgstr "Workflow installiert:"
 msgid "Yes"
 msgstr "Ja"
 
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "add"
+msgstr "hinzufügen"
+
 #. Default: "Update security settings"
 #: ./ftw/lawgiver/browser/templates/details.pt:108
 msgid "button_update_security"
@@ -105,6 +109,10 @@ msgstr "Workflow-Definition aktualisieren und Workflow importieren"
 #: ./ftw/lawgiver/browser/templates/details.pt:65
 msgid "button_write_wf_definition"
 msgstr "Workflow-Definition aktualisieren"
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "delete"
+msgstr "löschen"
 
 #. Default: "This view lists all workflow specifications. Workflow specifications are identified by the \"specification.txt\" in the corresponding workflow directory of any generic setup profile."
 #: ./ftw/lawgiver/browser/templates/speclisting.pt:25
@@ -125,6 +133,10 @@ msgstr "Der Button \"${button_title}\" generiert den Workflow neu und schreibt i
 #: ./ftw/lawgiver/browser/templates/details.pt:74
 msgid "description_write_wf_definition"
 msgstr "Der Button \"${button_title}\" generiert den Workflow neu und schreibt ih in die Datei <i title=\\\"${DYNAMIC_CONTENT}\\\">definition.xml</i>. Die Datenbank wird nicht verändert."
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "edit"
+msgstr "bearbeiten"
 
 #. Default: "The specification file could not be parsed: ${error}"
 #: ./ftw/lawgiver/browser/details.py:194
@@ -156,14 +168,32 @@ msgstr "Der Workflow ${wfname} wurde auf dieser Plone-Seite installiert."
 msgid "label_up_to_specification_listing"
 msgstr "Zurück zur Auflistung der Spezifikationen."
 
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "manage content settings"
+msgstr "Inhalte konfigurieren"
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "manage portlets"
+msgstr "Portlets verwalten"
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "manage security"
+msgstr "Rollen zuweisen"
+
 #. Default: "Workflow Specifications"
 #: ./ftw/lawgiver/browser/templates/speclisting.pt:12
 msgid "title_manage_upgrades"
 msgstr "Workflow Spezifikationen"
 
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "view"
+msgstr "ansehen"
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "view inactive objects"
+msgstr "inaktive Inhalte ansehen"
+
 #. Default: "The workflow ${workflow} is not installed yet. Installing the workflow with the \"${button_title}\" button does not configure the policy, so no portal type will have this workflow."
 #: ./ftw/lawgiver/browser/templates/details.pt:86
 msgid "warning_workflow_not_installed"
 msgstr "Der Workflow ${workflow} ist noch nicht installiert. Wenn der Workflow mit dem Button \"${button_title}\" installiert wird die Workflow Policy nicht angepasst, d.H. kein Typ wird diesen Workflow automatisch benutzen."
-
-
