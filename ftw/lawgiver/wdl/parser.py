@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from ftw.lawgiver.exceptions import ParsingError
 from ftw.lawgiver.wdl import keywords
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
@@ -107,7 +108,7 @@ class SpecificationParser(object):
 
         sectionname = self._config.sections()[0]
         specargs = {'title': sectionname,
-                    'states': {},
+                    'states': OrderedDict(),
                     'language': self.language}
 
         for name, value in self._config.items(sectionname):

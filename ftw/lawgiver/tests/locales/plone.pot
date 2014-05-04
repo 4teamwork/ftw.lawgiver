@@ -64,3 +64,15 @@ msgstr ""
 
 msgid "my_custom_workflow--TRANSITION--submit-for-publication--private_pending"
 msgstr ""
+
+msgid "publish"
+msgstr ""
+
+msgid "submit for publication"
+msgstr ""
+
+msgid "reject"
+msgstr ""
+
+msgid "retract"
+msgstr ""

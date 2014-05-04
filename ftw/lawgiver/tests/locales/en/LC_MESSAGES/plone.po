@@ -61,3 +61,15 @@ msgstr "retract"
 
 msgid "my_custom_workflow--TRANSITION--submit-for-publication--private_pending"
 msgstr "submit for publication"
+
+msgid "publish"
+msgstr "publish"
+
+msgid "submit for publication"
+msgstr "submit for publication"
+
+msgid "reject"
+msgstr "reject"
+
+msgid "retract"
+msgstr "retract"

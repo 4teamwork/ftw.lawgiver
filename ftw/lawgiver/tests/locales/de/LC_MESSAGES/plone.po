@@ -58,3 +58,15 @@ msgstr "Zurückzeiehn"
 
 msgid "my_custom_workflow--TRANSITION--submit-for-publication--private_pending"
 msgstr "Zur Publikation einreichen"
+
+msgid "publish"
+msgstr "Publizieren"
+
+msgid "submit for publication"
+msgstr "Zur Publikation einreichen"
+
+msgid "reject"
+msgstr "Zurückweisen"
+
+msgid "retract"
+msgstr "Zurückziehen"

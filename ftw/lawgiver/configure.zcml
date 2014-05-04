@@ -8,6 +8,7 @@
 
     <include package=".wdl" />
     <include package=".browser" />
+    <include package=".upgrades" />
     <include file="lawgiver.zcml" />
     <include file="localroles.zcml" />
 

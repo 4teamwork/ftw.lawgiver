@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-04 17:52+0000\n"
+"POT-Creation-Date: 2014-05-04 21:36+0000\n"
 "PO-Revision-Date: 2013-04-10 10:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,6 +87,11 @@ msgstr "Workflow Definition:"
 msgid "Workflow installed:"
 msgstr "Workflow installiert:"
 
+#: ./ftw/lawgiver/browser/templates/sharing-describe-role.pt:15
+msgid "Workflow summary for ${role}"
+msgstr "Workflow Zusammenfassung für ${role}"
+
+#: ./ftw/lawgiver/browser/sharing.py:17
 #: ./ftw/lawgiver/browser/templates/details.pt:48
 msgid "Yes"
 msgstr "Ja"
@@ -179,6 +184,11 @@ msgstr "Portlets verwalten"
 #: ./ftw/lawgiver/lawgiver.zcml
 msgid "manage security"
 msgstr "Rollen zuweisen"
+
+#. Default: "Action"
+#: ./ftw/lawgiver/browser/sharing.py:43
+msgid "sharing_description_action"
+msgstr "Aktion"
 
 #. Default: "Workflow Specifications"
 #: ./ftw/lawgiver/browser/templates/speclisting.pt:12
