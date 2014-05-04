@@ -107,7 +107,8 @@ class SpecificationParser(object):
 
         sectionname = self._config.sections()[0]
         specargs = {'title': sectionname,
-                    'states': {}}
+                    'states': {},
+                    'language': self.language}
 
         for name, value in self._config.items(sectionname):
             self._call_consumer(name, value, specargs)

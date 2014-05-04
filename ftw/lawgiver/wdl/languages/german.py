@@ -6,6 +6,7 @@ import re
 class German(LanguageBase):
 
     filename = 'specification.de.txt'
+    code = 'de'
 
     constraints = {
         keywords.DESCRIPTION: r'^[Bb]eschreibung$',

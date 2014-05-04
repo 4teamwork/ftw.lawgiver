@@ -27,41 +27,41 @@ Sichtbare Rollen:
 
 
 Allgemein:
-  Ein Administrator kann den Inhalt immer view.
-  Ein Administrator kann Inhalte immer edit.
-  Ein Administrator kann den Inhalt delete.
+  Ein Administrator kann den Inhalt immer ansehen.
+  Ein Administrator kann Inhalte immer bearbeiten.
+  Ein Administrator kann den Inhalt löschen.
   Der Administrator kann jeden Inhalt immer publish.
-  Ein Administrator darf immer manage security.
+  Ein Administrator darf immer Rollen zuweisen.
   Der Administrator hat die gleichen Rechte wie ein Editor-In-Chief
   Ein System Administrator kann das gleiche wie ein Administrator.
 
 
 Status Private:
-  Ein Editor kann jeden Inhalt view
-  Der Editor kann Inhalte edit
-  Eine Editor kann den Inhalt delete
-  Die Editor kann add neuen Inhalt.
+  Ein Editor kann jeden Inhalt ansehen
+  Der Editor kann Inhalte bearbeiten
+  Eine Editor kann den Inhalt löschen
+  Die Editor kann neuen Inhalt hinzufügen.
   Editor kann submit for publication.
   Der Editor-In-Chief kann das gleiche wie der Editor.
   Der Editor-In-Chief kann diesen Inhalt publish.
 
 Status Pending:
-  Ein Editor kann den Inhalt view.
-  Ein Editor kann neuen Inhalt add.
+  Ein Editor kann den Inhalt ansehen.
+  Ein Editor kann neuen Inhalt hinzufügen.
   Der Editor kann alle Inhalte retract.
   Ein Editor-In-Chief kann das gleiche wie Editor.
-  Ein Editor-In-Chief kann diesen Inhalt edit
-  Ein Editor-In-Chief kann diesen Inhalt delete.
+  Ein Editor-In-Chief kann diesen Inhalt bearbeiten
+  Ein Editor-In-Chief kann diesen Inhalt löschen.
   Ein Editor-In-Chief kann publish.
   Ein Editor-In-Chief kann reject.
   Ein Editor-In-Chief hat Zugriff auf die Arbeitsliste.
 
 Status Published:
-  Ein Editor kann diesen Inhalt view.
-  Ein Editor kann neuen Inhalt add
+  Ein Editor kann diesen Inhalt ansehen.
+  Ein Editor kann neuen Inhalt hinzufügen
   Ein Editor kann retract.
   Ein Editor-In-Chief hat die gleichen Rechte wie der Editor.
-  Everyone kann diesen Inhalt view.
+  Everyone kann diesen Inhalt ansehen.
 
 
 URL Zustandsänderungen = %%(content_url)s/@@execute-transition?transition=%(transition)s
