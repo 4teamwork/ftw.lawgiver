@@ -46,7 +46,8 @@ class Specification(object):
             for role in self.visible_roles:
                 if role not in self.role_mapping:
                     raise ValueError(
-                        '"%s" in visible roles is not in role mapping.' % (role))
+                        '"%s" in visible roles is not in role mapping.' % (
+                            role))
 
 
 class Status(object):

@@ -53,8 +53,8 @@ class German(LanguageBase):
 
     def convert_role_inheritance_statement(self, statement):
         text = self.cleanup_statement(statement.lower())
-        if ('gleichen rechte' not in text
-            and 'das gleiche' not in text):
+        if 'gleichen rechte' not in text \
+                and 'das gleiche' not in text:
             return None
 
         text = re.sub(
@@ -68,7 +68,6 @@ class German(LanguageBase):
 
     def convert_permission_statement(self, statement):
         text = self.cleanup_statement(statement)
-        clean_text = text
 
         # remove trailing "this content" and such.
         text = re.sub(

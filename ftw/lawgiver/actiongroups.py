@@ -64,6 +64,7 @@ class ActionGroupRegistry(object):
             [permission for permission, workflows in self._permissions.items()
              if workflow_name in workflows])
 
-        permissions = globally_ignored_permissions - permissions_managed_by_workflow
+        permissions = (globally_ignored_permissions
+                       - permissions_managed_by_workflow)
         permissions.update(permissions_ignored_by_workflow)
         return permissions

@@ -20,7 +20,8 @@ DEFAULT_ROLE_TITLES = {
     'Reader': PloneMessageFactory(u"title_can_view", default=u"Can view"),
     'Editor': PloneMessageFactory(u"title_can_edit", default=u"Can edit"),
     'Contributor': PloneMessageFactory(u"title_can_add", default=u"Can add"),
-    'Reviewer': PloneMessageFactory(u"title_can_review", default=u"Can review"),
+    'Reviewer': PloneMessageFactory(u"title_can_review",
+                                    default=u"Can review"),
     }
 
 
@@ -98,7 +99,10 @@ def create_dynamic_role(plonerole, required_permission):
     @adapter(Interface, Interface)
     @implementer(IDynamicRoleAdapter)
     def dynamic_role_adapter_factory(context, request):
-        return DynamicRolesAdapter(context, request, plonerole, required_permission)
+        return DynamicRolesAdapter(context,
+                                   request,
+                                   plonerole,
+                                   required_permission)
 
     return dynamic_role_utility_factory, dynamic_role_adapter_factory
 

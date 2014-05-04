@@ -25,8 +25,8 @@ class WorkflowGenerator(object):
     def __call__(self, workflow_id, specification):
         self.workflow_id = workflow_id
         self.specification = specification
-        self.ignored_delegate_permissions = self._get_ignored_delegate_permissions(
-            specification)
+        self.ignored_delegate_permissions = \
+            self._get_ignored_delegate_permissions(specification)
 
         self.managed_permissions = sorted(
             getUtility(IPermissionCollector).collect(workflow_id))
@@ -297,7 +297,8 @@ class WorkflowGenerator(object):
 
         lang_code = self.specification.language.code
         translated_action_groups = dict([
-                (translate(name, target_language=lang_code).encode('utf-8'), name)
+                (translate(name, target_language=lang_code).encode('utf-8'),
+                 name)
                 for name in action_groups])
 
         for customer_role, action in statements:

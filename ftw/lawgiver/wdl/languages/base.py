@@ -19,8 +19,8 @@ class LanguageBase(object):
         """Extracts and returns the role from an worklist statement,
         e.g. for english:
 
-        input: 'An editor-in-chief can access the worklist.'
-        output: "editor-in-chief"
+        in: 'An editor-in-chief can access the worklist.'
+        out: "editor-in-chief"
         """
         raise NotImplementedError()
 
@@ -28,17 +28,16 @@ class LanguageBase(object):
         """Converts a role inheritance statement, returning a tuple with the
         two roles of the statement, e.g.:
 
-        input: 'An administrator can always perform the same actions as an editor.'
-        output: ('administrator', 'editor')
+        in: 'An administrator can always perform the same actions as an editor'
+        out: ('administrator', 'editor')
         """
         raise NotImplementedError()
-
 
     def convert_permission_statement(self, statement):
         """Converts a permission statement, extracting the role and action group
         name from the statement, e.g.:
 
-        input: 'An editor can view this content.'
-        output: ('editor', 'view')
+        in: 'An editor can view this content.'
+        out: ('editor', 'view')
         """
         raise NotImplementedError()
