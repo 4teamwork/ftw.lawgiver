@@ -22,3 +22,45 @@ msgstr ""
 
 msgid "local-roles--ROLE--Reviewer"
 msgstr ""
+
+msgid "my_custom_workflow--ROLE--Anonymous"
+msgstr ""
+
+msgid "my_custom_workflow--ROLE--Editor"
+msgstr ""
+
+msgid "my_custom_workflow--ROLE--Manager"
+msgstr ""
+
+msgid "my_custom_workflow--ROLE--Reviewer"
+msgstr ""
+
+msgid "my_custom_workflow--ROLE--Site Administrator"
+msgstr ""
+
+msgid "my_custom_workflow--STATUS--pending"
+msgstr ""
+
+msgid "my_custom_workflow--STATUS--private"
+msgstr ""
+
+msgid "my_custom_workflow--STATUS--published"
+msgstr ""
+
+msgid "my_custom_workflow--TRANSITION--publish--pending_published"
+msgstr ""
+
+msgid "my_custom_workflow--TRANSITION--publish--private_published"
+msgstr ""
+
+msgid "my_custom_workflow--TRANSITION--reject--pending_private"
+msgstr ""
+
+msgid "my_custom_workflow--TRANSITION--retract--pending_private"
+msgstr ""
+
+msgid "my_custom_workflow--TRANSITION--retract--published_private"
+msgstr ""
+
+msgid "my_custom_workflow--TRANSITION--submit-for-publication--private_pending"
+msgstr ""
