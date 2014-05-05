@@ -16,7 +16,7 @@ class TestExampleSpecification(MockTestCase):
         parser = getUtility(IWorkflowSpecificationParser)
 
         with open(path) as file_:
-            self.spec = parser(file_)
+            self.spec = parser(file_, path=path)
 
     def test_title(self):
         self.assertEquals('My Custom Workflow', self.spec.title)

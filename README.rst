@@ -535,6 +535,42 @@ Optional arguments:
   according to your ``Visible roles`` configuration in the workflow specification.
 
 
+
+Languages
+---------
+
+Currently supported languages:
+
+**English** (default)
+
+- Filename: ``specification.txt``
+- Example: `ftw/lawgiver/tests/assets/languages/specification.txt <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/assets/languages/specification.txt>`_
+
+**German**
+
+- Filename: ``specification.de.txt``
+- Example: `ftw/lawgiver/tests/assets/languages/specification.de.txt <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/assets/languages/specification.de.txt>`_
+
+
+**Contributing new languages**
+
+We happily accept pull requests with new languages!
+
+Creating a new language is as simple:
+
+- Create a new specification example in ``ftw/lawgiver/tests/assets/languages/``,
+  implementing the same workflow as ``specification.txt``.
+- Run the tests with ``bin/test``. It should fail at this point. Keep running them
+  after each change.
+- Add a new language module to ``ftw/lawgiver/wdl/languages/``.
+- Register the new language in ``ftw/lawgiver/wdl/languages/__init__.py``.
+- Implement the language specific constraints and extraction methods in your new
+  language class until all tests pass.
+- Add the language to the readme.
+- Send us a pull request!
+
+
+
 Specialities
 ------------
 

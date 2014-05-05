@@ -8,6 +8,7 @@ from plone.app.workflow.interfaces import ISharingPageRole
 from plone.i18n.normalizer.interfaces import INormalizer
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
+from zope.i18n import translate
 from zope.interface import implements
 
 
@@ -294,12 +295,18 @@ class WorkflowGenerator(object):
         action_groups = agregistry.get_action_groups_for_workflow(
             self.workflow_id)
 
+        lang_code = self.specification.language.code
+        translated_action_groups = dict([
+                (translate(name, target_language=lang_code).encode('utf-8'), name)
+                for name in action_groups])
+
         for customer_role, action in statements:
             if self._find_transition_by_title(action):
                 transition_statements.append((customer_role, action))
 
-            elif action in action_groups:
-                action_group_statements.append((customer_role, action))
+            elif action in translated_action_groups:
+                action_group_statements.append(
+                    (customer_role, translated_action_groups[action]))
 
             else:
                 raise Exception(

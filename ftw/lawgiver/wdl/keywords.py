@@ -1,0 +1,8 @@
+DESCRIPTION = 'description'
+GENERAL = 'general'
+INITIAL_STATUS = 'initial status'
+ROLE_MAPPING = 'role mapping'
+STATUS = 'status'
+TRANSITIONS = 'transitions'
+TRANSITION_URL = 'transition url'
+VISIBLE_ROLES = 'visible roles'

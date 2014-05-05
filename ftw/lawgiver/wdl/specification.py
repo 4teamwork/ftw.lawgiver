@@ -1,6 +1,7 @@
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IStatus
 from ftw.lawgiver.wdl.interfaces import ITransition
+from ftw.lawgiver.wdl.languages import LANGUAGES
 from zope.interface import implements
 
 
@@ -12,8 +13,10 @@ class Specification(object):
                  transitions=None, role_mapping=None, generals=None,
                  custom_transition_url=None,
                  role_inheritance=None,
-                 visible_roles=None):
+                 visible_roles=None,
+                 language=None):
         self.title = title
+        self.language = language or LANGUAGES['en']
         self.description = description
         self._initial_status_title = initial_status_title
         self.states = states or {}

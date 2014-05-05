@@ -44,4 +44,4 @@ class ListSpecifications(BrowserView):
         parser = getUtility(IWorkflowSpecificationParser)
 
         with open(path) as specfile:
-            return parser(specfile, silent=True)
+            return parser(specfile, path=path, silent=True)

@@ -76,7 +76,7 @@ class TestGeneratorIntegration(BaseTest):
 
         spec_path = os.path.join(ASSETS, 'example.specification.txt')
         with open(spec_path) as spec_file:
-            spec = parser(spec_file)
+            spec = parser(spec_file, path=spec_path)
 
         result = StringIO()
         generator = getUtility(IWorkflowGenerator)

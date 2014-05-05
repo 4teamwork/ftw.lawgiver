@@ -7,6 +7,7 @@ from ftw.lawgiver.schema import CommaSeparatedText
 from zope.component import provideUtility
 from zope.component import queryUtility
 from zope.configuration.exceptions import ConfigurationError
+from zope.configuration.fields import MessageID
 from zope.interface import Interface
 from zope.schema import Bool
 from zope.schema import TextLine
@@ -16,7 +17,7 @@ import zope.security.zcml
 
 class IMapPermissionsDirective(Interface):
 
-    action_group = TextLine(
+    action_group = MessageID(
         title=u'The name of the action group',
         description=u'',
         required=True)

@@ -1,0 +1,67 @@
+[The Language Workflow]
+Description: A workflow testing multi language support.
+Initial Status: Private
+
+
+Transitions:
+  publish (Private => Published)
+  submit for publication (Private => Pending)
+  reject (Pending => Private)
+  retract (Pending => Private)
+  publish (Pending => Published)
+  retract (Published => Private)
+
+
+Role mapping:
+  Editor => Editor
+  Editor-In-Chief => Reviewer
+  Everyone => Anonymous
+  Administrator => Site Administrator
+  System Administrator => Manager
+
+
+Visible roles:
+  Editor
+  Editor-In-Chief
+  Administrator
+
+
+General:
+  An Administrator can always view the content
+  An Administrator can always edit the content
+  An Administrator can always delete any content
+  An Administrator can always publish the content.
+  An Administrator can always manage security.
+  An Administrator can perform the same actions as an Editor-In-Chief
+  A System Administrator can always perform the same actions as an Administrator.
+
+
+Status Private:
+  An Editor can view this content.
+  An Editor can edit this content.
+  An Editor can delete this content.
+  An Editor can add new content.
+  An Editor can submit for publication.
+  An Editor-In-Chief can perform the same as an Editor.
+  An Editor-In-Chief can publish this content.
+
+Status Pending:
+  An Editor can view this content.
+  An Editor can add new content.
+  An Editor can retract.
+  An Editor-In-Chief can perform the same as an Editor.
+  An Editor-In-Chief can edit this content.
+  An Editor-In-Chief can delete this content.
+  An Editor-In-Chief can publish.
+  An Editor-In-Chief can reject.
+  An Editor-In-Chief can access the worklist.
+
+Status Published:
+  An Editor can view this content.
+  An Editor can add new content.
+  An Editor can retract this content.
+  An Editor-In-Chief can perform the same actions as an Editor.
+  Everyone can view this content.
+
+
+Transition URL = %%(content_url)s/@@execute-transition?transition=%(transition)s
