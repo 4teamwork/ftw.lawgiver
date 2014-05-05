@@ -31,6 +31,7 @@ General:
   An Administrator can always edit the content
   An Administrator can always delete any content
   An Administrator can always publish the content.
+  An Administrator can always manage content settings.
   An Administrator can always manage security.
   An Administrator can perform the same actions as an Editor-In-Chief
   A System Administrator can always perform the same actions as an Administrator.

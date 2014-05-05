@@ -78,7 +78,7 @@ class German(LanguageBase):
             r'| jeden [Ii]nhalt'
             r'| alle [Ii]nhalte'
             r'| neuen? [Ii]nhalte?'
-            r'| [Ii]nhalte'
+            r'| [Ii]nhalte(?! konfigurieren)'
             r')',
             '', text)
 

@@ -31,6 +31,7 @@ Allgemein:
   Ein Administrator kann Inhalte immer bearbeiten.
   Ein Administrator kann den Inhalt löschen.
   Der Administrator kann jeden Inhalt immer publish.
+  Der Administrator kann Inhalte konfigurieren.
   Ein Administrator darf immer Rollen zuweisen.
   Der Administrator hat die gleichen Rechte wie ein Editor-In-Chief
   Ein System Administrator kann das gleiche wie ein Administrator.
