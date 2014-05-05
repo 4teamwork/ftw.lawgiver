@@ -380,6 +380,23 @@ can install the workflow / update the security.
 .. image:: https://raw.github.com/4teamwork/ftw.lawgiver/master/docs/screenshot-workflow-details.png
 
 
+Updating translations
+~~~~~~~~~~~~~~~~~~~~~
+
+The button ``Update translations in locales directory`` in the workflow
+details view helps you keep your translations up to date.
+It writes directly into the locales directory on your machine.
+
+When updating the translations, theese files are written:
+
+- ``your/package/locales/plone.pot``
+- ``your/package/locales/en/LC_MESSAGES/plone.po``
+
+When updating the messages in your locales file, all no longer valid messages
+which start with the workflow ID prefix are removed automatically.
+
+
+
 Testing the workflow
 --------------------
 
@@ -628,6 +645,7 @@ This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 ``ftw.lawgiver`` is licensed under GNU General Public License, version 2.
 
 .. _collective.deletepermission: https://github.com/4teamwork/collective.deletepermission
+.. _ftw.recipe.translations: https://github.com/4teamwork/ftw.recipe.translations
 
 .. image:: https://cruel-carlota.pagodabox.com/ef218e7bdb19163396b77d70f31e984e
    :alt: githalytics.com
