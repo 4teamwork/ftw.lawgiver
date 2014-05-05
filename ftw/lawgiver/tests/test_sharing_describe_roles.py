@@ -12,7 +12,8 @@ import transaction
 
 
 def javascript_resources():
-    js_urls = filter(None, [node.attrib.get('src') for node in browser.css('script')])
+    js_urls = filter(None, [node.attrib.get('src')
+                            for node in browser.css('script')])
     return ['/'.join(url.split('/')[6:]) for url in js_urls]
 
 
