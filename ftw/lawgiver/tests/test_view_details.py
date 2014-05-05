@@ -23,6 +23,12 @@ INVALID_WORKFLOW_DEFINITION_XML = os.path.abspath(os.path.join(
         'profiles', 'spec-discovery', 'workflows', 'invalid-spec', 'definition.xml'))
 
 
+BACKUP_FILES = [
+    os.path.join(LOCALES_DIRECTORY, 'plone.pot'),
+    os.path.join(LOCALES_DIRECTORY, 'en', 'LC_MESSAGES', 'plone.po'),
+    ]
+
+
 def remove_definition_xml(path=BAR_DEFINITION_XML):
     if os.path.exists(path):
         os.remove(path)
@@ -47,7 +53,15 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
 
         SpecDetails().open('Bar Workflow (wf-bar)')
 
+        # Backup files
+        for path in BACKUP_FILES:
+            shutil.copy2(path, '{0}.backup'.format(path))
+
     def tearDown(self):
+        # Restore files
+        for path in BACKUP_FILES:
+            shutil.move('{0}.backup'.format(path), path)
+
         remove_definition_xml()
         self.switch_language('en')
 

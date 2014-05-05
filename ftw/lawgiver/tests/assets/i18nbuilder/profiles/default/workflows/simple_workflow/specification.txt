@@ -1,0 +1,8 @@
+[Very simple]
+Initial Status: Private
+
+Role mapping:
+  editor => Editor
+
+Status Private:
+  An editor can view this content.
