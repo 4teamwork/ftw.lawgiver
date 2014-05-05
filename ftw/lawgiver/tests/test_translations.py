@@ -22,7 +22,9 @@ class TestActionGroupTranslations(TestCase):
                 continue
 
             untranslated[lang] = [name for name in groups
-                                  if translate(name, target_language=lang) == name]
+                                  if translate(unicode(name),
+                                               target_language=lang,
+                                               domain='ftw.lawgiver') == name]
             expected[lang] = []
 
         self.assertEquals(
