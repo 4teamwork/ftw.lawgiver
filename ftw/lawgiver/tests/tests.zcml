@@ -6,6 +6,7 @@
     <include package="Products.Five" file="meta.zcml" />
 
     <include package="Products.CMFCore" file="permissions.zcml" />
+    <include package="plone.app.workflow" file="permissions.zcml" />
 
     <include package="ftw.lawgiver" />
 

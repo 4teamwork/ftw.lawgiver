@@ -24,4 +24,13 @@
         layer="ftw.lawgiver.interfaces.ILawgiverLayer"
         />
 
+    <browser:page
+        name="lawgiver-sharing-describe-role"
+        for="*"
+        template="templates/sharing-describe-role.pt"
+        class=".sharing.SharingDescribeRole"
+        permission="plone.DelegateRoles"
+        allowed_attributes="available"
+        />
+
 </configure>

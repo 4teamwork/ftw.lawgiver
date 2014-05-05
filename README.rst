@@ -535,6 +535,18 @@ Optional arguments:
   according to your ``Visible roles`` configuration in the workflow specification.
 
 
+Description of roles in sharing view
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+``ftw.lawgiver`` automatically registers an overlay when clicking on the
+role text in the table header on the sharing view.
+The overlay displays a description of what this role can do in each state of
+the current workflow:
+
+
+.. image:: https://raw.github.com/4teamwork/ftw.lawgiver/master/docs/screenshot-sharing-overlay.png
+
+
 
 Languages
 ---------

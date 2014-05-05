@@ -9,10 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: plone\n"
 
 msgid "role-translation--ROLE--Editor"
 msgstr "editor"
@@ -21,55 +18,55 @@ msgid "role-translation--ROLE--Reviewer"
 msgstr "editor-in-chief"
 
 msgid "my_custom_workflow--ROLE--Anonymous"
-msgstr "everyone"
+msgstr "Alle"
 
 msgid "my_custom_workflow--ROLE--Editor"
-msgstr "editor"
+msgstr "Redaktor"
 
 msgid "my_custom_workflow--ROLE--Manager"
-msgstr "system administrator"
+msgstr "System Administrator"
 
 msgid "my_custom_workflow--ROLE--Reviewer"
-msgstr "editor-in-chief"
+msgstr "Chefredaktor"
 
 msgid "my_custom_workflow--ROLE--Site Administrator"
-msgstr "administrator"
+msgstr "Administrator"
 
 msgid "my_custom_workflow--STATUS--pending"
-msgstr "Pending"
+msgstr "Eingereicht"
 
 msgid "my_custom_workflow--STATUS--private"
-msgstr "Private"
+msgstr "Privat"
 
 msgid "my_custom_workflow--STATUS--published"
-msgstr "Published"
+msgstr "Publiziert"
 
 msgid "my_custom_workflow--TRANSITION--publish--pending_published"
-msgstr "publish"
+msgstr "Publizieren"
 
 msgid "my_custom_workflow--TRANSITION--publish--private_published"
-msgstr "publish"
+msgstr "Publizieren"
 
 msgid "my_custom_workflow--TRANSITION--reject--pending_private"
-msgstr "reject"
+msgstr "Zurückweisen"
 
 msgid "my_custom_workflow--TRANSITION--retract--pending_private"
-msgstr "retract"
+msgstr "Zurückziehen"
 
 msgid "my_custom_workflow--TRANSITION--retract--published_private"
-msgstr "retract"
+msgstr "Zurückzeiehn"
 
 msgid "my_custom_workflow--TRANSITION--submit-for-publication--private_pending"
-msgstr "submit for publication"
+msgstr "Zur Publikation einreichen"
 
 msgid "publish"
-msgstr "publish"
+msgstr "Publizieren"
 
 msgid "submit for publication"
-msgstr "submit for publication"
+msgstr "Zur Publikation einreichen"
 
 msgid "reject"
-msgstr "reject"
+msgstr "Zurückweisen"
 
 msgid "retract"
-msgstr "retract"
+msgstr "Zurückziehen"

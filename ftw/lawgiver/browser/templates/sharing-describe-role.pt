@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="ftw.lawgiver"
+      tal:omit-tag="python: True"
+      tal:define="table view/get_table_data|nothing">
+
+    <div class="lawgiver-sharing-describe-role">
+
+        <h1>
+            &laquo;<span tal:replace="request/role|nothing" />&raquo;
+        </h1>
+
+        <tal:OK tal:condition="table">
+
+            <table class="listing lawgiver-role-description">
+                <thead>
+                    <tr>
+                        <th tal:repeat="header table/headers"
+                            tal:content="header"
+                            i18n:translate="" />
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr tal:repeat="row table/rows">
+                        <td tal:repeat="value row"
+                            tal:content="structure value"
+                            i18n:translate="" />
+                    </tr>
+                </tbody>
+            </table>
+
+        </tal:OK>
+
+        <tal:NOT_OK tal:condition="not:table">
+            <p i18n:translate="">
+                Could not find any information about this role.
+            </p>
+        </tal:NOT_OK>
+
+    </div>
+</html>

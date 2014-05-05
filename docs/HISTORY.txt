@@ -5,6 +5,10 @@ Changelog
 1.2.3 (unreleased)
 ------------------
 
+- Implement overlay in sharing view, describing the actions and transitions
+  for a role.
+  [jone]
+
 - Add German specification support.
   [jone]
 

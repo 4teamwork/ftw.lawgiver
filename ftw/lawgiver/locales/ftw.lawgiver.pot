@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-04 17:52+0000\n"
+"POT-Creation-Date: 2014-05-05 09:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,6 +13,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
+
+#: ./ftw/lawgiver/browser/templates/sharing-describe-role.pt:40
+msgid "Could not find any information about this role."
+msgstr ""
 
 #: ./ftw/lawgiver/browser/templates/details.pt:187
 msgid "Default translations"
@@ -181,6 +185,11 @@ msgstr ""
 
 #: ./ftw/lawgiver/lawgiver.zcml
 msgid "manage security"
+msgstr ""
+
+#. Default: "Action"
+#: ./ftw/lawgiver/browser/sharing.py:46
+msgid "sharing_description_action"
 msgstr ""
 
 #. Default: "Workflow Specifications"

@@ -20,12 +20,16 @@ Role mapping:
   administrator => Site Administrator
   system administrator => Manager
 
+Visible roles:
+  editor
+  editor-in-chief
 
 General:
   An administrator can always view the content
   An administrator can always edit the content
   An administrator can always delete the content
   An administrator can always publish the content.
+  An administrator can always manage security.
   A system administrator can always perform the same actions as an administrator
   A system administrator can always manage content settings.
 

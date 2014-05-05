@@ -2,13 +2,14 @@ import os
 from setuptools import setup, find_packages
 
 
-version = '1.2.3.dev0'
+version = '1.3.0.dev0'
 
 
 tests_require = [
     'Products.CMFCore',
     'Zope2',
     'ftw.builder',
+    'ftw.testbrowser',
     'ftw.testing [splinter]',
     'plone.app.testing',
     'plone.browserlayer',
@@ -56,6 +57,7 @@ setup(name='ftw.lawgiver',
         'ZODB3',
         'Zope2',
         'collective.deletepermission',
+        'ftw.upgrade',
         'lxml',
         'plone.app.workflow',
         'plone.i18n',
