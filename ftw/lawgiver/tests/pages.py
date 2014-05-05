@@ -125,6 +125,9 @@ class SpecDetails(Plone):
     def button_reindex(self):
         return self.get_button('Update security settings')
 
+    def button_update_locales(self):
+        return self.get_button('Update translations in locales directory')
+
 class SpecDetailsConfirmation(SpecDetails):
 
     def is_confirmation_dialog_opened(self):
