@@ -1,6 +1,5 @@
 from collections import defaultdict
 from ftw.lawgiver import _
-from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.utils import get_specification_for
 from ftw.lawgiver.utils import get_workflow_for
