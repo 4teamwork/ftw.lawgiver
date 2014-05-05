@@ -1,10 +1,7 @@
-from Acquisition import aq_inner
-from Acquisition import aq_parent
 from OFS.interfaces import IApplication
-from Products.CMFCore.interfaces import IContentish
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory
 from ftw.lawgiver.interfaces import IDynamicRoleAdapter
+from ftw.lawgiver.utils import get_workflow_for
 from plone.app.workflow import permissions
 from plone.app.workflow.interfaces import ISharingPageRole
 from zope.component import adapter
@@ -63,7 +60,7 @@ class DynamicRolesAdapter(object):
         default_title = DEFAULT_ROLE_TITLES.get(
             self.plonerole, PloneMessageFactory(self.plonerole))
 
-        workflow = self.get_local_workflow()
+        workflow = get_workflow_for(self.context)
         if workflow:
             return PloneMessageFactory(
                 '%s--ROLE--%s' % (workflow.getId(), self.plonerole),
@@ -74,21 +71,6 @@ class DynamicRolesAdapter(object):
 
     def get_required_permission(self):
         return self.required_permission
-
-    def get_local_workflow(self):
-        wftool = getToolByName(self.context, 'portal_workflow')
-
-        context = self.context
-        while context and not IContentish.providedBy(context):
-            context = aq_parent(aq_inner(context))
-        if not context:
-            return None
-
-        workflows = wftool.getWorkflowsFor(context)
-        if len(workflows) == 0:
-            return None
-        else:
-            return workflows[0]
 
 
 def create_dynamic_role(plonerole, required_permission):
