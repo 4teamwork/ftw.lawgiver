@@ -12,7 +12,6 @@ from zope.interface import Interface
 from zope.schema import Bool
 from zope.schema import TextLine
 import zope.component.zcml
-import zope.security.zcml
 
 
 class IMapPermissionsDirective(Interface):
@@ -127,7 +126,8 @@ def sharingPageRole(_context, name, permission=None,
     """Register a role for display on the sharing page.
     """
 
-    role_utility_factory, role_adapter_factory = create_dynamic_role(name, permission)
+    role_utility_factory, role_adapter_factory = create_dynamic_role(
+        name, permission)
 
     if permission is None:
         permission = 'Sharing page: Delegate %s role' % name
@@ -145,7 +145,9 @@ def sharingPageRole(_context, name, permission=None,
     if register_permission:
         permission_id = '.'.join((_context.context.package.__name__,
                                   'Delegate%s' % (name.replace(' ', ''))))
-        PermissionDirective(_context, id=permission_id, title=permission).after()
+        PermissionDirective(_context,
+                            id=permission_id,
+                            title=permission).after()
 
     if map_permission:
         mapPermissions(_context,

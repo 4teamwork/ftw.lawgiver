@@ -242,7 +242,8 @@ class SpecificationParser(object):
 
             consumer_keyword = getattr(item, 'consumer_keyword', None)
             if consumer_keyword:
-                consumer_constraint = self.language.get_constraint(consumer_keyword)
+                consumer_constraint = self.language.get_constraint(
+                    consumer_keyword)
                 consumers.append((consumer_constraint, item))
 
         return consumers

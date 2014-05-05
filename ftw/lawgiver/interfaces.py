@@ -152,10 +152,12 @@ class IWorkflowSpecificationDiscovery(Interface):
         If there is no match `None` is returned.
         """
 
+
 class IDynamicRoleAdapter(Interface):
     """The dynamic role adapter allows us to change the title or required
     permission of a role per context.
-    This makes it possible to translate roles differently for different workflows.
+    This makes it possible to translate roles differently for
+    different workflows.
     """
 
     def __init__(context, request):

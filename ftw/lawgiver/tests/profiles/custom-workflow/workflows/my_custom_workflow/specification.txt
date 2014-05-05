@@ -27,7 +27,7 @@ General:
   An administrator can always delete the content
   An administrator can always publish the content.
   A system administrator can always perform the same actions as an administrator
-  A system administrator can always manage.
+  A system administrator can always manage content settings.
 
 
 Status Private:
