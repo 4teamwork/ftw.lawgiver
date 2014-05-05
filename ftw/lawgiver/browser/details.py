@@ -105,7 +105,7 @@ class SpecDetails(BrowserView):
             IStatusMessage(self.request).add(
                 _(u'error_while_generating_workflow',
                   default=u'Error while generating the workflow: ${msg}',
-                  mapping={'msg': str(exc)}),
+                  mapping={'msg': str(exc).decode('utf-8')}),
                 type='error')
 
             return False
