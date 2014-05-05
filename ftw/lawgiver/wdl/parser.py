@@ -1,4 +1,3 @@
-from collections import OrderedDict
 from ftw.lawgiver.exceptions import ParsingError
 from ftw.lawgiver.wdl import keywords
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
@@ -6,6 +5,7 @@ from ftw.lawgiver.wdl.languages import LANGUAGES
 from ftw.lawgiver.wdl.specification import Specification
 from ftw.lawgiver.wdl.specification import Status
 from ftw.lawgiver.wdl.specification import Transition
+from ordereddict import OrderedDict
 from zope.interface import implements
 import ConfigParser
 import os.path

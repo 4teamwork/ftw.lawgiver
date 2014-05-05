@@ -48,12 +48,6 @@ setup(name='ftw.lawgiver',
       zip_safe=False,
 
       install_requires=[
-        # Adds collections.OrderedDict for Python 2.6
-        # This import cannot be detected by the dependencychecker
-        # and the tests will pass even when removed because a test
-        # requirement installs it, so please do not remove it.
-        'ordereddict',
-
         'AccessControl',
         'Acquisition',
         'Products.CMFCore',
@@ -65,6 +59,7 @@ setup(name='ftw.lawgiver',
         'collective.deletepermission',
         'ftw.upgrade',
         'lxml',
+        'ordereddict',
         'plone.app.workflow',
         'plone.i18n',
         'setuptools',
