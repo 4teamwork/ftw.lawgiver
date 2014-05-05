@@ -15,7 +15,7 @@ class SharingDescribeRole(BrowserView):
     CHECKED = r'<span class="checked">&#x2713;</span>'
     NOT_CHECKED = r'<span class="not-checked"></span>'
 
-    def available(self):
+    def is_available(self):
         """Returns True when sharing description is available for this
         context. It is only available when a lawgiver workflow is used
         for this context.
