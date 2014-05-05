@@ -10,8 +10,7 @@ jQuery(function($){
         var $link = $('<a>', {
           text: role,
           href: url});
-        $th.text('');
-        $link.appendTo($th);
+        $th.html($link);
 
         $link.prepOverlay({
           subtype: 'ajax',
