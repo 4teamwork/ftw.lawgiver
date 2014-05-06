@@ -11,6 +11,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
+msgid "local-roles--ROLE--Editor"
+msgstr ""
+
+msgid "local-roles--ROLE--Reviewer"
+msgstr ""
+
 msgid "my_custom_workflow--ROLE--Anonymous"
 msgstr "everyone"
 
@@ -79,3 +85,5 @@ msgstr "System Administrator"
 
 msgid "wf-bar--STATUS--published"
 msgstr "Published"
+
+
