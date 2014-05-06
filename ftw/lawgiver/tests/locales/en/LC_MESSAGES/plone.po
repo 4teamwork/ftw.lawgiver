@@ -9,16 +9,13 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: plone\n"
 
-msgid "role-translation--ROLE--Editor"
-msgstr "editor"
+msgid "local-roles--ROLE--Editor"
+msgstr ""
 
-msgid "role-translation--ROLE--Reviewer"
-msgstr "editor-in-chief"
+msgid "local-roles--ROLE--Reviewer"
+msgstr ""
 
 msgid "my_custom_workflow--ROLE--Anonymous"
 msgstr "everyone"
@@ -65,11 +62,28 @@ msgstr "submit for publication"
 msgid "publish"
 msgstr "publish"
 
-msgid "submit for publication"
-msgstr "submit for publication"
-
 msgid "reject"
 msgstr "reject"
 
 msgid "retract"
 msgstr "retract"
+
+msgid "role-translation--ROLE--Editor"
+msgstr "editor"
+
+msgid "role-translation--ROLE--Reviewer"
+msgstr "editor-in-chief"
+
+msgid "submit for publication"
+msgstr "submit for publication"
+
+msgid "wf-bar--ROLE--Editor"
+msgstr "editor"
+
+msgid "wf-bar--ROLE--Manager"
+msgstr "System Administrator"
+
+msgid "wf-bar--STATUS--published"
+msgstr "Published"
+
+

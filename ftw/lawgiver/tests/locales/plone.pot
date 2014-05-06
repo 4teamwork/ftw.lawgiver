@@ -23,6 +23,12 @@ msgstr ""
 msgid "local-roles--ROLE--Reviewer"
 msgstr ""
 
+msgid "role-translation--ROLE--Editor"
+msgstr ""
+
+msgid "role-translation--ROLE--Reviewer"
+msgstr ""
+
 msgid "my_custom_workflow--ROLE--Anonymous"
 msgstr ""
 
@@ -75,4 +81,13 @@ msgid "reject"
 msgstr ""
 
 msgid "retract"
+msgstr ""
+
+msgid "wf-bar--ROLE--Editor"
+msgstr ""
+
+msgid "wf-bar--ROLE--Manager"
+msgstr ""
+
+msgid "wf-bar--STATUS--published"
 msgstr ""

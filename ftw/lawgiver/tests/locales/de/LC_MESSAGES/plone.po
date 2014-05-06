@@ -11,11 +11,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-msgid "role-translation--ROLE--Editor"
-msgstr "editor"
+msgid "local-roles--ROLE--Editor"
+msgstr ""
 
-msgid "role-translation--ROLE--Reviewer"
-msgstr "editor-in-chief"
+msgid "local-roles--ROLE--Reviewer"
+msgstr ""
 
 msgid "my_custom_workflow--ROLE--Anonymous"
 msgstr "Alle"
@@ -62,11 +62,28 @@ msgstr "Zur Publikation einreichen"
 msgid "publish"
 msgstr "Publizieren"
 
-msgid "submit for publication"
-msgstr "Zur Publikation einreichen"
-
 msgid "reject"
 msgstr "Zurückweisen"
 
 msgid "retract"
 msgstr "Zurückziehen"
+
+msgid "role-translation--ROLE--Editor"
+msgstr "editor"
+
+msgid "role-translation--ROLE--Reviewer"
+msgstr "editor-in-chief"
+
+msgid "submit for publication"
+msgstr "Zur Publikation einreichen"
+
+msgid "wf-bar--ROLE--Editor"
+msgstr ""
+
+msgid "wf-bar--ROLE--Manager"
+msgstr ""
+
+msgid "wf-bar--STATUS--published"
+msgstr ""
+
+

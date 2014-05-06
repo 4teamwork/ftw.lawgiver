@@ -4,6 +4,7 @@ from Products.GenericSetup.utils import importObjects
 from Products.statusmessages.interfaces import IStatusMessage
 from ZODB.POSException import ConflictError
 from ftw.lawgiver import _
+from ftw.lawgiver.i18nbuilder import I18nBuilder
 from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
@@ -54,6 +55,10 @@ class SpecDetails(BrowserView):
 
         if 'write_and_import' in self.request.form:
             return self.write_and_import_workflow()
+
+        if 'update_locales' in self.request.form:
+            self.update_locales()
+            return self.reload()
 
         return self.index()
 
@@ -153,6 +158,16 @@ class SpecDetails(BrowserView):
               default=u'Security update: ${amount} objects updated.',
               mapping={'amount': updated_objects}))
 
+    def update_locales(self):
+        builder = I18nBuilder(self.get_spec_path())
+        lang_code = self.specification.language.code
+        builder.generate(lang_code)
+
+        IStatusMessage(self.request).add(
+            _(u'info_locales_updated',
+              default=u'The translations were updated in your locales'
+              u' directory. You should now run bin/i18n-build'))
+
     def _get_or_create_workflow_obj(self):
         wftool = getToolByName(self.context, 'portal_workflow')
         name = self.workflow_name()
@@ -249,6 +264,18 @@ class SpecDetails(BrowserView):
 
     def po_data(self):
         return self._get_translations(fill_default=True)
+
+    def get_locales_directory(self):
+        try:
+            builder = I18nBuilder(self.get_spec_path())
+        except ConflictError:
+            raise
+        except Exception:
+            # This happens when we have parsing errors, which we already
+            # handle later with a status message - so we just skip here.
+            return None
+
+        return builder.get_locales_directory_path()
 
     def _get_translations(self, fill_default):
         if self.specification is None:

@@ -1,5 +1,7 @@
 from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
+from ftw.lawgiver.tests.helpers import cleanup_path
+from ftw.lawgiver.tests.helpers import filestructure_snapshot
 from ftw.lawgiver.tests.pages import SpecDetails
 from ftw.lawgiver.tests.pages import SpecDetailsConfirmation
 from ftw.testing.pages import Plone
@@ -14,13 +16,25 @@ import shutil
 import transaction
 
 
+TESTS_DIRECTORY = os.path.dirname(__file__)
+
 BAR_DEFINITION_XML = os.path.abspath(os.path.join(
         os.path.dirname(__file__),
         'profiles', 'bar', 'workflows', 'wf-bar', 'definition.xml'))
 
+LOCALES_DIRECTORY = os.path.abspath(os.path.join(
+        os.path.dirname(__file__), 'locales'))
+
+
 INVALID_WORKFLOW_DEFINITION_XML = os.path.abspath(os.path.join(
         os.path.dirname(__file__),
         'profiles', 'spec-discovery', 'workflows', 'invalid-spec', 'definition.xml'))
+
+
+BACKUP_FILES = [
+    os.path.join(LOCALES_DIRECTORY, 'plone.pot'),
+    os.path.join(LOCALES_DIRECTORY, 'en', 'LC_MESSAGES', 'plone.po'),
+    ]
 
 
 def remove_definition_xml(path=BAR_DEFINITION_XML):
@@ -36,6 +50,7 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
     layer = SPECIFICATIONS_FUNCTIONAL
 
     def setUp(self):
+        self.locales_snapshot = filestructure_snapshot(LOCALES_DIRECTORY)
         Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
 
         # generate the workflow and import it
@@ -47,9 +62,18 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
 
         SpecDetails().open('Bar Workflow (wf-bar)')
 
+        # Backup files
+        for path in BACKUP_FILES:
+            shutil.copy2(path, '{0}.backup'.format(path))
+
     def tearDown(self):
+        # Restore files
+        for path in BACKUP_FILES:
+            shutil.move('{0}.backup'.format(path), path)
+
         remove_definition_xml()
         self.switch_language('en')
+        cleanup_path(LOCALES_DIRECTORY, self.locales_snapshot)
 
     def switch_language(self, lang_code):
         language_tool = getToolByName(self.layer['portal'], 'portal_languages')
@@ -72,7 +96,8 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
             ['Workflow ID:',
              'Specification file:',
              'Workflow definition file:',
-             'Workflow installed:'],
+             'Workflow installed:',
+             'Translations location:'],
             map(itemgetter(0), metadata),
             'Metadata table has wrong headers.')
 
@@ -97,6 +122,11 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
         self.assertEquals(
             'Yes', metadata['Workflow installed:'],
             'The workflow IS installed, but it says that it is NOT.')
+
+        self.assertTrue(
+            metadata['Translations location:'].endswith(
+                'ftw/lawgiver/tests/locales'),
+            metadata['Translations location:'])
 
     def test_specification_text(self):
         self.assertIn(
@@ -208,6 +238,21 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
         Plone().assert_portal_message(
             'info', 'Security update: 0 objects updated.')
 
+    def test_update_translations(self):
+        SpecDetails().button_update_locales().click()
+        Plone().assert_portal_message(
+            'info',
+            'The translations were updated in your locales directory.'
+            ' You should now run bin/i18n-build')
+
+    def assert_path_exists(self, path):
+        self.assertTrue(os.path.exists(path),
+                        '{0} does not exist'.format(path))
+
+    def assert_not_path_exists(self, path):
+        self.assertFalse(os.path.exists(path),
+                         '{0} exist but shouldn\'t'.format(path))
+
 
 class TestBARSpecificationDetailsViewNOT_INSTALLED(TestCase):
     """Tests the specification details view of the workflow "wf-bar"
@@ -230,7 +275,8 @@ class TestBARSpecificationDetailsViewNOT_INSTALLED(TestCase):
             ['Workflow ID:',
              'Specification file:',
              'Workflow definition file:',
-             'Workflow installed:'],
+             'Workflow installed:',
+             'Translations location:'],
             map(itemgetter(0), metadata),
             'Metadata table has wrong headers.')
 

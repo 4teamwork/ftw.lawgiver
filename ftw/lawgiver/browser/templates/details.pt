@@ -12,7 +12,8 @@
                      workflow_name view/workflow_name;
                      permissions view/get_permissions;
                      definition_path view/get_definition_path;
-                     workflow_installed view/is_workflow_installed">
+                     workflow_installed view/is_workflow_installed;
+                     locales_directory view/get_locales_directory">
 
         <h1 class="documentFirstHeading"
             tal:content="spec/title|workflow_name" />
@@ -53,6 +54,15 @@
                         <span style="color:red" i18n:translate="">No</span>
                     </td>
                 </tr>
+
+                <tr>
+                    <th i18n:translate="">Translations location:</th>
+                    <td tal:condition="locales_directory" tal:content="locales_directory" />
+                    <td tal:condition="not:locales_directory">
+                        <span style="color:red" i18n:translate="">No locales directory could be found.</span>
+                    </td>
+                </tr>
+
             </table>
         </fieldset>
 
@@ -116,6 +126,21 @@
                     button is clicked the security of all (!) objects in your database are updated.
                     This is the same button as in portal_workflow.
                 </p>
+
+                <tal:LOCALES_AVAILABLE tal:condition="locales_directory">
+
+                    <input type="submit"
+                           i18n:attributes="value button_update_locales"
+                           name="update_locales"
+                           value="Update translations in locales directory" />
+
+                    <p class="discreet" i18n:translate="description_update_locales">
+                        Updates the <i i18n:name="pot-name">plone.pot</i>
+                        and the <i i18n:name="po-name">de/LC_MESSAGES/plone.po</i> files
+                        in your locales directory (<i i18n:name="locales_directory" tal:content="locales_directory" />).
+                    </p>
+
+                </tal:LOCALES_AVAILABLE>
 
             </form>
 

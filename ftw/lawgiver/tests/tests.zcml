@@ -8,6 +8,7 @@
     <include package="Products.CMFCore" file="permissions.zcml" />
     <include package="plone.app.workflow" file="permissions.zcml" />
 
+    <include package="plone.i18n.normalizer" />
     <include package="ftw.lawgiver" />
 
 </configure>

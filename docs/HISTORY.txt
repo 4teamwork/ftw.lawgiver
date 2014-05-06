@@ -5,6 +5,10 @@ Changelog
 1.2.3 (unreleased)
 ------------------
 
+- Workflow details: new button for updating the translations in
+  the locales directory of your package.
+  [jone]
+
 - Implement overlay in sharing view, describing the actions and transitions
   for a role.
   [jone]
