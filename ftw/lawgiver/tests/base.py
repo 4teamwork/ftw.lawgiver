@@ -2,6 +2,7 @@ from StringIO import StringIO
 from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
+from ftw.lawgiver.wdl.languages import LANGUAGES
 from ftw.testing import MockTestCase
 from lxml import etree
 from zope.component import getSiteManager
@@ -216,6 +217,13 @@ class WorkflowTest(XMLDiffTestCase):
                     self.workflow_path,
                     filename)
 
+    def get_specification_path(self):
+        for language in LANGUAGES.values():
+            path = self.get_path(language.filename)
+            if os.path.exists(path):
+                return path
+        return self.get_path('specification.txt')
+
     def get_name(self):
         return os.path.basename(self.workflow_path)
 
@@ -228,7 +236,7 @@ class WorkflowTest(XMLDiffTestCase):
         if self._is_base_test():
             return
 
-        spec = self.get_path('specification.txt')
+        spec = self.get_specification_path()
         self.assertTrue(os.path.exists(spec), 'No such file %s' % spec)
         spec = self.get_path('definition.xml')
         self.assertTrue(os.path.exists(spec), 'No such file %s' % spec)
@@ -248,7 +256,7 @@ class WorkflowTest(XMLDiffTestCase):
 
         parser = getUtility(IWorkflowSpecificationParser)
 
-        path = self.get_path('specification.txt')
+        path = self.get_specification_path()
         with open(path) as spec_file:
             spec = parser(spec_file, path=path)
 
