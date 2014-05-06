@@ -296,10 +296,9 @@ class WorkflowGenerator(object):
             self.workflow_id)
 
         lang_code = self.specification.language.code
-        translated_action_groups = dict([
-                (translate(name, target_language=lang_code).encode('utf-8'),
-                 name)
-                for name in action_groups])
+        translated_action_groups = dict(
+            [(self._translate_action_group(name, lang_code), name)
+             for name in action_groups])
 
         for customer_role, action in statements:
             if self._find_transition_by_title(action):
@@ -372,6 +371,15 @@ class WorkflowGenerator(object):
                     self.specification.role_mapping[base_role]))
 
         return result
+
+    def _translate_action_group(self, action_group, language):
+        zcml_domain = translate(action_group, target_language=language)
+        if zcml_domain != action_group:
+            return zcml_domain.encode('utf-8')
+        else:
+            return translate(unicode(action_group),
+                             domain='ftw.lawgiver',
+                             target_language=language).encode('utf-8')
 
 
 def resolve_inherited_roles(roles, role_inheritance):

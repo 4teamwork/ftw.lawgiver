@@ -39,6 +39,24 @@ class LawgiverLayer(PloneSandboxLayer):
     defaultBases = (PLONE_FIXTURE, BUILDER_LAYER)
 
     def setUpZope(self, app, configurationContext):
+        # The first definition of an action group defines the the
+        # translation domain - and we cant control ZCML load order.
+        # ftw.lawgiver needs to make sure that the default action groups are
+        # translated in the ftw.lawgiver domain at least as fallback.
+        # For producing this error we add an action group before loading
+        # our ZCML.
+        xmlconfig.string(
+            '<configure xmlns="http://namespaces.zope.org/zope"'
+            '           xmlns:lawgiver="http://namespaces.zope.org/lawgiver"'
+            '           xmlns:i18n="http://namespaces.zope.org/i18n"'
+            '           i18n_domain="ftw.contentpage">'
+            '  <include package="ftw.lawgiver" file="meta.zcml" />'
+            '  <lawgiver:map_permissions'
+            '      action_group="add"'
+            '      permissions="Add some type" />'
+            '</configure>',
+            context=configurationContext)
+
         xmlconfig.string(
             '<configure xmlns="http://namespaces.zope.org/zope">'
             '  <include package="z3c.autoinclude" file="meta.zcml" />'
