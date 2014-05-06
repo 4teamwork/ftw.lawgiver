@@ -12,4 +12,20 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
         />
 
+    <genericsetup:registerProfile
+        name="uninstall"
+        title="Uninstall ftw.lawgiver"
+        directory="profiles/uninstall"
+        description=""
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        for="Products.CMFPlone.interfaces.IMigratingPloneSiteRoot"
+        />
+
+    <genericsetup:importStep
+        name="ftw.lawgiver.various"
+        title="ftw.lawgiver custom import handlers"
+        description=""
+        handler="ftw.lawgiver.setuphandlers.import_various"
+        />
+
 </configure>

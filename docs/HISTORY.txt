@@ -5,6 +5,9 @@ Changelog
 1.2.3 (unreleased)
 ------------------
 
+- Implement uninstall profile.
+  [jone]
+
 - Workflow details: new button for updating the translations in
   the locales directory of your package.
   [jone]
