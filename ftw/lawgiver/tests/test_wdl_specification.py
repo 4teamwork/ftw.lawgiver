@@ -48,6 +48,19 @@ class TestSpecification(TestCase):
         self.assertEquals('"editor" in visible roles is not in role mapping.',
                           str(cm.exception))
 
+    def test_VALIDATION_role_description_must_validate_to_role_mapping(self):
+        spec = Specification('My Workflow',
+                             initial_status_title='Private',
+                             states={'Private': Status('Private', [])},
+                             role_mapping={'editor-in-chief': 'Reviewer'},
+                             role_descriptions={'editor': 'Text'})
+
+        with self.assertRaises(ValueError) as cm:
+            spec.validate()
+
+        self.assertEquals('"editor" in role description is not in role mapping.',
+                          str(cm.exception))
+
 
 class TestStatus(TestCase):
 

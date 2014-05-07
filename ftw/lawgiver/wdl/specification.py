@@ -14,6 +14,7 @@ class Specification(object):
                  custom_transition_url=None,
                  role_inheritance=None,
                  visible_roles=None,
+                 role_descriptions=None,
                  language=None):
         self.title = title
         self.language = language or LANGUAGES['en']
@@ -22,6 +23,7 @@ class Specification(object):
         self.states = states or {}
         self.transitions = transitions or []
         self.role_mapping = role_mapping or {}
+        self.role_descriptions = role_descriptions or {}
         self.generals = generals or []
         self.custom_transition_url = custom_transition_url
         self.role_inheritance = role_inheritance or []
@@ -47,6 +49,13 @@ class Specification(object):
                 if role not in self.role_mapping:
                     raise ValueError(
                         '"%s" in visible roles is not in role mapping.' % (
+                            role))
+
+        if self.role_descriptions:
+            for role in self.role_descriptions:
+                if role not in self.role_mapping:
+                    raise ValueError(
+                        '"%s" in role description is not in role mapping.' % (
                             role))
 
 
