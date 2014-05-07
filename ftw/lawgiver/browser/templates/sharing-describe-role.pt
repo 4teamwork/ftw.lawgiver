@@ -6,7 +6,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="ftw.lawgiver"
       tal:omit-tag="python: True"
-      tal:define="table view/get_table_data|nothing">
+      tal:define="table view/table_data|nothing">
 
     <div class="lawgiver-sharing-describe-role">
 
@@ -33,6 +33,10 @@
                     </tr>
                 </tbody>
             </table>
+
+            <p class="role-description"
+               tal:condition="view/role_description|nothing"
+               tal:content="view/role_description" />
 
         </tal:OK>
 
