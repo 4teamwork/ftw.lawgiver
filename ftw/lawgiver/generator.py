@@ -177,7 +177,8 @@ class WorkflowGenerator(object):
             statements = set(status.statements) | set(
                 self.specification.generals)
 
-            role_inheritance = merge_role_inheritance(self.specification, status)
+            role_inheritance = merge_role_inheritance(self.specification,
+                                                      status)
             per_status_role_inheritance[status] = role_inheritance
 
             status_stmts, trans_stmts = self._distinguish_statements(

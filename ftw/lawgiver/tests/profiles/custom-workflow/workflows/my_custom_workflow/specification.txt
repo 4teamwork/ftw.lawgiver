@@ -58,10 +58,8 @@ Status Pending:
   An editor-in-chief can reject.
 
 Status Published:
-  An editor can view this content.
+  Everyone can view this content.
+  An editor can perform the same actions as Everyone.
   An editor can add new content.
   An editor can retract this content.
-  An editor-in-chief can view this content.
-  An editor-in-chief can add new content.
-  An editor-in-chief can retract this content.
-  Everyone can view this content.
+  An editor-in-chief can perform the same actions as an editor.

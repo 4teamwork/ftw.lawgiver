@@ -91,6 +91,37 @@ class TestSharingDescribeRoles(TestCase):
                        'Published': TICK}, table)
 
     @browsing
+    def test_general_role_inheritance_is_respected(self, browser):
+        page = create(Builder('page'))
+        browser.login().visit(page,
+                              view='lawgiver-sharing-describe-role',
+                              data={'role': 'editor'})
+        table = browser.css('table').first.dicts()
+
+        self.assertIn({'Action': 'View',
+                       'Private': TICK,
+                       'Pending': TICK,
+                       'Published': TICK}, table)
+
+    @browsing
+    def test_status_specific_role_inheritance_is_respected(self, browser):
+        page = create(Builder('page'))
+        browser.login().visit(page,
+                              view='lawgiver-sharing-describe-role',
+                              data={'role': 'editor-in-chief'})
+        table = browser.css('table').first.dicts()
+
+        self.assertIn({'Action': 'View',
+                       'Private': TICK,
+                       'Pending': TICK,
+                       'Published': TICK}, table)
+
+        self.assertIn({'Action': 'Retract',
+                       'Private': '',
+                       'Pending': '',
+                       'Published': TICK}, table)
+
+    @browsing
     def test_translated_request(self, browser):
         page = create(Builder('page'))
         language_tool = getToolByName(self.layer['portal'], 'portal_languages')
