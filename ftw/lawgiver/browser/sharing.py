@@ -106,17 +106,21 @@ class SharingDescribeRole(BrowserView):
         """
 
         translated_rolename = self.request.get('role', None)
+        if translated_rolename is None:
+            return None
+
         reversed_role_mapping = dict(zip(*reversed(
                     zip(*spec.role_mapping.items()))))
 
         for name, utility in getUtilitiesFor(ISharingPageRole):
-            if self._translate(utility.title) != translated_rolename:
+            utility_rolename = translate(utility.title, context=self.request)
+            if utility_rolename != translated_rolename:
                 continue
 
             if name in reversed_role_mapping:
                 return reversed_role_mapping[name]
 
-        return translated_rolename
+        return None
 
     def _translate(self, msgid, default=None):
         if isinstance(msgid, str):

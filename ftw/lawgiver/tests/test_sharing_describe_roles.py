@@ -112,3 +112,15 @@ class TestSharingDescribeRoles(TestCase):
                        'Privat': TICK,
                        'Eingereicht': '',
                        'Publiziert': ''}, table)
+
+    @browsing
+    def test_error_message_when_no_role_Found(self, browser):
+        page = create(Builder('page'))
+        browser.login().visit(page,
+                              view='lawgiver-sharing-describe-role',
+                              # "Reviewer" is not a spec role and is never displayd
+                              # in the sharing view.
+                              data={'role': 'Reviewer'})
+
+        self.assertEquals('Could not find any information about this role.',
+                          browser.css('p.error').first.text)
