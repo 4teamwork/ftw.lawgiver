@@ -1,27 +1,21 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:five="http://namespaces.zope.org/five"
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="ftw.lawgiver">
 
+    <five:registerPackage package="." initialize=".initialize" />
     <i18n:registerTranslations directory="locales" />
 
-    <include package=".wdl" />
-    <include package=".browser" />
-    <include package=".upgrades" />
     <include file="lawgiver.zcml" />
     <include file="localroles.zcml" />
+    <include file="profiles.zcml" />
+    <include package=".browser" />
+    <include package=".upgrades" />
+    <include package=".wdl" />
 
     <utility factory=".generator.WorkflowGenerator" />
     <utility factory=".collector.DefaultPermissionCollector" name="" />
     <adapter factory=".discovery.WorkflowSpecificationDiscovery" />
-
-    <genericsetup:registerProfile
-        name="default"
-        title="ftw.lawgiver"
-        directory="profiles/default"
-        description="Generate workflows from human readable specifications."
-        provides="Products.GenericSetup.interfaces.EXTENSION"
-        />
 
 </configure>
