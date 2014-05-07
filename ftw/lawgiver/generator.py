@@ -1,6 +1,8 @@
 from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.interfaces import IWorkflowGenerator
+from ftw.lawgiver.utils import get_roles_inheriting_from
+from ftw.lawgiver.utils import merge_role_inheritance
 from ftw.lawgiver.variables import VARIABLES
 from lxml import etree
 from lxml import html
@@ -175,7 +177,7 @@ class WorkflowGenerator(object):
             statements = set(status.statements) | set(
                 self.specification.generals)
 
-            role_inheritance = self._get_merged_role_inheritance(status)
+            role_inheritance = merge_role_inheritance(self.specification, status)
             per_status_role_inheritance[status] = role_inheritance
 
             status_stmts, trans_stmts = self._distinguish_statements(
@@ -198,7 +200,7 @@ class WorkflowGenerator(object):
             pnode.set('acquired', 'False')
 
             roles = self._get_roles_for_permission(permission, statements)
-            roles = resolve_inherited_roles(roles, role_inheritance)
+            roles = get_roles_inheriting_from(roles, role_inheritance)
 
             for role in roles:
                 rolenode = etree.SubElement(pnode, 'permission-role')
@@ -220,7 +222,7 @@ class WorkflowGenerator(object):
                 role = self.specification.role_mapping[customer_role]
                 roles.append(role)
 
-            roles = resolve_inherited_roles(roles, role_inheritance)
+            roles = get_roles_inheriting_from(roles, role_inheritance)
 
             for role in roles:
                 rolenode = etree.SubElement(guards, 'guard-role')
@@ -255,7 +257,7 @@ class WorkflowGenerator(object):
 
         roles = [self.specification.role_mapping[crole]
                  for crole in status.worklist_viewers]
-        roles = resolve_inherited_roles(roles, role_inheritance)
+        roles = get_roles_inheriting_from(roles, role_inheritance)
 
         for role in sorted(roles):
             rolenode = etree.SubElement(guards, 'guard-role')
@@ -353,25 +355,6 @@ class WorkflowGenerator(object):
         result = normalizer.normalize(text)
         return result.decode('utf-8')
 
-    def _get_merged_role_inheritance(self, status):
-        """
-        - merges status role inheritance and global (general)
-        role inheritance
-
-        - translates customer roles into plone roles
-        """
-
-        customer_roles = set(self.specification.role_inheritance)
-        customer_roles.update(set(status.role_inheritance))
-
-        result = []
-        for inheritor_role, base_role in customer_roles:
-            result.append((
-                    self.specification.role_mapping[inheritor_role],
-                    self.specification.role_mapping[base_role]))
-
-        return result
-
     def _translate_action_group(self, action_group, language):
         zcml_domain = translate(action_group, target_language=language)
         if zcml_domain != action_group:
@@ -380,31 +363,3 @@ class WorkflowGenerator(object):
             return translate(unicode(action_group),
                              domain='ftw.lawgiver',
                              target_language=language).encode('utf-8')
-
-
-def resolve_inherited_roles(roles, role_inheritance):
-    if not role_inheritance:
-        return roles
-
-    roles = roles[:]
-
-    # role_inheritance is: [('inheritor', 'base'), ('inheritor2', 'base')]
-    # make: {'base': ['inheritor', 'inheritor2']}
-    base_roles = set(zip(*role_inheritance)[1])
-    mapping = dict([(key, []) for key in base_roles])
-    for inheritor, base in role_inheritance:
-        mapping[base].append(inheritor)
-
-    def _recurse(role, mapping, result):
-        if role not in mapping:
-            return
-
-        for alias in mapping[role]:
-            if alias not in result:
-                result.append(alias)
-                _recurse(alias, mapping, result)
-
-    for role in roles[:]:
-        _recurse(role, mapping, roles)
-
-    return sorted(roles)
