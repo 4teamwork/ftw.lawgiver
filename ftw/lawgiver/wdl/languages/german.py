@@ -24,6 +24,7 @@ class German(LanguageBase):
                                   r'|[Zz]ustands\xc3\xa4nderung(en)*'
                                   r')$'),
         keywords.VISIBLE_ROLES: r'^[Ss]ichtbare [Rr]ollen$',
+        keywords.ROLE_DESCRIPTION: r'^(.*?) [R]ollen ?-?[bB]eschreibung$'
         }
 
     def cleanup_statement(self, statement):

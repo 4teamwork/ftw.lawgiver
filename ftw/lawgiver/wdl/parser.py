@@ -203,6 +203,15 @@ class SpecificationParser(object):
                     value.strip().split('\n'))
         specargs['visible_roles'] = lines
 
+    @consumer(keywords.ROLE_DESCRIPTION)
+    def _convert_role_description(self, match, value, specargs):
+        if 'role_descriptions' not in specargs:
+            specargs['role_descriptions'] = {}
+
+        role = match.groups()[0]
+        text = ' '.join(map(str.strip, value.split('\n'))).strip()
+        specargs['role_descriptions'][role] = text
+
     @consumer(keywords.GENERAL)
     def _convert_general_statements(self, match, value, specargs):
         statements = specargs['generals'] = []

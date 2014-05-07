@@ -251,6 +251,29 @@ class TestParser(MockTestCase):
         self.assertEquals(['editor', 'editor in-chief'],
                           spec.visible_roles)
 
+    def test_role_descriptions(self):
+        spec = self.parse_lines(
+            '[Foo]',
+            '',
+            'Role mapping:',
+            '  editor => Editor',
+            '  editor in-chief => Reviewer'
+            '',
+            'Visible roles:',
+            '  editor',
+            '  editor in-chief',
+            '',
+            'editor role description:',
+            '  The editor writes text.',
+            'editor in-chief role description:'
+            '  The editor in chief',
+            '  reviews text.')
+
+        self.assertEquals(
+            {'editor': 'The editor writes text.',
+             'editor in-chief': 'The editor in chief reviews text.'},
+            spec.role_descriptions)
+
     def test_general_statements(self):
         spec = self.parse_lines(
             '[Foo]',
