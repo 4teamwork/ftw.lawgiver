@@ -126,11 +126,11 @@ def sharingPageRole(_context, name, permission=None,
     """Register a role for display on the sharing page.
     """
 
-    role_utility_factory, role_adapter_factory = create_dynamic_role(
-        name, permission)
-
     if permission is None:
         permission = 'Sharing page: Delegate %s role' % name
+
+    role_utility_factory, role_adapter_factory = create_dynamic_role(
+        name, permission)
 
     zope.component.zcml.utility(_context,
                                 factory=role_utility_factory,
