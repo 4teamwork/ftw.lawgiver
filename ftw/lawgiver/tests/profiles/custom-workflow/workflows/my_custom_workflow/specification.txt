@@ -31,6 +31,7 @@ editor-in-chief role description:
 
 General:
   An editor can perform the same actions as Everyone.
+  An editor can always add new content.
   An administrator can always view the content
   An administrator can always edit the content
   An administrator can always delete the content
@@ -44,7 +45,6 @@ Status Private:
   An editor can view this content.
   An editor can edit this content.
   An editor can delete this content.
-  An editor can add new content.
   An editor can submit for publication.
   An editor-in-chief can view this content.
   An editor-in-chief can edit this content.
@@ -54,7 +54,6 @@ Status Private:
 
 Status Pending:
   An editor can view this content.
-  An editor can add new content.
   An editor can retract.
   An editor-in-chief can view this content.
   An editor-in-chief can edit this content.
@@ -65,6 +64,5 @@ Status Pending:
 
 Status Published:
   Everyone can view this content.
-  An editor can add new content.
   An editor can retract this content.
   An editor-in-chief can perform the same actions as an editor.
