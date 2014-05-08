@@ -46,7 +46,7 @@ class English(LanguageBase):
 
         text = re.sub(
             r'(?:\.$'
-            r'| perform the same(?: actions)? as a[n]?'
+            r'| perform the same(?: actions)? as(?: a[n]?)?'
             r')',
             '', text)
 

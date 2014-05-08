@@ -91,6 +91,37 @@ class TestSharingDescribeRoles(TestCase):
                        'Published': TICK}, table)
 
     @browsing
+    def test_general_role_inheritance_is_respected(self, browser):
+        page = create(Builder('page'))
+        browser.login().visit(page,
+                              view='lawgiver-sharing-describe-role',
+                              data={'role': 'editor'})
+        table = browser.css('table').first.dicts()
+
+        self.assertIn({'Action': 'View',
+                       'Private': TICK,
+                       'Pending': TICK,
+                       'Published': TICK}, table)
+
+    @browsing
+    def test_status_specific_role_inheritance_is_respected(self, browser):
+        page = create(Builder('page'))
+        browser.login().visit(page,
+                              view='lawgiver-sharing-describe-role',
+                              data={'role': 'editor-in-chief'})
+        table = browser.css('table').first.dicts()
+
+        self.assertIn({'Action': 'View',
+                       'Private': TICK,
+                       'Pending': TICK,
+                       'Published': TICK}, table)
+
+        self.assertIn({'Action': 'Retract',
+                       'Private': '',
+                       'Pending': '',
+                       'Published': TICK}, table)
+
+    @browsing
     def test_translated_request(self, browser):
         page = create(Builder('page'))
         language_tool = getToolByName(self.layer['portal'], 'portal_languages')
@@ -112,3 +143,15 @@ class TestSharingDescribeRoles(TestCase):
                        'Privat': TICK,
                        'Eingereicht': '',
                        'Publiziert': ''}, table)
+
+    @browsing
+    def test_error_message_when_no_role_Found(self, browser):
+        page = create(Builder('page'))
+        browser.login().visit(page,
+                              view='lawgiver-sharing-describe-role',
+                              # "Reviewer" is not a spec role and is never displayd
+                              # in the sharing view.
+                              data={'role': 'Reviewer'})
+
+        self.assertEquals('Could not find any information about this role.',
+                          browser.css('p.error').first.text)

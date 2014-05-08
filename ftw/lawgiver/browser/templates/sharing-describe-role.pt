@@ -37,7 +37,7 @@
         </tal:OK>
 
         <tal:NOT_OK tal:condition="not:table">
-            <p i18n:translate="">
+            <p i18n:translate="" class="error">
                 Could not find any information about this role.
             </p>
         </tal:NOT_OK>

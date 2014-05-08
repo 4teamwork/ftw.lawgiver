@@ -1,7 +1,6 @@
 from StringIO import StringIO
 from ftw.lawgiver.collector import DefaultPermissionCollector
 from ftw.lawgiver.generator import WorkflowGenerator
-from ftw.lawgiver.generator import resolve_inherited_roles
 from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.tests import workflowxml
 from ftw.lawgiver.tests.base import BaseTest
@@ -9,7 +8,6 @@ from ftw.lawgiver.wdl.specification import Specification
 from ftw.lawgiver.wdl.specification import Status
 from ftw.lawgiver.wdl.specification import Transition
 from ftw.testing import ComponentRegistryLayer
-from unittest2 import TestCase
 from zope.component import getGlobalSiteManager
 
 
@@ -561,49 +559,3 @@ class TestGenerator(BaseTest):
                 ))
 
         self.assert_definition_xmls(expected, result.getvalue())
-
-
-class TestResolveInheritedRoles(TestCase):
-
-    def test_basic(self):
-        self.assertEquals(
-            set(['Foo', 'Bar']),
-            set(resolve_inherited_roles(['Foo'], [('Bar', 'Foo')])))
-
-    def test_not_matching(self):
-        self.assertEquals(
-            set(['Foo']),
-            set(resolve_inherited_roles(['Foo'], [('Bar', 'Baz')])))
-
-        self.assertEquals(
-            set(['Foo']),
-            set(resolve_inherited_roles(['Foo'], [('Foo', 'Bar')])))
-
-    def test_multi_stage(self):
-        expected = set(['Foo', 'Bar', 'Baz'])
-        roles = ['Foo']
-
-        self.assertEquals(
-            expected,
-            set(resolve_inherited_roles(
-                    roles,
-                    [('Bar', 'Foo'),
-                     ('Baz', 'Bar')])))
-
-        self.assertEquals(
-            expected,
-            set(resolve_inherited_roles(
-                    roles,
-                    [('Baz', 'Bar'),
-                     ('Bar', 'Foo')])))
-
-    def test_circular(self):
-        expected = set(['Foo', 'Bar', 'Baz'])
-        roles = ['Foo']
-        role_inheritance = [('Foo', 'Bar'),
-                            ('Bar', 'Baz'),
-                            ('Baz', 'Foo')]
-
-        self.assertEquals(
-            expected,
-            set(resolve_inherited_roles(roles, role_inheritance)))

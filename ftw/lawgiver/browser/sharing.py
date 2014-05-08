@@ -1,8 +1,10 @@
 from collections import defaultdict
 from ftw.lawgiver import _
 from ftw.lawgiver.interfaces import IWorkflowGenerator
+from ftw.lawgiver.utils import get_roles_inherited_by
 from ftw.lawgiver.utils import get_specification_for
 from ftw.lawgiver.utils import get_workflow_for
+from ftw.lawgiver.utils import merge_role_inheritance
 from plone.app.workflow.interfaces import ISharingPageRole
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
@@ -87,11 +89,16 @@ class SharingDescribeRole(BrowserView):
 
         action_groups = defaultdict(dict)
         for status in spec.states.values():
-            statements = filter(
-                lambda role_to_group: role_to_group[0] == rolename,
-                status.statements)
+            ploneroles = [spec.role_mapping[rolename]]
 
-            for _role, action_group in statements:
+            role_inheritance = merge_role_inheritance(spec, status)
+            ploneroles = get_roles_inherited_by(ploneroles, role_inheritance)
+
+            for statement_spec_role, action_group in status.statements:
+                statement_plone_role = spec.role_mapping[statement_spec_role]
+                if statement_plone_role not in ploneroles:
+                    continue
+
                 action_groups[action_group][status.title] = self.CHECKED
 
         return action_groups
@@ -106,17 +113,21 @@ class SharingDescribeRole(BrowserView):
         """
 
         translated_rolename = self.request.get('role', None)
+        if translated_rolename is None:
+            return None
+
         reversed_role_mapping = dict(zip(*reversed(
                     zip(*spec.role_mapping.items()))))
 
         for name, utility in getUtilitiesFor(ISharingPageRole):
-            if self._translate(utility.title) != translated_rolename:
+            utility_rolename = translate(utility.title, context=self.request)
+            if utility_rolename != translated_rolename:
                 continue
 
             if name in reversed_role_mapping:
                 return reversed_role_mapping[name]
 
-        return translated_rolename
+        return None
 
     def _translate(self, msgid, default=None):
         if isinstance(msgid, str):
