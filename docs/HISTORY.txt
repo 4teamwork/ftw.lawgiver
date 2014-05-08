@@ -5,6 +5,10 @@ Changelog
 1.2.3 (unreleased)
 ------------------
 
+- Fix bug with default permission of "role" directive.
+  The default permission used to not be set correctly.
+  [jone]
+
 - Implement uninstall profile.
   [jone]
 

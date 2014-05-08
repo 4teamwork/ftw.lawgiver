@@ -65,6 +65,16 @@ class TestRoleDirective(TestCase):
         role_utility = queryUtility(ISharingPageRole, name='Integrator')
         self.assertEquals(permission, role_utility.required_permission)
 
+    def test_default_permission_is_set_properly(self):
+        self.load_zcml(
+            '<lawgiver:role',
+            '    name="Integrator"',
+            '    />')
+
+        role_utility = queryUtility(ISharingPageRole, name='Integrator')
+        self.assertEquals('Sharing page: Delegate Integrator role',
+                          role_utility.required_permission)
+
     def load_zcml(self, *lines):
         lines = list(lines)
         lines.insert(0,
