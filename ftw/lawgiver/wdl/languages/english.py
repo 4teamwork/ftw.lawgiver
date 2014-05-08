@@ -17,6 +17,7 @@ class English(LanguageBase):
         keywords.TRANSITIONS: r'^[Tt]ransitions$',
         keywords.TRANSITION_URL: r'^[Tt]ransition[- ](URL|url)$',
         keywords.VISIBLE_ROLES: r'^[Vv]isible [Rr]oles$',
+        keywords.ROLE_DESCRIPTION: r'^(.*?) [Rr]ole [Dd]escription$'
         }
 
     def cleanup_statement(self, statement):

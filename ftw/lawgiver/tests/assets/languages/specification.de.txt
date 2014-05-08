@@ -26,6 +26,10 @@ Sichtbare Rollen:
   Administrator
 
 
+Editor-In-Chief Rollenbeschreibung:
+  Der Editor-In-Chief überprüft und publiziert Inhalte.
+
+
 Allgemein:
   Ein Administrator kann den Inhalt immer ansehen.
   Ein Administrator kann Inhalte immer bearbeiten.

@@ -564,6 +564,28 @@ the current workflow:
 .. image:: https://raw.github.com/4teamwork/ftw.lawgiver/master/docs/screenshot-sharing-overlay.png
 
 
+Adding text to the overlay
+++++++++++++++++++++++++++
+
+You can add text to the overlay per role directly in your workflow specification:
+
+
+.. code:: rst
+
+    [A workflow]
+
+    Role mapping:
+      editor => Editor
+      editor-in-chief => Reviewer
+      administrator => Site Administrator
+
+    editor-in-chief role description:
+      The editor-in-chief reviews and publishes content.
+
+This text is included as translation proposal for the ``plone`` domain, which
+makes it easy to translate it to other languages for multilingual sites.
+
+
 
 Languages
 ---------

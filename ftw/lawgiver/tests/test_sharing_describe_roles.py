@@ -122,6 +122,27 @@ class TestSharingDescribeRoles(TestCase):
                        'Published': TICK}, table)
 
     @browsing
+    def test_role_description_is_displayed_when_defined(self, browser):
+        page = create(Builder('page'))
+        browser.login().visit(page,
+                              view='lawgiver-sharing-describe-role',
+                              data={'role': 'editor-in-chief'})
+        description = browser.css('.role-description').first.text
+
+        # This description is set through translations in the Plone domain.
+        self.assertEquals('The editor-in-chief reviews and publishes content.',
+                          description)
+
+    @browsing
+    def test_role_description_is_not_displayed_when_missing(self, browser):
+        page = create(Builder('page'))
+        browser.login().visit(page,
+                              view='lawgiver-sharing-describe-role',
+                              data={'role': 'editor'})
+        self.assertFalse(browser.css('.role-description'),
+                         'Did not expect that "editor" has a role description.')
+
+    @browsing
     def test_translated_request(self, browser):
         page = create(Builder('page'))
         language_tool = getToolByName(self.layer['portal'], 'portal_languages')

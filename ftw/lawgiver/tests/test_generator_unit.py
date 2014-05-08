@@ -353,6 +353,8 @@ class TestGenerator(BaseTest):
         spec.role_mapping['employee'] = 'Editor'
         spec.role_mapping['boss'] = 'Reviewer'
 
+        spec.role_descriptions['employee'] = 'A regular company employee.'
+
         private = spec.states['Private'] = Status('Private', [
                 ('employee', 'publish'),
                 ('boss', 'publish')])
@@ -367,6 +369,7 @@ class TestGenerator(BaseTest):
 
         result = WorkflowGenerator().get_translations('wf', spec)
 
+        self.maxDiff = None
         self.assertEquals(
             {'wf--STATUS--private': 'Private',
              'wf--STATUS--published': 'Published',
@@ -374,6 +377,7 @@ class TestGenerator(BaseTest):
              'wf--TRANSITION--retract--published_private': 'retract',
              'wf--ROLE--Editor': 'employee',
              'wf--ROLE--Reviewer': 'boss',
+             'wf--ROLE-DESCRIPTION--Editor': 'A regular company employee.',
              },
 
             result,

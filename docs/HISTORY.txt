@@ -5,6 +5,12 @@ Changelog
 1.2.3 (unreleased)
 ------------------
 
+- Add role description statements for describing roles.
+  This allows to add a text description per role, which will
+  be displayed in the new role description overlay in the sharing
+  view.
+  [jone]
+
 - Fix bug with default permission of "role" directive.
   The default permission used to not be set correctly.
   [jone]

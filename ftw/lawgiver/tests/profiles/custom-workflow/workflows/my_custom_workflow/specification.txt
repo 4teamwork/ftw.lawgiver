@@ -24,6 +24,11 @@ Visible roles:
   editor
   editor-in-chief
 
+
+editor-in-chief role description:
+  The editor-in-chief reviews and publishes content.
+
+
 General:
   An administrator can always view the content
   An administrator can always edit the content

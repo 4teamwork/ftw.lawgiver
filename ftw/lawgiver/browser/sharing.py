@@ -24,21 +24,45 @@ class SharingDescribeRole(BrowserView):
         """
         return bool(get_specification_for(self.context))
 
-    def get_table_data(self):
-        """Returns the table data for the template.
-        Returns None if there is not enough information (e.g. no workflow).
-        """
+
+    def __call__(self):
+        self.table_data = None
+        self.role_description = ''
+        self._update()
+        return super(SharingDescribeRole, self).__call__()
+
+    def _update(self):
         spec = get_specification_for(self.context)
         workflow = get_workflow_for(self.context)
         if spec is None or workflow is None:
-            return None
+            return
 
         rolename = self._get_untranslated_role_name(spec)
         if rolename is None:
-            return None
+            return
 
+        self.table_data = self._get_table_data(spec, workflow, rolename)
+        self.role_description = self._get_role_description(spec, workflow, rolename)
+
+    def _get_table_data(self, spec, workflow, rolename):
         return {'headers': self._generate_table_headers(spec, workflow),
                 'rows': self._generate_table_rows(spec, rolename)}
+
+    def _get_role_description(self, spec, workflow, rolename):
+        default_description = None
+        for role, description in spec.role_descriptions.items():
+            if role.lower() == rolename.lower():
+                default_description = description
+                break
+
+        if default_description is None:
+            return ''
+
+        plonerole = spec.role_mapping[rolename]
+        generator = getUtility(IWorkflowGenerator)
+        generator.workflow_id = workflow.id
+        msgid = generator._role_description_id(plonerole)
+        return self._translate(msgid, default=default_description)
 
     def _generate_table_headers(self, spec, workflow):
         """Generates and returns the table headers as list
