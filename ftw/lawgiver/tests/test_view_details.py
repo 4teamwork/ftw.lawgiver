@@ -1,15 +1,10 @@
 from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
-from ftw.lawgiver.tests.helpers import cleanup_path
-from ftw.lawgiver.tests.helpers import filestructure_snapshot
-from ftw.lawgiver.tests.pages import SpecDetails
-from ftw.lawgiver.tests.pages import SpecDetailsConfirmation
-from ftw.testing.pages import Plone
-from operator import itemgetter
+from ftw.lawgiver.tests.pages import specdetails
+from ftw.testbrowser import browsing
+from ftw.testbrowser.pages import plone
+from ftw.testbrowser.pages import statusmessages
 from operator import methodcaller
-from plone.app.testing import SITE_OWNER_NAME
-from plone.app.testing import SITE_OWNER_PASSWORD
-from plone.app.testing import applyProfile
 from unittest2 import TestCase
 import os
 import shutil
@@ -18,16 +13,17 @@ import transaction
 
 TESTS_DIRECTORY = os.path.dirname(__file__)
 
+
 BAR_DEFINITION_XML = os.path.abspath(os.path.join(
-        os.path.dirname(__file__),
+        TESTS_DIRECTORY,
         'profiles', 'bar', 'workflows', 'wf-bar', 'definition.xml'))
 
 LOCALES_DIRECTORY = os.path.abspath(os.path.join(
-        os.path.dirname(__file__), 'locales'))
+        TESTS_DIRECTORY, 'locales'))
 
 
 INVALID_WORKFLOW_DEFINITION_XML = os.path.abspath(os.path.join(
-        os.path.dirname(__file__),
+        TESTS_DIRECTORY,
         'profiles', 'spec-discovery', 'workflows', 'invalid-spec', 'definition.xml'))
 
 
@@ -46,34 +42,18 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
     """Tests the specification details view of the workflow "wf-bar"
     with the workflow installed.
     """
-
     layer = SPECIFICATIONS_FUNCTIONAL
 
     def setUp(self):
-        self.locales_snapshot = filestructure_snapshot(LOCALES_DIRECTORY)
-        Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
-
-        # generate the workflow and import it
-        SpecDetails().open('Bar Workflow (wf-bar)')
-        SpecDetails().button_write().click()
-        applyProfile(self.layer['portal'], 'ftw.lawgiver.tests:bar')
-        remove_definition_xml()
-        transaction.commit()
-
-        SpecDetails().open('Bar Workflow (wf-bar)')
-
-        # Backup files
         for path in BACKUP_FILES:
             shutil.copy2(path, '{0}.backup'.format(path))
 
     def tearDown(self):
-        # Restore files
         for path in BACKUP_FILES:
             shutil.move('{0}.backup'.format(path), path)
 
         remove_definition_xml()
         self.switch_language('en')
-        cleanup_path(LOCALES_DIRECTORY, self.locales_snapshot)
 
     def switch_language(self, lang_code):
         language_tool = getToolByName(self.layer['portal'], 'portal_languages')
@@ -84,58 +64,36 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
             startNeutral=False)
         transaction.commit()
 
-    def test_details_view_heading(self):
-        self.assertEquals('Bar Workflow',
-                          Plone().get_first_heading(),
-                          'Workflow title is wrong.')
+    @browsing
+    def test_details_view_heading(self, browser):
+        specdetails.visit('Bar Workflow (wf-bar)')
+        self.assertEquals('Bar Workflow', plone.first_heading())
 
-    def test_spec_metadata_table(self):
-        metadata = SpecDetails().get_spec_metadata_table()
+    @browsing
+    def test_spec_metadata_table(self, browser):
+        specdetails.visit('Bar Workflow (wf-bar)')
+        self.assertListEqual(
+            [['Workflow ID:', 'wf-bar'],
+             ['Specification file:',
+              '..../profiles/bar/workflows/wf-bar/specification.txt'],
+             ['Workflow definition file:',
+              '..../profiles/bar/workflows/wf-bar/definition.xml'],
+             ['Workflow installed:', 'No'],
+             ['Translations location:', '..../locales']],
+            specdetails.metadata())
 
-        self.assertEquals(
-            ['Workflow ID:',
-             'Specification file:',
-             'Workflow definition file:',
-             'Workflow installed:',
-             'Translations location:'],
-            map(itemgetter(0), metadata),
-            'Metadata table has wrong headers.')
-
-        metadata = dict(metadata)
-
-        self.assertEquals(
-            'wf-bar', metadata['Workflow ID:'],
-            'Workflow ID in metadata table is wrong.')
-
-        self.assertTrue(
-            metadata['Specification file:'].endswith(
-                '/wf-bar/specification.txt'),
-            'Is the spec file (%s) not a specification.txt?' % (
-                metadata['Specification file:']))
-
-        self.assertTrue(
-            metadata['Workflow definition file:'].endswith(
-                '/wf-bar/definition.xml'),
-            'Is the workflow file (%s) not a definition.xml?' % (
-                metadata['Workflow definition file:']))
-
-        self.assertEquals(
-            'Yes', metadata['Workflow installed:'],
-            'The workflow IS installed, but it says that it is NOT.')
-
-        self.assertTrue(
-            metadata['Translations location:'].endswith(
-                'ftw/lawgiver/tests/locales'),
-            metadata['Translations location:'])
-
-    def test_specification_text(self):
+    @browsing
+    def test_specification_text(self, browser):
+        specdetails.visit('Bar Workflow (wf-bar)')
         self.assertIn(
             'Status Published:',
-            SpecDetails().get_specification_text(),
+            specdetails.specification_text(),
             'Seems the specification file is not printed in the view.')
 
-    def test_permission_mapping(self):
-        mapping = SpecDetails().get_specification_mapping()
+    @browsing
+    def test_action_groups(self, browser):
+        specdetails.visit('Bar Workflow (wf-bar)')
+        mapping = specdetails.action_groups()
         self.assertIn('view (view)', mapping,
                       'No action group "view" found.')
 
@@ -157,21 +115,26 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
             'Permission "Modify portal content" not in action'
             ' group "edit"?')
 
-    def test_german_permission_mapping(self):
+    @browsing
+    def test_german_action_groups(self, browser):
         self.switch_language('de')
-        SpecDetails().open('Bar Workflow (wf-bar)')
-        mapping = SpecDetails().get_specification_mapping()
+        specdetails.visit('Bar Workflow (wf-bar)')
+        mapping = specdetails.action_groups()
         self.assertIn('ansehen (view)', mapping.keys(),
                       'No action group "ansehen" found.')
 
-    def test_unmanaged_permissions(self):
-        unmanaged = SpecDetails().get_unmanaged_permissions()
+    @browsing
+    def test_unmanaged_permissions(self, browser):
+        specdetails.visit('Bar Workflow (wf-bar)')
+        unmanaged = specdetails.unmanaged_permissions()
         self.assertIn(
             'Plone Site Setup: Calendar', unmanaged,
             'Expected permission to be unmanaged.')
 
-    def test_translations_pot(self):
-        data = SpecDetails().get_translations_pot().strip()
+    @browsing
+    def test_translations_pot(self, browser):
+        specdetails.visit('Bar Workflow (wf-bar)')
+        data = specdetails.translations_pot()
 
         self.assertMultiLineEqual(
             '\n'.join((
@@ -187,8 +150,10 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
             data,
             'The translation template content is wrong.')
 
-    def test_translations_po(self):
-        data = SpecDetails().get_translations_po().strip()
+    @browsing
+    def test_translations_po(self, browser):
+        specdetails.visit('Bar Workflow (wf-bar)')
+        data = specdetails.translations_po()
 
         self.assertMultiLineEqual(
             '\n'.join((
@@ -204,15 +169,21 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
             data,
             'The default translation content is wrong.')
 
-    def test_write_workflow_XML(self):
+    @browsing
+    def test_write_workflow_XML(self, browser):
         self.assertFalse(os.path.exists(BAR_DEFINITION_XML),
                          'Expected %s to not exist yet.' % BAR_DEFINITION_XML)
 
-        SpecDetails().button_write().click()
+        specdetails.visit('Bar Workflow (wf-bar)')
+        specdetails.button_write().click()
         self.assertTrue(os.path.exists(BAR_DEFINITION_XML),
                         'Expected %s to exist now.' % BAR_DEFINITION_XML)
 
-    def test_write_and_import(self):
+    @browsing
+    def test_write_and_import(self, browser):
+        specdetails.visit('Bar Workflow (wf-bar)')
+        specdetails.button_write_and_import().click()
+
         def get_workflow():
             wftool = getToolByName(self.layer['portal'], 'portal_workflow')
             return wftool.get('wf-bar')
@@ -225,173 +196,74 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
         transaction.commit()
 
         # reimport with our button
-        SpecDetails().button_write_and_import().click()
+        specdetails.button_write_and_import().click()
         self.assertEquals(
             'Bar Workflow', get_workflow().title,
             'Workflow title - write / reimport seems not working?')
 
-        Plone().assert_portal_message(
-            'info', 'Workflow wf-bar successfully imported.')
+        statusmessages.assert_message('Workflow wf-bar successfully imported.')
 
-    def test_update_security(self):
-        SpecDetails().button_reindex().click()
-        Plone().assert_portal_message(
-            'info', 'Security update: 0 objects updated.')
+    @browsing
+    def test_update_security(self, browser):
+        specdetails.visit('Bar Workflow (wf-bar)')
+        specdetails.button_reindex().click()
+        statusmessages.assert_message('Security update: 0 objects updated.')
 
-    def test_update_translations(self):
-        SpecDetails().button_update_locales().click()
-        Plone().assert_portal_message(
-            'info',
+    @browsing
+    def test_update_translations(self, browser):
+        specdetails.visit('Bar Workflow (wf-bar)')
+        specdetails.button_update_locales().click()
+        statusmessages.assert_message(
             'The translations were updated in your locales directory.'
             ' You should now run bin/i18n-build')
 
-    def assert_path_exists(self, path):
-        self.assertTrue(os.path.exists(path),
-                        '{0} does not exist'.format(path))
-
-    def assert_not_path_exists(self, path):
-        self.assertFalse(os.path.exists(path),
-                         '{0} exist but shouldn\'t'.format(path))
-
-
-class TestBARSpecificationDetailsViewNOT_INSTALLED(TestCase):
-    """Tests the specification details view of the workflow "wf-bar"
-    with the workflow NOT installed.
-    """
-
-    layer = SPECIFICATIONS_FUNCTIONAL
-
-    def setUp(self):
-        Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
-        SpecDetails().open('Bar Workflow (wf-bar)')
-
-    def tearDown(self):
-        remove_definition_xml()
-
-    def test_spec_metadata_table(self):
-        metadata = SpecDetails().get_spec_metadata_table()
-
-        self.assertEquals(
-            ['Workflow ID:',
-             'Specification file:',
-             'Workflow definition file:',
-             'Workflow installed:',
-             'Translations location:'],
-            map(itemgetter(0), metadata),
-            'Metadata table has wrong headers.')
-
-        metadata = dict(metadata)
-
-        self.assertEquals(
-            'wf-bar', metadata['Workflow ID:'],
-            'Workflow ID in metadata table is wrong.')
-
-        self.assertTrue(
-            metadata['Specification file:'].endswith(
-                '/wf-bar/specification.txt'),
-            'Is the spec file (%s) not a specification.txt?' % (
-                metadata['Specification file:']))
-
-        self.assertTrue(
-            metadata['Workflow definition file:'].endswith(
-                '/wf-bar/definition.xml'),
-            'Is the workflow file (%s) not a definition.xml?' % (
-                metadata['Workflow definition file:']))
-
-        self.assertEquals(
-            'No', metadata['Workflow installed:'],
-            'The workflow is NOT installed, but it says that it IS.')
-
-    def test_workflow_not_installed(self):
-        Plone().assert_portal_message(
-            'warning',
-            'The workflow wf-bar is not installed yet.'
-            ' Installing the workflow with the "Write and Import Workflow"'
-            ' button does not configure the policy, so no portal type will'
-            ' have this workflow.')
-
-        self.assertTrue(
-            SpecDetails().button_write(),
-            'The Button "Write workflow definition" is not visible?')
-
-        self.assertTrue(
-            SpecDetails().button_write_and_import(),
-            'The Button "Write and Import Workflow" is not visible?')
-
-        self.assertTrue(
-            SpecDetails().button_reindex(),
-            'The Button "Update security settings" is not visible?')
-
-    def test_write_and_import(self):
-        def get_workflow():
-            wftool = getToolByName(self.layer['portal'], 'portal_workflow')
-            return wftool.get('wf-bar')
-
-        self.assertEquals(None, get_workflow(),
-                          'Expected workflow wf-bar not to be installed, but it was')
-        self.assertFalse(SpecDetails().is_workflow_installed(),
-                         'Details view says the workflow is installed, but it is not')
-
-        SpecDetails().button_write_and_import().click()
-        self.assertEquals(
-            'Bar Workflow', get_workflow().title,
-            'Workflow title - write / reimport seems not working?')
-
-        Plone().assert_portal_message(
-            'info', 'Workflow wf-bar successfully imported.')
-
-        self.assertTrue(
-            SpecDetails().is_workflow_installed(),
-            'The workflow should be installed, but the details view says it is not')
-
 
 class TestSpecificationDetailsViewBROKEN(TestCase):
-
     layer = SPECIFICATIONS_FUNCTIONAL
 
-    def setUp(self):
-        Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
-
-    def test_heading_shows_wfid(self):
-        SpecDetails().open('spec-based-workflow')
+    @browsing
+    def test_heading_shows_wfid(self, browser):
+        specdetails.visit('spec-based-workflow')
         self.assertEquals('spec-based-workflow',
-                          Plone().get_first_heading(),
+                          plone.first_heading(),
                           'Workflow title is wrong.')
 
-    def test_error_messages_shown(self):
-        SpecDetails().open('spec-based-workflow')
-        Plone().assert_portal_message(
-            'error',
+    @browsing
+    def test_error_messages_shown(self, browser):
+        specdetails.visit('spec-based-workflow')
+        statusmessages.assert_message(
             'The specification file could not be parsed:'
             ' Exactly one ini-style section is required,'
             ' containing the workflow title.')
 
-    def test_buttons_not_shown(self):
-        SpecDetails().open('spec-based-workflow')
+    @browsing
+    def test_buttons_not_shown(self, browser):
+        specdetails.visit('spec-based-workflow')
         # on error, show no buttons
         self.assertFalse(
-            SpecDetails().button_write(),
+            specdetails.button_write(),
             'The Button "Write workflow definition" should not be visible')
 
         self.assertFalse(
-            SpecDetails().button_write_and_import(),
+            specdetails.button_write_and_import(),
             'The Button "Write and Import Workflow" should not be visible')
 
         self.assertFalse(
-            SpecDetails().button_reindex(),
+            specdetails.button_reindex(),
             'The Button "Update security settings" should not be visible')
 
-    def test_definitionXML_not_touched_on_error(self):
+    @browsing
+    def test_definitionXML_not_touched_on_error(self, browser):
         with open(INVALID_WORKFLOW_DEFINITION_XML, 'w+') as file_:
             file_.write('some contents')
 
-        SpecDetails().open('Invalid Workflow (invalid-spec)')
+        specdetails.visit('Invalid Workflow (invalid-spec)')
 
         self.assertTrue(
-            SpecDetails().button_write_and_import(),
+            specdetails.button_write_and_import(),
             'The Button "Write and Import Workflow" in "Invalid Workflow"'
             ' should be visible but is not.')
-        SpecDetails().button_write_and_import().click()
+        specdetails.button_write_and_import().click()
 
         self.assertGreater(
             os.path.getsize(INVALID_WORKFLOW_DEFINITION_XML), 0,
@@ -400,12 +272,12 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
                 INVALID_WORKFLOW_DEFINITION_XML))
 
         self.maxDiff = None
-        self.assertEquals([], Plone().portal_text_messages()['info'],
+        self.assertEquals([], statusmessages.info_messages(),
                           'Expecting no "info" portal messages.')
 
         self.assertEquals(['Error while generating the workflow: Action "viewX" is'
                            ' neither action group nor transition.'],
-                          Plone().portal_text_messages()['error'],
+                          statusmessages.error_messages(),
                           'Expecting only the workflow generation error.')
 
         remove_definition_xml(INVALID_WORKFLOW_DEFINITION_XML)
@@ -417,11 +289,7 @@ DESTRUCTIVE_WF_DIR = os.path.abspath(os.path.join(
 
 
 class TestDestructiveImport(TestCase):
-
     layer = SPECIFICATIONS_FUNCTIONAL
-
-    def setUp(self):
-        Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
 
     def tearDown(self):
         paths = [
@@ -454,38 +322,35 @@ class TestDestructiveImport(TestCase):
             set(expected), set(states),
             'Workflow states of destructive workflow not as expected')
 
-    def test_destruction_confirmation_on_import(self):
+    @browsing
+    def test_destruction_confirmation_on_import(self, browser):
         self.use_spec('foo')
-        SpecDetails().open('Destructive Workflow (destructive-workflow)')
-        SpecDetails().button_write_and_import().click()
-        Plone().assert_portal_message(
-            'info', 'Workflow destructive-workflow successfully imported.')
+        specdetails.visit('Destructive Workflow (destructive-workflow)')
+        specdetails.button_write_and_import().click()
+        statusmessages.assert_message(
+            'Workflow destructive-workflow successfully imported.')
         self.assert_current_states('Foo')
 
         self.use_spec('bar')
-        SpecDetails().open('Destructive Workflow (destructive-workflow)')
-        SpecDetails().button_write_and_import().click()
+        specdetails.visit('Destructive Workflow (destructive-workflow)')
+        specdetails.button_write_and_import().click()
 
         # not yet updated
         self.assert_current_states('Foo')
 
         # confirmation dialog displayed
-        self.assertTrue(
-            SpecDetailsConfirmation().is_confirmation_dialog_opened(),
-            'Expected to be on a confirmation dialog, but was not')
-
         self.assertEquals(
             'Importing this workflow renames or removes states.'
             ' Changing states can reset the workflow status of affected'
             ' objects to the initial state.',
-            SpecDetailsConfirmation().get_confirmation_dialog_text())
+            browser.css('.confirmation-message').first.text,)
 
         # No changes on cancel
-        SpecDetailsConfirmation().cancel()
+        browser.find('I am on production').click()
         self.assert_current_states('Foo')
 
-        SpecDetails().button_write_and_import().click()
-        SpecDetailsConfirmation().confirm()
-        Plone().assert_portal_message(
-            'info', 'Workflow destructive-workflow successfully imported.')
+        specdetails.button_write_and_import().click()
+        browser.find('I know what I am doing').click()
+        statusmessages.assert_message(
+            'Workflow destructive-workflow successfully imported.')
         self.assert_current_states('Foo', 'Bar')

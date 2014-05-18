@@ -167,17 +167,19 @@
                 </dt>
                 <dd class="collapsibleContent"
                     tal:define="managed permissions/managed">
-                    <dl tal:repeat="group python:sorted(managed)">
-                        <dt>
-                            <tal:TRANSLATED tal:replace="group" />
-                            (<tal:EN tal:replace="python:str(group)" />)
-                        </dt>
-                        <dd>
-                            <ul tal:define="perms python: managed[group]">
-                                <li tal:repeat="perm perms"
-                                    tal:content="perm" />
-                            </ul>
-                        </dd>
+                    <dl>
+                        <tal:GROUP tal:repeat="group python:sorted(managed)">
+                            <dt>
+                                <tal:TRANSLATED tal:replace="group" />
+                                (<tal:EN tal:replace="python:str(group)" />)
+                            </dt>
+                            <dd>
+                                <ul tal:define="perms python: managed[group]">
+                                    <li tal:repeat="perm perms"
+                                        tal:content="perm" />
+                                </ul>
+                            </dd>
+                        </tal:GROUP>
                     </dl>
                 </dd>
 
