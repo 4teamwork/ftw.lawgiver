@@ -162,6 +162,12 @@ The workflow specification
 The specification is written in a plain text file (``specification.txt``) in
 the same directory where the ``definition.xml`` is saved.
 
+**Examples:**
+
+- `specification.txt (English) <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/assets/languages/specification.txt>`_
+- `specification.de.txt (German) <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/assets/languages/specification.de.txt>`_
+
+
 
 States and transitions
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -642,14 +648,6 @@ For beeing able to delete a content, the user should have the "delete" action
 group (`Delete portal content`) on the content but also "add" (`Delete objects`)
 on the parent content
 
-
-Example
--------
-
-In our tests we have an up to date
-`example specification.txt <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt>`_, from which the
-`definition.xml <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/definition.xml>`_
-is generated.
 
 
 Uninstall
