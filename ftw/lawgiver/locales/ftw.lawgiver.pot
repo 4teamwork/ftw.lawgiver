@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-06 07:00+0000\n"
+"POT-Creation-Date: 2014-05-19 12:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,11 +14,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-#: ./ftw/lawgiver/browser/templates/sharing-describe-role.pt:40
+#: ./ftw/lawgiver/browser/templates/sharing-describe-role.pt:44
 msgid "Could not find any information about this role."
 msgstr ""
 
-#: ./ftw/lawgiver/browser/templates/details.pt:212
+#: ./ftw/lawgiver/browser/templates/details.pt:214
 msgid "Default translations"
 msgstr ""
 
@@ -62,11 +62,11 @@ msgstr ""
 msgid "Specification file:"
 msgstr ""
 
-#: ./ftw/lawgiver/browser/templates/details.pt:208
+#: ./ftw/lawgiver/browser/templates/details.pt:210
 msgid "Template"
 msgstr ""
 
-#: ./ftw/lawgiver/browser/templates/details.pt:203
+#: ./ftw/lawgiver/browser/templates/details.pt:205
 msgid "Translations"
 msgstr ""
 
@@ -74,7 +74,7 @@ msgstr ""
 msgid "Translations location:"
 msgstr ""
 
-#: ./ftw/lawgiver/browser/templates/details.pt:189
+#: ./ftw/lawgiver/browser/templates/details.pt:191
 msgid "Unmanaged permissions"
 msgstr ""
 
@@ -211,7 +211,7 @@ msgid "manage security"
 msgstr ""
 
 #. Default: "Action"
-#: ./ftw/lawgiver/browser/sharing.py:45
+#: ./ftw/lawgiver/browser/sharing.py:71
 msgid "sharing_description_action"
 msgstr ""
 

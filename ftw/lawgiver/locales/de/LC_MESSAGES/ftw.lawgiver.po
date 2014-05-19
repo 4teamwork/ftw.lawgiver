@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-05-06 07:00+0000\n"
+"POT-Creation-Date: 2014-05-19 12:08+0000\n"
 "PO-Revision-Date: 2013-04-10 10:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,11 +11,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-#: ./ftw/lawgiver/browser/templates/sharing-describe-role.pt:40
+#: ./ftw/lawgiver/browser/templates/sharing-describe-role.pt:44
 msgid "Could not find any information about this role."
 msgstr "Es sind nicht genügend Informationen über dies Rolle vorhanden."
 
-#: ./ftw/lawgiver/browser/templates/details.pt:212
+#: ./ftw/lawgiver/browser/templates/details.pt:214
 msgid "Default translations"
 msgstr "Standard Übersetzungen"
 
@@ -59,11 +59,11 @@ msgstr "Spezifikation Details"
 msgid "Specification file:"
 msgstr "Workflow Spezifikation:"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:208
+#: ./ftw/lawgiver/browser/templates/details.pt:210
 msgid "Template"
 msgstr "Vorlage"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:203
+#: ./ftw/lawgiver/browser/templates/details.pt:205
 msgid "Translations"
 msgstr "Übersetzungen"
 
@@ -71,7 +71,7 @@ msgstr "Übersetzungen"
 msgid "Translations location:"
 msgstr "locales-Verzeichnis"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:189
+#: ./ftw/lawgiver/browser/templates/details.pt:191
 msgid "Unmanaged permissions"
 msgstr "Vom Worfklow nicht verwaltete Berechtigungen"
 
@@ -208,7 +208,7 @@ msgid "manage security"
 msgstr "Rollen zuweisen"
 
 #. Default: "Action"
-#: ./ftw/lawgiver/browser/sharing.py:45
+#: ./ftw/lawgiver/browser/sharing.py:71
 msgid "sharing_description_action"
 msgstr "Aktion"
 
@@ -229,3 +229,5 @@ msgstr "inaktive Inhalte ansehen"
 #: ./ftw/lawgiver/browser/templates/details.pt:96
 msgid "warning_workflow_not_installed"
 msgstr "Der Workflow ${workflow} ist noch nicht installiert. Wenn der Workflow mit dem Button \"${button_title}\" installiert wird die Workflow Policy nicht angepasst, d.H. kein Typ wird diesen Workflow automatisch benutzen."
+
+
