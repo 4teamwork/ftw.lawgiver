@@ -38,7 +38,7 @@ setup(name='ftw.lawgiver',
         ],
 
       keywords='ftw lawgiver generate workflows dsl',
-      author='4teamwork GmbH',
+      author='4teamwork AG',
       author_email='mailto:info@4teamwork.ch',
       url='https://github.com/4teamwork/ftw.lawgiver',
 
