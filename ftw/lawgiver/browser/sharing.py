@@ -117,8 +117,9 @@ class SharingDescribeRole(BrowserView):
 
             role_inheritance = merge_role_inheritance(spec, status)
             ploneroles = get_roles_inherited_by(ploneroles, role_inheritance)
+            statements = spec.generals + status.statements
 
-            for statement_spec_role, action_group in status.statements:
+            for statement_spec_role, action_group in statements:
                 statement_plone_role = spec.role_mapping[statement_spec_role]
                 if statement_plone_role not in ploneroles:
                     continue

@@ -68,6 +68,19 @@ class TestSharingDescribeRoles(TestCase):
                        'Published': ''}, table)
 
     @browsing
+    def test_permissions_from_general_statements_are_included(self, browser):
+        page = create(Builder('page'))
+        browser.login().visit(page,
+                              view='lawgiver-sharing-describe-role',
+                              data={'role': 'editor'})
+        table = browser.css('table').first.dicts()
+
+        self.assertIn({'Action': 'Add',
+                       'Private': TICK,
+                       'Pending': TICK,
+                       'Published': TICK}, table)
+
+    @browsing
     def test_transitions_are_shown_per_status(self, browser):
         page = create(Builder('page'))
         browser.login().visit(page,
