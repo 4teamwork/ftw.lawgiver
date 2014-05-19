@@ -1,9 +1,6 @@
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
-from ftw.lawgiver.tests.pages import SpecsListing
-from ftw.testing.pages import Plone
-from operator import methodcaller
+from ftw.testbrowser import browsing
 from plone.app.testing import SITE_OWNER_NAME
-from plone.app.testing import SITE_OWNER_PASSWORD
 from unittest2 import TestCase
 
 
@@ -11,12 +8,10 @@ class TestSpecificationListingsView(TestCase):
 
     layer = SPECIFICATIONS_FUNCTIONAL
 
-    def test_listing_spec_order(self):
-        Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
-        SpecsListing().open()
-
-        specs = SpecsListing().get_specifications()
-        self.assertEquals(
+    @browsing
+    def test_listing_spec_order(self, browser):
+        browser.login(SITE_OWNER_NAME).visit(view='lawgiver-list-specs')
+        self.assertItemsEqual(
             ['Bar Workflow (wf-bar)',
              'Foo Workflow (wf-foo)',
              'Invalid Workflow (invalid-spec)',
@@ -24,16 +19,12 @@ class TestSpecificationListingsView(TestCase):
              'Role Translation Workflow (role-translation)',
              'another-spec-based-workflow',
              'spec-based-workflow'],
+            browser.css('.specifications').first.terms)
 
-            map(methodcaller('link_text'), specs),
+    @browsing
+    def test_listing_spec_descriptions(self, browser):
+        browser.login(SITE_OWNER_NAME).visit(view='lawgiver-list-specs')
 
-            'Workflow specs links in wrong order or wrong amount.')
-
-    def test_listing_spec_descriptions(self):
-        Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
-        SpecsListing().open()
-
-        specs = SpecsListing().get_specifications()
         self.assertEquals(
             {'another-spec-based-workflow': '',
              'My Custom Workflow (my_custom_workflow)': \
@@ -46,15 +37,13 @@ class TestSpecificationListingsView(TestCase):
              'Invalid Workflow (invalid-spec)': 'This workflow cannot be built ' +\
                  'because it has invalid statements.'},
 
-            dict(map(lambda spec: (spec.link_text(), spec.description()),
-                     specs)))
+            dict(browser.css('.specifications').first.items_text()))
 
-    def test_spec_links_are_distinct(self):
-        Plone().login(SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
-        SpecsListing().open()
-
-        specs = SpecsListing().get_specifications()
-        links = map(methodcaller('link_href'), specs)
+    @browsing
+    def test_spec_links_are_distinct(self, browser):
+        browser.login(SITE_OWNER_NAME).visit(view='lawgiver-list-specs')
+        links = [link.attrib.get('href')
+                 for link in browser.css('.specifications dt a')]
 
         self.assertEquals(
             sorted(links), sorted(set(links)),
