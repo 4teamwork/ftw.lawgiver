@@ -136,7 +136,7 @@
 
                     <p class="discreet" i18n:translate="description_update_locales">
                         Updates the <i i18n:name="pot-name">plone.pot</i>
-                        and the <i i18n:name="po-name">de/LC_MESSAGES/plone.po</i> files
+                        and the <i i18n:name="po-name">.../LC_MESSAGES/plone.po</i> files
                         in your locales directory (<i i18n:name="locales_directory" tal:content="locales_directory" />).
                     </p>
 
