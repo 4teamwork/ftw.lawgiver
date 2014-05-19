@@ -78,7 +78,8 @@ class WorkflowGenerator(object):
             result[self._role_id(plonerole)] = getattr(
                 customerrole, 'original', customerrole)
 
-        for customerrole, description in specification.role_descriptions.items():
+        for customerrole, description in \
+                specification.role_descriptions.items():
             plonerole = specification.role_mapping[customerrole.lower()]
             result[self._role_description_id(plonerole)] = description
 

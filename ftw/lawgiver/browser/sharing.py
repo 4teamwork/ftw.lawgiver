@@ -24,7 +24,6 @@ class SharingDescribeRole(BrowserView):
         """
         return bool(get_specification_for(self.context))
 
-
     def __call__(self):
         self.table_data = None
         self.role_description = ''
@@ -42,7 +41,8 @@ class SharingDescribeRole(BrowserView):
             return
 
         self.table_data = self._get_table_data(spec, workflow, rolename)
-        self.role_description = self._get_role_description(spec, workflow, rolename)
+        self.role_description = self._get_role_description(
+            spec, workflow, rolename)
 
     def _get_table_data(self, spec, workflow, rolename):
         return {'headers': self._generate_table_headers(spec, workflow),
