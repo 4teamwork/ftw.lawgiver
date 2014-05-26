@@ -332,6 +332,7 @@ class WorkflowGenerator(object):
     def _add_variables(self, doc):
         # The variables are static - we use always the same.
         for node in html.fragments_fromstring(VARIABLES):
+            node.tail = None
             doc.append(node)
 
     def _transition_id(self, transition):
