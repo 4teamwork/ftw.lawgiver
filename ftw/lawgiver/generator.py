@@ -1,6 +1,7 @@
 from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.interfaces import IWorkflowGenerator
+from ftw.lawgiver.utils import generate_role_translation_id
 from ftw.lawgiver.utils import get_roles_inheriting_from
 from ftw.lawgiver.utils import merge_role_inheritance
 from ftw.lawgiver.variables import VARIABLES
@@ -347,8 +348,7 @@ class WorkflowGenerator(object):
             self.workflow_id, self._normalize(status.title))
 
     def _role_id(self, role):
-        return '%s--ROLE--%s' % (self.workflow_id,
-                                 getattr(role, 'original', role))
+        return generate_role_translation_id(self.workflow_id, role)
 
     def _role_description_id(self, role):
         return '%s--ROLE-DESCRIPTION--%s' % (

@@ -4,9 +4,13 @@ from Products.CMFCore.interfaces import IContentish
 from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
+from ftw.lawgiver.wdl.parser import LowerCaseString
+from plone.app.workflow.interfaces import ISharingPageRole
 from zope.component import getMultiAdapter
 from zope.component import getUtility
+from zope.component import queryUtility
 from zope.component.hooks import getSite
+from zope.i18nmessageid import Message
 import os.path
 
 
@@ -46,6 +50,40 @@ def get_specification_for(context):
         return None
 
     return get_specification(workflow.id)
+
+
+def generate_role_translation_id(workflow_id, role):
+    """Generate and return the translation ID which used for translating
+    a role for a specific workflow (in the ``plone`` translation domain).
+    """
+    if isinstance(role, LowerCaseString):
+        role = role.original
+
+    return '{0}--ROLE--{1}'.format(workflow_id, role)
+
+
+def translate_role_for_workflow(workflow_id, role):
+    """Returns a message object which translates the role for this
+    workflow, with fallback to Plone's default translation.
+    """
+    from ftw.lawgiver.localroles import DEFAULT_ROLE_TITLES
+
+    if isinstance(role, LowerCaseString):
+        role = role.original
+
+    fallback = role
+
+    if role in DEFAULT_ROLE_TITLES:
+        fallback = DEFAULT_ROLE_TITLES[role]
+
+    else:
+        utility = queryUtility(ISharingPageRole, name=role)
+        if utility:
+            fallback = utility.title
+
+    return Message(generate_role_translation_id(workflow_id, role),
+                   domain='plone',
+                   default=fallback)
 
 
 def merge_role_inheritance(specification, status):
