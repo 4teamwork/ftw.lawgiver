@@ -2,10 +2,13 @@ from Products.CMFCore.utils import getToolByName
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
+from ftw.lawgiver.utils import generate_role_translation_id
 from ftw.lawgiver.utils import get_specification
 from ftw.lawgiver.utils import get_specification_for
 from ftw.lawgiver.utils import get_workflow_for
+from ftw.lawgiver.utils import translate_role_for_workflow
 from ftw.lawgiver.wdl.interfaces import ISpecification
+from ftw.lawgiver.wdl.parser import LowerCaseString
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import applyProfile
 from plone.app.testing import setRoles
@@ -65,3 +68,26 @@ class TestUtils(TestCase):
 
     def test_get_specification_for_non_managed_object(self):
         self.assertIsNone(get_specification_for(self.portal))
+
+    def test_generate_role_translation_id(self):
+        self.assertEqual(
+            'wf-foo--ROLE--Editor',
+            generate_role_translation_id('wf-foo', 'Editor'))
+
+    def test_generate_role_translation_id_with_lowercase_string(self):
+        self.assertEqual(
+            'wf-foo--ROLE--Editor',
+            generate_role_translation_id('wf-foo',
+                                         LowerCaseString('Editor')))
+
+    def test_translate_role_for_workflow(self):
+        msgid = translate_role_for_workflow(
+            'wf-foo', LowerCaseString('Editor'))
+
+        self.assertEqual('plone', msgid.domain)
+        self.assertEqual('wf-foo--ROLE--Editor', str(msgid))
+
+        fallback = msgid.default
+        self.assertEqual('plone', fallback.domain)
+        self.assertEqual('title_can_edit', str(fallback))
+        self.assertEqual('Can edit', fallback.default)

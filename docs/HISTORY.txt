@@ -5,6 +5,10 @@ Changelog
 1.3.1 (unreleased)
 ------------------
 
+- Extract `generate_role_translation_id` and `translate_role_for_workflow`
+  into utils.
+  [jone]
+
 - Fix definition.xml pretty printing on OSX Mavericks.
   On Mavericks most of the definition.xml was writte onto a single line.
   [jone]
