@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.3.1 (unreleased)
+1.3.1 (2014-05-28)
 ------------------
 
 - Extract `generate_role_translation_id` and `translate_role_for_workflow`
