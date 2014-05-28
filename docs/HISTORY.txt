@@ -10,7 +10,7 @@ Changelog
   [jone]
 
 - Fix definition.xml pretty printing on OSX Mavericks.
-  On Mavericks most of the definition.xml was writte onto a single line.
+  On Mavericks most of the definition.xml was written onto a single line.
   [jone]
 
 
