@@ -100,8 +100,8 @@ class I18nBuilder(object):
             catalog.keys())
 
         for msgid, msgstr in translations.items():
-            msgid = msgid.decode('utf-8')
-            msgstr = msgstr.decode('utf-8')
+            msgid = msgid.decode('utf-8').replace('"', '\\"')
+            msgstr = msgstr.decode('utf-8').replace('"', '\\"')
 
             if msgid in delete_candidates:
                 delete_candidates.remove(msgid)
