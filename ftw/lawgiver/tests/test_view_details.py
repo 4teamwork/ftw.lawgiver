@@ -275,7 +275,8 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
         self.assertEquals([], statusmessages.info_messages(),
                           'Expecting no "info" portal messages.')
 
-        self.assertEquals(['Error while generating the workflow: Action "viewX" is'
+        self.assertEquals(['invalid-spec: Error while generating the'
+                           ' workflow: Action "viewX" is'
                            ' neither action group nor transition.'],
                           statusmessages.error_messages(),
                           'Expecting only the workflow generation error.')

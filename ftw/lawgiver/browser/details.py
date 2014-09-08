@@ -1,6 +1,7 @@
 from ftw.lawgiver import _
 from ftw.lawgiver.i18nbuilder import I18nBuilder
 from ftw.lawgiver.interfaces import IPermissionCollector
+from ftw.lawgiver.interfaces import IUpdater
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.utils import in_development
@@ -101,34 +102,9 @@ class SpecDetails(BrowserView):
         return list(set(current_states) - set(new_states))
 
     def write_workflow(self):
-        generator = getUtility(IWorkflowGenerator)
-        try:
-            generator(self.workflow_name(), self.specification)
-
-        except ConflictError:
-            raise
-
-        except Exception, exc:
-            getSite().error_log.raising(sys.exc_info())
-
-            IStatusMessage(self.request).add(
-                _(u'error_while_generating_workflow',
-                  default=u'Error while generating the workflow: ${msg}',
-                  mapping={'msg': str(exc).decode('utf-8')}),
-                type='error')
-
-            return False
-
-        else:
-            with open(self.get_definition_path(), 'w+') as result_file:
-                generator.write(result_file)
-
-            IStatusMessage(self.request).add(
-                _(u'info_workflow_generated',
-                  default=u'The workflow was generated to ${path}.',
-                  mapping={'path': self.get_definition_path()}))
-
-            return True
+        updater = getUtility(IUpdater)
+        return updater.write_workflow(self.get_spec_path(),
+                                      statusmessages=True)
 
     def write_and_import_workflow(self):
         if self.is_destructive() and not self.is_confirmed():

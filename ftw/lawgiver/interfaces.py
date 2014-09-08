@@ -171,3 +171,17 @@ class IDynamicRoleAdapter(Interface):
     def get_required_permission():
         """Returns the permission required assigning users this local role.
         """
+
+
+class IUpdater(Interface):
+    """A utility for updating specification.
+    This includes:
+    - writing the workflow (generating and saving the definition.xml)
+    - updating locales for the specification
+    """
+
+    def write_workflow(specification_path, statusmessages=False):
+        """Writes the workflow specification to the definition.xml
+        When ``status_messages`` is set to true, exceptions are caught
+        and reported as status message.
+        """

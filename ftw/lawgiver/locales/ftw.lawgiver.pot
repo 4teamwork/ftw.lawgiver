@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-09-08 09:17+0000\n"
+"POT-Creation-Date: 2014-09-08 10:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -167,33 +167,34 @@ msgstr ""
 msgid "edit"
 msgstr ""
 
-#. Default: "The specification file could not be parsed: ${error}"
-#: ./ftw/lawgiver/browser/details.py:213
+#. Default: "${id}: The specification file could not be parsed: ${error}"
+#: ./ftw/lawgiver/browser/details.py:189
+#: ./ftw/lawgiver/updater.py:64
 msgid "error_parsing_error"
 msgstr ""
 
-#. Default: "Error while generating the workflow: ${msg}"
-#: ./ftw/lawgiver/browser/details.py:115
+#. Default: "${id}: Error while generating the workflow: ${msg}"
+#: ./ftw/lawgiver/updater.py:34
 msgid "error_while_generating_workflow"
 msgstr ""
 
 #. Default: "The translations were updated in your locales directory. You should now run bin/i18n-build"
-#: ./ftw/lawgiver/browser/details.py:171
+#: ./ftw/lawgiver/browser/details.py:147
 msgid "info_locales_updated"
 msgstr ""
 
 #. Default: "Security update: ${amount} objects updated."
-#: ./ftw/lawgiver/browser/details.py:161
+#: ./ftw/lawgiver/browser/details.py:137
 msgid "info_security_updated"
 msgstr ""
 
-#. Default: "The workflow was generated to ${path}."
-#: ./ftw/lawgiver/browser/details.py:127
+#. Default: "${id}: The workflow was generated to ${path}."
+#: ./ftw/lawgiver/updater.py:45
 msgid "info_workflow_generated"
 msgstr ""
 
 #. Default: "Workflow ${wfname} successfully imported."
-#: ./ftw/lawgiver/browser/details.py:150
+#: ./ftw/lawgiver/browser/details.py:126
 msgid "info_workflow_imported"
 msgstr ""
 
