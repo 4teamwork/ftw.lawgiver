@@ -214,7 +214,7 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
         specdetails.visit('Bar Workflow (wf-bar)')
         specdetails.button_update_locales().click()
         statusmessages.assert_message(
-            'The translations were updated in your locales directory.'
+            'wf-bar: The translations were updated in your locales directory.'
             ' You should now run bin/i18n-build')
 
 

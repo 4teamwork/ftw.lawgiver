@@ -139,14 +139,9 @@ class SpecDetails(BrowserView):
               mapping={'amount': updated_objects}))
 
     def update_locales(self):
-        builder = I18nBuilder(self.get_spec_path())
-        lang_code = self.specification.language.code
-        builder.generate(lang_code)
-
-        IStatusMessage(self.request).add(
-            _(u'info_locales_updated',
-              default=u'The translations were updated in your locales'
-              u' directory. You should now run bin/i18n-build'))
+        updater = getUtility(IUpdater)
+        return updater.update_translations(self.get_spec_path(),
+                                           statusmessages=True)
 
     def _get_or_create_workflow_obj(self):
         wftool = getToolByName(self.context, 'portal_workflow')

@@ -1,4 +1,5 @@
 from ftw.lawgiver import _
+from ftw.lawgiver.i18nbuilder import I18nBuilder
 from ftw.lawgiver.interfaces import IUpdater
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
@@ -48,6 +49,24 @@ class Updater(object):
                   default=u'${id}: The workflow was generated to ${path}.',
                   mapping={'path': self._definition_path(specification_path),
                            'id': self._workflow_id(specification_path)}))
+        return True
+
+    def update_translations(self, specification_path, statusmessages=False):
+        specification = self._get_specification(specification_path,
+                                                statusmessages=statusmessages)
+        if not specification:
+            return False
+
+        builder = I18nBuilder(specification_path)
+        builder.generate(specification.language.code)
+
+        if statusmessages:
+            IStatusMessage(getSite().REQUEST).add(
+                _(u'info_locales_updated',
+                  default=u'${id}: The translations were updated in your'
+                  u' locales directory. You should now run bin/i18n-build',
+                  mapping={'id': self._workflow_id(specification_path)}))
+
         return True
 
     def _get_specification(self, specification_path, statusmessages=False):

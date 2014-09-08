@@ -30,3 +30,7 @@ class TestUpdater(TestCase):
         updater.write_workflow(BAR_SPECIFICATION)
         self.assertTrue(os.path.exists(BAR_DEFINITION_XML),
                         'Workflow definition was not generated.')
+
+    def test_update_translations(self):
+        updater = getUtility(IUpdater)
+        updater.update_translations(BAR_SPECIFICATION)
