@@ -25,6 +25,13 @@
             Up to specification listing
         </a>
 
+        <tal:RELEASED tal:condition="view/is_released_distribution">
+          <dl class="portalMessage warning">
+            <dt i18n:domain="plone" i18n:translate="">Warning</dt>
+            <dd i18n:translate="">The workflow seems to be in a released egg!</dd>
+          </dl>
+        </tal:RELEASED>
+
         <fieldset>
             <legend i18n:translate="">Workflow Metadata</legend>
 

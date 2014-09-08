@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-09-08 07:47+0000\n"
+"POT-Creation-Date: 2014-09-08 09:17+0000\n"
 "PO-Revision-Date: 2013-04-10 10:41+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 msgid "Could not find any information about this role."
 msgstr "Es sind nicht genügend Informationen über diese Rolle vorhanden."
 
-#: ./ftw/lawgiver/browser/templates/details.pt:214
+#: ./ftw/lawgiver/browser/templates/details.pt:221
 msgid "Default translations"
 msgstr "Standard Übersetzungen"
 
@@ -31,15 +31,15 @@ msgstr "Ich weiss was ich mache"
 msgid "Importing this workflow renames or removes states. Changing states can reset the workflow status of affected objects to the initial state."
 msgstr "Das Importieren dieses Workflows benennt oder entfernt Status. Dies kann bestehende Objekte in den betroffenen Status auf den Initialstatus zurücksetzen."
 
-#: ./ftw/lawgiver/browser/templates/details.pt:54
+#: ./ftw/lawgiver/browser/templates/details.pt:61
 msgid "No"
 msgstr "Nein"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:62
+#: ./ftw/lawgiver/browser/templates/details.pt:69
 msgid "No locales directory could be found."
 msgstr "Das locales-Verzeichnis konnte nicht gefunden werden."
 
-#: ./ftw/lawgiver/browser/templates/details.pt:165
+#: ./ftw/lawgiver/browser/templates/details.pt:172
 msgid "Permission mapping"
 msgstr "Mapping der Berechtigungen"
 
@@ -47,35 +47,39 @@ msgstr "Mapping der Berechtigungen"
 msgid "Removed / renamed states:"
 msgstr "Entfernte / umbenannte Status:"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:154
+#: ./ftw/lawgiver/browser/templates/details.pt:161
 msgid "Specification"
 msgstr "Spezifikation"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:150
+#: ./ftw/lawgiver/browser/templates/details.pt:157
 msgid "Specification details"
 msgstr "Spezifikation Details"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:38
+#: ./ftw/lawgiver/browser/templates/details.pt:45
 msgid "Specification file:"
 msgstr "Workflow Spezifikation:"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:210
+#: ./ftw/lawgiver/browser/templates/details.pt:217
 msgid "Template"
 msgstr "Vorlage"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:205
+#: ./ftw/lawgiver/browser/templates/details.pt:31
+msgid "The workflow seems to be in a released egg!"
+msgstr "Das Package, dem dieser Workflow ist, scheint bereits released zu sein!"
+
+#: ./ftw/lawgiver/browser/templates/details.pt:212
 msgid "Translations"
 msgstr "Übersetzungen"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:59
+#: ./ftw/lawgiver/browser/templates/details.pt:66
 msgid "Translations location:"
 msgstr "locales-Verzeichnis"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:191
+#: ./ftw/lawgiver/browser/templates/details.pt:198
 msgid "Unmanaged permissions"
 msgstr "Vom Worfklow nicht verwaltete Berechtigungen"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:70
+#: ./ftw/lawgiver/browser/templates/details.pt:77
 msgid "Update Workflow Definition"
 msgstr "Workflow-Definition aktualisieren"
 
@@ -83,23 +87,23 @@ msgstr "Workflow-Definition aktualisieren"
 msgid "Warning: Destructive Changes"
 msgstr "Warnung: Destruktive Änderungen"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:33
+#: ./ftw/lawgiver/browser/templates/details.pt:40
 msgid "Workflow ID:"
 msgstr "Workflow ID:"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:29
+#: ./ftw/lawgiver/browser/templates/details.pt:36
 msgid "Workflow Metadata"
 msgstr "Workflow Metadaten"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:43
+#: ./ftw/lawgiver/browser/templates/details.pt:50
 msgid "Workflow definition file:"
 msgstr "Workflow Definition:"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:48
+#: ./ftw/lawgiver/browser/templates/details.pt:55
 msgid "Workflow installed:"
 msgstr "Workflow installiert:"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:49
+#: ./ftw/lawgiver/browser/templates/details.pt:56
 msgid "Yes"
 msgstr "Ja"
 
@@ -108,22 +112,22 @@ msgid "add"
 msgstr "hinzufügen"
 
 #. Default: "Update translations in locales directory"
-#: ./ftw/lawgiver/browser/templates/details.pt:132
+#: ./ftw/lawgiver/browser/templates/details.pt:139
 msgid "button_update_locales"
 msgstr "Übersetzung in locales-Verzeichnis aktualisieren"
 
 #. Default: "Update security settings"
-#: ./ftw/lawgiver/browser/templates/details.pt:118
+#: ./ftw/lawgiver/browser/templates/details.pt:125
 msgid "button_update_security"
 msgstr "Sicherheit aktualisieren"
 
 #. Default: "Write and Import Workflow"
-#: ./ftw/lawgiver/browser/templates/details.pt:96
+#: ./ftw/lawgiver/browser/templates/details.pt:103
 msgid "button_write_and_import"
 msgstr "Workflow-Definition aktualisieren und Workflow importieren"
 
 #. Default: "Write workflow definition"
-#: ./ftw/lawgiver/browser/templates/details.pt:75
+#: ./ftw/lawgiver/browser/templates/details.pt:82
 msgid "button_write_wf_definition"
 msgstr "Workflow-Definition aktualisieren"
 
@@ -137,22 +141,22 @@ msgid "description_manage_upgrades"
 msgstr "Diese Ansicht zeigt alle Workflow-Spezifikationen an. Workflow-Spezifikationen werden anhand des der Datei \"specification.txt\" im entsprechenden Workflow-Verzeichnis des Generic-Setup Profils erkannt."
 
 #. Default: "Updates the ${pot-name} and the ${po-name} files in your locales directory (${locales_directory})."
-#: ./ftw/lawgiver/browser/templates/details.pt:140
+#: ./ftw/lawgiver/browser/templates/details.pt:147
 msgid "description_update_locales"
 msgstr "Aktualisiert Übersetzungs-Dateien ${pot-name} und ${po-name} in dem locales-Verzeichnis (${locales_directory})."
 
 #. Default: "When the \"${button_title}\" button is clicked the security of all (!) objects in your database are updated. This is the same button as in portal_workflow."
-#: ./ftw/lawgiver/browser/templates/details.pt:124
+#: ./ftw/lawgiver/browser/templates/details.pt:131
 msgid "description_update_security"
 msgstr "Der Button \"${button_title}\" aktualisiert die Sicherheitseinstellungen aller (!) objekte auf dieser Plone-Seite. Dies ist der gleiche Button wie der \"Update security settings\" in portal_workflow."
 
 #. Default: "When the \"${button_title}\" button is clicked the workflow is generated and written to the <i title=\"${DYNAMIC_CONTENT}\">definition.xml</i> and then the workflow is imported using Generic Setup."
-#: ./ftw/lawgiver/browser/templates/details.pt:114
+#: ./ftw/lawgiver/browser/templates/details.pt:121
 msgid "description_write_and_import"
 msgstr "Der Button \"${button_title}\" generiert den Workflow neu und schreibt ih in die Datei <i title=\\\"${DYNAMIC_CONTENT}\\\">definition.xml</i>. Anschliessend wird der Workflow mittels Generic Setup in dieser Plone-Seite installiert."
 
 #. Default: "When the \"${button_title}\" button is clicked the workflow is generated and written to the <i title=\"${DYNAMIC_CONTENT}\">definition.xml</i>. The database / portal_workflow is not changed."
-#: ./ftw/lawgiver/browser/templates/details.pt:84
+#: ./ftw/lawgiver/browser/templates/details.pt:91
 msgid "description_write_wf_definition"
 msgstr "Der Button \"${button_title}\" generiert den Workflow neu und schreibt ih in die Datei <i title=\\\"${DYNAMIC_CONTENT}\\\">definition.xml</i>. Die Datenbank wird nicht verändert."
 
@@ -161,32 +165,32 @@ msgid "edit"
 msgstr "bearbeiten"
 
 #. Default: "The specification file could not be parsed: ${error}"
-#: ./ftw/lawgiver/browser/details.py:209
+#: ./ftw/lawgiver/browser/details.py:213
 msgid "error_parsing_error"
 msgstr "Die Datei mit der Workflow-Spezifikation konnte nicht gelesen werden: ${error}"
 
 #. Default: "Error while generating the workflow: ${msg}"
-#: ./ftw/lawgiver/browser/details.py:111
+#: ./ftw/lawgiver/browser/details.py:115
 msgid "error_while_generating_workflow"
 msgstr "Fehler beim generieren des Workflows: ${msg}"
 
 #. Default: "The translations were updated in your locales directory. You should now run bin/i18n-build"
-#: ./ftw/lawgiver/browser/details.py:167
+#: ./ftw/lawgiver/browser/details.py:171
 msgid "info_locales_updated"
 msgstr "Die Übersetzungen wurden im locales-Verzeichnis aktualisert. Jetzt sollt bin/i18n-build ausgeführt werden."
 
 #. Default: "Security update: ${amount} objects updated."
-#: ./ftw/lawgiver/browser/details.py:157
+#: ./ftw/lawgiver/browser/details.py:161
 msgid "info_security_updated"
 msgstr "Sicherheitsupdate: ${amount} Objekte wurden aktualisiert."
 
 #. Default: "The workflow was generated to ${path}."
-#: ./ftw/lawgiver/browser/details.py:123
+#: ./ftw/lawgiver/browser/details.py:127
 msgid "info_workflow_generated"
 msgstr "Der Workflow wurde generiert: ${path}."
 
 #. Default: "Workflow ${wfname} successfully imported."
-#: ./ftw/lawgiver/browser/details.py:146
+#: ./ftw/lawgiver/browser/details.py:150
 msgid "info_workflow_imported"
 msgstr "Der Workflow ${wfname} wurde auf dieser Plone-Seite installiert."
 
@@ -226,6 +230,6 @@ msgid "view inactive objects"
 msgstr "inaktive Inhalte ansehen"
 
 #. Default: "The workflow ${workflow} is not installed yet. Installing the workflow with the \"${button_title}\" button does not configure the policy, so no portal type will have this workflow."
-#: ./ftw/lawgiver/browser/templates/details.pt:96
+#: ./ftw/lawgiver/browser/templates/details.pt:103
 msgid "warning_workflow_not_installed"
 msgstr "Der Workflow ${workflow} ist noch nicht installiert. Wenn der Workflow mit dem Button \"${button_title}\" installiert wird die Workflow Policy nicht angepasst, d.H. kein Typ wird diesen Workflow automatisch benutzen."

@@ -1,14 +1,15 @@
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.GenericSetup.utils import importObjects
-from Products.statusmessages.interfaces import IStatusMessage
-from ZODB.POSException import ConflictError
 from ftw.lawgiver import _
 from ftw.lawgiver.i18nbuilder import I18nBuilder
 from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
+from ftw.lawgiver.utils import in_development
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
+from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.GenericSetup.utils import importObjects
+from Products.statusmessages.interfaces import IStatusMessage
+from ZODB.POSException import ConflictError
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component.hooks import getSite
@@ -77,6 +78,9 @@ class SpecDetails(BrowserView):
 
     def is_destructive(self):
         return len(self.removing_states()) > 0
+
+    def is_released_distribution(self):
+        return not in_development(self.get_definition_path())
 
     def removing_states(self):
         """Returns the states that will be removed upon writing and importing
