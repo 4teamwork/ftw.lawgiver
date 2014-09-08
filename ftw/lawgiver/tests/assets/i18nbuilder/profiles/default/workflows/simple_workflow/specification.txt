@@ -4,5 +4,8 @@ Initial Status: Private
 Role mapping:
   editor => Editor
 
+Editor role description:
+  An "Editor" writes articles.
+
 Status Private:
   An editor can view this content.

@@ -20,6 +20,9 @@ SIMPLE_WORKFLOW_MESSAGES = r'''
 msgid "simple_workflow--ROLE--Editor"
 msgstr "editor"
 
+msgid "simple_workflow--ROLE-DESCRIPTION--Editor"
+msgstr "An \"Editor\" writes articles."
+
 msgid "simple_workflow--STATUS--private"
 msgstr "Private"
 '''.strip()
@@ -89,6 +92,7 @@ class TestI18nBuilder(TestCase):
 
     def test_generate_pot_generates_pot_file(self):
         I18nBuilder(self.simple_workflow_spec_path).generate_pot()
+        self.maxDiff = None
         self.assertMultiLineEqual(
             clear_msgstr(PO_HEADER + '\n\n' +
                          SIMPLE_WORKFLOW_MESSAGES + '\n'),
@@ -176,4 +180,4 @@ def read_file(path):
 
 
 def clear_msgstr(text):
-    return re.sub(r'msgstr "[^"]*"', 'msgstr ""', text)
+    return re.sub(r'msgstr ".*"$', 'msgstr ""', text, flags=re.M)
