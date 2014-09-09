@@ -191,3 +191,11 @@ class IUpdater(Interface):
         When ``status_messages`` is set to true, exceptions are caught
         and reported as status message.
         """
+
+    def update_all_specifications(statusmessages=False):
+        """Writes the workflow and updates the translations for each
+        discovered specification.
+
+        When ``status_messages`` is set to true, exceptions are caught
+        and reported as status message.
+        """

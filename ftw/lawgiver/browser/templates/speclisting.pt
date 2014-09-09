@@ -22,23 +22,44 @@
             Up to Site Setup
         </a>
 
-        <p i18n:translate="description_manage_upgrades"
-           class="discreet">
+        <fieldset>
+          <p i18n:translate="description_manage_upgrades"
+             class="discreet">
             This view lists all workflow specifications.
             Workflow specifications are identified by the "specification.txt"
             in the corresponding workflow directory of any generic setup
             profile.
-        </p>
+          </p>
 
-        <dl class="specifications">
+          <dl class="specifications">
             <tal:SPEC tal:repeat="spec view/specifications">
-                <dt>
-                    <a tal:content="spec/link_text"
-                       tal:attributes="href spec/href"/>
-                </dt>
-                <dd tal:content="spec/description" />
+              <dt>
+                <a tal:content="spec/link_text"
+                   tal:attributes="href spec/href"/>
+              </dt>
+              <dd tal:content="spec/description" />
             </tal:SPEC>
-        </dl>
+          </dl>
+        </fieldset>
+
+        <fieldset>
+          <form tal:attributes="action request/URL" method="POST">
+
+            <input type="submit"
+                   i18n:attributes="value button_update_all_specs"
+                   name="update_all_specifications"
+                   value="Update all specifications" />
+
+            <p class="discreet" i18n:translate="description_update_all_specs">
+              This rebuilds all specifications and saves the workflows to the
+              definition.xml.
+              It also updates the translations for each specification.
+              Specifications which are suspected to be in a released egg
+              are skipped.
+            </p>
+
+          </form>
+        </fieldset>
 
     </div>
 </html>

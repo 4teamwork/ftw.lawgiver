@@ -2,9 +2,12 @@ from ftw.lawgiver import _
 from ftw.lawgiver.i18nbuilder import I18nBuilder
 from ftw.lawgiver.interfaces import IUpdater
 from ftw.lawgiver.interfaces import IWorkflowGenerator
+from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
+from ftw.lawgiver.utils import in_development
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from Products.statusmessages.interfaces import IStatusMessage
 from ZODB.POSException import ConflictError
+from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component.hooks import getSite
 from zope.interface import implements
@@ -14,6 +17,25 @@ import sys
 
 class Updater(object):
     implements(IUpdater)
+
+    def update_all_specifications(self, statusmessages=False):
+        discovery = getMultiAdapter((getSite(), getSite().REQUEST),
+                                    IWorkflowSpecificationDiscovery)
+        for specification_path in discovery.discover():
+            if not in_development(specification_path):
+                if statusmessages:
+                    IStatusMessage(getSite().REQUEST).add(
+                        _(u'warning_skipped_released_spec',
+                          default=u'${id}: Skipping released specification.',
+                          mapping={
+                                'id': self._workflow_id(specification_path)}),
+                        type='warning')
+                continue
+
+            self.write_workflow(specification_path,
+                                statusmessages=statusmessages)
+            self.update_translations(specification_path,
+                                     statusmessages=statusmessages)
 
     def write_workflow(self, specification_path, statusmessages=False):
         specification = self._get_specification(specification_path,
@@ -34,7 +56,8 @@ class Updater(object):
             getSite().error_log.raising(sys.exc_info())
             IStatusMessage(getSite().REQUEST).add(
                 _(u'error_while_generating_workflow',
-                  default=u'${id}: Error while generating the workflow: ${msg}',
+                  default=u'${id}: Error while generating'
+                  u' the workflow: ${msg}',
                   mapping={'msg': str(exc).decode('utf-8'),
                            'id': self._workflow_id(specification_path)}),
                 type='error')

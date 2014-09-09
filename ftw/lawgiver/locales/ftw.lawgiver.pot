@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-09-08 10:16+0000\n"
+"POT-Creation-Date: 2014-09-09 07:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,6 +114,11 @@ msgstr ""
 msgid "add"
 msgstr ""
 
+#. Default: "Update all specifications"
+#: ./ftw/lawgiver/browser/templates/speclisting.pt:48
+msgid "button_update_all_specs"
+msgstr ""
+
 #. Default: "Update translations in locales directory"
 #: ./ftw/lawgiver/browser/templates/details.pt:139
 msgid "button_update_locales"
@@ -139,8 +144,13 @@ msgid "delete"
 msgstr ""
 
 #. Default: "This view lists all workflow specifications. Workflow specifications are identified by the \"specification.txt\" in the corresponding workflow directory of any generic setup profile."
-#: ./ftw/lawgiver/browser/templates/speclisting.pt:25
+#: ./ftw/lawgiver/browser/templates/speclisting.pt:26
 msgid "description_manage_upgrades"
+msgstr ""
+
+#. Default: "This rebuilds all specifications and saves the workflows to the definition.xml. It also updates the translations for each specification. Specifications which are suspected to be in a released egg are skipped."
+#: ./ftw/lawgiver/browser/templates/speclisting.pt:53
+msgid "description_update_all_specs"
 msgstr ""
 
 #. Default: "Updates the ${pot-name} and the ${po-name} files in your locales directory (${locales_directory})."
@@ -169,17 +179,17 @@ msgstr ""
 
 #. Default: "${id}: The specification file could not be parsed: ${error}"
 #: ./ftw/lawgiver/browser/details.py:184
-#: ./ftw/lawgiver/updater.py:85
+#: ./ftw/lawgiver/updater.py:108
 msgid "error_parsing_error"
 msgstr ""
 
 #. Default: "${id}: Error while generating the workflow: ${msg}"
-#: ./ftw/lawgiver/updater.py:36
+#: ./ftw/lawgiver/updater.py:58
 msgid "error_while_generating_workflow"
 msgstr ""
 
 #. Default: "${id}: The translations were updated in your locales directory. You should now run bin/i18n-build"
-#: ./ftw/lawgiver/updater.py:65
+#: ./ftw/lawgiver/updater.py:88
 msgid "info_locales_updated"
 msgstr ""
 
@@ -189,7 +199,7 @@ msgid "info_security_updated"
 msgstr ""
 
 #. Default: "${id}: The workflow was generated to ${path}."
-#: ./ftw/lawgiver/updater.py:48
+#: ./ftw/lawgiver/updater.py:71
 msgid "info_workflow_generated"
 msgstr ""
 
@@ -231,6 +241,11 @@ msgstr ""
 
 #: ./ftw/lawgiver/lawgiver.zcml
 msgid "view inactive objects"
+msgstr ""
+
+#. Default: "${id}: Skipping released specification."
+#: ./ftw/lawgiver/updater.py:28
+msgid "warning_skipped_released_spec"
 msgstr ""
 
 #. Default: "The workflow ${workflow} is not installed yet. Installing the workflow with the \"${button_title}\" button does not configure the policy, so no portal type will have this workflow."
