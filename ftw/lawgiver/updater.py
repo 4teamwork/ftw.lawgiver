@@ -10,6 +10,7 @@ from ZODB.POSException import ConflictError
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component.hooks import getSite
+from zope.i18n import translate
 from zope.interface import implements
 import os.path
 import sys
@@ -23,6 +24,17 @@ class StatusMessageFormatter(object):
 
     def __call__(self, kind, message):
         self.statusmessage.add(message, type=kind)
+
+
+class ConsoleMessageFormatter(object):
+
+    def __call__(self, kind, message):
+        if kind == 'error':
+            stream = sys.stderr
+        else:
+            stream = sys.stdout
+
+        print >>stream, translate(message)
 
 
 class Updater(object):
