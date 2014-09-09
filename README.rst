@@ -658,6 +658,22 @@ not uninstall the package dependencies.
 Make sure to uninstall the dependencies if you no longer use them.
 
 
+Rebuild with console
+--------------------
+
+``ftw.lawgiver`` registers a zopectl command so that all workflows can be
+rebuilt at once using the console::
+
+  $ ./bin/instance rebuild_workflows --help
+  usage: interpreter [-h] [-s SITE]
+
+  Rebuild ftw.lawgiver workflows.
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    -s SITE, --site SITE  Path to the Plone site for discovering the worklfows.
+                          (default: Plone)
+
 
 Links
 -----

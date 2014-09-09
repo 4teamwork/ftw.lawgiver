@@ -4,6 +4,7 @@ from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.interfaces import IUpdater
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
+from ftw.lawgiver.updater import StatusMessageFormatter
 from ftw.lawgiver.utils import in_development
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from Products.CMFCore.utils import getToolByName
@@ -103,8 +104,9 @@ class SpecDetails(BrowserView):
 
     def write_workflow(self):
         updater = getUtility(IUpdater)
-        return updater.write_workflow(self.get_spec_path(),
-                                      statusmessages=True)
+        return updater.write_workflow(
+            self.get_spec_path(),
+            output_formatter=StatusMessageFormatter(self.request))
 
     def write_and_import_workflow(self):
         if self.is_destructive() and not self.is_confirmed():
@@ -140,8 +142,9 @@ class SpecDetails(BrowserView):
 
     def update_locales(self):
         updater = getUtility(IUpdater)
-        return updater.update_translations(self.get_spec_path(),
-                                           statusmessages=True)
+        return updater.update_translations(
+            self.get_spec_path(),
+            output_formatter=StatusMessageFormatter(self.request))
 
     def _get_or_create_workflow_obj(self):
         wftool = getToolByName(self.context, 'portal_workflow')

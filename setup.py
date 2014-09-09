@@ -58,6 +58,7 @@ setup(name='ftw.lawgiver',
         'Products.statusmessages',
         'ZODB3',
         'Zope2',
+        'argparse',
         'collective.deletepermission',
         'ftw.upgrade',
         'i18ndude',
@@ -82,5 +83,8 @@ setup(name='ftw.lawgiver',
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
       target = plone
+
+      [zopectl.command]
+      rebuild_workflows = ftw.lawgiver.commands:rebuild_workflows
       """,
       )
