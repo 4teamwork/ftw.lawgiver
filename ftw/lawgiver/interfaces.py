@@ -180,22 +180,15 @@ class IUpdater(Interface):
     - updating locales for the specification
     """
 
-    def write_workflow(specification_path, statusmessages=False):
+    def write_workflow(specification_path, output_formatter=None):
         """Writes the workflow specification to the definition.xml
-        When ``status_messages`` is set to true, exceptions are caught
-        and reported as status message.
         """
 
-    def update_translations(specification_path, statusmessages=False):
+    def update_translations(specification_path, output_formatter=None):
         """Update translations of a workflow specifications.
-        When ``status_messages`` is set to true, exceptions are caught
-        and reported as status message.
         """
 
-    def update_all_specifications(statusmessages=False):
+    def update_all_specifications(output_formatter=None):
         """Writes the workflow and updates the translations for each
         discovered specification.
-
-        When ``status_messages`` is set to true, exceptions are caught
-        and reported as status message.
         """

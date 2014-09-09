@@ -1,5 +1,6 @@
 from ftw.lawgiver.interfaces import IUpdater
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
+from ftw.lawgiver.updater import StatusMessageFormatter
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from zope.component import getMultiAdapter
 from zope.component import getUtility
@@ -12,7 +13,8 @@ class ListSpecifications(BrowserView):
     def __call__(self):
         if 'update_all_specifications' in self.request.form:
             updater = getUtility(IUpdater)
-            updater.update_all_specifications(statusmessages=True)
+            updater.update_all_specifications(
+                output_formatter=StatusMessageFormatter(self.request))
 
         return super(ListSpecifications, self).__call__()
 
