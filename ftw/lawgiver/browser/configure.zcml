@@ -30,7 +30,7 @@
         template="templates/sharing-describe-role.pt"
         class=".sharing.SharingDescribeRole"
         permission="plone.DelegateRoles"
-        allowed_attributes="available"
+        allowed_attributes="is_available"
         />
 
 </configure>
