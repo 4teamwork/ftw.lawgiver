@@ -1,11 +1,11 @@
 from Acquisition import aq_inner
 from Acquisition import aq_parent
-from Products.CMFCore.interfaces import IContentish
-from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.lawgiver.wdl.parser import LowerCaseString
 from plone.app.workflow.interfaces import ISharingPageRole
+from Products.CMFCore.interfaces import IContentish
+from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -177,3 +177,9 @@ def get_roles_inherited_by(roles, role_inheritance):
 
     map(_recurse, roles)
     return result
+
+
+def in_development(path):
+    """Returns True when the path is in development (source checkout).
+    """
+    return not ('egg' in path or 'site-packages' in path)

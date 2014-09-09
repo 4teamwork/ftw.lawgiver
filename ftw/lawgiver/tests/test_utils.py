@@ -1,4 +1,3 @@
-from Products.CMFCore.utils import getToolByName
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
@@ -6,12 +5,15 @@ from ftw.lawgiver.utils import generate_role_translation_id
 from ftw.lawgiver.utils import get_specification
 from ftw.lawgiver.utils import get_specification_for
 from ftw.lawgiver.utils import get_workflow_for
+from ftw.lawgiver.utils import in_development
 from ftw.lawgiver.utils import translate_role_for_workflow
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.parser import LowerCaseString
-from plone.app.testing import TEST_USER_ID
+from pkg_resources import get_distribution
 from plone.app.testing import applyProfile
 from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from Products.CMFCore.utils import getToolByName
 from unittest2 import TestCase
 
 
@@ -91,3 +93,13 @@ class TestUtils(TestCase):
         self.assertEqual('plone', fallback.domain)
         self.assertEqual('title_can_edit', str(fallback))
         self.assertEqual('Can edit', fallback.default)
+
+    def test_in_development(self):
+        self.assertTrue(
+            in_development(get_distribution('ftw.lawgiver').location
+                           + '/ftw/lawgiver/__init__.py'),
+            'Expected ftw.lawgiver to be in development.')
+        self.assertFalse(
+            in_development(get_distribution('Products.CMFPlone').location
+                           + 'Products/CMFPlone/__init__.py'),
+            'Expected Plone to not be in development.')

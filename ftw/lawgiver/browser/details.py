@@ -1,14 +1,16 @@
+from ftw.lawgiver import _
+from ftw.lawgiver.i18nbuilder import I18nBuilder
+from ftw.lawgiver.interfaces import IPermissionCollector
+from ftw.lawgiver.interfaces import IUpdater
+from ftw.lawgiver.interfaces import IWorkflowGenerator
+from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
+from ftw.lawgiver.utils import in_development
+from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.GenericSetup.utils import importObjects
 from Products.statusmessages.interfaces import IStatusMessage
 from ZODB.POSException import ConflictError
-from ftw.lawgiver import _
-from ftw.lawgiver.i18nbuilder import I18nBuilder
-from ftw.lawgiver.interfaces import IPermissionCollector
-from ftw.lawgiver.interfaces import IWorkflowGenerator
-from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
-from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component.hooks import getSite
@@ -78,6 +80,9 @@ class SpecDetails(BrowserView):
     def is_destructive(self):
         return len(self.removing_states()) > 0
 
+    def is_released_distribution(self):
+        return not in_development(self.get_definition_path())
+
     def removing_states(self):
         """Returns the states that will be removed upon writing and importing
         the current spec.
@@ -97,34 +102,9 @@ class SpecDetails(BrowserView):
         return list(set(current_states) - set(new_states))
 
     def write_workflow(self):
-        generator = getUtility(IWorkflowGenerator)
-        try:
-            generator(self.workflow_name(), self.specification)
-
-        except ConflictError:
-            raise
-
-        except Exception, exc:
-            getSite().error_log.raising(sys.exc_info())
-
-            IStatusMessage(self.request).add(
-                _(u'error_while_generating_workflow',
-                  default=u'Error while generating the workflow: ${msg}',
-                  mapping={'msg': str(exc).decode('utf-8')}),
-                type='error')
-
-            return False
-
-        else:
-            with open(self.get_definition_path(), 'w+') as result_file:
-                generator.write(result_file)
-
-            IStatusMessage(self.request).add(
-                _(u'info_workflow_generated',
-                  default=u'The workflow was generated to ${path}.',
-                  mapping={'path': self.get_definition_path()}))
-
-            return True
+        updater = getUtility(IUpdater)
+        return updater.write_workflow(self.get_spec_path(),
+                                      statusmessages=True)
 
     def write_and_import_workflow(self):
         if self.is_destructive() and not self.is_confirmed():
@@ -159,14 +139,9 @@ class SpecDetails(BrowserView):
               mapping={'amount': updated_objects}))
 
     def update_locales(self):
-        builder = I18nBuilder(self.get_spec_path())
-        lang_code = self.specification.language.code
-        builder.generate(lang_code)
-
-        IStatusMessage(self.request).add(
-            _(u'info_locales_updated',
-              default=u'The translations were updated in your locales'
-              u' directory. You should now run bin/i18n-build'))
+        updater = getUtility(IUpdater)
+        return updater.update_translations(self.get_spec_path(),
+                                           statusmessages=True)
 
     def _get_or_create_workflow_obj(self):
         wftool = getToolByName(self.context, 'portal_workflow')

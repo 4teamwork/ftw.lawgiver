@@ -1,3 +1,4 @@
+from ftw.lawgiver.interfaces import IUpdater
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from zope.component import getMultiAdapter
@@ -7,6 +8,13 @@ import os.path
 
 
 class ListSpecifications(BrowserView):
+
+    def __call__(self):
+        if 'update_all_specifications' in self.request.form:
+            updater = getUtility(IUpdater)
+            updater.update_all_specifications(statusmessages=True)
+
+        return super(ListSpecifications, self).__call__()
 
     def specifications(self):
         discovery = getMultiAdapter((self.context, self.request),

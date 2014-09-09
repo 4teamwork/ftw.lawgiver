@@ -16,6 +16,7 @@
 
     <utility factory=".generator.WorkflowGenerator" />
     <utility factory=".collector.DefaultPermissionCollector" name="" />
+    <utility factory=".updater.Updater" />
     <adapter factory=".discovery.WorkflowSpecificationDiscovery" />
 
 </configure>

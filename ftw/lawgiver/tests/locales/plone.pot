@@ -12,21 +12,12 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"Language-Code: en\n"
-"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
-"Domain: plone\n"
 
 msgid "local-roles--ROLE--Editor"
 msgstr ""
 
 msgid "local-roles--ROLE--Reviewer"
-msgstr ""
-
-msgid "role-translation--ROLE--Editor"
-msgstr ""
-
-msgid "role-translation--ROLE--Reviewer"
 msgstr ""
 
 msgid "my_custom_workflow--ROLE--Anonymous"
@@ -74,13 +65,19 @@ msgstr ""
 msgid "publish"
 msgstr ""
 
-msgid "submit for publication"
-msgstr ""
-
 msgid "reject"
 msgstr ""
 
 msgid "retract"
+msgstr ""
+
+msgid "role-translation--ROLE--Editor"
+msgstr ""
+
+msgid "role-translation--ROLE--Reviewer"
+msgstr ""
+
+msgid "submit for publication"
 msgstr ""
 
 msgid "wf-bar--ROLE--Editor"

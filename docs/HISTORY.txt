@@ -5,6 +5,12 @@ Changelog
 1.3.2 (unreleased)
 ------------------
 
+- Add button for rebuilding all workflow specifications at once.
+  [jone]
+
+- Show a warning on workflows of released eggs.
+  [jone]
+
 - i18n generator: escape quotes in generated message strings.
   [jone]
 
