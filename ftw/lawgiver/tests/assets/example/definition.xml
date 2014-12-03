@@ -24,6 +24,7 @@
   <permission>Change local roles</permission>
   <permission>Delete objects</permission>
   <permission>Delete portal content</permission>
+  <permission>Edit comments</permission>
   <permission>List folder contents</permission>
   <permission>Manage properties</permission>
   <permission>Modify constrain types</permission>
@@ -122,13 +123,17 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Change local roles" acquired="False">
-        <permission-role>Site Administrator</permission-role>
+      <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Delete objects" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
     <permission-map name="Delete portal content" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Edit comments" acquired="False">
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
@@ -260,13 +265,18 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Change local roles" acquired="False">
-        <permission-role>Site Administrator</permission-role>
+      <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Delete objects" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
     <permission-map name="Delete portal content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Edit comments" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
@@ -391,13 +401,16 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Change local roles" acquired="False">
-        <permission-role>Site Administrator</permission-role>
+      <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="Delete objects" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
     <permission-map name="Delete portal content" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Edit comments" acquired="False">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="List folder contents" acquired="False">
