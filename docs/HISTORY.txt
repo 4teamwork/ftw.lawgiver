@@ -5,7 +5,8 @@ Changelog
 1.4.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Plone 4.3.4: map "Edit comments" permission to "edit" action group.
+  [jone]
 
 
 1.4.0 (2014-09-09)
