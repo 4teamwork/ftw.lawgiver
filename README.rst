@@ -678,9 +678,9 @@ rebuilt at once using the console::
 Links
 -----
 
-- Main github project repository: https://github.com/4teamwork/ftw.lawgiver
-- Issue tracker: https://github.com/4teamwork/ftw.lawgiver/issues
-- Package on pypi: http://pypi.python.org/pypi/ftw.lawgiver
+- Github: https://github.com/4teamwork/ftw.lawgiver
+- Issues: https://github.com/4teamwork/ftw.lawgiver/issues
+- Pypi: http://pypi.python.org/pypi/ftw.lawgiver
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.lawgiver
 
 
