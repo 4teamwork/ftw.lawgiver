@@ -693,7 +693,3 @@ This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
 .. _collective.deletepermission: https://github.com/4teamwork/collective.deletepermission
 .. _ftw.recipe.translations: https://github.com/4teamwork/ftw.recipe.translations
-
-.. image:: https://cruel-carlota.pagodabox.com/ef218e7bdb19163396b77d70f31e984e
-   :alt: githalytics.com
-   :target: http://githalytics.com/4teamwork/ftw.lawgiver
