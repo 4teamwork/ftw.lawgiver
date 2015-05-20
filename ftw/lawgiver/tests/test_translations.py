@@ -27,6 +27,11 @@ class TestActionGroupTranslations(TestCase):
                                                domain='ftw.lawgiver') == name]
             expected[lang] = []
 
+        # The "add folders" is defined in the testing layer just for testing purposes.
+        for untranslated_groups in untranslated.values():
+            if 'add folders' in untranslated_groups:
+                untranslated_groups.remove('add folders')
+
         self.assertEquals(
             expected, untranslated,
             'There action groups which are not translated.')

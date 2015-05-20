@@ -171,7 +171,7 @@ class TestActionGroupRegistry(BaseTest):
                           u'Modify portal content',
                           u'A custom permission for foo'])})
 
-    def test_get_action_group_for_permission(self):
+    def test_get_action_groups_for_permission(self):
         self.load_map_permissions_zcml(
             '<lawgiver:map_permissions',
             '    action_group="view"',
@@ -196,39 +196,39 @@ class TestActionGroupRegistry(BaseTest):
 
         # without specifying workflow
         self.assertEqual(
-            'view',
-            registry.get_action_group_for_permission(
+            ['view'],
+            registry.get_action_groups_for_permission(
                 'View'))
 
         self.assertEqual(
-            'edit',
-            registry.get_action_group_for_permission(
+            ['edit'],
+            registry.get_action_groups_for_permission(
                 'Modify portal content'))
 
         self.assertEqual(
-            None,
-            registry.get_action_group_for_permission(
+            [],
+            registry.get_action_groups_for_permission(
                 'Bar'))
 
         # with specifying a workflow
         self.assertEqual(
-            'view',
-            registry.get_action_group_for_permission(
+            ['view'],
+            registry.get_action_groups_for_permission(
                 'View', workflow_name='foo'))
 
         self.assertEqual(
-            'view',
-            registry.get_action_group_for_permission(
+            ['view'],
+            registry.get_action_groups_for_permission(
                 'Modify portal content', workflow_name='foo'))
 
         self.assertEqual(
-            'view',
-            registry.get_action_group_for_permission(
+            ['view'],
+            registry.get_action_groups_for_permission(
                 'Bar', workflow_name='foo'))
 
         self.assertEqual(
-            None,
-            registry.get_action_group_for_permission(
+            [],
+            registry.get_action_groups_for_permission(
                 'A unregistered permission'))
 
     def test_detect_possible_missing_comma(self):
@@ -309,18 +309,18 @@ class TestActionGroupRegistry(BaseTest):
             registry.get_action_groups_for_workflow('my_workflow'))
 
         self.assertEqual(
-            None,
-            registry.get_action_group_for_permission(
+            [],
+            registry.get_action_groups_for_permission(
                 'Access contents information'))
 
         self.assertEqual(
-            None,
-            registry.get_action_group_for_permission(
+            [],
+            registry.get_action_groups_for_permission(
                 'List folder contents', workflow_name='my_workflow'))
 
         self.assertEqual(
-            'view',
-            registry.get_action_group_for_permission(
+            ['view'],
+            registry.get_action_groups_for_permission(
                 'List folder contents'))
 
     def test_remap_ignored_permissions_for_a_workflow(self):
@@ -337,11 +337,11 @@ class TestActionGroupRegistry(BaseTest):
         registry = self.get_registry()
 
         self.assertEqual(
-            {'group': u'view',
+            {'group': [u'view'],
              'ignored': set([]),
              'view_permissions': set([u'Access contents information'])},
 
-            {'group': registry.get_action_group_for_permission(
+            {'group': registry.get_action_groups_for_permission(
                     'Access contents information', workflow_name='my_workflow'),
              'ignored': registry.get_ignored_permissions('my_workflow'),
              'view_permissions': (
@@ -353,11 +353,11 @@ class TestActionGroupRegistry(BaseTest):
             ' action group for this workflow, but it does not.')
 
         self.assertEqual(
-            {'group': None,
+            {'group': [],
              'ignored': set([u'Access contents information']),
              'view_permissions': None},
 
-            {'group': registry.get_action_group_for_permission(
+            {'group': registry.get_action_groups_for_permission(
                     'Access contents information', workflow_name='default'),
              'ignored': registry.get_ignored_permissions('default'),
              'view_permissions': (
@@ -365,3 +365,34 @@ class TestActionGroupRegistry(BaseTest):
 
             'Remapping a globally ignored permission to an action group for a'
             ' specific workflow should keep it ignored for other workflows')
+
+    def test_map_permission_to_multiple_action_groups(self):
+        self.load_map_permissions_zcml(
+            '<lawgiver:ignore',
+            '    permissions="Access contents information" />',
+
+            '<lawgiver:map_permissions',
+            '    action_group="add"',
+            '    permissions="Add portal content,'
+            '                 Add folder,'
+            '                 Add ticket" />',
+
+            '<lawgiver:map_permissions',
+            '    action_group="add ticket"',
+            '    permissions="Add ticket"'
+            '    workflow="custom"'
+            '    move="True" />',
+
+            '<lawgiver:map_permissions',
+            '    action_group="add ticket"',
+            '    permissions="Add portal content"'
+            '    workflow="custom"'
+            '    move="False" />',
+            )
+
+        registry = self.get_registry()
+        self.assertEquals(
+            {u'add': set([u'Add folder', u'Add portal content']),
+             u'add ticket': set([u'Add ticket', u'Add portal content'])},
+
+            registry.get_action_groups_for_workflow('custom'))

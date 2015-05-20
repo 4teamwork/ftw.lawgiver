@@ -129,3 +129,17 @@ class TestDefaultPermissionCollector(BaseTest):
 
         self.assertEquals(['View'],
                           self.collector.collect('bar'))
+
+    def test_get_grouped_permissions_IN_MULTIPLE_GROUPS(self):
+        self.register_permissions(**{
+                'cmf.AddPortalContent': 'Add portal content'})
+
+        self.map_permissions(['Add portal content'], 'add')
+        self.map_permissions(['Add portal content'], 'edit', move=False)
+
+        self.assertEquals({'add': ['Add portal content'],
+                           'edit': ['Add portal content']},
+                          self.collector.get_grouped_permissions('foo'))
+
+        self.assertEquals(['Add portal content'],
+                          self.collector.collect('foo'))

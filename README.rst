@@ -156,6 +156,40 @@ This can be easily achieved by also defining the workflow in the ZCML:
     </configure>
 
 
+Assigning permission to multiple action groups
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sometimes, a permission should be assigned to multiple action groups.
+This can be done with the ``move`` attribute of the ``map_permissions`` directive.
+Just make sure that all other ``map_permissions`` ZCMLs are loaded before doing that,
+especially the default ``lawgiver.zcml`` of ``ftw.lawgiver``.
+
+.. code:: xml
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
+        i18n_domain="my.package">
+
+        <include package="ftw.lawgiver" />
+
+        <lawgiver:map_permissions
+            action_group="add ticket"
+            permissions="my.package: Add Ticket"
+            workflow="my_workflow"
+            />
+
+        <lawgiver:map_permissions
+            action_group="add ticket"
+            permissions="Add portal content"
+            workflow="my_workflow"
+            move="False"
+            />
+
+    </configure>
+
+
+
 The workflow specification
 --------------------------
 

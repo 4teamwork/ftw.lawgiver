@@ -35,8 +35,8 @@ class IActionGroupRegistry(Interface):
         the value is a list of permissions (string).
         """
 
-    def get_action_group_for_permission(permission_title, workflow_name=None):
-        """Returns the name of the action group a permission is mapped to.
+    def get_action_groups_for_permission(permission_title, workflow_name=None):
+        """Returns the names of the action groups a permission is mapped to.
         Optional the `workflow_name` can be passed to make the query workflow
         specific.
         If the permission is not mapped, None is returned.

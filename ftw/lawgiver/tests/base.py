@@ -117,11 +117,12 @@ class BaseTest(MockTestCase, XMLDiffTestCase):
         site = FakeSite()
         setSite(site)
 
-    def map_permissions(self, permissions, action_group, workflow_name=None):
+    def map_permissions(self, permissions, action_group, workflow_name=None, move=True):
         self.load_map_permissions_zcml(
             '<lawgiver:map_permissions',
             '    action_group="%s"' % action_group,
             '    permissions="%s"' % ','.join(permissions),
+            '    move="%s"' % str(move),
             '    %s />' % (
                 workflow_name and 'workflow="%s"' % workflow_name or ''))
 
@@ -289,7 +290,7 @@ class WorkflowTest(XMLDiffTestCase):
                 # e.g. "Public, everyone can access"
                 continue
 
-            if registry.get_action_group_for_permission(
+            if registry.get_action_groups_for_permission(
                 permission, workflow_name=self.get_name()):
                 continue
 
