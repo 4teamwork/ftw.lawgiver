@@ -5,7 +5,9 @@ Changelog
 1.5.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add support for assigning permissions to multiple action groups.
+  This is done using the ``move="False"`` in ``map_permissions``.
+  [jone]
 
 
 1.5.0 (2014-12-08)
