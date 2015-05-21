@@ -34,6 +34,15 @@ class IMapPermissionsDirective(Interface):
         default=None,
         required=False)
 
+    move = Bool(
+        title=u'Move permissions from original to this action group',
+        description=u'When True (default), the permissions are removed'
+        u' from whether action groups they were mapped before.'
+        u' By setting it to False, permissions can appear in multiple'
+        u' action groups.',
+        default=True,
+        required=False)
+
 
 class IIgnorePermissionsDirective(Interface):
 

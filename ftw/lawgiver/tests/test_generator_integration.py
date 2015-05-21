@@ -52,6 +52,8 @@ class TestGeneratorIntegration(BaseTest):
         self.map_permissions(['Add portal content',
                               'ATContentTypes: Add Image'],
                              'add')
+        self.map_permissions(['Add portal content', 'ATContentTypes: Add Folder'],
+                             'add folder', move=False)
         self.map_permissions(['Access future portal content'], 'view future')
         self.map_permissions(['ATContentTypes: Add Image'], 'edit',
                              workflow_name='my_custom_workflow')

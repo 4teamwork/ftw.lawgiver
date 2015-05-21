@@ -66,6 +66,23 @@ class LawgiverLayer(PloneSandboxLayer):
             '</configure>',
             context=configurationContext)
 
+        # For making sure that having the same permission in multiple action groups
+        # does not break the workflow building, we just create a new action group
+        # with permissions already mapped to "add".
+        # When this breaks the "add" action group, we'd notice it in the example
+        # workflow test.
+        xmlconfig.string(
+            '<configure xmlns="http://namespaces.zope.org/zope"'
+            '           xmlns:lawgiver="http://namespaces.zope.org/lawgiver">'
+            '  <lawgiver:map_permissions'
+            '      action_group="add folders"'
+            '      permissions="Add portal content,'
+            '                   ATContentTypes: Add Folder"'
+            '      move="False"'
+            '      />'
+            '</configure>',
+            context=configurationContext)
+
         z2.installProduct(app, 'ftw.lawgiver')
 
     def setUpPloneSite(self, portal):

@@ -275,11 +275,11 @@ class WorkflowGenerator(object):
             return []
 
         agregistry = getUtility(IActionGroupRegistry)
-        action_group = agregistry.get_action_group_for_permission(
+        action_groups = agregistry.get_action_groups_for_permission(
             permission, self.workflow_id)
 
         customer_roles = (role for (role, group) in statements
-                          if group == action_group)
+                          if group in action_groups)
 
         plone_roles = (self.specification.role_mapping[cr]
                        for cr in customer_roles)
