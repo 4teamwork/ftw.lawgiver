@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.5.1 (unreleased)
+1.6.0 (2015-05-21)
 ------------------
 
 - Add support for assigning permissions to multiple action groups.
