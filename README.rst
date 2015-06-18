@@ -102,7 +102,7 @@ Here is an example ``lawgiver.zcml``:
         <include package="ftw.lawgiver" file="meta.zcml" />
 
         <lawgiver:map_permissions
-            action_group="add content"
+            action_group="add"
             permissions="my.package: Add Foo,
                          my.package: Add Bar"
             />
@@ -147,7 +147,7 @@ This can be easily achieved by also defining the workflow in the ZCML:
         <include package="ftw.lawgiver" file="meta.zcml" />
 
         <lawgiver:map_permissions
-            action_group="add content"
+            action_group="add"
             permissions="my.package: Add Foo,
                          my.package: Add Bar"
             workflow="my_workflow"
