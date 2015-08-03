@@ -174,10 +174,21 @@ especially the default ``lawgiver.zcml`` of ``ftw.lawgiver``.
         <include package="ftw.lawgiver" />
 
         <lawgiver:map_permissions
+            action_group="add"
+            permissions="Add portal content"
+            />
+
+        <lawgiver:map_permissions
             action_group="add ticket"
             permissions="my.package: Add Ticket"
             workflow="my_workflow"
             />
+            
+        <!-- We want to have "Add portal content" in the "add ticket" action group too,
+             but we should not remove it from "add".
+             By using move="False" we can add "Add portal content" to "add ticket" without
+             removing it from "add".
+             /-->
 
         <lawgiver:map_permissions
             action_group="add ticket"
