@@ -52,6 +52,7 @@ setup(name='ftw.lawgiver',
       install_requires=[
         'AccessControl',
         'Acquisition',
+        'Plone',
         'Products.CMFCore',
         'Products.CMFPlone',
         'Products.GenericSetup',
