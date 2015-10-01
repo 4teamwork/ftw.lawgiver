@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<dc-workflow workflow_id="example-4.3.4" title="My Custom Workflow" description="A three state publication workflow" initial_state="example-4.3.4--STATUS--private" state_variable="review_state" manager_bypass="True">
+<dc-workflow workflow_id="example-4.3" title="My Custom Workflow" description="A three state publication workflow" initial_state="example-4.3--STATUS--private" state_variable="review_state" manager_bypass="True">
   <permission>ATContentTypes: Add Document</permission>
   <permission>ATContentTypes: Add Event</permission>
   <permission>ATContentTypes: Add File</permission>
@@ -38,11 +38,13 @@
   <permission>Sharing page: Delegate roles</permission>
   <permission>Take ownership</permission>
   <permission>View</permission>
+  <permission>iterate : Check in content</permission>
+  <permission>iterate : Check out content</permission>
   <permission>plone.app.collection: Add Collection</permission>
-  <state state_id="example-4.3.4--STATUS--pending" title="Pending">
-    <exit-transition transition_id="example-4.3.4--TRANSITION--reject--pending_private"/>
-    <exit-transition transition_id="example-4.3.4--TRANSITION--retract--pending_private"/>
-    <exit-transition transition_id="example-4.3.4--TRANSITION--publish--pending_published"/>
+  <state state_id="example-4.3--STATUS--pending" title="Pending">
+    <exit-transition transition_id="example-4.3--TRANSITION--reject--pending_private"/>
+    <exit-transition transition_id="example-4.3--TRANSITION--retract--pending_private"/>
+    <exit-transition transition_id="example-4.3--TRANSITION--publish--pending_published"/>
     <permission-map name="ATContentTypes: Add Document" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -172,14 +174,22 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
+    <permission-map name="iterate : Check in content" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="iterate : Check out content" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="plone.app.collection: Add Collection" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
   </state>
-  <state state_id="example-4.3.4--STATUS--private" title="Private">
-    <exit-transition transition_id="example-4.3.4--TRANSITION--publish--private_published"/>
-    <exit-transition transition_id="example-4.3.4--TRANSITION--submit-for-publication--private_pending"/>
+  <state state_id="example-4.3--STATUS--private" title="Private">
+    <exit-transition transition_id="example-4.3--TRANSITION--publish--private_published"/>
+    <exit-transition transition_id="example-4.3--TRANSITION--submit-for-publication--private_pending"/>
     <permission-map name="ATContentTypes: Add Document" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -318,13 +328,23 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
+    <permission-map name="iterate : Check in content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="iterate : Check out content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="plone.app.collection: Add Collection" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
   </state>
-  <state state_id="example-4.3.4--STATUS--published" title="Published">
-    <exit-transition transition_id="example-4.3.4--TRANSITION--retract--published_private"/>
+  <state state_id="example-4.3--STATUS--published" title="Published">
+    <exit-transition transition_id="example-4.3--TRANSITION--retract--published_private"/>
     <permission-map name="ATContentTypes: Add Document" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -448,46 +468,52 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
+    <permission-map name="iterate : Check in content" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="iterate : Check out content" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="plone.app.collection: Add Collection" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
   </state>
-  <transition new_state="example-4.3.4--STATUS--published" title="publish" transition_id="example-4.3.4--TRANSITION--publish--private_published" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3.4--TRANSITION--publish--private_published">publish</action>
+  <transition new_state="example-4.3--STATUS--published" title="publish" transition_id="example-4.3--TRANSITION--publish--private_published" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3--TRANSITION--publish--private_published">publish</action>
     <guard>
       <guard-role>Site Administrator</guard-role>
       <guard-role>Reviewer</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-4.3.4--STATUS--published" title="publish" transition_id="example-4.3.4--TRANSITION--publish--pending_published" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3.4--TRANSITION--publish--pending_published">publish</action>
+  <transition new_state="example-4.3--STATUS--published" title="publish" transition_id="example-4.3--TRANSITION--publish--pending_published" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3--TRANSITION--publish--pending_published">publish</action>
     <guard>
       <guard-role>Site Administrator</guard-role>
       <guard-role>Reviewer</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-4.3.4--STATUS--private" title="reject" transition_id="example-4.3.4--TRANSITION--reject--pending_private" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3.4--TRANSITION--reject--pending_private">reject</action>
+  <transition new_state="example-4.3--STATUS--private" title="reject" transition_id="example-4.3--TRANSITION--reject--pending_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3--TRANSITION--reject--pending_private">reject</action>
     <guard>
       <guard-role>Reviewer</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-4.3.4--STATUS--private" title="retract" transition_id="example-4.3.4--TRANSITION--retract--pending_private" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3.4--TRANSITION--retract--pending_private">retract</action>
+  <transition new_state="example-4.3--STATUS--private" title="retract" transition_id="example-4.3--TRANSITION--retract--pending_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3--TRANSITION--retract--pending_private">retract</action>
     <guard>
       <guard-role>Editor</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-4.3.4--STATUS--private" title="retract" transition_id="example-4.3.4--TRANSITION--retract--published_private" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3.4--TRANSITION--retract--published_private">retract</action>
+  <transition new_state="example-4.3--STATUS--private" title="retract" transition_id="example-4.3--TRANSITION--retract--published_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3--TRANSITION--retract--published_private">retract</action>
     <guard>
       <guard-role>Reviewer</guard-role>
       <guard-role>Editor</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-4.3.4--STATUS--pending" title="submit for publication" transition_id="example-4.3.4--TRANSITION--submit-for-publication--private_pending" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3.4--TRANSITION--submit-for-publication--private_pending">submit for publication</action>
+  <transition new_state="example-4.3--STATUS--pending" title="submit for publication" transition_id="example-4.3--TRANSITION--submit-for-publication--private_pending" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3--TRANSITION--submit-for-publication--private_pending">submit for publication</action>
     <guard>
       <guard-role>Editor</guard-role>
     </guard>
