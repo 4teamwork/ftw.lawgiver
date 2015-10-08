@@ -38,6 +38,8 @@
   <permission>Sharing page: Delegate roles</permission>
   <permission>Take ownership</permission>
   <permission>View</permission>
+  <permission>iterate : Check in content</permission>
+  <permission>iterate : Check out content</permission>
   <permission>plone.app.collection: Add Collection</permission>
   <state state_id="example-4.3.4--STATUS--pending" title="Pending">
     <exit-transition transition_id="example-4.3.4--TRANSITION--reject--pending_private"/>
@@ -169,6 +171,14 @@
     </permission-map>
     <permission-map name="View" acquired="False">
       <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map acquired="False" name="iterate : Check in content">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map acquired="False" name="iterate : Check out content">
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
@@ -318,6 +328,16 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
+    <permission-map acquired="False" name="iterate : Check in content">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map acquired="False" name="iterate : Check out content">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
     <permission-map name="plone.app.collection: Add Collection" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -446,6 +466,12 @@
       <permission-role>Anonymous</permission-role>
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map acquired="False" name="iterate : Check in content">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map acquired="False" name="iterate : Check out content">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="plone.app.collection: Add Collection" acquired="False">
