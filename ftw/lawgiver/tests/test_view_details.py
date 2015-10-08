@@ -138,13 +138,13 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
 
         self.assertMultiLineEqual(
             '\n'.join((
+                    'msgid "Published"',
+                    'msgstr ""',
+                    '',
                     'msgid "wf-bar--ROLE--Editor"',
                     'msgstr ""',
                     '',
                     'msgid "wf-bar--ROLE--Manager"',
-                    'msgstr ""',
-                    '',
-                    'msgid "wf-bar--STATUS--published"',
                     'msgstr ""',
                     )),
             data,
@@ -157,14 +157,14 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
 
         self.assertMultiLineEqual(
             '\n'.join((
+                    'msgid "Published"',
+                    'msgstr "Published"',
+                    '',
                     'msgid "wf-bar--ROLE--Editor"',
                     'msgstr "editor"',
                     '',
                     'msgid "wf-bar--ROLE--Manager"',
                     'msgstr "System Administrator"',
-                    '',
-                    'msgid "wf-bar--STATUS--published"',
-                    'msgstr "Published"',
                     )),
             data,
             'The default translation content is wrong.')

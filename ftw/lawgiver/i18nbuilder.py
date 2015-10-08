@@ -1,7 +1,10 @@
 from ftw.lawgiver.interfaces import IWorkflowGenerator
+from ftw.lawgiver.utils import find_egginfo
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from i18ndude.catalog import MessageCatalog
 from i18ndude.catalog import POWriter
+from operator import attrgetter
+from path import Path
 from zope.component import getUtility
 import os.path
 
@@ -83,6 +86,16 @@ class I18nBuilder(object):
 
         self._update_message_catalog(po_path)
 
+    @property
+    def relative_specification_path(self):
+        if getattr(self, '_relative_specification_path', None):
+            return self._relative_specification_path
+
+        path = Path(self.specification_path)
+        project_root = find_egginfo(path.parent).parent
+        self._relative_specification_path = path.relpath(project_root)
+        return self._relative_specification_path
+
     def _update_message_catalog(self, catalog_path, is_pot=False):
         if not os.path.exists(os.path.dirname(catalog_path)):
             os.makedirs(os.path.dirname(catalog_path))
@@ -95,9 +108,32 @@ class I18nBuilder(object):
             self.workflow_id, self.specification)
 
         catalog = MessageCatalog(filename=catalog_path)
-        delete_candidates = filter(
-            lambda msgid: msgid.startswith('{0}--'.format(self.workflow_id)),
-            catalog.keys())
+
+        def is_delete_candidate(msg):
+            # Lawgiver used to translate the states and transitions
+            # by state- / transition-id instead of by label,
+            # but Plone uses the label.
+            # We therefore remove all old entries.
+            if msg.msgid.startswith('{0}--STATUS--'.format(self.workflow_id)):
+                return True
+
+            if msg.msgid.startswith('{0}--TRANSITION--'.format(
+                    self.workflow_id)):
+                return True
+
+            # When our spec-path is in the references of the message,
+            # we treat the message as delete candiate.
+            if self.relative_specification_path in msg.references:
+                # Remove the reference. It will be added again if we
+                # still need the message.
+                msg.references.remove(self.relative_specification_path)
+                return True
+
+            return False
+
+        delete_candidates = map(attrgetter('msgid'),
+                                filter(is_delete_candidate,
+                                       catalog.values()))
 
         for msgid, msgstr in translations.items():
             msgid = msgid.decode('utf-8').replace('"', '\\"')
@@ -107,15 +143,28 @@ class I18nBuilder(object):
                 delete_candidates.remove(msgid)
 
             if msgid in catalog:
-                catalog[msgid].msgstr = msgstr
+                msg = catalog[msgid]
+                msg.msgstr = msgstr
+                if self.relative_specification_path not in msg.references:
+                    msg.references.append(self.relative_specification_path)
+
+                msg.automatic_comments = filter(
+                    lambda text: not text.startswith('Default: '),
+                    msg.automatic_comments)
+                msg.automatic_comments.append('Default: "{0}"'.format(msgstr))
+
             else:
-                catalog.add(msgid, msgstr=msgstr)
+                catalog.add(msgid, msgstr=msgstr,
+                            references=[self.relative_specification_path],
+                            automatic_comments=[
+                                'Default: "{0}"'.format(msgstr)])
 
             if is_pot:
                 catalog[msgid].msgstr = u''
 
         for msgid in delete_candidates:
-            del catalog[msgid]
+            if not catalog[msgid].references:
+                del catalog[msgid]
 
         with open(catalog_path, 'w+') as catalog_file:
             writer = POWriter(catalog_file, catalog)

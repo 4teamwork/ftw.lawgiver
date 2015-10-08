@@ -7,5 +7,11 @@ Role mapping:
 Editor role description:
   An "Editor" writes articles.
 
+Transitions:
+  publish (Private => Published)
+
 Status Private:
+  An editor can view this content.
+
+Status Published:
   An editor can view this content.
