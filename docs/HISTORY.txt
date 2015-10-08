@@ -5,7 +5,9 @@ Changelog
 1.6.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix translation issues by translationg label instead of ids of
+  states and transitions.
+  [jone]
 
 
 1.6.0 (2015-05-21)

@@ -3,6 +3,7 @@ from Acquisition import aq_parent
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.lawgiver.wdl.parser import LowerCaseString
+from path import Path
 from plone.app.workflow.interfaces import ISharingPageRole
 from Products.CMFCore.interfaces import IContentish
 from Products.CMFCore.utils import getToolByName
@@ -183,3 +184,20 @@ def in_development(path):
     """Returns True when the path is in development (source checkout).
     """
     return not ('egg' in path or 'site-packages' in path)
+
+
+def find_egginfo(path):
+    path = Path(path)
+    if not path or path == '/':
+        raise ValueError('WARNING: no *.egg-info directory could be found.')
+        return None
+
+    egginfos = path.dirs('*.egg-info')
+    if len(egginfos) == 0:
+        return find_egginfo(path.dirname())
+
+    if len(egginfos) > 1:
+        raise ValueError('WARNING: more than one *.egg-info  directory found.')
+        return None
+
+    return egginfos[0]

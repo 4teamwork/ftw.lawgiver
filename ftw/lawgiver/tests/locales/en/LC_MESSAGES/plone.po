@@ -11,6 +11,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
+#. Default: "Published"
+#: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
+msgid "Published"
+msgstr "Published"
+
 msgid "local-roles--ROLE--Editor"
 msgstr ""
 
@@ -77,11 +82,12 @@ msgstr "editor-in-chief"
 msgid "submit for publication"
 msgstr "submit for publication"
 
+#. Default: "editor"
+#: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
 msgid "wf-bar--ROLE--Editor"
 msgstr "editor"
 
+#. Default: "System Administrator"
+#: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
 msgid "wf-bar--ROLE--Manager"
 msgstr "System Administrator"
-
-msgid "wf-bar--STATUS--published"
-msgstr "Published"

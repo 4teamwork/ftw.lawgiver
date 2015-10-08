@@ -371,10 +371,10 @@ class TestGenerator(BaseTest):
 
         self.maxDiff = None
         self.assertEquals(
-            {'wf--STATUS--private': 'Private',
-             'wf--STATUS--published': 'Published',
-             'wf--TRANSITION--publish--private_published': 'publish',
-             'wf--TRANSITION--retract--published_private': 'retract',
+            {'Private': 'Private',
+             'Published': 'Published',
+             'publish': 'publish',
+             'retract': 'retract',
              'wf--ROLE--Editor': 'employee',
              'wf--ROLE--Reviewer': 'boss',
              'wf--ROLE-DESCRIPTION--Editor': 'A regular company employee.',
