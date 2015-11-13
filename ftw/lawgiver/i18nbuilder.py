@@ -151,13 +151,13 @@ class I18nBuilder(object):
                 msg.automatic_comments = filter(
                     lambda text: not text.startswith('Default: '),
                     msg.automatic_comments)
-                msg.automatic_comments.append('Default: "{0}"'.format(msgstr))
+                msg.automatic_comments.append(u'Default: "{0}"'.format(msgstr))
 
             else:
                 catalog.add(msgid, msgstr=msgstr,
                             references=[self.relative_specification_path],
                             automatic_comments=[
-                                'Default: "{0}"'.format(msgstr)])
+                                u'Default: "{0}"'.format(msgstr)])
 
             if is_pot:
                 catalog[msgid].msgstr = u''
