@@ -8,7 +8,7 @@ Editor role description:
   An "Editor" writes articles.
 
 Transitions:
-  publish (Private => Published)
+  püblish (Private => Published)
 
 Status Private:
   An editor can view this content.

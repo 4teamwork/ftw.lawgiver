@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ftw.lawgiver.i18nbuilder import I18nBuilder
 from ftw.lawgiver.testing import LAWGIVER_INTEGRATION_TESTING
 from ftw.lawgiver.tests.helpers import cleanup_path
@@ -27,10 +28,10 @@ msgstr "Private"
 msgid "Published"
 msgstr "Published"
 
-#. Default: "publish"
+#. Default: "püblish"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
-msgid "publish"
-msgstr "publish"
+msgid "püblish"
+msgstr "püblish"
 
 #. Default: "editor"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
