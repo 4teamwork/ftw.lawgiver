@@ -5,7 +5,9 @@ Changelog
 1.6.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- No longer ignore the permissions to add collection portlet and static
+  portlet but rather map them to the existing "manage portlets" action group.
+  [mbaechtold]
 
 
 1.6.2 (2015-11-16)

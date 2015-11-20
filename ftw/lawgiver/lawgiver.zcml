@@ -54,6 +54,8 @@
         action_group="manage portlets"
         permissions="
                      Portlets: Manage portlets,
+                     plone.portlet.collection: Add collection portlet,
+                     plone.portlet.static: Add static portlet,
                      "
         />
 
@@ -276,8 +278,6 @@
                      WebDAV access,
                      plone.app.blob: Add Blob,
                      plone.cachepurging: Manually purge objects,
-                     plone.portlet.collection: Add collection portlet,
-                     plone.portlet.static: Add static portlet,
                      plone.resource: Export ZIP file,
                      plone.resourceeditor: Manage Sources,
 
