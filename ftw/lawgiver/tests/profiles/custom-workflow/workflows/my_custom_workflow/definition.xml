@@ -9,8 +9,6 @@
   <permission>ATContentTypes: Add Link</permission>
   <permission>ATContentTypes: Add News Item</permission>
   <permission>Access contents information</permission>
-  <permission>Access future portal content</permission>
-  <permission>Access inactive portal content</permission>
   <permission>Add Folders</permission>
   <permission>Add portal content</permission>
   <permission>Add portal events</permission>
@@ -82,8 +80,6 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="Access future portal content" acquired="False"/>
-    <permission-map name="Access inactive portal content" acquired="False"/>
     <permission-map name="Add Folders" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -245,8 +241,6 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="Access future portal content" acquired="False"/>
-    <permission-map name="Access inactive portal content" acquired="False"/>
     <permission-map name="Add Folders" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -418,8 +412,6 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="Access future portal content" acquired="False"/>
-    <permission-map name="Access inactive portal content" acquired="False"/>
     <permission-map name="Add Folders" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
