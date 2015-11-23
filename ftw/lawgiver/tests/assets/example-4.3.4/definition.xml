@@ -41,6 +41,8 @@
   <permission>iterate : Check in content</permission>
   <permission>iterate : Check out content</permission>
   <permission>plone.app.collection: Add Collection</permission>
+  <permission>plone.portlet.collection: Add collection portlet</permission>
+  <permission>plone.portlet.static: Add static portlet</permission>
   <state state_id="example-4.3.4--STATUS--pending" title="Pending">
     <exit-transition transition_id="example-4.3.4--TRANSITION--reject--pending_private"/>
     <exit-transition transition_id="example-4.3.4--TRANSITION--retract--pending_private"/>
@@ -186,6 +188,8 @@
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
+    <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
+    <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
   <state state_id="example-4.3.4--STATUS--private" title="Private">
     <exit-transition transition_id="example-4.3.4--TRANSITION--publish--private_published"/>
@@ -342,6 +346,8 @@
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
+    <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
+    <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
   <state state_id="example-4.3.4--STATUS--published" title="Published">
     <exit-transition transition_id="example-4.3.4--TRANSITION--retract--published_private"/>
@@ -478,6 +484,8 @@
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
+    <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
+    <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
   <transition new_state="example-4.3.4--STATUS--published" title="publish" transition_id="example-4.3.4--TRANSITION--publish--private_published" after_script="" before_script="" trigger="USER">
     <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-4.3.4--TRANSITION--publish--private_published">publish</action>
