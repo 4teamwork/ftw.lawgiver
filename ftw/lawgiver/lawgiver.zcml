@@ -20,15 +20,6 @@
 
 
     <lawgiver:map_permissions
-        action_group="view inactive objects"
-        permissions="
-                     Access future portal content,
-                     Access inactive portal content,
-                     "
-        />
-
-
-    <lawgiver:map_permissions
         action_group="edit"
         permissions="
                      CMFEditions: Access previous versions,
@@ -119,7 +110,6 @@
 
     <lawgiver:ignore
         permissions="
-
                      ATContentTypes Topic: Add ATBooleanCriterion,
                      ATContentTypes Topic: Add ATCurrentAuthorCriterion,
                      ATContentTypes Topic: Add ATDateCriteria,
@@ -137,6 +127,8 @@
                      ATContentTypes: View history,
                      Access Transient Objects,
                      Access arbitrary user session data,
+                     Access future portal content,
+                     Access inactive portal content,
                      Access session data,
                      Add ATContentTypes tools,
                      Add Archetypes Tools,

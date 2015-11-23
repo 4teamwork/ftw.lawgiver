@@ -5,6 +5,10 @@ Changelog
 1.6.3 (unreleased)
 ------------------
 
+- Ignore the permissions to access inactive and future content because the
+  portal catalog checks the Plone root for these permissions, not the context.
+  [mbaechtold]
+
 - No longer ignore the permissions to add collection portlet and static
   portlet but rather map them to the existing "manage portlets" action group.
   [mbaechtold]
