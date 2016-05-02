@@ -5,6 +5,9 @@ Changelog
 1.6.3 (unreleased)
 ------------------
 
+- Add manage translations permissions for plone.app.locales support.
+  [raphael-s]
+
 - Ignore the permissions to access inactive and future content because the
   portal catalog checks the Plone root for these permissions, not the context.
   [mbaechtold]

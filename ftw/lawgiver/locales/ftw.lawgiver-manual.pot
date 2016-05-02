@@ -45,3 +45,7 @@ msgstr ""
 #: ./ftw/lawgiver/lawgiver.zcml
 msgid "manage content settings"
 msgstr ""
+
+#: ./ftw/lawgiver/lawgiver.zcml
+msgid "manage translations"
+msgstr ""

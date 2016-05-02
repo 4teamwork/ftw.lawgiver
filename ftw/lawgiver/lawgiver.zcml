@@ -107,6 +107,11 @@
                      "
         />
 
+    <lawgiver:map_permissions
+        action_group="manage translations"
+        permissions="plone.app.multilingual: Manage Translations"
+        />
+
 
     <lawgiver:ignore
         permissions="
