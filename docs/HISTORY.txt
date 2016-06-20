@@ -5,7 +5,10 @@ Changelog
 1.7.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add plone.app.contenttypes permissions to lawgiver.zcml.
+  Since plone.app.contenttypes is standard Plone we add the
+  plone.app.contenttypes mapping to the lawgiver.zcml.
+  [elioschmutz]
 
 
 1.7.0 (2016-05-02)
