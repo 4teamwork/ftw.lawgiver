@@ -54,7 +54,6 @@
     <lawgiver:map_permissions
         action_group="add"
         permissions="
-
                      ATContentTypes: Add Document,
                      ATContentTypes: Add Event,
                      ATContentTypes: Add File,
@@ -71,7 +70,14 @@
                      Delete objects,
                      PloneFormGen: Add Content,
                      plone.app.collection: Add Collection,
-
+                     plone.app.contenttypes: Add Collection,
+                     plone.app.contenttypes: Add Document,
+                     plone.app.contenttypes: Add Event,
+                     plone.app.contenttypes: Add File,
+                     plone.app.contenttypes: Add Folder,
+                     plone.app.contenttypes: Add Image,
+                     plone.app.contenttypes: Add Link,
+                     plone.app.contenttypes: Add News Item
                      "
         />
 
