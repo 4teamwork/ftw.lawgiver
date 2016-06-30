@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.7.1 (unreleased)
+1.8.0 (2016-06-30)
 ------------------
 
 - Add plone.app.contenttypes permissions to lawgiver.zcml.
