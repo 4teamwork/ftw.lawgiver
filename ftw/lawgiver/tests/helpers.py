@@ -1,4 +1,22 @@
+from path import Path
+from Products.CMFPlone.utils import getFSVersionTuple
 import os
+
+
+ASSETS = Path(__file__).joinpath('..', 'assets').abspath()
+PLONE_VERSION = getFSVersionTuple()
+
+
+if PLONE_VERSION >= (4, 3, 5):
+    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.5')
+elif PLONE_VERSION > (4, 3):
+    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.4')
+else:
+    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.2')
+
+
+EXAMPLE_WF_SPEC = EXAMPLE_WORKFLOW_DIR.joinpath('specification.txt')
+EXAMPLE_WF_DEF = EXAMPLE_WORKFLOW_DIR.joinpath('definition.xml')
 
 
 def filestructure_snapshot(path):

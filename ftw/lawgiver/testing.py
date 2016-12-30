@@ -2,13 +2,15 @@ from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
 from ftw.builder.testing import set_builder_session_factory
 from ftw.testing import ComponentRegistryLayer
-from plone.app.testing import IntegrationTesting
+from ftw.testing.layer import TEMP_DIRECTORY
+from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
+from plone.app.testing import IntegrationTesting
 from plone.app.testing import PLONE_FIXTURE
 from plone.app.testing import PloneSandboxLayer
-from plone.app.testing import applyProfile
 from plone.testing import z2
 from zope.configuration import xmlconfig
+import ftw.lawgiver.tests.builders
 
 
 class MetaZCMLLayer(ComponentRegistryLayer):
@@ -37,7 +39,7 @@ ZCML_FIXTURE = ZCMLLayer()
 
 class LawgiverLayer(PloneSandboxLayer):
 
-    defaultBases = (PLONE_FIXTURE, BUILDER_LAYER)
+    defaultBases = (PLONE_FIXTURE, BUILDER_LAYER, TEMP_DIRECTORY)
 
     def setUpZope(self, app, configurationContext):
         # The first definition of an action group defines the the
