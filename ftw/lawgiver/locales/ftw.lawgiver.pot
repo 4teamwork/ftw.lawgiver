@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-05-02 08:57+0000\n"
+"POT-Creation-Date: 2017-01-01 11:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,6 +137,11 @@ msgstr ""
 msgid "button_update_security"
 msgstr ""
 
+#. Default: "Update all specifications with upgradestep"
+#: ./ftw/lawgiver/browser/templates/speclisting.pt:61
+msgid "button_update_specs_with_upgradestep"
+msgstr ""
+
 #. Default: "Write and Import Workflow"
 #: ./ftw/lawgiver/browser/templates/details.pt:103
 msgid "button_write_and_import"
@@ -171,6 +176,11 @@ msgstr ""
 msgid "description_update_security"
 msgstr ""
 
+#. Default: "Update specifications and create an upgrade step with ftw.upgrade."
+#: ./ftw/lawgiver/browser/templates/speclisting.pt:66
+msgid "description_update_specs_with_upgradestep"
+msgstr ""
+
 #. Default: "When the \"${button_title}\" button is clicked the workflow is generated and written to the <i title=\"${DYNAMIC_CONTENT}\">definition.xml</i> and then the workflow is imported using Generic Setup."
 #: ./ftw/lawgiver/browser/templates/details.pt:121
 msgid "description_write_and_import"
@@ -187,12 +197,12 @@ msgstr ""
 
 #. Default: "${id}: The specification file could not be parsed: ${error}"
 #: ./ftw/lawgiver/browser/details.py:187
-#: ./ftw/lawgiver/updater.py:133
+#: ./ftw/lawgiver/updater.py:197
 msgid "error_parsing_error"
 msgstr ""
 
 #. Default: "${id}: Error while generating the workflow: ${msg}"
-#: ./ftw/lawgiver/updater.py:81
+#: ./ftw/lawgiver/updater.py:145
 msgid "error_while_generating_workflow"
 msgstr ""
 
@@ -201,7 +211,7 @@ msgid "ftw.lawgiver"
 msgstr ""
 
 #. Default: "${id}: The translations were updated in your locales directory. You should now run bin/i18n-build"
-#: ./ftw/lawgiver/updater.py:112
+#: ./ftw/lawgiver/updater.py:176
 msgid "info_locales_updated"
 msgstr ""
 
@@ -211,7 +221,7 @@ msgid "info_security_updated"
 msgstr ""
 
 #. Default: "${id}: The workflow was generated to ${path}."
-#: ./ftw/lawgiver/updater.py:94
+#: ./ftw/lawgiver/updater.py:158
 msgid "info_workflow_generated"
 msgstr ""
 
@@ -260,7 +270,7 @@ msgid "view inactive objects"
 msgstr ""
 
 #. Default: "${id}: Skipping released specification."
-#: ./ftw/lawgiver/updater.py:51
+#: ./ftw/lawgiver/updater.py:69
 msgid "warning_skipped_released_spec"
 msgstr ""
 

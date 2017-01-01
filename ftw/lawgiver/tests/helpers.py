@@ -1,6 +1,8 @@
 from path import Path
 from Products.CMFPlone.utils import getFSVersionTuple
 import os
+import shlex
+import subprocess
 
 
 ASSETS = Path(__file__).joinpath('..', 'assets').abspath()
@@ -37,3 +39,15 @@ def cleanup_path(path, snapshot_before):
             os.unlink(path)
         if os.path.isdir(path):
             os.removedirs(path)
+
+
+def run_command(cmd, cwd=None):
+    proc = subprocess.Popen(shlex.split(cmd),
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            cwd=cwd)
+
+    stdout, stderr = proc.communicate()
+    if proc.poll():
+        raise Exception('Error while running "{0}":\n{1}'.format(
+            cmd, stdout + stderr))

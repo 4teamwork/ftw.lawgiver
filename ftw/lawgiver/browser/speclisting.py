@@ -16,6 +16,11 @@ class ListSpecifications(BrowserView):
             updater.update_all_specifications(
                 output_formatter=StatusMessageFormatter(self.request))
 
+        if 'update_all_specifications_with_upgradestep' in self.request.form:
+            updater = getUtility(IUpdater)
+            updater.update_all_specifications_with_upgrade_step(
+                output_formatter=StatusMessageFormatter(self.request))
+
         return super(ListSpecifications, self).__call__()
 
     def specifications(self):
