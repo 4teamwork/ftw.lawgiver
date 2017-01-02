@@ -98,4 +98,3 @@ msgstr "editor"
 #: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
 msgid "wf-bar--ROLE--Manager"
 msgstr "System Administrator"
-
