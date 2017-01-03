@@ -58,6 +58,15 @@
               are skipped.
             </p>
 
+            <input type="submit"
+                   i18n:attributes="value button_update_specs_with_upgradestep"
+                   name="update_all_specifications_with_upgradestep"
+                   value="Update all specifications with upgradestep" />
+
+            <p class="discreet" i18n:translate="description_update_specs_with_upgradestep">
+                Update specifications and create an upgrade step with ftw.upgrade.
+            </p>
+
           </form>
         </fieldset>
 

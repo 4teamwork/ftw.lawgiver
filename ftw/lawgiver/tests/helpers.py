@@ -1,4 +1,24 @@
+from path import Path
+from Products.CMFPlone.utils import getFSVersionTuple
 import os
+import shlex
+import subprocess
+
+
+ASSETS = Path(__file__).joinpath('..', 'assets').abspath()
+PLONE_VERSION = getFSVersionTuple()
+
+
+if PLONE_VERSION >= (4, 3, 5):
+    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.5')
+elif PLONE_VERSION > (4, 3):
+    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.4')
+else:
+    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.2')
+
+
+EXAMPLE_WF_SPEC = EXAMPLE_WORKFLOW_DIR.joinpath('specification.txt')
+EXAMPLE_WF_DEF = EXAMPLE_WORKFLOW_DIR.joinpath('definition.xml')
 
 
 def filestructure_snapshot(path):
@@ -19,3 +39,15 @@ def cleanup_path(path, snapshot_before):
             os.unlink(path)
         if os.path.isdir(path):
             os.removedirs(path)
+
+
+def run_command(cmd, cwd=None):
+    proc = subprocess.Popen(shlex.split(cmd),
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            cwd=cwd)
+
+    stdout, stderr = proc.communicate()
+    if proc.poll():
+        raise Exception('Error while running "{0}":\n{1}'.format(
+            cmd, stdout + stderr))
