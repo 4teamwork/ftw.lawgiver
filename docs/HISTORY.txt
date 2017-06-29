@@ -5,7 +5,7 @@ Changelog
 1.9.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix typos in German translation [raphael-s]
 
 
 1.9.0 (2017-01-03)
