@@ -21,7 +21,7 @@ which led to the resulting configuration of permissions and roles. The extension
 or adaption of an existing workflow becomes very difficult, leading to workflows
 which are barely maintainable.
 
-Another problem poses the communication between workflow integrator and
+Another problem is the communication between workflow integrator and
 customer. The security system of Zope is based on a role-based access control
 (RBAC) which is intrinsically complex due to its use of roles, permissions, and
 workflow states. Experience has shown that these security concepts can be hard
@@ -40,8 +40,8 @@ job of the lawgiver.
 
 Using the specification file the workflow can easily be regenerated at any time
 and will handle additional permissions automatically when regenerated. However,
-it is still the task of the developer to regenerate the ``definition.xml`` when
-more or other permissions have to be managed. He or she have to make sure that
+it is still the developer's task to regenerate the ``definition.xml`` whenever
+more or other permissions have to be managed. He or she has to make sure that
 the workflow is properly installed with an upgrade step / reindexing security.
 
 
@@ -64,9 +64,6 @@ Compatibility
 
 Plone 4.3
 
-.. image:: https://jenkins.4teamwork.ch/job/ftw.lawgiver-master-test-plone-4.3.x.cfg/badge/icon
-   :target: https://jenkins.4teamwork.ch/job/ftw.lawgiver-master-test-plone-4.3.x.cfg
-
 
 Action groups
 -------------
@@ -76,7 +73,7 @@ describing what a role is allowed to do. It basically groups together a bunch of
 semantically similar Plone / Zope permissions so that we only have to define the
 workflow based on these action groups and not on individual permissions.
 
-For example there is an ``Access`` action group which contains permissions such
+For example there is a ``view`` action group which contains permissions such
 as ``View`` and ``Access Contents Information``.
 
 
@@ -113,7 +110,7 @@ If you define multiple permissions in the same `map_permissions` directive
 make sure to separate them by comma.
 
 By putting the ZCML in a separate ``lawgiver.zcml`` file you can define
-lawgiver in your addon package without having to define a dependency to
+lawgiver in your addon package without having to define a dependency on
 ``ftw.lawgiver`` by using ``zcml:condition`` while loading it in your default
 ``configure.zcml``:
 
@@ -183,7 +180,7 @@ especially the default ``lawgiver.zcml`` of ``ftw.lawgiver``.
             permissions="my.package: Add Ticket"
             workflow="my_workflow"
             />
-            
+
         <!-- We want to have "Add portal content" in the "add ticket" action group too,
              but we should not remove it from "add".
              By using move="False" we can add "Add portal content" to "add ticket" without
@@ -200,7 +197,6 @@ especially the default ``lawgiver.zcml`` of ``ftw.lawgiver``.
     </configure>
 
 
-
 The workflow specification
 --------------------------
 
@@ -211,7 +207,6 @@ the same directory where the ``definition.xml`` is saved.
 
 - `specification.txt (English) <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/assets/languages/specification.txt>`_
 - `specification.de.txt (German) <https://github.com/4teamwork/ftw.lawgiver/blob/master/ftw/lawgiver/tests/assets/languages/specification.de.txt>`_
-
 
 
 States and transitions
@@ -273,8 +268,8 @@ role.
 General statements
 ~~~~~~~~~~~~~~~~~~
 
-Usually there are some general statements, for example that a user with
-adminstrator role can always edit the contents on any workflow state.  Such
+Usually there are some general statements, for example that a user with the
+Adminstrator role can always edit the contents in any workflow state.  Such
 statements should not be repeated for every state but defined once as a general
 statement.
 
@@ -293,9 +288,9 @@ These general statements apply for all states.
 Describing states
 ~~~~~~~~~~~~~~~~~
 
-For each state we describe the actions a user with a certain role can do.  We
-have the principle that any user / role is NOT allowed do anything by default,
-we have to explicitly list every action he will be allowed to perform.
+For each state we describe the actions a user with a certain role can perform.
+We follow the principle that any user / role is NOT allowed do anything by
+default, we have to explicitly list every action he will be allowed to perform.
 
 .. code:: rst
 
@@ -404,17 +399,16 @@ Changing Transition URLs
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Sometimes the transition URLs need to point to another view.  This can be
-achieved by using the `transition-url` option, where a string can be passed
-which will then be substituted with the `transition` id.  Be sure to use a
-double `%%` for parts which should not be replaced when generating the workflow,
-such as the `%%(content_url)s`.
+achieved by using the ``transition-url`` option, where a string can be passed
+which will then be substituted with the ``transition`` id.  Be sure to use a
+double ``%%`` for parts which should not be replaced when generating the workflow,
+such as the ``%%(content_url)s``.
 
 Example:
 
 .. code:: rst
 
     transition-url = %%(content_url)s/custom_wf_action?workflow_action=%(transition)s
-
 
 
 Languages
@@ -451,8 +445,6 @@ Creating a new language is as simple:
 - Send us a pull request!
 
 
-
-
 Generating the workflow
 -----------------------
 
@@ -460,7 +452,7 @@ For generating the workflow go to the lawgiver control panel (in the Plone
 control panel). There you can see a list of all workflows and by selecting one
 you can see the specification and other details, such as the action groups.
 
-On this view you can generate the workflow (automatically saved in the
+On this view you can generate the workflow (automatically saved to the
 ``definition.xml`` in the same directory as the ``specification.txt``) and you
 can install the workflow / update the security.
 
@@ -472,9 +464,9 @@ Updating translations
 
 The button ``Update translations in locales directory`` in the workflow
 details view helps you keep your translations up to date.
-It writes directly into the locales directory on your machine.
+It writes directly to the locales directory on your machine.
 
-When updating the translations, theese files are written:
+When updating the translations, these files are written:
 
 - ``your/package/locales/plone.pot``
 - ``your/package/locales/en/LC_MESSAGES/plone.po``
@@ -483,12 +475,11 @@ When updating the messages in your locales file, all no longer valid messages
 which start with the workflow ID prefix are removed automatically.
 
 
-
 Testing the workflow
 --------------------
 
 It is important to detect when you have to rebuild your workflow.
-It is also important to dected permissions from third party addons which
+It is also important to detect permissions from third party addons which
 are not yet mapped to action groups.
 
 By subclassing the `WorkflowTest` it is easy to write a test for your
@@ -511,7 +502,7 @@ workflow:
 
 What is tested?
 
-- The test will fail when your workflow (`definition.xml`) needs to be
+- The test will fail when your workflow (``definition.xml``) needs to be
   regenerated. This may be because new permissions should be managed.
 
 - The test will fail when you install new addons which provide new
@@ -526,7 +517,6 @@ What is tested?
         i18n_domain="ftw.lawgiver">
 
         <include package="ftw.lawgiver" file="meta.zcml" />
-
 
         <lawgiver:ignore
             workflow="my_workflow"
@@ -548,10 +538,10 @@ Roles in sharing view
 
 By default the ``@@sharing`` view lists some default Plone roles:
 
-- Can add (`Contributor`)
-- Can edit (`Editor`)
-- Can review (`Reviewer`)
-- Can view (`Reader`)
+- Can add (``Contributor``)
+- Can edit (``Editor``)
+- Can review (``Reviewer``)
+- Can view (``Reader``)
 
 Often the workflow does not use all of those roles, or uses different ones.
 Lawgiver allows you to configure which roles are showing up in at the ``sharing``
@@ -576,8 +566,8 @@ can do this right in your workflow specification:
       editor-in-chief
 
 The lawgiver then sets the permissions required for managing a role correctly.
-This works for registered roles. Plone only registers `Contributor`, `Editor`,
-`Reviewer` and `Reader` by default.
+This works for registered roles. Plone only registers ``Contributor``, ``Editor``,
+``Reviewer`` and ``Reader`` by default.
 See the `Registering additional roles`_ section.
 
 
@@ -591,10 +581,10 @@ This is done through the Plone standard role utilites, allowing addon
 tools to also use the corrent role translation without the need of
 customization.
 
-The lawgiver provides example translations (`plone.pot` / `plone.po`) in
+The lawgiver provides example translations (``plone.pot`` / ``plone.po``) in
 the lawgiver control panel, which can easily be copied to your local plone
-translations (`locales`). Theese translations also include role translations
-and can be modified when in need.
+translations (``locales``). These translations also include role translations
+and can be modified to your needs.
 
 The lawgiver automatically looks up the right translation of the roles, depending
 on your workflow.
@@ -604,7 +594,7 @@ Registering additional roles
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 You can easily register custom roles or Plone default roles which are not visible
-by default (such as `Site Manager`).
+by default (such as ``Site Manager``).
 
 Use the lawgiver directive for registering new roles:
 
@@ -621,9 +611,9 @@ Use the lawgiver directive for registering new roles:
 
     </configure>
 
-The `lawgiver:role` directive does all the required things for you, such as
+The ``lawgiver:role`` directive does all the required things for you, such as
 registering the permission in zope, mapping the permission to the default
-lawgiver `manage security` action group and registering the required utility
+lawgiver ``manage security`` action group and registering the required utility
 and adapter.
 
 Optional arguments:
@@ -673,7 +663,6 @@ This text is included as translation proposal for the ``plone`` domain, which
 makes it easy to translate it to other languages for multilingual sites.
 
 
-
 Specialities
 ------------
 
@@ -688,10 +677,9 @@ to install `collective.deletepermission`_!
 situations by adding a new delete permission. See its readme for further
 details.
 
-For beeing able to delete a content, the user should have the "delete" action
-group (`Delete portal content`) on the content but also "add" (`Delete objects`)
-on the parent content
-
+For being able to delete content, the user should have the ``delete`` action
+group (``Delete portal content``) on the content but also ``add`` (``Delete objects``)
+on the parent content.
 
 
 Uninstall
