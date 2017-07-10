@@ -22,6 +22,13 @@ tests_require = [
     ]
 
 
+extras_require = {
+    'tests': tests_require,
+    'deletepermission': [
+        'collective.deletepermission',
+    ]}
+
+
 setup(name='ftw.lawgiver',
       version=version,
       description='Generate your Plone workflows by describing it in' + \
@@ -60,7 +67,6 @@ setup(name='ftw.lawgiver',
         'ZODB3',
         'Zope2',
         'argparse',
-        'collective.deletepermission',
         'ftw.upgrade',
         'i18ndude',
         'lxml',
@@ -79,7 +85,7 @@ setup(name='ftw.lawgiver',
         ],
 
       tests_require=tests_require,
-      extras_require=dict(tests=tests_require),
+      extras_require=extras_require,
 
       entry_points="""
       # -*- Entry points: -*-
