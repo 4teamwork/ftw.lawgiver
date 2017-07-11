@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
     i18n_domain="ftw.lawgiver">
 
     <include package="ftw.lawgiver" file="meta.zcml" />
@@ -67,7 +68,6 @@
                      Add portal events,
                      Add portal folders,
                      Add portal topics,
-                     Delete objects,
                      PloneFormGen: Add Content,
                      plone.app.collection: Add Collection,
                      plone.app.contenttypes: Add Collection,
@@ -82,11 +82,24 @@
         />
 
 
-    <lawgiver:map_permissions
-        action_group="delete"
-        permissions="Delete portal content"
-        />
+    <configure zcml:condition="installed collective.deletepermission">
+      <lawgiver:map_permissions
+          action_group="add"
+          permissions="Delete objects"
+          />
 
+      <lawgiver:map_permissions
+          action_group="delete"
+          permissions="Delete portal content"
+          />
+    </configure>
+
+    <configure zcml:condition="not-installed collective.deletepermission">
+      <lawgiver:map_permissions
+          action_group="delete"
+          permissions="Delete objects"
+          />
+    </configure>
 
     <lawgiver:map_permissions
         action_group="manage security"

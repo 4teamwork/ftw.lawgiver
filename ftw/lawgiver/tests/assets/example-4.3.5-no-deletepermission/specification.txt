@@ -1,0 +1,67 @@
+[My Custom Workflow]
+Description: A three state publication workflow
+Initial Status: Private
+
+
+Transitions:
+  publish (Private => Published)
+  submit for publication (Private => Pending)
+  reject (Pending => Private)
+  retract (Pending => Private)
+  publish (Pending => Published)
+  retract (Published => Private)
+
+# It is possible to add comments with a hash character.
+
+Role mapping:
+  editor => Editor
+# Editor in chief is in capital letters to show that it is not case sensitive here.
+  Editor-In-Chief => Reviewer
+  everyone => Anonymous
+  administrator => Site Administrator
+
+
+Visible roles:
+  editor
+  Editor-In-Chief
+
+
+General:
+  An administrator can always view the content
+  An administrator can always edit the content
+  An administrator can always delete any content
+  An administrator can always publish the content.
+  An administrator can always manage security.
+
+
+Status Private:
+  An editor can view this content.
+  An editor can edit this content.
+  An editor can delete this content.
+  An editor can add new content.
+  An editor can submit for publication.
+  An editor-in-chief can view this content.
+  An editor-in-chief can edit this content.
+  An editor-in-chief can delete this content.
+  An editor-in-chief can add new content.
+  An editor-in-chief can publish this content.
+
+Status Pending:
+  An editor can view this content.
+  An editor can add new content.
+  An editor can retract.
+  An editor-in-chief can view this content.
+  An editor-in-chief can edit this content.
+  An editor-in-chief can delete this content.
+  An editor-in-chief can add new content.
+  An editor-in-chief can publish.
+  An editor-in-chief can reject.
+
+Status Published:
+  An editor can view this content.
+  An editor can add new content.
+  An editor can retract this content.
+  An editor-in-chief can view this content.
+  An editor-in-chief can add new content.
+  An editor-in-chief can retract this content.
+  Everyone can view this content.

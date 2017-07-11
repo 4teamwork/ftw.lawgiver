@@ -1,6 +1,7 @@
 from path import Path
 from Products.CMFPlone.utils import getFSVersionTuple
 import os
+import pkg_resources
 import shlex
 import subprocess
 
@@ -8,9 +9,19 @@ import subprocess
 ASSETS = Path(__file__).joinpath('..', 'assets').abspath()
 PLONE_VERSION = getFSVersionTuple()
 
+try:
+    pkg_resources.get_distribution('collective.deletepermission')
+except pkg_resources.DistributionNotFound:
+    HAS_DELETEPERMISSION = False
+else:
+    HAS_DELETEPERMISSION = True
+
 
 if PLONE_VERSION >= (4, 3, 5):
-    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.5')
+    if HAS_DELETEPERMISSION:
+        EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.5-deletepermission')
+    else:
+        EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.5-no-deletepermission')
 elif PLONE_VERSION > (4, 3):
     EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.4')
 else:
