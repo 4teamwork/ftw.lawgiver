@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-1.9.2 (unreleased)
-------------------
+1.10.0 (2017-07-11)
+-------------------
 
 - Make ``collective.deletepermission`` dependency optional.
   If you upgrade to this version of ``ftw.lawgiver`` you most likely
