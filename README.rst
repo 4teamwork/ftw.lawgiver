@@ -96,7 +96,7 @@ Here is an example ``lawgiver.zcml``:
         xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
         i18n_domain="my.package">
 
-        <include package="ftw.lawgiver" file="meta.zcml" />
+        <include package="ftw.lawgiver" />
 
         <lawgiver:map_permissions
             action_group="add"
@@ -141,7 +141,7 @@ This can be easily achieved by also defining the workflow in the ZCML:
         xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
         i18n_domain="my.package">
 
-        <include package="ftw.lawgiver" file="meta.zcml" />
+        <include package="ftw.lawgiver" />
 
         <lawgiver:map_permissions
             action_group="add"
@@ -516,7 +516,7 @@ What is tested?
         xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
         i18n_domain="ftw.lawgiver">
 
-        <include package="ftw.lawgiver" file="meta.zcml" />
+        <include package="ftw.lawgiver" />
 
         <lawgiver:ignore
             workflow="my_workflow"
@@ -605,7 +605,7 @@ Use the lawgiver directive for registering new roles:
         xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
         i18n_domain="my.package">
 
-        <include package="ftw.lawgiver" file="meta.zcml" />
+        <include package="ftw.lawgiver" />
 
         <lawgiver:role name="Site Manager" />
 
