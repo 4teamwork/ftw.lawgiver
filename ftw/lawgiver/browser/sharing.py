@@ -72,8 +72,14 @@ class SharingDescribeRole(BrowserView):
         generator = getUtility(IWorkflowGenerator)
         generator.workflow_id = workflow.id
         for status in spec.states.values():
-            headers.append(self._translate(generator._status_id(status),
-                                           default=status.title))
+            # ftw.lawgiver<1.6.1 used to translate the review state ID.
+            # For backwards compatibility use that as fallback.
+            old_translation = self._translate(generator._status_id(status),
+                                              default=status.title)
+            # Plone translates the review state title.
+            correct_translation = self._translate(status.title,
+                                                  default=old_translation)
+            headers.append(correct_translation)
         return headers
 
     def _generate_table_rows(self, spec, rolename):

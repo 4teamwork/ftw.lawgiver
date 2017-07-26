@@ -1,0 +1,31 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2013-04-22 08:12+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#. Default: "Pending"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
+msgid "Pending"
+msgstr "Pending"
+
+#. Default: "Private"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
+msgid "Private"
+msgstr "Private"
+
+#. Default: "Published"
+#: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
+msgid "Published"
+msgstr "Published"
