@@ -2,19 +2,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2013-04-22 08:12+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"PO-Revision-Date: 2017-07-25 19:33+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
 
 #. Default: "Published"
 #: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
 msgid "Published"
-msgstr "Publiziert"
+msgstr "Veröffentlicht"
 
 msgid "local-roles--ROLE--Editor"
 msgstr ""
@@ -22,54 +25,48 @@ msgstr ""
 msgid "local-roles--ROLE--Reviewer"
 msgstr ""
 
+#. Default: "everyone"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "my_custom_workflow--ROLE--Anonymous"
 msgstr "Alle"
 
+#. Default: "editor"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "my_custom_workflow--ROLE--Editor"
 msgstr "Redaktor"
 
+#. Default: "system administrator"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "my_custom_workflow--ROLE--Manager"
 msgstr "System Administrator"
 
+#. Default: "editor-in-chief"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "my_custom_workflow--ROLE--Reviewer"
 msgstr "Chefredaktor"
 
+#. Default: "administrator"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "my_custom_workflow--ROLE--Site Administrator"
 msgstr "Administrator"
 
-msgid "my_custom_workflow--STATUS--pending"
-msgstr "Eingereicht"
+#. Default: "The editor-in-chief reviews and publishes content."
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
+msgid "my_custom_workflow--ROLE-DESCRIPTION--Reviewer"
+msgstr ""
 
-msgid "my_custom_workflow--STATUS--private"
-msgstr "Privat"
-
-msgid "my_custom_workflow--STATUS--published"
-msgstr "Publiziert"
-
-msgid "my_custom_workflow--TRANSITION--publish--pending_published"
-msgstr "Publizieren"
-
-msgid "my_custom_workflow--TRANSITION--publish--private_published"
-msgstr "Publizieren"
-
-msgid "my_custom_workflow--TRANSITION--reject--pending_private"
-msgstr "Zurückweisen"
-
-msgid "my_custom_workflow--TRANSITION--retract--pending_private"
-msgstr "Zurückziehen"
-
-msgid "my_custom_workflow--TRANSITION--retract--published_private"
-msgstr "Zurückzeiehn"
-
-msgid "my_custom_workflow--TRANSITION--submit-for-publication--private_pending"
-msgstr "Zur Publikation einreichen"
-
+#. Default: "publish"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "publish"
 msgstr "Publizieren"
 
+#. Default: "reject"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "reject"
 msgstr "Zurückweisen"
 
+#. Default: "retract"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "retract"
 msgstr "Zurückziehen"
 
@@ -79,6 +76,8 @@ msgstr "editor"
 msgid "role-translation--ROLE--Reviewer"
 msgstr "editor-in-chief"
 
+#. Default: "submit for publication"
+#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "submit for publication"
 msgstr "Zur Publikation einreichen"
 

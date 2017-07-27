@@ -14,19 +14,8 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
-#. Default: "Pending"
-#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
-msgid "Pending"
-msgstr ""
-
-#. Default: "Private"
-#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
-msgid "Private"
-msgstr ""
-
 #. Default: "Published"
 #: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
-#: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "Published"
 msgstr ""
 

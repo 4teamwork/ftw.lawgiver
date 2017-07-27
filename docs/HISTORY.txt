@@ -5,8 +5,8 @@ Changelog
 1.10.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
-
+- Fix review state translation in sharing page role description popup.
+  The review state is now translated by the state title, not the id. [jone]
 
 1.10.0 (2017-07-11)
 -------------------
