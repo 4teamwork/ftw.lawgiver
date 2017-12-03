@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-01 11:45+0000\n"
+"POT-Creation-Date: 2017-12-03 08:46+0000\n"
 "PO-Revision-Date: 2014-09-08 12:16+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,7 +15,7 @@ msgstr ""
 msgid "Could not find any information about this role."
 msgstr "Es sind nicht genügend Informationen über diese Rolle vorhanden."
 
-#: ./ftw/lawgiver/browser/templates/details.pt:221
+#: ./ftw/lawgiver/browser/templates/details.pt:231
 msgid "Default translations"
 msgstr "Standard Übersetzungen"
 
@@ -30,6 +30,10 @@ msgstr "Das ist ein Produktivsystem"
 #: ./ftw/lawgiver/browser/templates/import-confirmation.pt:45
 msgid "I know what I am doing"
 msgstr "Ich weiss was ich mache"
+
+#: ./ftw/lawgiver/browser/templates/details.pt:203
+msgid "Ignored permissions"
+msgstr "Ignorierte Berechtigungen"
 
 #: ./ftw/lawgiver/browser/templates/import-confirmation.pt:26
 msgid "Importing this workflow renames or removes states. Changing states can reset the workflow status of affected objects to the initial state."
@@ -63,7 +67,7 @@ msgstr "Spezifikation Details"
 msgid "Specification file:"
 msgstr "Workflow Spezifikation:"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:217
+#: ./ftw/lawgiver/browser/templates/details.pt:227
 msgid "Template"
 msgstr "Vorlage"
 
@@ -71,7 +75,7 @@ msgstr "Vorlage"
 msgid "The workflow seems to be in a released egg!"
 msgstr "Das Package, in dem sich dieser Workflow befindet, scheint bereits released zu sein!"
 
-#: ./ftw/lawgiver/browser/templates/details.pt:212
+#: ./ftw/lawgiver/browser/templates/details.pt:222
 msgid "Translations"
 msgstr "Übersetzungen"
 
@@ -82,6 +86,10 @@ msgstr "locales-Verzeichnis"
 #: ./ftw/lawgiver/profiles.zcml:22
 msgid "Uninstall ftw.lawgiver"
 msgstr "ftw.lawgiver deinstallieren"
+
+#: ./ftw/lawgiver/browser/templates/details.pt:210
+msgid "Unknown permissions (neither ignored nor mapped)"
+msgstr "Unbekannte Berechtigungen (weder ignoriert noch auf eine Aktionsgruppe gemappt)"
 
 #: ./ftw/lawgiver/browser/templates/details.pt:198
 msgid "Unmanaged permissions"
@@ -193,13 +201,13 @@ msgid "edit"
 msgstr "bearbeiten"
 
 #. Default: "${id}: The specification file could not be parsed: ${error}"
-#: ./ftw/lawgiver/browser/details.py:187
-#: ./ftw/lawgiver/updater.py:197
+#: ./ftw/lawgiver/browser/details.py:188
+#: ./ftw/lawgiver/updater.py:199
 msgid "error_parsing_error"
 msgstr "${id}: Die Datei mit der Workflow-Spezifikation konnte nicht gelesen werden: ${error}"
 
 #. Default: "${id}: Error while generating the workflow: ${msg}"
-#: ./ftw/lawgiver/updater.py:145
+#: ./ftw/lawgiver/updater.py:147
 msgid "error_while_generating_workflow"
 msgstr "${id}: Fehler beim generieren des Workflows: ${msg}"
 
@@ -208,22 +216,22 @@ msgid "ftw.lawgiver"
 msgstr "ftw.lawgiver"
 
 #. Default: "${id}: The translations were updated in your locales directory. You should now run bin/i18n-build"
-#: ./ftw/lawgiver/updater.py:176
+#: ./ftw/lawgiver/updater.py:178
 msgid "info_locales_updated"
 msgstr "${id}: Die Übersetzungen wurden im locales-Verzeichnis aktualisiert. Jetzt sollte bin/i18n-build ausgeführt werden."
 
 #. Default: "Security update: ${amount} objects updated."
-#: ./ftw/lawgiver/browser/details.py:139
+#: ./ftw/lawgiver/browser/details.py:140
 msgid "info_security_updated"
 msgstr "Sicherheitsupdate: ${amount} Objekte wurden aktualisiert."
 
 #. Default: "${id}: The workflow was generated to ${path}."
-#: ./ftw/lawgiver/updater.py:158
+#: ./ftw/lawgiver/updater.py:160
 msgid "info_workflow_generated"
 msgstr "${id}: Der Workflow wurde generiert: ${path}."
 
 #. Default: "Workflow ${wfname} successfully imported."
-#: ./ftw/lawgiver/browser/details.py:128
+#: ./ftw/lawgiver/browser/details.py:129
 msgid "info_workflow_imported"
 msgstr "Der Workflow ${wfname} wurde auf dieser Plone-Seite installiert."
 

@@ -126,10 +126,10 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
     @browsing
     def test_unmanaged_permissions(self, browser):
         specdetails.visit('Bar Workflow (wf-bar)')
-        unmanaged = specdetails.unmanaged_permissions()
         self.assertIn(
-            'Plone Site Setup: Calendar', unmanaged,
-            'Expected permission to be unmanaged.')
+            'Plone Site Setup: Calendar', specdetails.ignored_permissions())
+        self.assertIn(
+            'Private, only accessible from trusted code', specdetails.unknown_permissions())
 
     @browsing
     def test_translations_pot(self, browser):
