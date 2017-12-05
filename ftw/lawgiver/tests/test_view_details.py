@@ -146,6 +146,9 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
                     '',
                     'msgid "wf-bar--ROLE--Manager"',
                     'msgstr ""',
+                    '',
+                    'msgid "wf-bar--STATUS--published"',
+                    'msgstr ""',
                     )),
             data,
             'The translation template content is wrong.')
@@ -165,6 +168,9 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
                     '',
                     'msgid "wf-bar--ROLE--Manager"',
                     'msgstr "System Administrator"',
+                    '',
+                    'msgid "wf-bar--STATUS--published"',
+                    'msgstr "Published"',
                     )),
             data,
             'The default translation content is wrong.')

@@ -42,6 +42,21 @@ msgstr "editor"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
 msgid "simple_workflow--ROLE-DESCRIPTION--Editor"
 msgstr "An \"Editor\" writes articles."
+
+#. Default: "Private"
+#: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
+msgid "simple_workflow--STATUS--private"
+msgstr "Private"
+
+#. Default: "Published"
+#: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
+msgid "simple_workflow--STATUS--published"
+msgstr "Published"
+
+#. Default: "püblish"
+#: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
+msgid "simple_workflow--TRANSITION--publish--private_published"
+msgstr "püblish"
 '''.strip()
 
 OLD_SIMPLE_WORKFLOW_MESSAGES = r'''

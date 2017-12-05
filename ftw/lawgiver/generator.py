@@ -71,9 +71,11 @@ class WorkflowGenerator(object):
 
         for status in specification.states.values():
             result[status.title] = status.title
+            result[self._status_id(status).encode('utf-8')] = status.title
 
         for transition in specification.transitions:
             result[transition.title] = transition.title
+            result[self._transition_id(transition).encode('utf-8')] = transition.title
 
         for customerrole, plonerole in specification.role_mapping.items():
             result[self._role_id(plonerole)] = getattr(
