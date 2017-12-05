@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2017-01-01 11:45+0000\n"
+"POT-Creation-Date: 2017-12-03 08:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Could not find any information about this role."
 msgstr ""
 
-#: ./ftw/lawgiver/browser/templates/details.pt:221
+#: ./ftw/lawgiver/browser/templates/details.pt:231
 msgid "Default translations"
 msgstr ""
 
@@ -32,6 +32,10 @@ msgstr ""
 
 #: ./ftw/lawgiver/browser/templates/import-confirmation.pt:45
 msgid "I know what I am doing"
+msgstr ""
+
+#: ./ftw/lawgiver/browser/templates/details.pt:203
+msgid "Ignored permissions"
 msgstr ""
 
 #: ./ftw/lawgiver/browser/templates/import-confirmation.pt:26
@@ -66,7 +70,7 @@ msgstr ""
 msgid "Specification file:"
 msgstr ""
 
-#: ./ftw/lawgiver/browser/templates/details.pt:217
+#: ./ftw/lawgiver/browser/templates/details.pt:227
 msgid "Template"
 msgstr ""
 
@@ -74,7 +78,7 @@ msgstr ""
 msgid "The workflow seems to be in a released egg!"
 msgstr ""
 
-#: ./ftw/lawgiver/browser/templates/details.pt:212
+#: ./ftw/lawgiver/browser/templates/details.pt:222
 msgid "Translations"
 msgstr ""
 
@@ -84,6 +88,10 @@ msgstr ""
 
 #: ./ftw/lawgiver/profiles.zcml:22
 msgid "Uninstall ftw.lawgiver"
+msgstr ""
+
+#: ./ftw/lawgiver/browser/templates/details.pt:210
+msgid "Unknown permissions (neither ignored nor mapped)"
 msgstr ""
 
 #: ./ftw/lawgiver/browser/templates/details.pt:198
@@ -196,13 +204,13 @@ msgid "edit"
 msgstr ""
 
 #. Default: "${id}: The specification file could not be parsed: ${error}"
-#: ./ftw/lawgiver/browser/details.py:187
-#: ./ftw/lawgiver/updater.py:197
+#: ./ftw/lawgiver/browser/details.py:188
+#: ./ftw/lawgiver/updater.py:199
 msgid "error_parsing_error"
 msgstr ""
 
 #. Default: "${id}: Error while generating the workflow: ${msg}"
-#: ./ftw/lawgiver/updater.py:145
+#: ./ftw/lawgiver/updater.py:147
 msgid "error_while_generating_workflow"
 msgstr ""
 
@@ -211,22 +219,22 @@ msgid "ftw.lawgiver"
 msgstr ""
 
 #. Default: "${id}: The translations were updated in your locales directory. You should now run bin/i18n-build"
-#: ./ftw/lawgiver/updater.py:176
+#: ./ftw/lawgiver/updater.py:178
 msgid "info_locales_updated"
 msgstr ""
 
 #. Default: "Security update: ${amount} objects updated."
-#: ./ftw/lawgiver/browser/details.py:139
+#: ./ftw/lawgiver/browser/details.py:140
 msgid "info_security_updated"
 msgstr ""
 
 #. Default: "${id}: The workflow was generated to ${path}."
-#: ./ftw/lawgiver/updater.py:158
+#: ./ftw/lawgiver/updater.py:160
 msgid "info_workflow_generated"
 msgstr ""
 
 #. Default: "Workflow ${wfname} successfully imported."
-#: ./ftw/lawgiver/browser/details.py:128
+#: ./ftw/lawgiver/browser/details.py:129
 msgid "info_workflow_imported"
 msgstr ""
 

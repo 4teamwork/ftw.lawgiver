@@ -35,8 +35,13 @@ def action_groups():
                                           action_group[1].css('li').text),
                     browser.css('dl.permission-mapping dd dl').first.items()))
 
-def unmanaged_permissions():
-    return browser.css('dl.unmanaged-permissions dd li').text
+
+def ignored_permissions():
+    return browser.css('dl.unmanaged-permissions .ignored-permissions li').text
+
+
+def unknown_permissions():
+    return browser.css('dl.unmanaged-permissions .unkown-permissions li').text
 
 
 def translations_pot():

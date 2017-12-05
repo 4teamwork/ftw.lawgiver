@@ -199,10 +199,20 @@
                     Unmanaged permissions
                 </dt>
                 <dd class="collapsibleContent">
+                  <div class="ignored-permissions">
+                    <b i18n:translate="">Ignored permissions</b>
                     <ul>
-                        <li tal:repeat="perm permissions/unmanaged"
+                        <li tal:repeat="perm permissions/ignored"
                             tal:content="perm" />
                     </ul>
+                  </div>
+                  <div class="unkown-permissions">
+                    <b i18n:translate="">Unknown permissions (neither ignored nor mapped)</b>
+                    <ul>
+                        <li tal:repeat="perm permissions/unknown"
+                            tal:content="perm" />
+                    </ul>
+                  </div>
                 </dd>
 
             </dl>

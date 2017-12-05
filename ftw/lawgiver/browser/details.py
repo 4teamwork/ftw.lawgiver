@@ -1,5 +1,6 @@
 from ftw.lawgiver import _
 from ftw.lawgiver.i18nbuilder import I18nBuilder
+from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.interfaces import IPermissionCollector
 from ftw.lawgiver.interfaces import IUpdater
 from ftw.lawgiver.interfaces import IWorkflowGenerator
@@ -234,8 +235,13 @@ class SpecDetails(BrowserView):
         unmanaged = managed['unmanaged']
         del managed['unmanaged']
 
+        ignored = sorted(getUtility(IActionGroupRegistry).get_ignored_permissions(
+            workflow_name=workflow_name))
+        unknown = sorted(list(set(unmanaged) - set(ignored)))
+
         return {'managed': managed,
-                'unmanaged': unmanaged}
+                'ignored': ignored,
+                'unknown': unknown}
 
     def pot_data(self):
         return self._get_translations(fill_default=False)
