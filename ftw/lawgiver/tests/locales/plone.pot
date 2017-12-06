@@ -90,3 +90,8 @@ msgstr ""
 #: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
 msgid "wf-bar--ROLE--Manager"
 msgstr ""
+
+#. Default: "Published"
+#: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
+msgid "wf-bar--STATUS--published"
+msgstr ""

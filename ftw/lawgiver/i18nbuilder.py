@@ -110,17 +110,6 @@ class I18nBuilder(object):
         catalog = MessageCatalog(filename=catalog_path)
 
         def is_delete_candidate(msg):
-            # Lawgiver used to translate the states and transitions
-            # by state- / transition-id instead of by label,
-            # but Plone uses the label.
-            # We therefore remove all old entries.
-            if msg.msgid.startswith('{0}--STATUS--'.format(self.workflow_id)):
-                return True
-
-            if msg.msgid.startswith('{0}--TRANSITION--'.format(
-                    self.workflow_id)):
-                return True
-
             # When our spec-path is in the references of the message,
             # we treat the message as delete candiate.
             if self.relative_specification_path in msg.references:
