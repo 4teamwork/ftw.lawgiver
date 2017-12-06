@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.10.2 (unreleased)
+1.11.0 (2017-12-06)
 -------------------
 
 - Also translate states and transitions with their IDs. [jone]
