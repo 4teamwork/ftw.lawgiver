@@ -81,7 +81,7 @@ class ISharingPageRoleDirective(Interface):
     map_permission = Bool(
         title=u'Map required permission for lawgiver',
         description=u'Map required permission to the default lawgiver action '
-        u'gorup "manage security".',
+        u'group "manage security".',
         required=False,
         default=True)
 
