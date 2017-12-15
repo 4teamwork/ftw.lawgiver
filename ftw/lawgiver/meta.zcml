@@ -2,25 +2,26 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:meta="http://namespaces.zope.org/meta">
 
+  <meta:directives namespace="http://namespaces.zope.org/lawgiver">
+
     <meta:directive
-        namespace="http://namespaces.zope.org/lawgiver"
         name="map_permissions"
         schema=".meta.IMapPermissionsDirective"
         handler=".meta.mapPermissions"
         />
 
     <meta:directive
-        namespace="http://namespaces.zope.org/lawgiver"
         name="ignore"
         schema=".meta.IIgnorePermissionsDirective"
         handler=".meta.ignorePermissions"
         />
 
     <meta:directive
-        namespace="http://namespaces.zope.org/lawgiver"
         name="role"
         schema=".meta.ISharingPageRoleDirective"
         handler=".meta.sharingPageRole"
         />
+
+  </meta:directives>
 
 </configure>
