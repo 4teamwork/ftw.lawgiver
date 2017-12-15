@@ -14,6 +14,17 @@ from zope.schema import TextLine
 import zope.component.zcml
 
 
+class IWorkflowDirective(Interface):
+
+    name = TextLine(
+        title=u'The name of the workflow',
+        description=u'By default the directive contents'
+        u' apply to all workflows. Set the name of the'
+        u' workflow here for making it workflow specific.',
+        default=None,
+        required=True)
+
+
 class IMapPermissionsDirective(Interface):
 
     action_group = MessageID(
@@ -84,6 +95,20 @@ class ISharingPageRoleDirective(Interface):
         u'group "manage security".',
         required=False,
         default=True)
+
+
+class WorkflowContext(object):
+
+    def __init__(self, _context, name):
+        self.workflow = name
+
+    def ignore(self, _context, **kwargs):
+        kwargs['workflow'] = self.workflow
+        return ignorePermissions(_context, **kwargs)
+
+    def map_permissions(self, _context, **kwargs):
+        kwargs['workflow'] = self.workflow
+        return mapPermissions(_context, **kwargs)
 
 
 def mapPermissions(_context, **kwargs):

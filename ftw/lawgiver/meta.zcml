@@ -4,6 +4,23 @@
 
   <meta:directives namespace="http://namespaces.zope.org/lawgiver">
 
+    <meta:complexDirective
+        name="workflow"
+        schema=".meta.IWorkflowDirective"
+        handler=".meta.WorkflowContext">
+
+      <meta:subdirective
+          name="map_permissions"
+          schema=".meta.IMapPermissionsDirective"
+          />
+
+      <meta:subdirective
+          name="ignore"
+          schema=".meta.IIgnorePermissionsDirective"
+          />
+
+    </meta:complexDirective>
+
     <meta:directive
         name="map_permissions"
         schema=".meta.IMapPermissionsDirective"

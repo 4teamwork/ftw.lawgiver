@@ -197,6 +197,39 @@ especially the default ``lawgiver.zcml`` of ``ftw.lawgiver``.
     </configure>
 
 
+Workflow scope
+~~~~~~~~~~~~~~
+
+The ``lawgiver:workflow`` directive can be used to group multiple statements and
+apply them to a specific workflow.
+
+.. code:: xml
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:lawgiver="http://namespaces.zope.org/lawgiver"
+        i18n_domain="my.package">
+
+      <include package="ftw.lawgiver" />
+
+      <lawgiver:workflow name="the-workflow">
+
+        <lawgiver:map_permissions
+            action_group="add folder"
+            permissions="Add folder"
+            />
+
+        <lawgiver:ignore
+            permissions="ATContentTypes: View history"
+            />
+
+      </lawgiver:workflow>
+
+    </configure>
+
+
+
+
 The workflow specification
 --------------------------
 
