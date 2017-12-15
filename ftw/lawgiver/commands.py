@@ -32,11 +32,13 @@ def rebuild_workflows(app, instance_args):
     parser = argparse.ArgumentParser(
         description='Rebuild ftw.lawgiver workflows.',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-c', help=argparse.SUPPRESS)  # swallows instance command
+    # swallows instance command
+    parser.add_argument('-c', help=argparse.SUPPRESS)
 
-    parser.add_argument('-s', '--site', dest='site',
-                        default=discover_plone_site(app),
-                        help='Path to the Plone site for discovering the workflows.')
+    parser.add_argument(
+        '-s', '--site', dest='site',
+        default=discover_plone_site(app),
+        help='Path to the Plone site for discovering the workflows.')
 
     args = parser.parse_args(instance_args)
     load_site(app, args.site)

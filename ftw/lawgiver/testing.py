@@ -39,7 +39,9 @@ ZCML_FIXTURE = ZCMLLayer()
 
 class LawgiverLayer(PloneSandboxLayer):
 
-    defaultBases = (COMPONENT_REGISTRY_ISOLATION, BUILDER_LAYER, TEMP_DIRECTORY)
+    defaultBases = (COMPONENT_REGISTRY_ISOLATION,
+                    BUILDER_LAYER,
+                    TEMP_DIRECTORY)
 
     def setUpZope(self, app, configurationContext):
         # The first definition of an action group defines the the
@@ -68,11 +70,11 @@ class LawgiverLayer(PloneSandboxLayer):
             '</configure>',
             context=configurationContext)
 
-        # For making sure that having the same permission in multiple action groups
-        # does not break the workflow building, we just create a new action group
-        # with permissions already mapped to "add".
-        # When this breaks the "add" action group, we'd notice it in the example
-        # workflow test.
+        # For making sure that having the same permission in multiple action
+        # groups does not break the workflow building, we just create a new
+        # action group with permissions already mapped to "add".
+        # When this breaks the "add" action group, we'd notice it in the
+        # example workflow test.
         xmlconfig.string(
             '<configure xmlns="http://namespaces.zope.org/zope"'
             '           xmlns:lawgiver="http://namespaces.zope.org/lawgiver">'
@@ -89,6 +91,7 @@ class LawgiverLayer(PloneSandboxLayer):
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.lawgiver:default')
+
 
 LAWGIVER_FIXTURE = LawgiverLayer()
 LAWGIVER_INTEGRATION_TESTING = IntegrationTesting(

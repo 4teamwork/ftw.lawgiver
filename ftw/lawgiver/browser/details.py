@@ -235,8 +235,9 @@ class SpecDetails(BrowserView):
         unmanaged = managed['unmanaged']
         del managed['unmanaged']
 
-        ignored = sorted(getUtility(IActionGroupRegistry).get_ignored_permissions(
-            workflow_name=workflow_name))
+        ignored = sorted(
+            getUtility(IActionGroupRegistry).get_ignored_permissions(
+                workflow_name=workflow_name))
         unknown = sorted(list(set(unmanaged) - set(ignored)))
 
         return {'managed': managed,
