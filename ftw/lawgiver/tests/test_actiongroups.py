@@ -7,7 +7,7 @@ from zope.configuration.exceptions import ConfigurationError
 from zope.interface.verify import verifyClass
 
 
-class TestBundlesZCML(BaseTest):
+class TestMapPermissionsZCML(BaseTest):
 
     layer = META_ZCML
 
