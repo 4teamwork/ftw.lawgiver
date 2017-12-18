@@ -396,3 +396,32 @@ class TestActionGroupRegistry(BaseTest):
              u'add ticket': set([u'Add ticket', u'Add portal content'])},
 
             registry.get_action_groups_for_workflow('custom'))
+
+    def test_workflow_scope_map_permissions(self):
+        self.load_map_permissions_zcml('''
+        <lawgiver:workflow name="the-workflow">
+            <lawgiver:map_permissions
+                action_group="view"
+                permissions="Access contents information"
+                />
+        </lawgiver:workflow>
+        ''')
+        registry = self.get_registry()
+        self.assertEqual(
+            registry.get_action_groups_for_workflow('the-workflow'),
+            {'view': set([u'Access contents information'])})
+        self.assertEqual(
+            registry.get_action_groups_for_workflow('other-workflow'),
+            {})
+
+    def test_workflow_scope_ignore(self):
+        self.load_map_permissions_zcml('''
+        <lawgiver:workflow name="the-workflow">
+            <lawgiver:ignore permissions="Access contents information" />
+        </lawgiver:workflow>
+        ''')
+        registry = self.get_registry()
+        self.assertIn(u'Access contents information',
+                      registry.get_ignored_permissions('the-workflow'))
+        self.assertNotIn(u'Access contents information',
+                         registry.get_ignored_permissions('other-workflow'))
