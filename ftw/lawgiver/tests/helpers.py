@@ -22,10 +22,8 @@ if PLONE_VERSION >= (4, 3, 5):
         EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.5-deletepermission')
     else:
         EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.5-no-deletepermission')
-elif PLONE_VERSION > (4, 3):
-    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.4')
 else:
-    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.2')
+    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.4')
 
 
 EXAMPLE_WF_SPEC = EXAMPLE_WORKFLOW_DIR.joinpath('specification.txt')
