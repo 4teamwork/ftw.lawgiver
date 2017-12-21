@@ -17,7 +17,12 @@ else:
     HAS_DELETEPERMISSION = True
 
 
-if PLONE_VERSION >= (4, 3, 5):
+if PLONE_VERSION >= (5, 1, 0):
+    if HAS_DELETEPERMISSION:
+        EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-5.1.0-deletepermission')
+    else:
+        EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-5.1.0-no-deletepermission')
+elif PLONE_VERSION >= (4, 3, 5):
     if HAS_DELETEPERMISSION:
         EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.5-deletepermission')
     else:
