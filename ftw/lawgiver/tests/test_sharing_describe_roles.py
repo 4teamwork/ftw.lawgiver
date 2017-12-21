@@ -2,6 +2,7 @@ from Products.CMFCore.utils import getToolByName
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
+from ftw.lawgiver.tests import helpers
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
 from plone.app.testing import TEST_USER_ID
@@ -158,10 +159,7 @@ class TestSharingDescribeRoles(TestCase):
     @browsing
     def test_translated_request(self, browser):
         page = create(Builder('page'))
-        language_tool = getToolByName(self.layer['portal'], 'portal_languages')
-        language_tool.manage_setLanguageSettings(
-            'de', ['de'], setUseCombinedLanguageCodes=False, startNeutral=False)
-        transaction.commit()
+        helpers.switch_language(self.layer['portal'], 'de')
 
         browser.login().visit(page,
                               view='lawgiver-sharing-describe-role',

@@ -1,9 +1,12 @@
+from ftw.testing import IS_PLONE_5
 from path import Path
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import getFSVersionTuple
 import os
 import pkg_resources
 import shlex
 import subprocess
+import transaction
 
 
 ASSETS = Path(__file__).joinpath('..', 'assets').abspath()
@@ -65,3 +68,18 @@ def run_command(cmd, cwd=None):
     if proc.poll():
         raise Exception('Error while running "{0}":\n{1}'.format(
             cmd, stdout + stderr))
+
+
+def switch_language(portal, lang_code):
+    language_tool = getToolByName(portal, 'portal_languages')
+    if IS_PLONE_5:
+        language_tool.addSupportedLanguage(lang_code)
+        language_tool.settings.use_combined_language_codes = False
+        language_tool.setDefaultLanguage(lang_code)
+    else:
+        language_tool.manage_setLanguageSettings(
+            lang_code,
+            [lang_code],
+            setUseCombinedLanguageCodes=False,
+            startNeutral=False)
+    transaction.commit()
