@@ -5,6 +5,7 @@ from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
 from ftw.lawgiver.tests import helpers
 from ftw.testbrowser import browser
 from ftw.testbrowser import browsing
+from ftw.testing import IS_PLONE_5
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import applyProfile
 from plone.app.testing import setRoles
@@ -19,7 +20,11 @@ def javascript_resources():
 
 
 SHARING_JS_RESOURCE = '++resource++ftw.lawgiver-resources/sharing.js'
-TICK = u'\u2713'
+
+if IS_PLONE_5:
+    TICK = u'\xe2\x9c\x93'
+else:
+    TICK = u'\u2713'
 
 
 class TestSharingDescribeRoles(TestCase):
