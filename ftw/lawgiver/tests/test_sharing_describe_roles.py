@@ -9,13 +9,17 @@ from ftw.testing import IS_PLONE_5
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import applyProfile
 from plone.app.testing import setRoles
+from plone.registry.interfaces import IRegistry
 from unittest2 import TestCase
+from zope.component import getUtility
 import transaction
 
 
-def javascript_resources():
+def javascript_resources(portal):
     js_urls = filter(None, [node.attrib.get('src')
                             for node in browser.css('script')])
+    if IS_PLONE_5:
+        return [url.replace(portal.absolute_url() + '/', '') for url in js_urls]
     return ['/'.join(url.split('/')[6:]) for url in js_urls]
 
 
@@ -29,7 +33,6 @@ else:
 
 class TestSharingDescribeRoles(TestCase):
     layer = SPECIFICATIONS_FUNCTIONAL
-
 
     def setUp(self):
         self.portal = self.layer['portal']
@@ -45,9 +48,17 @@ class TestSharingDescribeRoles(TestCase):
     @browsing
     def test_javascript_loaded_on_lawgiverized_content(self, browser):
         page = create(Builder('page'))
+
+        if IS_PLONE_5:
+            # Enable development of the Plone legacy JavaScript bundle.
+            registry = getUtility(IRegistry)
+            registry['plone.resources.development'] = True
+            registry['plone.bundles/plone-legacy.develop_javascript'] = True
+            transaction.commit()
+
         browser.login().visit(page, view='@@sharing')
 
-        self.assertIn(SHARING_JS_RESOURCE, javascript_resources(),
+        self.assertIn(SHARING_JS_RESOURCE, javascript_resources(self.layer['portal']),
                       'The sharing javascript should be loaded on'
                       ' lawgiverized content.')
 
@@ -55,7 +66,7 @@ class TestSharingDescribeRoles(TestCase):
     def test_javascript_NOT_loaded_on_NON_lawgiverized_content(self, browser):
         folder = create(Builder('folder'))
         browser.login().visit(folder, view='@@sharing')
-        self.assertNotIn(SHARING_JS_RESOURCE, javascript_resources(),
+        self.assertNotIn(SHARING_JS_RESOURCE, javascript_resources(self.layer['portal']),
                          'The sharing javascript should NOT be loaded on'
                          ' Plone standard content without lawigver'
                          ' workflows.')
