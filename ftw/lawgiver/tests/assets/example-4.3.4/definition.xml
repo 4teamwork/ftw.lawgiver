@@ -39,6 +39,15 @@
   <permission>iterate : Check in content</permission>
   <permission>iterate : Check out content</permission>
   <permission>plone.app.collection: Add Collection</permission>
+  <permission>plone.app.contenttypes: Add Collection</permission>
+  <permission>plone.app.contenttypes: Add Document</permission>
+  <permission>plone.app.contenttypes: Add Event</permission>
+  <permission>plone.app.contenttypes: Add File</permission>
+  <permission>plone.app.contenttypes: Add Folder</permission>
+  <permission>plone.app.contenttypes: Add Image</permission>
+  <permission>plone.app.contenttypes: Add Link</permission>
+  <permission>plone.app.contenttypes: Add News Item</permission>
+  <permission>plone.app.event: Import Ical</permission>
   <permission>plone.portlet.collection: Add collection portlet</permission>
   <permission>plone.portlet.static: Add static portlet</permission>
   <state state_id="example-4.3.4--STATUS--pending" title="Pending">
@@ -172,11 +181,11 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map acquired="False" name="iterate : Check in content">
+    <permission-map name="iterate : Check in content" acquired="False">
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map acquired="False" name="iterate : Check out content">
+    <permission-map name="iterate : Check out content" acquired="False">
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
@@ -184,6 +193,39 @@
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Collection" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Document" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Event" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add File" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Image" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Link" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add News Item" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.event: Import Ical" acquired="False"/>
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
@@ -326,12 +368,12 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map acquired="False" name="iterate : Check in content">
+    <permission-map name="iterate : Check in content" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map acquired="False" name="iterate : Check out content">
+    <permission-map name="iterate : Check out content" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
@@ -340,6 +382,39 @@
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Collection" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Document" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Event" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add File" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Image" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Link" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add News Item" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.event: Import Ical" acquired="False"/>
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
@@ -466,16 +541,49 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map acquired="False" name="iterate : Check in content">
+    <permission-map name="iterate : Check in content" acquired="False">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map acquired="False" name="iterate : Check out content">
+    <permission-map name="iterate : Check out content" acquired="False">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="plone.app.collection: Add Collection" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Collection" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Document" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Event" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add File" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Image" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Link" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add News Item" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.event: Import Ical" acquired="False"/>
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
@@ -521,39 +629,39 @@
   <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
     <description>Previous transition</description>
     <default>
-      <expression>transition/getId|nothing</expression>
+        <expression>transition/getId|nothing</expression>
     </default>
     <guard/>
-  </variable>
+</variable>
   <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
-    <description>The ID of the user who performed the previous transition</description>
+<description>The ID of the user who performed the previous transition</description>
     <default>
-      <expression>user/getId</expression>
+        <expression>user/getId</expression>
     </default>
     <guard/>
-  </variable>
+</variable>
   <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
     <description>Comment about the last transition</description>
     <default>
-      <expression>python:state_change.kwargs.get('comment', '')</expression>
+        <expression>python:state_change.kwargs.get('comment', '')</expression>
     </default>
     <guard/>
-  </variable>
+</variable>
   <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
     <description>Provides access to workflow history</description>
     <default>
-      <expression>state_change/getHistory</expression>
+        <expression>state_change/getHistory</expression>
     </default>
     <guard>
-      <guard-permission>Request review</guard-permission>
-      <guard-permission>Review portal content</guard-permission>
+        <guard-permission>Request review</guard-permission>
+        <guard-permission>Review portal content</guard-permission>
     </guard>
-  </variable>
+</variable>
   <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
     <description>When the previous transition was performed</description>
     <default>
-      <expression>state_change/getDateTime</expression>
+        <expression>state_change/getDateTime</expression>
     </default>
     <guard/>
-  </variable>
+</variable>
 </dc-workflow>

@@ -38,6 +38,15 @@
   <permission>iterate : Check in content</permission>
   <permission>iterate : Check out content</permission>
   <permission>plone.app.collection: Add Collection</permission>
+  <permission>plone.app.contenttypes: Add Collection</permission>
+  <permission>plone.app.contenttypes: Add Document</permission>
+  <permission>plone.app.contenttypes: Add Event</permission>
+  <permission>plone.app.contenttypes: Add File</permission>
+  <permission>plone.app.contenttypes: Add Folder</permission>
+  <permission>plone.app.contenttypes: Add Image</permission>
+  <permission>plone.app.contenttypes: Add Link</permission>
+  <permission>plone.app.contenttypes: Add News Item</permission>
+  <permission>plone.app.event: Import Ical</permission>
   <permission>plone.portlet.collection: Add collection portlet</permission>
   <permission>plone.portlet.static: Add static portlet</permission>
   <state state_id="example-4.3.5-no-deletepermission--STATUS--pending" title="Pending">
@@ -179,6 +188,39 @@
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Collection" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Document" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Event" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add File" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Image" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Link" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add News Item" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.event: Import Ical" acquired="False"/>
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
@@ -331,6 +373,39 @@
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Collection" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Document" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Event" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add File" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Image" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Link" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add News Item" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.event: Import Ical" acquired="False"/>
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
@@ -463,6 +538,39 @@
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Collection" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Document" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Event" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add File" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Folder" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Image" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add Link" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.contenttypes: Add News Item" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="plone.app.event: Import Ical" acquired="False"/>
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>

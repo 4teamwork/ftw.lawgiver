@@ -1,5 +1,6 @@
 from ftw.builder.testing import BUILDER_LAYER
 from ftw.builder.testing import functional_session_factory
+from ftw.builder.content import register_dx_content_builders
 from ftw.builder.testing import set_builder_session_factory
 from ftw.testing import ComponentRegistryLayer
 from ftw.testing.layer import COMPONENT_REGISTRY_ISOLATION
@@ -87,10 +88,18 @@ class LawgiverLayer(PloneSandboxLayer):
             '</configure>',
             context=configurationContext)
 
+        # The tests will fail with a
+        # `ValueError: Index of type DateRecurringIndex not found` unless
+        # the product 'Products.DateRecurringIndex' is installed.
+        z2.installProduct(app, 'Products.DateRecurringIndex')
+
         z2.installProduct(app, 'ftw.lawgiver')
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, 'ftw.lawgiver:default')
+
+        applyProfile(portal, 'plone.app.contenttypes:default')
+        register_dx_content_builders(force=True)
 
 
 LAWGIVER_FIXTURE = LawgiverLayer()
