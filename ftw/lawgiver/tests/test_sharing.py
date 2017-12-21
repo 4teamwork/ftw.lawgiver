@@ -50,7 +50,7 @@ class TestSharingRoleTranslation(TestCase):
         wftool.setChainForPortalTypes(['Document'], 'role-translation')
 
         document = create(Builder('document'))
-        view = document.restrictedTraverse('folder_contents')
+        view = document.restrictedTraverse('sharing')
 
         adapter = getMultiAdapter((view, document.REQUEST),
                                   IDynamicRoleAdapter,
