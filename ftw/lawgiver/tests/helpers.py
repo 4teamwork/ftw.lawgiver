@@ -1,9 +1,12 @@
+from ftw.testing import IS_PLONE_5
 from path import Path
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import getFSVersionTuple
 import os
 import pkg_resources
 import shlex
 import subprocess
+import transaction
 
 
 ASSETS = Path(__file__).joinpath('..', 'assets').abspath()
@@ -17,15 +20,18 @@ else:
     HAS_DELETEPERMISSION = True
 
 
-if PLONE_VERSION >= (4, 3, 5):
+if PLONE_VERSION >= (5, 1, 0):
+    if HAS_DELETEPERMISSION:
+        EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-5.1.0-deletepermission')
+    else:
+        EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-5.1.0-no-deletepermission')
+elif PLONE_VERSION >= (4, 3, 5):
     if HAS_DELETEPERMISSION:
         EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.5-deletepermission')
     else:
         EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.5-no-deletepermission')
-elif PLONE_VERSION > (4, 3):
-    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.4')
 else:
-    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.2')
+    EXAMPLE_WORKFLOW_DIR = ASSETS.joinpath('example-4.3.4')
 
 
 EXAMPLE_WF_SPEC = EXAMPLE_WORKFLOW_DIR.joinpath('specification.txt')
@@ -62,3 +68,18 @@ def run_command(cmd, cwd=None):
     if proc.poll():
         raise Exception('Error while running "{0}":\n{1}'.format(
             cmd, stdout + stderr))
+
+
+def switch_language(portal, lang_code):
+    language_tool = getToolByName(portal, 'portal_languages')
+    if IS_PLONE_5:
+        language_tool.addSupportedLanguage(lang_code)
+        language_tool.settings.use_combined_language_codes = False
+        language_tool.setDefaultLanguage(lang_code)
+    else:
+        language_tool.manage_setLanguageSettings(
+            lang_code,
+            [lang_code],
+            setUseCombinedLanguageCodes=False,
+            startNeutral=False)
+    transaction.commit()

@@ -1,5 +1,6 @@
 from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
+from ftw.lawgiver.tests import helpers
 from ftw.lawgiver.tests.pages import specdetails
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import plone
@@ -56,13 +57,8 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
         self.switch_language('en')
 
     def switch_language(self, lang_code):
-        language_tool = getToolByName(self.layer['portal'], 'portal_languages')
-        language_tool.manage_setLanguageSettings(
-            lang_code,
-            [lang_code],
-            setUseCombinedLanguageCodes=False,
-            startNeutral=False)
-        transaction.commit()
+        # Backward compatibilty
+        helpers.switch_language(self.layer['portal'], lang_code)
 
     @browsing
     def test_details_view_heading(self, browser):
