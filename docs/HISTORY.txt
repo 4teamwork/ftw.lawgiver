@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.13.1 (unreleased)
+1.14.0 (2018-01-08)
 -------------------
 
 - Drop support for Plone 4.2. [mbaechtold]
