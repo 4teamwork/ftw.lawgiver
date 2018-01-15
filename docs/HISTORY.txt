@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.14.1 (unreleased)
+1.14.1 (2018-01-15)
 -------------------
 
 - Fix translation domains in ZCML files. [jone]
