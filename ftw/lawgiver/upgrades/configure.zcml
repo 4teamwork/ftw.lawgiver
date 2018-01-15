@@ -1,7 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:upgrade-step="http://namespaces.zope.org/ftw.upgrade"
-    i18n_domain="izug.organisation">
+    i18n_domain="ftw.lawgiver">
 
     <include package="ftw.upgrade" file="meta.zcml" />
 

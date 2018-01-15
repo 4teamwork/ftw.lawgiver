@@ -240,7 +240,7 @@ class TestActionGroupRegistry(BaseTest):
                 '                 View" />')
 
         self.assertEqual(
-            'File "<string>", line 3.0-6.25\n    ConfigurationError:'
+            'File "<string>", line 5.0-8.25\n    ConfigurationError:'
             ' Seems that a comma is missing in the "permissions" attribute'
             ' of the lawgiver:map_permissions tag.',
             str(cm.exception))

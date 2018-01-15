@@ -1,6 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:meta="http://namespaces.zope.org/meta">
+    xmlns:meta="http://namespaces.zope.org/meta"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="ftw.lawgiver">
 
   <meta:directives namespace="http://namespaces.zope.org/lawgiver">
 
