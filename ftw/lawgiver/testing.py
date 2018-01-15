@@ -78,7 +78,9 @@ class LawgiverLayer(PloneSandboxLayer):
         # example workflow test.
         xmlconfig.string(
             '<configure xmlns="http://namespaces.zope.org/zope"'
-            '           xmlns:lawgiver="http://namespaces.zope.org/lawgiver">'
+            '           xmlns:lawgiver="http://namespaces.zope.org/lawgiver"'
+            '           xmlns:i18n="http://namespaces.zope.org/i18n"'
+            '           i18n_domain="ftw.lawgiver">'
             '  <lawgiver:map_permissions'
             '      action_group="add folders"'
             '      permissions="Add portal content,'

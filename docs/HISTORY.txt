@@ -5,6 +5,7 @@ Changelog
 1.14.1 (unreleased)
 -------------------
 
+- Fix translation domains in ZCML files. [jone]
 - Fix encoding problem when describing roles with non-ASCII characters titles. [jone]
 
 1.14.0 (2018-01-08)
