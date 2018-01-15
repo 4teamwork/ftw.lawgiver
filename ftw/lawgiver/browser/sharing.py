@@ -6,6 +6,7 @@ from ftw.lawgiver.utils import get_specification_for
 from ftw.lawgiver.utils import get_workflow_for
 from ftw.lawgiver.utils import merge_role_inheritance
 from plone.app.workflow.interfaces import ISharingPageRole
+from Products.CMFPlone.utils import safe_unicode
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
 from zope.i18n import translate
@@ -143,7 +144,7 @@ class SharingDescribeRole(BrowserView):
         and compare it to the text.
         """
 
-        translated_rolename = self.request.get('role', None)
+        translated_rolename = safe_unicode(self.request.get('role', None))
         if translated_rolename is None:
             return None
 
