@@ -179,7 +179,7 @@ class TestSharingDescribeRoles(TestCase):
 
         browser.login().visit(page,
                               view='lawgiver-sharing-describe-role',
-                              data={'role': 'Redaktor'})
+                              data={'role': u'Redakt\xf6r'})
         table = browser.css('table').first.dicts()
 
         self.assertIn({'Aktion': 'Bearbeiten',

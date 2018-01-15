@@ -33,7 +33,7 @@ msgstr "Alle"
 #. Default: "editor"
 #: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "my_custom_workflow--ROLE--Editor"
-msgstr "Redaktor"
+msgstr "Redaktör"
 
 #. Default: "system administrator"
 #: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
