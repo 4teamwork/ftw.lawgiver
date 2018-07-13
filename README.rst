@@ -696,6 +696,75 @@ This text is included as translation proposal for the ``plone`` domain, which
 makes it easy to translate it to other languages for multilingual sites.
 
 
+Intercept and customize transitions
+-----------------------------------
+
+Sometimes we need to change the behavior when executing certain transitions.
+``ftw.lawgiver`` provides a base view class ``ModifyStatusViewBase`` for making
+such enhancements easier, combined with the ``transition-url`` option in the
+specification.
+
+The idea is that a custom view is implemented, subclassing ``ModifyStatusViewBase``.
+The view can be implemented for one workflow or for multiple workflows in the same project.
+The view allows to easily intercept certain transitions, changing, enhancing or aborting
+the standard behavior.
+
+Example
+~~~~~~~
+
+1. Implement a custom view with custom behavior:
+
+    .. code:: python
+
+        from ftw.lawgiver.browser.modifystatus import ModifyStatusViewBase
+
+        class WebModifyStatus(ModifyStatusViewBase):
+
+            @ModifyStatusViewBase.intercept('web--TRANSITION--publish--draft-published')
+            def verify_on_publish(self, context, transition):
+                # verify things
+                return self.redirect_to_content_status_modify(context, transition)
+
+    The default behavior for not intercepted transitions is to redirect to the default
+    ``content_status_modify`` script, which is the default behavior of Plone.
+    The default behavior is implemented with the ``redirect_to_content_status_modify``,
+    so the example above also falls back to the default behavior.
+
+    The base class provides functionality as methods:
+
+    - ``execute_transition(context, transition, **kwargs)``: executes the
+      ``content_status_modify`` script in-line, so that we can later change the redirect
+      or do more things in the same transaction.
+    - ``redirect_to_content_status_modify(context, transaction)``: redirects the browser
+      the the ``content_status_modify`` script. The script is not executed in the same
+      transaction.
+    - ``set_workflow_state(context, review_state, **infos)``: changes the workflow state
+      of the context without executing a transition or respecting any guards.
+    - ``in_state(context, review_state)``: context manager for temporarily
+      switching the review state.
+    - ``redirect_to(context)``: redirects to the absolute url of the context.
+
+
+2. Register the view in ZCML:
+
+    .. code:: xml
+
+      <browser:page
+          name="web-modify-status"
+          for="*"
+          class=".modifystatus.WebModifyStatus"
+          permission="zope2.View"
+          />
+
+
+3. Configure the lawgiver workflow to use the this view as action:
+
+    .. code:: ini
+
+      # Settings
+      transition-url = %%(content_url)s/@@web-modify-status?transition=%(transition)s
+
+
 Specialities
 ------------
 
