@@ -135,3 +135,13 @@ class TestTransition(TestCase):
 
         self.assertEquals('No such dest_status "Baz" (foo).',
                           str(cm.exception))
+
+    def test_allow_only_supported_transition_options(self):
+        with self.assertRaises(ValueError) as cm:
+            Transition('foo', src_status_title='Bar',
+                       dest_status_title='Baz',
+                       guard_expression='context/allowed')
+
+        self.assertEquals("Unkown transition options: ('guard_expression',). "
+                          "Supported options are: ('guard-expression',)",
+                          str(cm.exception))

@@ -101,6 +101,7 @@
  <transition transition_id="my_custom_workflow--TRANSITION--publish--pending_published" title="publish" new_state="my_custom_workflow--STATUS--published" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--publish--pending_published" category="workflow" icon="">publish</action>
   <guard>
+   <guard-expression>here/transition_guard_pending_published</guard-expression>
    <guard-role>Reviewer</guard-role>
    <guard-role>Site Administrator</guard-role>
   </guard>
@@ -121,6 +122,7 @@
  <transition transition_id="my_custom_workflow--TRANSITION--retract--pending_private" title="retract" new_state="my_custom_workflow--STATUS--private" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--retract--pending_private" category="workflow" icon="">retract</action>
   <guard>
+   <guard-expression>python:here.guard(state_change)</guard-expression>
    <guard-role>Editor</guard-role>
   </guard>
  </transition>

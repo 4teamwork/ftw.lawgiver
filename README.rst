@@ -297,6 +297,30 @@ since our editors can edit, add new content, and request a review for existing
 content. Therefore, it is not necessary to distinguish Editor and Contributor
 role.
 
+Transition-guard expressions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Transition-guard expressions is a way to hide your transitions dynamically,
+in addition to the guard-roles. Use the options-syntax to define a guard-expression.
+
+Expressions in DCWorkflow are TALES expressions. To see the contexts available
+in expressions, take a look at `portal_workflow/[your-workflow-id]/guardExprDocs`
+
+Warning: Transition-guard expressions do not protect the transition itself.
+If the user knows the URL to perform the transition, it will pass.
+It only hides the transition from the user.
+
+.. code:: rst
+
+    [My Custom Workflow]
+    Initial Status: Private
+
+    Status Private:
+    Status Published:
+
+    Transitions:
+      Publish (Private => Published) [guard-expression => python:here.guard(state_change)]
+      Reject (Published => Private) [guard-expression => here/guard_reject]
 
 General statements
 ~~~~~~~~~~~~~~~~~~

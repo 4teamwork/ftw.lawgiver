@@ -178,9 +178,12 @@ class SpecificationParser(object):
                 'Transition line has an invalid format: "%s"' % line)
 
         title, src_status_title, dest_status_title = match.groups()
+        options = self._get_options(line)
+
         return Transition(title=title,
                           src_status_title=src_status_title,
-                          dest_status_title=dest_status_title)
+                          dest_status_title=dest_status_title,
+                          **options)
 
     @consumer(keywords.ROLE_MAPPING)
     def _convert_role_mapping(self, match, value, specargs):
@@ -257,3 +260,16 @@ class SpecificationParser(object):
                 consumers.append((consumer_constraint, item))
 
         return consumers
+
+    def _get_options(self, line):
+        options = {}
+        match = re.search(r'\[(.*?)\]', line)  # find everything between brackets
+        if not match:
+            return options
+
+        options_string = match.group(1)
+        for option_string in map(str.strip, options_string.split(';')):
+            option, value = map(str.strip, options_string.split('=>'))
+            options[option] = value
+
+        return options

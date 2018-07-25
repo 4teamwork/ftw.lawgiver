@@ -238,6 +238,10 @@ class WorkflowGenerator(object):
                 rolenode = etree.SubElement(guards, 'guard-role')
                 rolenode.text = role.decode('utf-8')
 
+            for option, value in transition.options.items():
+                if option == 'guard-expression':
+                    etree.SubElement(guards, option).text = value
+
             if len(guards) == 0:
                 # Disable the transition by a condition guard, because there
                 # were no statements about who can do the transtion.
