@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.14.2 (unreleased)
+1.15.0 (2018-08-03)
 -------------------
 
 - Provide a base class for implementing a custom modify status view. [jone]
