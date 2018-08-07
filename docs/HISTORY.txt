@@ -5,7 +5,7 @@ Changelog
 1.15.1 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Support workflow transition guard-expressions. [elioschmutz]
 
 
 1.15.0 (2018-08-03)

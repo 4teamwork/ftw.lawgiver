@@ -7,8 +7,8 @@ Transitions:
   publish (Private => Published)
   submit for publication (Private => Pending)
   reject (Pending => Private)
-  retract (Pending => Private)
-  publish (Pending => Published)
+  retract (Pending => Private) [guard-expression => python:here.guard(state_change)]
+  publish (Pending => Published) [guard-expression => here/transition_guard_pending_published]
   retract (Published => Private)
 
 transition-url = %%(content_url)s/custom_wf_action?workflow_action=%(transition)s

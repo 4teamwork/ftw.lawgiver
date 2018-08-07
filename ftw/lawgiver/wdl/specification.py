@@ -76,8 +76,10 @@ class Status(object):
 class Transition(object):
     implements(ITransition)
 
+    supported_options = {'guard-expression'}
+
     def __init__(self, title, src_status=None, dest_status=None,
-                 src_status_title=None, dest_status_title=None):
+                 src_status_title=None, dest_status_title=None, **options):
         self.title = title
 
         if src_status is None and src_status_title is None:
@@ -90,6 +92,14 @@ class Transition(object):
         self._src_status_title = src_status_title or src_status.title
         self.dest_status = dest_status
         self._dest_status_title = dest_status_title or dest_status.title
+
+        self.options = options
+        unsupported_options = tuple(set(self.options) - self.supported_options)
+        if len(unsupported_options) > 0:
+            raise ValueError(
+                'Unkown transition options: {!r}. '
+                'Supported options are: {!r}'.format(
+                    unsupported_options, tuple(self.supported_options)))
 
     def __repr__(self):
         return '<Transition "%s" ["%s" => "%s"]>' % (
