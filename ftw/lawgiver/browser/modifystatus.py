@@ -45,6 +45,9 @@ class ModifyStatusViewBase(BrowserView):
         for workflow in portal_workflow.getWorkflowsFor(context):
             workflow.updateRoleMappingsFor(context)
 
+        context.reindexObjectSecurity()
+        context.reindexObject(idxs=['review_state'])
+
     @contextmanager
     def in_state(self, context, review_state):
         """Temporarily put the object in a certain review state in order to apply
