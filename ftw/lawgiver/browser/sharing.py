@@ -26,6 +26,7 @@ class SharingDescribeRole(BrowserView):
         return bool(get_specification_for(self.context))
 
     def __call__(self):
+        self.request.response.setHeader('X-Theme-Disabled', 'true')
         self.table_data = None
         self.role_description = ''
         self._update()
