@@ -25,10 +25,7 @@ def javascript_resources(portal):
 
 SHARING_JS_RESOURCE = '++resource++ftw.lawgiver-resources/sharing.js'
 
-if IS_PLONE_5:
-    TICK = u'\xe2\x9c\x93'
-else:
-    TICK = u'\u2713'
+TICK = u'\u2713'
 
 
 class TestSharingDescribeRoles(TestCase):
