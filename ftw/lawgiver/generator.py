@@ -351,8 +351,7 @@ class WorkflowGenerator(object):
             self._normalize(transition.dest_status.title))
 
     def _status_id(self, status):
-        return '%s--STATUS--%s' % (
-            self.workflow_id, self._normalize(status.title))
+        return self._normalize(status.title)
 
     def _role_id(self, role):
         return generate_role_translation_id(self.workflow_id, role)
