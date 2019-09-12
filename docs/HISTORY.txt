@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.16.1 (unreleased)
+1.16.1 (2019-09-12)
 -------------------
 
 - Disable Diazo on lawgiver-sharing-describe-role for Plone 5.1.5 support. [jone]
