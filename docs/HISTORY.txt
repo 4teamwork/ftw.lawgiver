@@ -6,6 +6,7 @@ Changelog
 -------------------
 
 - Disable Diazo on lawgiver-sharing-describe-role for Plone 5.1.5 support. [jone]
+- Fix workflow security and brain not updated when setting workflow state on object [Nachtalb]
 
 
 1.16.0 (2018-08-07)
