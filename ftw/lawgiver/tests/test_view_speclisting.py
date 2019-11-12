@@ -5,7 +5,7 @@ from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import statusmessages
 from operator import methodcaller
 from plone.app.testing import SITE_OWNER_NAME
-from unittest2 import TestCase
+from unittest import TestCase
 import os.path
 import shutil
 

@@ -4,7 +4,7 @@ from ftw.lawgiver.wdl.specification import Transition
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IStatus
 from ftw.lawgiver.wdl.interfaces import ITransition
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.interface.verify import verifyClass
 
 

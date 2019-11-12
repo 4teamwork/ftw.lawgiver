@@ -2,7 +2,7 @@ from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
 from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import plone
 from plone.app.testing import SITE_OWNER_NAME
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestControlPanel(TestCase):

@@ -1,7 +1,7 @@
 from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.testing import LAWGIVER_INTEGRATION_TESTING
 from ftw.lawgiver.wdl.languages import LANGUAGES
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getUtility
 from zope.i18n import translate
 

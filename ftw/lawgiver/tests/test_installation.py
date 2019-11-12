@@ -2,7 +2,7 @@ from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.interfaces import ILawgiverLayer
 from ftw.lawgiver.testing import LAWGIVER_FUNCTIONAL_TESTING
 from plone.browserlayer.utils import registered_layers
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestInstallation(TestCase):

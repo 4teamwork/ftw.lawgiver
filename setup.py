@@ -17,7 +17,6 @@ tests_require = [
     'plone.mocktestcase',
     'plone.testing',
     'transaction',
-    'unittest2',
     'zope.configuration',
     'zope.dottedname',
     ]
