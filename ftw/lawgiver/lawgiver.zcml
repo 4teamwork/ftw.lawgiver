@@ -55,14 +55,6 @@
     <lawgiver:map_permissions
         action_group="add"
         permissions="
-                     ATContentTypes: Add Document,
-                     ATContentTypes: Add Event,
-                     ATContentTypes: Add File,
-                     ATContentTypes: Add Folder,
-                     ATContentTypes: Add Image,
-                     ATContentTypes: Add Large Plone Folder,
-                     ATContentTypes: Add Link,
-                     ATContentTypes: Add News Item,
                      Add Folders,
                      Add portal content,
                      Add portal events,
@@ -80,6 +72,38 @@
                      plone.app.contenttypes: Add News Item
                      "
         />
+
+    <configure zcml:condition="have plone-4">
+      <lawgiver:map_permissions
+          action_group="add"
+          permissions="
+                       ATContentTypes: Add Document,
+                       ATContentTypes: Add Event,
+                       ATContentTypes: Add File,
+                       ATContentTypes: Add Folder,
+                       ATContentTypes: Add Image,
+                       ATContentTypes: Add Large Plone Folder,
+                       ATContentTypes: Add Link,
+                       ATContentTypes: Add News Item
+                       "
+          />
+    </configure>
+
+    <configure zcml:condition="have plone-5">
+      <lawgiver:ignore
+          permissions="
+                       ATContentTypes: Add Document,
+                       ATContentTypes: Add Event,
+                       ATContentTypes: Add File,
+                       ATContentTypes: Add Folder,
+                       ATContentTypes: Add Image,
+                       ATContentTypes: Add Large Plone Folder,
+                       ATContentTypes: Add Link,
+                       ATContentTypes: Add News Item
+                       "
+          />
+    </configure>
+
 
 
     <configure zcml:condition="installed collective.deletepermission">
