@@ -3,7 +3,7 @@ from ftw.builder import Builder
 from ftw.builder import create
 from ftw.lawgiver.browser.modifystatus import ModifyStatusViewBase
 from ftw.lawgiver.testing import LAWGIVER_INTEGRATION_TESTING
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 class TestModifyStatusViewBase(TestCase):

@@ -3,7 +3,7 @@ from ftw.lawgiver.i18nbuilder import I18nBuilder
 from ftw.lawgiver.testing import LAWGIVER_INTEGRATION_TESTING
 from ftw.lawgiver.tests.helpers import cleanup_path
 from ftw.lawgiver.tests.helpers import filestructure_snapshot
-from unittest2 import TestCase
+from unittest import TestCase
 import os
 import re
 

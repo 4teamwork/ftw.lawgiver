@@ -11,7 +11,7 @@ from zope.component.hooks import getSite
 from zope.component.hooks import setSite
 from zope.dottedname.resolve import resolve
 import os
-import unittest2
+import unittest
 
 
 CONFIGURE = '''
@@ -70,7 +70,7 @@ class FakeSite(object):
     getSiteManager = getSiteManager
 
 
-class XMLDiffTestCase(unittest2.TestCase):
+class XMLDiffTestCase(unittest.TestCase):
 
     def _canonicalize_xml(self, text, node_sorter=None):
         parser = etree.XMLParser(remove_blank_text=True)

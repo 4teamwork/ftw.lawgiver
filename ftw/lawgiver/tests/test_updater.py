@@ -9,7 +9,7 @@ from ftw.lawgiver.tests.helpers import EXAMPLE_WORKFLOW_DIR
 from ftw.lawgiver.tests.helpers import run_command
 from ftw.testing import freeze
 from path import Path
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getUtility
 import os.path
 

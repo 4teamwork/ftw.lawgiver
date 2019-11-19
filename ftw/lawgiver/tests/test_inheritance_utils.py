@@ -3,7 +3,7 @@ from ftw.lawgiver.utils import get_roles_inheriting_from
 from ftw.lawgiver.utils import merge_role_inheritance
 from ftw.lawgiver.wdl.specification import Specification
 from ftw.lawgiver.wdl.specification import Status
-from unittest2 import TestCase
+from unittest import TestCase
 
 
 ROLE_MAPPING = {'admin': 'Manager',

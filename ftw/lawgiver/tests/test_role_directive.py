@@ -2,7 +2,7 @@ from ftw.lawgiver.interfaces import IDynamicRoleAdapter
 from ftw.lawgiver.testing import META_ZCML
 from plone.app.workflow.interfaces import ISharingPageRole
 from plone.mocktestcase.dummy import Dummy
-from unittest2 import TestCase
+from unittest import TestCase
 from zope.component import getSiteManager
 from zope.component import queryMultiAdapter
 from zope.component import queryUtility
