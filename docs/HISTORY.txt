@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.17.1 (unreleased)
+1.17.1 (2019-11-22)
 -------------------
 
 - Use current version of ftw.testing and drop unittest2. [jone, busykoala]
