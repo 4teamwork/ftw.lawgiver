@@ -10,7 +10,7 @@ tests_require = [
     'Zope2',
     'ftw.builder',
     'ftw.testbrowser',
-    'ftw.testing<2a',
+    'ftw.testing',
     'plone.app.contenttypes',
     'plone.app.testing',
     'plone.browserlayer',
