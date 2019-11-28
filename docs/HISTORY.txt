@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.17.2 (unreleased)
+1.17.2 (2019-11-28)
 -------------------
 
 - Testing: improve diff output in workflow test for unittest. [jone]
