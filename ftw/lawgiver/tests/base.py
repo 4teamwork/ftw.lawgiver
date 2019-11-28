@@ -1,15 +1,16 @@
-from StringIO import StringIO
 from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.lawgiver.wdl.languages import LANGUAGES
 from ftw.testing import MockTestCase
 from lxml import etree
+from StringIO import StringIO
 from zope.component import getSiteManager
 from zope.component import getUtility
 from zope.component.hooks import getSite
 from zope.component.hooks import setSite
 from zope.dottedname.resolve import resolve
+import difflib
 import os
 import unittest
 
@@ -97,19 +98,17 @@ class XMLDiffTestCase(unittest.TestCase):
                               xml_declaration=True,
                               encoding='utf-8')
 
-    def assert_xml(self, xml1, xml2):
-        norm1 = self._canonicalize_xml(xml1)
-        norm2 = self._canonicalize_xml(xml2)
-        self.maxDiff = None
-        self.assertMultiLineEqual(norm1, norm2)
+    def assert_xml(self, xml1, xml2, node_sorter=None):
+        norm1 = self._canonicalize_xml(xml1, node_sorter=node_sorter)
+        norm2 = self._canonicalize_xml(xml2, node_sorter=node_sorter)
+        if norm1 != norm2:
+            raise AssertionError('\n'.join(difflib.unified_diff(
+                norm1.split('\n'),
+                norm2.split('\n')
+            )))
 
     def assert_definition_xmls(self, xml1, xml2):
-        norm1 = self._canonicalize_xml(
-            xml1, node_sorter=definition_xml_node_sorter)
-        norm2 = self._canonicalize_xml(
-            xml2, node_sorter=definition_xml_node_sorter)
-        self.maxDiff = None
-        self.assertMultiLineEqual(norm1, norm2)
+        self.assert_xml(xml1, xml2, node_sorter=definition_xml_node_sorter)
 
 
 class BaseTest(MockTestCase, XMLDiffTestCase):
