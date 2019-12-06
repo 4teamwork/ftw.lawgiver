@@ -11,6 +11,17 @@ from zope.i18n import translate
 from zope.interface import Interface
 from zope.interface import implementer
 from zope.interface import implements
+import pkg_resources
+
+try:
+    pkg_resources.get_distribution('plone.rest')
+
+except pkg_resources.DistributionNotFound:
+    is_rest_available = False
+
+else:
+    is_rest_available = True
+    from plone.rest.traverse import RESTWrapper
 
 
 DEFAULT_ROLE_TITLES = {
@@ -40,6 +51,15 @@ class DynamicRolesUtility(object):
         site = getSite()
         request = site.REQUEST
         context = request.PARENTS[0]
+
+        if is_rest_available and isinstance(context, RESTWrapper):
+            # when the sharing endpoint is called through the REST-API, the
+            # context is a RESTWrapper object, which normally delegates
+            # everything to self.context, but this does not work for certain
+            # magic methods, like __provides__ breaks get_workflow_for in
+            # DynamicRolesAdapter. We therefore pass the real object here.
+            context = context.context
+
         if IApplication.providedBy(context):
             context = site
         return getMultiAdapter((context, request),
