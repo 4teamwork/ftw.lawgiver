@@ -5,7 +5,7 @@ Changelog
 1.17.3 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix bug for sharing view over REST-API. [njohner]
 
 
 1.17.2 (2019-11-28)
