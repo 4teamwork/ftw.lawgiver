@@ -15,6 +15,7 @@ tests_require = [
     'plone.app.testing',
     'plone.browserlayer',
     'plone.mocktestcase',
+    'plone.restapi',
     'plone.testing',
     'transaction',
     'zope.configuration',
