@@ -326,6 +326,7 @@
                      plone.cachepurging: Manually purge objects,
                      plone.resource: Export ZIP file,
                      plone.resourceeditor: Manage Sources,
+                     plone.restapi: Access Plone user information,
                      plone.restapi: Access Plone vocabularies,
                      plone.restapi: Use REST API,
 

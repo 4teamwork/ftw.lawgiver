@@ -42,6 +42,19 @@ class TestSharingRoleTranslation(TestCase):
             ['Can add', 'Can view', 'editor', 'editor-in-chief'],
             sharing.role_labels())
 
+    @browsing
+    def test_custom_role_translation_per_workflow_over_restapi(self, browser):
+        applyProfile(self.portal, 'ftw.lawgiver.tests:role-translation')
+        wftool = getToolByName(self.portal, 'portal_workflow')
+        wftool.setChainForPortalTypes(['Document'], 'role-translation')
+
+        document = create(Builder('document'))
+        sharing.visit_api(document)
+
+        self.assertEquals(
+            ['Can add', 'Can view', 'editor', 'editor-in-chief'],
+            sharing.role_labels())
+
     def test_custom_role_translation_per_workflow_when_context_is_view(self):
         # Dependenging on what is traversed, the role utility may guess
         # the view from the request as context.

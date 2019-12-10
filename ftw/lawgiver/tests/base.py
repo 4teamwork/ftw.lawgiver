@@ -299,6 +299,7 @@ class WorkflowTest(XMLDiffTestCase):
                 unmapped.append(permission)
 
         self.maxDiff = None
+        self.longMessage = True
         self.assertEquals(
             [], unmapped,
             'There are permissions which are not yet mapped'
