@@ -5,7 +5,7 @@ Changelog
 1.17.4 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Plone 5: provide precompiled bundle. [jone]
 
 
 1.17.3 (2019-12-10)

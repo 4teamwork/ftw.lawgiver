@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<object name="portal_controlpanel" meta_type="Plone Control Panel Tool">
+
+    <configlet title="Lawgiver"
+               action_id="lawgiver-listing"
+               appId="Lawgiver"
+               category="Products"
+               url_expr="string:${portal_url}/@@lawgiver-list-specs"
+               condition_expr=""
+               icon_expr="string:${portal_url}/++resource++ftw.lawgiver-resources/lawgiver-icon.png"
+               visible="True">
+        <permission>Manage portal</permission>
+    </configlet>
+
+</object>

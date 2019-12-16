@@ -1,0 +1,1 @@
+require(['sharing'], function(sharing){});

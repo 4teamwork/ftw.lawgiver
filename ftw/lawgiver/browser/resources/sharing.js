@@ -1,4 +1,10 @@
-jQuery(function($){
+(function (factory) {
+  if (typeof define === 'function' && define.amd) {
+    require(['jquery'], factory);
+  } else {
+    factory(window.jQuery);
+  }
+}(function ($) {
 
   var strip_url_params = function () {
     var index = 0,
@@ -38,4 +44,4 @@ jQuery(function($){
     });
   }
 
-});
+ }));

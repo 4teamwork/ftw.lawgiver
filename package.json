@@ -1,0 +1,18 @@
+{
+  "name": "ftw.lawgiver",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:4teamwork/ftw.lawgiver",
+  "author": "4teamwork AG <info@4teamwork.ch>",
+  "license": "GPL2",
+  "private": true,
+  "scripts": {
+    "build": "r.js -o build.js",
+    "build-css": "r.js -o buildcss.js",
+    "watch": "chokidar \"./ftw/lawgiver/browser/resources/(*.js|*.css)\" -i \"**/*-compiled.(js|css)\" -c \"if [[ '{path}' = *.js ]]; then r.js -o build.js; else r.js -o buildcss.js; fi;\""
+  },
+  "devDependencies": {
+    "chokidar-cli": "^2.1.0",
+    "requirejs": "^2.3.6"
+  }
+}

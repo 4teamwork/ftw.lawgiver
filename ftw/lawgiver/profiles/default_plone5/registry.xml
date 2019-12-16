@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<registry>
+
+  <records prefix="plone.bundles/ftw-file-resources"
+           interface="Products.CMFPlone.interfaces.IBundleRegistry">
+    <value key="enabled">True</value>
+    <value key="depends">plone</value>
+    <value key="stub_js_modules">jquery</value>
+    <value key="compile">False</value>
+    <value key="jscompilation">++resource++ftw.lawgiver-resources/ftw-lawgiver-compiled.js</value>
+    <value key="last_compilation">2019-12-16 00:00:00</value>
+    <value key="merge_with">default</value>
+  </records>
+
+</registry>
