@@ -5,7 +5,9 @@ Changelog
 1.17.4 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Normalize titles due to translation in plone.app.content starting with tag 3.4.4:
+  https://github.com/plone/plone.app.content/blob/ab2e5d77ad5f779de04f49631fec4079a1577f48/plone/app/content/browser/contents/workflow.py#L60
+  [busykoala]
 
 
 1.17.3 (2019-12-10)
