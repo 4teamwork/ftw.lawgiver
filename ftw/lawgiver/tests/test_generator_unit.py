@@ -53,12 +53,12 @@ class TestGenerator(BaseTest):
 
         expected = workflowxml.WORKFLOW % {
             'id': 'example-workflow',
-            'title': 'Example Workflow',
+            'title': 'example-workflow',
             'description': 'the Description',
             'initial_status': 'example-workflow--STATUS--foo'} % (
 
             workflowxml.STATUS_STANDALONE % {
-                'title': 'Foo',
+                'title': 'foo',
                 'id': 'example-workflow--STATUS--foo',
                 })
 
@@ -76,12 +76,12 @@ class TestGenerator(BaseTest):
 
         expected = workflowxml.WORKFLOW % {
             'id': 'workflow',
-            'title': 'W\xc3\xb6rkflow',
+            'title': 'workflow',
             'description': '',
             'initial_status': 'workflow--STATUS--hello-world'} % (
 
             workflowxml.STATUS_STANDALONE % {
-                'title': status_title,
+                'title': 'hello-world',
                 'id': 'workflow--STATUS--hello-world',
                 })
 
@@ -102,31 +102,31 @@ class TestGenerator(BaseTest):
 
         expected = workflowxml.WORKFLOW % {
             'id': 'workflow',
-            'title': 'WF',
+            'title': 'wf',
             'description': '',
             'initial_status': 'workflow--STATUS--foo'} % ''.join((
 
                 workflowxml.STATUS % {
-                    'title': 'Bar',
+                    'title': 'bar',
                     'id': 'workflow--STATUS--bar',
                     } % (workflowxml.EXIT_TRANSITION %
                          'workflow--TRANSITION--fuize--bar_foo'),
 
                 workflowxml.STATUS % {
-                    'title': 'Foo',
+                    'title': 'foo',
                     'id': 'workflow--STATUS--foo',
                     } % (workflowxml.EXIT_TRANSITION %
                          'workflow--TRANSITION--barize--foo_bar'),
 
                 workflowxml.TRANSITION % {
                     'id': 'workflow--TRANSITION--barize--foo_bar',
-                    'title': 'b\xc3\xa4rize',
+                    'title': 'barize',
                     'target_state': 'workflow--STATUS--bar',
                     'guards': workflowxml.GUARDS_DISABLED},
 
                 workflowxml.TRANSITION % {
                     'id': 'workflow--TRANSITION--fuize--bar_foo',
-                    'title': 'f\xc3\xbcize',
+                    'title': 'fuize',
                     'target_state': 'workflow--STATUS--foo',
                     'guards': workflowxml.GUARDS_DISABLED},
 
@@ -152,32 +152,32 @@ class TestGenerator(BaseTest):
 
         expected = workflowxml.WORKFLOW % {
             'id': 'workflow',
-            'title': 'WF',
+            'title': 'wf',
             'description': '',
             'initial_status': 'workflow--STATUS--foo'} % ''.join((
 
                 workflowxml.STATUS % {
-                    'title': 'Bar',
+                    'title': 'bar',
                     'id': 'workflow--STATUS--bar',
                     } % (workflowxml.EXIT_TRANSITION %
                          'workflow--TRANSITION--fuize--bar_foo'),
 
                 workflowxml.STATUS % {
-                    'title': 'Foo',
+                    'title': 'foo',
                     'id': 'workflow--STATUS--foo',
                     } % (workflowxml.EXIT_TRANSITION %
                          'workflow--TRANSITION--barize--foo_bar'),
 
                 workflowxml.TRANSITION_WITH_CUSTOM_URL % {
                     'id': 'workflow--TRANSITION--barize--foo_bar',
-                    'title': 'b\xc3\xa4rize',
+                    'title': 'barize',
                     'target_state': 'workflow--STATUS--bar',
                     'guards': workflowxml.GUARDS_DISABLED,
                     'url_viewname': 'custom_wf_action'},
 
                 workflowxml.TRANSITION_WITH_CUSTOM_URL % {
                     'id': 'workflow--TRANSITION--fuize--bar_foo',
-                    'title': 'f\xc3\xbcize',
+                    'title': 'fuize',
                     'target_state': 'workflow--STATUS--foo',
                     'guards': workflowxml.GUARDS_DISABLED,
                     'url_viewname': 'custom_wf_action'},
@@ -222,7 +222,7 @@ class TestGenerator(BaseTest):
                 ))
 
         xml_status_defininition = workflowxml.STATUS % {
-            'title': 'Foo',
+            'title': 'foo',
             'id': 'example-workflow--STATUS--foo',
             } % ''.join((
 
@@ -244,7 +244,7 @@ class TestGenerator(BaseTest):
 
         expected = workflowxml.WORKFLOW % {
             'id': 'example-workflow',
-            'title': 'Workflow',
+            'title': 'workflow',
             'description': '',
             'initial_status': 'example-workflow--STATUS--foo'} % ''.join((
                 xml_permissions_declaration,
@@ -275,18 +275,18 @@ class TestGenerator(BaseTest):
 
         expected = workflowxml.WORKFLOW % {
             'id': 'wf',
-            'title': 'Workflow',
+            'title': 'workflow',
             'description': '',
             'initial_status': 'wf--STATUS--private'} % ''.join((
 
                 workflowxml.STATUS % {
-                    'title': 'Private',
+                    'title': 'private',
                     'id': 'wf--STATUS--private',
                     } % workflowxml.EXIT_TRANSITION % (
                     'wf--TRANSITION--publish--private_published'),
 
                 workflowxml.STATUS % {
-                    'title': 'Published',
+                    'title': 'published',
                     'id': 'wf--STATUS--published',
                     } % workflowxml.EXIT_TRANSITION % (
                     'wf--TRANSITION--retract--published_private'),
@@ -453,7 +453,7 @@ class TestGenerator(BaseTest):
                 ))
 
         xml_foo_defininition = workflowxml.STATUS % {
-            'title': 'Foo',
+            'title': 'foo',
             'id': 'example-workflow--STATUS--foo',
             } % ''.join((
 
@@ -482,7 +482,7 @@ class TestGenerator(BaseTest):
                 ))
 
         xml_bar_defininition = workflowxml.STATUS % {
-            'title': 'Bar',
+            'title': 'bar',
             'id': 'example-workflow--STATUS--bar',
             } % ''.join((
 
@@ -517,7 +517,7 @@ class TestGenerator(BaseTest):
 
         expected = workflowxml.WORKFLOW % {
             'id': 'example-workflow',
-            'title': 'Workflow',
+            'title': 'workflow',
             'description': '',
             'initial_status': 'example-workflow--STATUS--foo'} % ''.join((
                 xml_permissions_declaration,
@@ -545,19 +545,19 @@ class TestGenerator(BaseTest):
 
         expected = workflowxml.WORKFLOW % {
             'id': 'wf',
-            'title': 'Workflow',
+            'title': 'workflow',
             'description': '',
             'initial_status': 'wf--STATUS--pending'} % ''.join((
 
                 workflowxml.STATUS_STANDALONE % {
-                    'title': 'Pending',
+                    'title': 'pending',
                     'id': 'wf--STATUS--pending',
                     },
 
                 workflowxml.WORKLIST % {
                     'id': 'wf--WORKLIST--pending',
                     'status_id': 'wf--STATUS--pending',
-                    'status_title': 'Pending',
+                    'status_title': 'pending',
                     'guards': workflowxml.GUARDS % ''.join((
                             workflowxml.GUARD_ROLE % 'Editor',
                             workflowxml.GUARD_ROLE % 'Reviewer',

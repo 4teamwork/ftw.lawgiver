@@ -6,6 +6,7 @@ from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import plone
 from ftw.testbrowser.pages import statusmessages
 from operator import methodcaller
+from plone.i18n.normalizer import idnormalizer
 from unittest import TestCase
 import os
 import shutil
@@ -190,7 +191,7 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
             wftool = getToolByName(self.layer['portal'], 'portal_workflow')
             return wftool.get('wf-bar')
 
-        self.assertEquals('Bar Workflow', get_workflow().title,
+        self.assertEquals('bar-workflow', get_workflow().title,
                           'Workflow title wrong after initial import.')
 
         # Change the workflow title in the database
@@ -200,7 +201,7 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
         # reimport with our button
         specdetails.button_write_and_import().click()
         self.assertEquals(
-            'Bar Workflow', get_workflow().title,
+            'bar-workflow', get_workflow().title,
             'Workflow title - write / reimport seems not working?')
 
         statusmessages.assert_message('Workflow wf-bar successfully imported.')
