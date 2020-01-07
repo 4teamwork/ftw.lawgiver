@@ -1,196 +1,187 @@
-<?xml version="1.0"?>
-<dc-workflow workflow_id="my_custom_workflow" title="My Custom Workflow" description="A three state publication workflow" state_variable="review_state" initial_state="my_custom_workflow--STATUS--private" manager_bypass="True">
- <permission>ATContentTypes: Add Image</permission>
- <permission>Access contents information</permission>
- <permission>Add portal content</permission>
- <permission>Delete objects</permission>
- <permission>Modify portal content</permission>
- <permission>View</permission>
- <state state_id="my_custom_workflow--STATUS--pending" title="Pending">
-  <exit-transition transition_id="my_custom_workflow--TRANSITION--publish--pending_published"/>
-  <exit-transition transition_id="my_custom_workflow--TRANSITION--reject--pending_private"/>
-  <exit-transition transition_id="my_custom_workflow--TRANSITION--retract--pending_private"/>
-  <permission-map acquired="False" name="ATContentTypes: Add Image">
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Access contents information" acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Add portal content" acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Delete objects" acquired="False">
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="View" acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
- </state>
- <state state_id="my_custom_workflow--STATUS--private" title="Private">
-  <exit-transition transition_id="my_custom_workflow--TRANSITION--publish--private_published"/>
-  <exit-transition transition_id="my_custom_workflow--TRANSITION--submit-for-publication--private_pending"/>
-  <permission-map acquired="False" name="ATContentTypes: Add Image">
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Access contents information" acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Add portal content" acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Delete objects" acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="View" acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
- </state>
- <state state_id="my_custom_workflow--STATUS--published" title="Published">
-  <exit-transition transition_id="my_custom_workflow--TRANSITION--retract--published_private"/>
-  <permission-map acquired="False" name="ATContentTypes: Add Image">
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Access contents information" acquired="False">
-   <permission-role>Anonymous</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Add portal content" acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Delete objects" acquired="False">
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="Modify portal content" acquired="False">
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="View" acquired="False">
-   <permission-role>Anonymous</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Site Administrator</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
- </state>
- <transition transition_id="my_custom_workflow--TRANSITION--publish--pending_published" title="publish" new_state="my_custom_workflow--STATUS--published" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--publish--pending_published" category="workflow" icon="">publish</action>
-  <guard>
-   <guard-expression>here/transition_guard_pending_published</guard-expression>
-   <guard-role>Reviewer</guard-role>
-   <guard-role>Site Administrator</guard-role>
-  </guard>
- </transition>
- <transition transition_id="my_custom_workflow--TRANSITION--publish--private_published" title="publish" new_state="my_custom_workflow--STATUS--published" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--publish--private_published" category="workflow" icon="">publish</action>
-  <guard>
-   <guard-role>Reviewer</guard-role>
-   <guard-role>Site Administrator</guard-role>
-  </guard>
- </transition>
- <transition transition_id="my_custom_workflow--TRANSITION--reject--pending_private" title="reject" new_state="my_custom_workflow--STATUS--private" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--reject--pending_private" category="workflow" icon="">reject</action>
-  <guard>
-   <guard-role>Reviewer</guard-role>
-  </guard>
- </transition>
- <transition transition_id="my_custom_workflow--TRANSITION--retract--pending_private" title="retract" new_state="my_custom_workflow--STATUS--private" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--retract--pending_private" category="workflow" icon="">retract</action>
-  <guard>
-   <guard-expression>python:here.guard(state_change)</guard-expression>
-   <guard-role>Editor</guard-role>
-  </guard>
- </transition>
- <transition transition_id="my_custom_workflow--TRANSITION--retract--published_private" title="retract" new_state="my_custom_workflow--STATUS--private" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--retract--published_private" category="workflow" icon="">retract</action>
-  <guard>
-   <guard-role>Reviewer</guard-role>
-   <guard-role>Editor</guard-role>
-  </guard>
- </transition>
- <transition transition_id="my_custom_workflow--TRANSITION--submit-for-publication--private_pending" title="submit for publication" new_state="my_custom_workflow--STATUS--pending" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--submit-for-publication--private_pending" category="workflow" icon="">submit for publication</action>
-  <guard>
-   <guard-role>Editor</guard-role>
-  </guard>
- </transition>
- <worklist worklist_id="my_custom_workflow--WORKLIST--pending" title="">
-  <action url="%(portal_url)s/search?review_state=my_custom_workflow--STATUS--pending" category="global" icon="">Pending (%(count)d)</action>
-  <guard>
-   <guard-role>Reviewer</guard-role>
-  </guard>
-  <match name="review_state" values="my_custom_workflow--STATUS--pending"/>
- </worklist>
- <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
-  <description>Previous transition</description>
-  <default>
-
-   <expression>transition/getId|nothing</expression>
-  </default>
-  <guard>
-  </guard>
- </variable>
- <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
-  <description>The ID of the user who performed the previous transition</description>
-  <default>
-
-   <expression>user/getId</expression>
-  </default>
-  <guard>
-  </guard>
- </variable>
- <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
-  <description>Comment about the last transition</description>
-  <default>
-
-   <expression>python:state_change.kwargs.get('comment', '')</expression>
-  </default>
-  <guard>
-  </guard>
- </variable>
- <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
-  <description>Provides access to workflow history</description>
-  <default>
-
-   <expression>state_change/getHistory</expression>
-  </default>
-  <guard>
-   <guard-permission>Request review</guard-permission>
-   <guard-permission>Review portal content</guard-permission>
-  </guard>
- </variable>
- <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
-  <description>When the previous transition was performed</description>
-  <default>
-
-   <expression>state_change/getDateTime</expression>
-  </default>
-  <guard>
-  </guard>
- </variable>
+<?xml version='1.0' encoding='UTF-8'?>
+<dc-workflow workflow_id="my_custom_workflow" title="my-custom-workflow" description="A three state publication workflow" initial_state="my_custom_workflow--STATUS--private" state_variable="review_state" manager_bypass="True">
+  <permission>ATContentTypes: Add Image</permission>
+  <permission>Access contents information</permission>
+  <permission>Add portal content</permission>
+  <permission>Delete objects</permission>
+  <permission>Modify portal content</permission>
+  <permission>View</permission>
+  <state state_id="my_custom_workflow--STATUS--pending" title="pending">
+    <exit-transition transition_id="my_custom_workflow--TRANSITION--reject--pending_private"/>
+    <exit-transition transition_id="my_custom_workflow--TRANSITION--retract--pending_private"/>
+    <exit-transition transition_id="my_custom_workflow--TRANSITION--publish--pending_published"/>
+    <permission-map name="ATContentTypes: Add Image" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Access contents information" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Add portal content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Delete objects" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content" acquired="False">
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+  </state>
+  <state state_id="my_custom_workflow--STATUS--private" title="private">
+    <exit-transition transition_id="my_custom_workflow--TRANSITION--publish--private_published"/>
+    <exit-transition transition_id="my_custom_workflow--TRANSITION--submit-for-publication--private_pending"/>
+    <permission-map name="ATContentTypes: Add Image" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Access contents information" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Add portal content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Delete objects" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+  </state>
+  <state state_id="my_custom_workflow--STATUS--published" title="published">
+    <exit-transition transition_id="my_custom_workflow--TRANSITION--retract--published_private"/>
+    <permission-map name="ATContentTypes: Add Image" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Access contents information" acquired="False">
+      <permission-role>Anonymous</permission-role>
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Add portal content" acquired="False">
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+    </permission-map>
+    <permission-map name="Delete objects" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="Modify portal content" acquired="False">
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+    <permission-map name="View" acquired="False">
+      <permission-role>Anonymous</permission-role>
+      <permission-role>Editor</permission-role>
+      <permission-role>Reviewer</permission-role>
+      <permission-role>Site Administrator</permission-role>
+    </permission-map>
+  </state>
+  <transition new_state="my_custom_workflow--STATUS--published" title="publish" transition_id="my_custom_workflow--TRANSITION--publish--private_published" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--publish--private_published">publish</action>
+    <guard>
+      <guard-role>Site Administrator</guard-role>
+      <guard-role>Reviewer</guard-role>
+    </guard>
+  </transition>
+  <transition new_state="my_custom_workflow--STATUS--published" title="publish" transition_id="my_custom_workflow--TRANSITION--publish--pending_published" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--publish--pending_published">publish</action>
+    <guard>
+      <guard-role>Site Administrator</guard-role>
+      <guard-role>Reviewer</guard-role>
+      <guard-expression>here/transition_guard_pending_published</guard-expression>
+    </guard>
+  </transition>
+  <transition new_state="my_custom_workflow--STATUS--private" title="reject" transition_id="my_custom_workflow--TRANSITION--reject--pending_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--reject--pending_private">reject</action>
+    <guard>
+      <guard-role>Reviewer</guard-role>
+    </guard>
+  </transition>
+  <transition new_state="my_custom_workflow--STATUS--private" title="retract" transition_id="my_custom_workflow--TRANSITION--retract--pending_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--retract--pending_private">retract</action>
+    <guard>
+      <guard-role>Editor</guard-role>
+      <guard-expression>python:here.guard(state_change)</guard-expression>
+    </guard>
+  </transition>
+  <transition new_state="my_custom_workflow--STATUS--private" title="retract" transition_id="my_custom_workflow--TRANSITION--retract--published_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--retract--published_private">retract</action>
+    <guard>
+      <guard-role>Reviewer</guard-role>
+      <guard-role>Editor</guard-role>
+    </guard>
+  </transition>
+  <transition new_state="my_custom_workflow--STATUS--pending" title="submit-for-publication" transition_id="my_custom_workflow--TRANSITION--submit-for-publication--private_pending" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/custom_wf_action?workflow_action=my_custom_workflow--TRANSITION--submit-for-publication--private_pending">submit-for-publication</action>
+    <guard>
+      <guard-role>Editor</guard-role>
+    </guard>
+  </transition>
+  <worklist title="" worklist_id="my_custom_workflow--WORKLIST--pending">
+    <action category="global" icon="" url="%(portal_url)s/search?review_state=my_custom_workflow--STATUS--pending">pending (%(count)d)</action>
+    <match name="review_state" values="my_custom_workflow--STATUS--pending"/>
+    <guard>
+      <guard-role>Reviewer</guard-role>
+    </guard>
+  </worklist>
+  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
+    <description>Previous transition</description>
+    <default>
+        <expression>transition/getId|nothing</expression>
+    </default>
+    <guard/>
+</variable>
+  <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
+<description>The ID of the user who performed the previous transition</description>
+    <default>
+        <expression>user/getId</expression>
+    </default>
+    <guard/>
+</variable>
+  <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
+    <description>Comment about the last transition</description>
+    <default>
+        <expression>python:state_change.kwargs.get('comment', '')</expression>
+    </default>
+    <guard/>
+</variable>
+  <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
+    <description>Provides access to workflow history</description>
+    <default>
+        <expression>state_change/getHistory</expression>
+    </default>
+    <guard>
+        <guard-permission>Request review</guard-permission>
+        <guard-permission>Review portal content</guard-permission>
+    </guard>
+</variable>
+  <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
+    <description>When the previous transition was performed</description>
+    <default>
+        <expression>state_change/getDateTime</expression>
+    </default>
+    <guard/>
+</variable>
 </dc-workflow>

@@ -8,7 +8,7 @@ from ftw.lawgiver.variables import VARIABLES
 from lxml import etree
 from lxml import html
 from plone.app.workflow.interfaces import ISharingPageRole
-from plone.i18n.normalizer.interfaces import INormalizer
+from plone.i18n.normalizer import idnormalizer
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
 from zope.i18n import translate
@@ -117,7 +117,7 @@ class WorkflowGenerator(object):
     def _create_document(self):
         root = etree.Element("dc-workflow")
         root.set('workflow_id', self.workflow_id)
-        root.set('title', self.specification.title.decode('utf-8'))
+        root.set('title', idnormalizer.normalize(self.specification.title.decode('utf-8')))
         root.set('description', self.specification.description and
                  self.specification.description.decode('utf-8') or '')
 
@@ -136,7 +136,7 @@ class WorkflowGenerator(object):
     def _add_status(self, doc, status):
         node = etree.SubElement(doc, 'state')
         node.set('state_id', self._status_id(status))
-        node.set('title', status.title.decode('utf-8'))
+        node.set('title', idnormalizer.normalize(status.title.decode('utf-8')))
 
         for transition in self.specification.transitions:
             assert transition.src_status is not None, \
@@ -153,7 +153,8 @@ class WorkflowGenerator(object):
         node = etree.SubElement(doc, 'transition')
 
         node.set('new_state', self._status_id(transition.dest_status))
-        node.set('title', transition.title.decode('utf-8'))
+
+        node.set('title', idnormalizer.normalize(transition.title.decode('utf-8')))
         node.set('transition_id', self._transition_id(transition))
 
         node.set('after_script', '')
@@ -170,7 +171,7 @@ class WorkflowGenerator(object):
 
         action.set('url', url_struct % {
                 'transition': self._transition_id(transition)})
-        action.text = transition.title.decode('utf-8')
+        action.text = idnormalizer.normalize(transition.title.decode('utf-8'))
 
         return node
 
@@ -261,7 +262,7 @@ class WorkflowGenerator(object):
         action.set('icon', '')
         action.set('url', '%%(portal_url)s/search?review_state=%s' % (
                 self._status_id(status)))
-        action.text = '%s (%%(count)d)' % status.title.decode('utf-8')
+        action.text = '%s (%%(count)d)' % idnormalizer.normalize(status.title.decode('utf-8'))
 
         match = etree.SubElement(worklist, 'match')
         match.set('name', 'review_state')
@@ -368,10 +369,7 @@ class WorkflowGenerator(object):
     def _normalize(self, text):
         if isinstance(text, str):
             text = text.decode('utf-8')
-
-        normalizer = getUtility(INormalizer)
-        result = normalizer.normalize(text)
-        return result.decode('utf-8')
+        return idnormalizer.normalize(text)
 
     def _translate_action_group(self, action_group, language):
         zcml_domain = translate(action_group, target_language=language)

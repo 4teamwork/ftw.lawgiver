@@ -16,53 +16,53 @@ POT_PATH = os.path.join(I18N_ASSETS, 'locales', 'plone.pot')
 EN_PO_PATH = os.path.join(
     I18N_ASSETS, 'locales', 'en', 'LC_MESSAGES', 'plone.po')
 
-
 SIMPLE_WORKFLOW_MESSAGES = r'''
+#. Default: "püblish"
+#: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
+msgid "pa1-4blish"
+msgstr "püblish"
+
 #. Default: "Private"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
-msgid "Private"
+msgid "private"
 msgstr "Private"
 
 #. Default: "Published"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
-msgid "Published"
+msgid "published"
 msgstr "Published"
-
-#. Default: "püblish"
-#: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
-msgid "püblish"
-msgstr "püblish"
-
-#. Default: "editor"
-#: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
-msgid "simple_workflow--ROLE--Editor"
-msgstr "editor"
 
 #. Default: "An \"Editor\" writes articles."
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
-msgid "simple_workflow--ROLE-DESCRIPTION--Editor"
+msgid "simple_workflow-role-description-editor"
 msgstr "An \"Editor\" writes articles."
+
+#. Default: "editor"
+#: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
+msgid "simple_workflow-role-editor"
+msgstr "editor"
 
 #. Default: "Private"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
-msgid "simple_workflow--STATUS--private"
+msgid "simple_workflow-status-private"
 msgstr "Private"
 
 #. Default: "Published"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
-msgid "simple_workflow--STATUS--published"
+msgid "simple_workflow-status-published"
 msgstr "Published"
 
 #. Default: "püblish"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
-msgid "simple_workflow--TRANSITION--publish--private_published"
+msgid "simple_workflow-transition-publish"
 msgstr "püblish"
 '''.strip()
+
 
 OLD_SIMPLE_WORKFLOW_MESSAGES = r'''
 #. Default: "No Longer Available"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
-msgid "No Longer Available"
+msgid "no-longer-available"
 msgstr "No Longer Available"
 '''
 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<dc-workflow workflow_id="role-translation" title="Role Translation Workflow" description="A one state workflow for testing role translation" initial_state="role-translation--STATUS--default" state_variable="review_state" manager_bypass="True">
+<dc-workflow workflow_id="role-translation" title="role-translation-workflow" description="A one state workflow for testing role translation" initial_state="role-translation--STATUS--default" state_variable="review_state" manager_bypass="True">
   <permission>ATContentTypes: Add Document</permission>
   <permission>ATContentTypes: Add Event</permission>
   <permission>ATContentTypes: Add File</permission>
@@ -21,7 +21,6 @@
   <permission>CMFEditions: Save new version</permission>
   <permission>Change local roles</permission>
   <permission>Delete objects</permission>
-  <permission>Delete portal content</permission>
   <permission>Edit comments</permission>
   <permission>List folder contents</permission>
   <permission>Manage properties</permission>
@@ -48,10 +47,9 @@
   <permission>plone.app.contenttypes: Add Link</permission>
   <permission>plone.app.contenttypes: Add News Item</permission>
   <permission>plone.app.event: Import Ical</permission>
-  <permission>plone.app.multilingual: Manage Translations</permission>
   <permission>plone.portlet.collection: Add collection portlet</permission>
   <permission>plone.portlet.static: Add static portlet</permission>
-  <state state_id="role-translation--STATUS--default" title="Default">
+  <state state_id="role-translation--STATUS--default" title="default">
     <permission-map name="ATContentTypes: Add Document" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Manager</permission-role>
@@ -151,11 +149,6 @@
       <permission-role>Manager</permission-role>
     </permission-map>
     <permission-map name="Delete objects" acquired="False">
-      <permission-role>Editor</permission-role>
-      <permission-role>Manager</permission-role>
-      <permission-role>Site Administrator</permission-role>
-    </permission-map>
-    <permission-map name="Delete portal content" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Manager</permission-role>
       <permission-role>Site Administrator</permission-role>
@@ -262,7 +255,6 @@
       <permission-role>Site Administrator</permission-role>
     </permission-map>
     <permission-map name="plone.app.event: Import Ical" acquired="False"/>
-    <permission-map name="plone.app.multilingual: Manage Translations" acquired="False"/>
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
