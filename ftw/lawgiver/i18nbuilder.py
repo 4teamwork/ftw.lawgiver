@@ -5,7 +5,6 @@ from i18ndude.catalog import MessageCatalog
 from i18ndude.catalog import POWriter
 from operator import attrgetter
 from path import Path
-from plone.i18n.normalizer import idnormalizer
 from zope.component import getUtility
 import os.path
 
@@ -126,7 +125,7 @@ class I18nBuilder(object):
                                        catalog.values()))
 
         for msgid, msgstr in translations.items():
-            msgid = idnormalizer.normalize(msgid)
+            msgid = msgid.decode('utf-8').replace('"', '\\"')
             msgstr = msgstr.decode('utf-8').replace('"', '\\"')
 
             if msgid in delete_candidates:
