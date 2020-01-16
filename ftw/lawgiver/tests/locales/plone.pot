@@ -14,6 +14,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "Preferred-Encodings: utf-8 latin1\n"
 
+#. Default: "Published"
+#: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
+msgid "Published"
+msgstr ""
+
 msgid "local-roles--ROLE--Editor"
 msgstr ""
 
@@ -55,11 +60,6 @@ msgstr ""
 msgid "publish"
 msgstr ""
 
-#. Default: "Published"
-#: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
-msgid "published"
-msgstr ""
-
 #. Default: "reject"
 #: ftw/lawgiver/tests/profiles/custom-workflow/workflows/my_custom_workflow/specification.txt
 msgid "reject"
@@ -83,15 +83,15 @@ msgstr ""
 
 #. Default: "editor"
 #: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
-msgid "wf-bar-role-editor"
+msgid "wf-bar--ROLE--Editor"
 msgstr ""
 
 #. Default: "System Administrator"
 #: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
-msgid "wf-bar-role-manager"
+msgid "wf-bar--ROLE--Manager"
 msgstr ""
 
 #. Default: "Published"
 #: ftw/lawgiver/tests/profiles/bar/workflows/wf-bar/specification.txt
-msgid "wf-bar-status-published"
+msgid "wf-bar--STATUS--published"
 msgstr ""

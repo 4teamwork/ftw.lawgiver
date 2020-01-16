@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<dc-workflow workflow_id="example-5.1.0-deletepermission" title="my-custom-workflow" description="A three state publication workflow" initial_state="example-5.1.0-deletepermission--STATUS--private" state_variable="review_state" manager_bypass="True">
+<dc-workflow workflow_id="example-5.1.0-deletepermission" title="My Custom Workflow" description="A three state publication workflow" initial_state="example-5.1.0-deletepermission--STATUS--private" state_variable="review_state" manager_bypass="True">
   <permission>Access contents information</permission>
   <permission>Add Folders</permission>
   <permission>Add portal content</permission>
@@ -43,7 +43,7 @@
   <permission>plone.app.multilingual: Manage Translations</permission>
   <permission>plone.portlet.collection: Add collection portlet</permission>
   <permission>plone.portlet.static: Add static portlet</permission>
-  <state state_id="example-5.1.0-deletepermission--STATUS--pending" title="pending">
+  <state state_id="example-5.1.0-deletepermission--STATUS--pending" title="Pending">
     <exit-transition transition_id="example-5.1.0-deletepermission--TRANSITION--reject--pending_private"/>
     <exit-transition transition_id="example-5.1.0-deletepermission--TRANSITION--retract--pending_private"/>
     <exit-transition transition_id="example-5.1.0-deletepermission--TRANSITION--publish--pending_published"/>
@@ -191,7 +191,7 @@
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
-  <state state_id="example-5.1.0-deletepermission--STATUS--private" title="private">
+  <state state_id="example-5.1.0-deletepermission--STATUS--private" title="Private">
     <exit-transition transition_id="example-5.1.0-deletepermission--TRANSITION--publish--private_published"/>
     <exit-transition transition_id="example-5.1.0-deletepermission--TRANSITION--submit-for-publication--private_pending"/>
     <permission-map name="Access contents information" acquired="False">
@@ -349,7 +349,7 @@
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
-  <state state_id="example-5.1.0-deletepermission--STATUS--published" title="published">
+  <state state_id="example-5.1.0-deletepermission--STATUS--published" title="Published">
     <exit-transition transition_id="example-5.1.0-deletepermission--TRANSITION--retract--published_private"/>
     <permission-map name="Access contents information" acquired="False">
       <permission-role>Anonymous</permission-role>
@@ -520,8 +520,8 @@
       <guard-role>Editor</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-5.1.0-deletepermission--STATUS--pending" title="submit-for-publication" transition_id="example-5.1.0-deletepermission--TRANSITION--submit-for-publication--private_pending" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-5.1.0-deletepermission--TRANSITION--submit-for-publication--private_pending">submit-for-publication</action>
+  <transition new_state="example-5.1.0-deletepermission--STATUS--pending" title="submit for publication" transition_id="example-5.1.0-deletepermission--TRANSITION--submit-for-publication--private_pending" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-5.1.0-deletepermission--TRANSITION--submit-for-publication--private_pending">submit for publication</action>
     <guard>
       <guard-role>Editor</guard-role>
     </guard>
