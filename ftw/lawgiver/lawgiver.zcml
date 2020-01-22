@@ -360,4 +360,13 @@
                      "
         />
 
+    <!-- Products.PloneHotfix20200121 introduces new permissions. -->
+    <lawgiver:ignore
+        permissions="
+                     Change Database Connections,
+                     Open/Close Database Connection,
+                     Test Database Connections,
+                     "
+        />
+
 </configure>

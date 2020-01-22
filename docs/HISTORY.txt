@@ -5,7 +5,7 @@ Changelog
 1.17.4 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Ignore permissions introduced by Products.PloneHotfix20200121. [jone]
 
 
 1.17.3 (2019-12-10)
