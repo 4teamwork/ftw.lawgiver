@@ -74,6 +74,8 @@ setup(name='ftw.lawgiver',
         'lxml',
         'ordereddict',
         'path.py',
+        # Check out -> https://github.com/plone/plone.app.content/pull/192
+        'plone.app.content>=3.5.8',
         'plone.app.workflow',
         'plone.i18n',
         'setuptools',
