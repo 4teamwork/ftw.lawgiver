@@ -5,6 +5,7 @@ from ftw.builder.testing import set_builder_session_factory
 from ftw.testing import ComponentRegistryLayer
 from ftw.testing.layer import COMPONENT_REGISTRY_ISOLATION
 from ftw.testing.layer import TEMP_DIRECTORY
+from pkg_resources import get_distribution
 from plone.app.testing import applyProfile
 from plone.app.testing import FunctionalTesting
 from plone.app.testing import IntegrationTesting
@@ -12,6 +13,8 @@ from plone.app.testing import PloneSandboxLayer
 from plone.testing import z2
 from zope.configuration import xmlconfig
 import ftw.lawgiver.tests.builders
+
+IS_PLONE_5 = get_distribution('Plone').version >= '5'
 
 
 class MetaZCMLLayer(ComponentRegistryLayer):
