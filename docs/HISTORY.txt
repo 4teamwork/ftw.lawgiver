@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.17.5 (unreleased)
+1.17.5 (2020-07-27)
 -------------------
 
 - Add compatibility with CSRF auto-protection shipped with Plone 5 (plone.protect). [djowett-ftw]
