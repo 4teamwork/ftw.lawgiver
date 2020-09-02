@@ -62,7 +62,7 @@ Installation
 Compatibility
 -------------
 
-Plone 4.3
+ftw.lawgiver is compatible with Plone 4.3 and 5.1
 
 
 Action groups
