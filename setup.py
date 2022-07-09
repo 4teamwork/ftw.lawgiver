@@ -9,7 +9,6 @@ tests_require = [
     'ftw.builder',
     'ftw.testbrowser',
     'ftw.testing',
-    'plone.mocktestcase',
     'plone.api',
     'plone.restapi',
     'plone.testing',

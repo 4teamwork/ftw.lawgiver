@@ -1,12 +1,19 @@
 from ftw.lawgiver.interfaces import IDynamicRoleAdapter
 from ftw.lawgiver.testing import META_ZCML
 from plone.app.workflow.interfaces import ISharingPageRole
-from plone.mocktestcase.dummy import Dummy
 from unittest import TestCase
 from zope.component import getSiteManager
 from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 from zope.component.hooks import setSite
+
+
+class Dummy(object):
+    """Dummy object with arbitrary attributes
+    """
+
+    def __init__(self, **kw):
+        self.__dict__.update(kw)
 
 
 class TestRoleDirective(TestCase):
