@@ -63,7 +63,7 @@ setup(name='ftw.lawgiver',
 
       entry_points="""
       # -*- Entry points: -*-
-      [z3c.autoinclude.plugin]
+      [plone.autoinclude.plugin]
       target = plone
 
       [zopectl.command]
