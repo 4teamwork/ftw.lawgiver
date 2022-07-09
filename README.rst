@@ -790,28 +790,6 @@ Example
       transition-url = %%(content_url)s/@@web-modify-status?transition=%(transition)s
 
 
-Specialities
-------------
-
-Deleting content with ``collective.deletepermission``
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-`collective.deletepermission`_ solves a delete problem, which occurs in certain
-situations, by adding a new delete permission. See its readme for further
-details.
-
-For being able to delete content, the user should have the ``delete`` action
-group (``Delete portal content``) on the content but also ``add`` (``Delete objects``)
-on the parent content.
-
-``ftw.lawgiver`` works well with `collective.deletepermission`_.
-Use the extras ``ftw.lawgiver [deletepermission]`` in order to install the
-lawgiver with `collective.deletepermission`_.
-
-Be aware that when you generate your workflows with `collective.deletepermission`_
-installed, you need to install `collective.deletepermission`_ in production too.
-
-
 Uninstall
 ---------
 
@@ -853,5 +831,4 @@ This package is copyright by `4teamwork <http://www.4teamwork.ch/>`_.
 
 ``ftw.lawgiver`` is licensed under GNU General Public License, version 2.
 
-.. _collective.deletepermission: https://github.com/4teamwork/collective.deletepermission
 .. _ftw.recipe.translations: https://github.com/4teamwork/ftw.recipe.translations

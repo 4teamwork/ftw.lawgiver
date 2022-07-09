@@ -106,24 +106,10 @@
 
 
 
-    <configure zcml:condition="installed collective.deletepermission">
-      <lawgiver:map_permissions
-          action_group="add"
-          permissions="Delete objects"
-          />
-
-      <lawgiver:map_permissions
-          action_group="delete"
-          permissions="Delete portal content"
-          />
-    </configure>
-
-    <configure zcml:condition="not-installed collective.deletepermission">
-      <lawgiver:map_permissions
-          action_group="delete"
-          permissions="Delete objects"
-          />
-    </configure>
+    <lawgiver:map_permissions
+        action_group="delete"
+        permissions="Delete objects"
+        />
 
     <lawgiver:map_permissions
         action_group="manage security"
