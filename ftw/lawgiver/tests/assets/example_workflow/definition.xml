@@ -1,11 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<dc-workflow workflow_id="example-5.1.0-no-deletepermission" title="My Custom Workflow" description="A three state publication workflow" initial_state="example-5.1.0-no-deletepermission--STATUS--private" state_variable="review_state" manager_bypass="True">
+<dc-workflow workflow_id="example_workflow" title="My Custom Workflow" description="A three state publication workflow" initial_state="example_workflow--STATUS--private" state_variable="review_state" manager_bypass="True">
   <permission>Access contents information</permission>
   <permission>Add Folders</permission>
   <permission>Add portal content</permission>
   <permission>Add portal events</permission>
   <permission>Add portal folders</permission>
-  <permission>Add portal topics</permission>
   <permission>CMFEditions: Access previous versions</permission>
   <permission>CMFEditions: Apply version control</permission>
   <permission>CMFEditions: Checkout to location</permission>
@@ -29,7 +28,6 @@
   <permission>View</permission>
   <permission>iterate : Check in content</permission>
   <permission>iterate : Check out content</permission>
-  <permission>plone.app.collection: Add Collection</permission>
   <permission>plone.app.contenttypes: Add Collection</permission>
   <permission>plone.app.contenttypes: Add Document</permission>
   <permission>plone.app.contenttypes: Add Event</permission>
@@ -42,10 +40,10 @@
   <permission>plone.app.multilingual: Manage Translations</permission>
   <permission>plone.portlet.collection: Add collection portlet</permission>
   <permission>plone.portlet.static: Add static portlet</permission>
-  <state state_id="example-5.1.0-no-deletepermission--STATUS--pending" title="Pending">
-    <exit-transition transition_id="example-5.1.0-no-deletepermission--TRANSITION--reject--pending_private"/>
-    <exit-transition transition_id="example-5.1.0-no-deletepermission--TRANSITION--retract--pending_private"/>
-    <exit-transition transition_id="example-5.1.0-no-deletepermission--TRANSITION--publish--pending_published"/>
+  <state state_id="example_workflow--STATUS--pending" title="Pending">
+    <exit-transition transition_id="example_workflow--TRANSITION--reject--pending_private"/>
+    <exit-transition transition_id="example_workflow--TRANSITION--retract--pending_private"/>
+    <exit-transition transition_id="example_workflow--TRANSITION--publish--pending_published"/>
     <permission-map name="Access contents information" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -64,10 +62,6 @@
       <permission-role>Reviewer</permission-role>
     </permission-map>
     <permission-map name="Add portal folders" acquired="False">
-      <permission-role>Editor</permission-role>
-      <permission-role>Reviewer</permission-role>
-    </permission-map>
-    <permission-map name="Add portal topics" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
@@ -145,10 +139,6 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="plone.app.collection: Add Collection" acquired="False">
-      <permission-role>Editor</permission-role>
-      <permission-role>Reviewer</permission-role>
-    </permission-map>
     <permission-map name="plone.app.contenttypes: Add Collection" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -186,9 +176,9 @@
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
-  <state state_id="example-5.1.0-no-deletepermission--STATUS--private" title="Private">
-    <exit-transition transition_id="example-5.1.0-no-deletepermission--TRANSITION--publish--private_published"/>
-    <exit-transition transition_id="example-5.1.0-no-deletepermission--TRANSITION--submit-for-publication--private_pending"/>
+  <state state_id="example_workflow--STATUS--private" title="Private">
+    <exit-transition transition_id="example_workflow--TRANSITION--publish--private_published"/>
+    <exit-transition transition_id="example_workflow--TRANSITION--submit-for-publication--private_pending"/>
     <permission-map name="Access contents information" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -207,10 +197,6 @@
       <permission-role>Reviewer</permission-role>
     </permission-map>
     <permission-map name="Add portal folders" acquired="False">
-      <permission-role>Editor</permission-role>
-      <permission-role>Reviewer</permission-role>
-    </permission-map>
-    <permission-map name="Add portal topics" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
@@ -299,10 +285,6 @@
       <permission-role>Reviewer</permission-role>
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="plone.app.collection: Add Collection" acquired="False">
-      <permission-role>Editor</permission-role>
-      <permission-role>Reviewer</permission-role>
-    </permission-map>
     <permission-map name="plone.app.contenttypes: Add Collection" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -340,8 +322,8 @@
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
-  <state state_id="example-5.1.0-no-deletepermission--STATUS--published" title="Published">
-    <exit-transition transition_id="example-5.1.0-no-deletepermission--TRANSITION--retract--published_private"/>
+  <state state_id="example_workflow--STATUS--published" title="Published">
+    <exit-transition transition_id="example_workflow--TRANSITION--retract--published_private"/>
     <permission-map name="Access contents information" acquired="False">
       <permission-role>Anonymous</permission-role>
       <permission-role>Editor</permission-role>
@@ -361,10 +343,6 @@
       <permission-role>Reviewer</permission-role>
     </permission-map>
     <permission-map name="Add portal folders" acquired="False">
-      <permission-role>Editor</permission-role>
-      <permission-role>Reviewer</permission-role>
-    </permission-map>
-    <permission-map name="Add portal topics" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
     </permission-map>
@@ -433,10 +411,6 @@
     <permission-map name="iterate : Check out content" acquired="False">
       <permission-role>Site Administrator</permission-role>
     </permission-map>
-    <permission-map name="plone.app.collection: Add Collection" acquired="False">
-      <permission-role>Editor</permission-role>
-      <permission-role>Reviewer</permission-role>
-    </permission-map>
     <permission-map name="plone.app.contenttypes: Add Collection" acquired="False">
       <permission-role>Editor</permission-role>
       <permission-role>Reviewer</permission-role>
@@ -474,41 +448,41 @@
     <permission-map name="plone.portlet.collection: Add collection portlet" acquired="False"/>
     <permission-map name="plone.portlet.static: Add static portlet" acquired="False"/>
   </state>
-  <transition new_state="example-5.1.0-no-deletepermission--STATUS--published" title="publish" transition_id="example-5.1.0-no-deletepermission--TRANSITION--publish--private_published" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-5.1.0-no-deletepermission--TRANSITION--publish--private_published">publish</action>
+  <transition new_state="example_workflow--STATUS--published" title="publish" transition_id="example_workflow--TRANSITION--publish--private_published" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example_workflow--TRANSITION--publish--private_published">publish</action>
     <guard>
       <guard-role>Site Administrator</guard-role>
       <guard-role>Reviewer</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-5.1.0-no-deletepermission--STATUS--published" title="publish" transition_id="example-5.1.0-no-deletepermission--TRANSITION--publish--pending_published" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-5.1.0-no-deletepermission--TRANSITION--publish--pending_published">publish</action>
+  <transition new_state="example_workflow--STATUS--published" title="publish" transition_id="example_workflow--TRANSITION--publish--pending_published" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example_workflow--TRANSITION--publish--pending_published">publish</action>
     <guard>
       <guard-role>Site Administrator</guard-role>
       <guard-role>Reviewer</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-5.1.0-no-deletepermission--STATUS--private" title="reject" transition_id="example-5.1.0-no-deletepermission--TRANSITION--reject--pending_private" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-5.1.0-no-deletepermission--TRANSITION--reject--pending_private">reject</action>
+  <transition new_state="example_workflow--STATUS--private" title="reject" transition_id="example_workflow--TRANSITION--reject--pending_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example_workflow--TRANSITION--reject--pending_private">reject</action>
     <guard>
       <guard-role>Reviewer</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-5.1.0-no-deletepermission--STATUS--private" title="retract" transition_id="example-5.1.0-no-deletepermission--TRANSITION--retract--pending_private" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-5.1.0-no-deletepermission--TRANSITION--retract--pending_private">retract</action>
+  <transition new_state="example_workflow--STATUS--private" title="retract" transition_id="example_workflow--TRANSITION--retract--pending_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example_workflow--TRANSITION--retract--pending_private">retract</action>
     <guard>
       <guard-role>Editor</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-5.1.0-no-deletepermission--STATUS--private" title="retract" transition_id="example-5.1.0-no-deletepermission--TRANSITION--retract--published_private" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-5.1.0-no-deletepermission--TRANSITION--retract--published_private">retract</action>
+  <transition new_state="example_workflow--STATUS--private" title="retract" transition_id="example_workflow--TRANSITION--retract--published_private" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example_workflow--TRANSITION--retract--published_private">retract</action>
     <guard>
       <guard-role>Reviewer</guard-role>
       <guard-role>Editor</guard-role>
     </guard>
   </transition>
-  <transition new_state="example-5.1.0-no-deletepermission--STATUS--pending" title="submit for publication" transition_id="example-5.1.0-no-deletepermission--TRANSITION--submit-for-publication--private_pending" after_script="" before_script="" trigger="USER">
-    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example-5.1.0-no-deletepermission--TRANSITION--submit-for-publication--private_pending">submit for publication</action>
+  <transition new_state="example_workflow--STATUS--pending" title="submit for publication" transition_id="example_workflow--TRANSITION--submit-for-publication--private_pending" after_script="" before_script="" trigger="USER">
+    <action category="workflow" icon="" url="%(content_url)s/content_status_modify?workflow_action=example_workflow--TRANSITION--submit-for-publication--private_pending">submit for publication</action>
     <guard>
       <guard-role>Editor</guard-role>
     </guard>
