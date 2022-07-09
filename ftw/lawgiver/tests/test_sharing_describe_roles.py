@@ -8,15 +8,12 @@ from ftw.testbrowser import browsing
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import applyProfile
 from plone.app.testing import setRoles
-from plone.registry.interfaces import IRegistry
 from unittest import TestCase
-from zope.component import getUtility
-import transaction
 
 
 def javascript_resources(portal):
     js_urls = [_f for _f in [node.attrib.get('src')
-                            for node in browser.css('script')] if _f]
+                             for node in browser.css('script')] if _f]
     return [url.replace(portal.absolute_url() + '/', '') for url in js_urls]
 
 
@@ -35,27 +32,6 @@ class TestSharingDescribeRoles(TestCase):
         applyProfile(self.portal, 'ftw.lawgiver.tests:custom-workflow')
         wftool = getToolByName(self.portal, 'portal_workflow')
         wftool.setChainForPortalTypes(['Document'], 'my_custom_workflow')
-
-        jstool = getToolByName(self.portal, 'portal_javascripts')
-        jstool.setDebugMode(True)
-
-    @browsing
-    def test_javascript_loaded_on_lawgiverized_content(self, browser):
-        page = create(Builder('page'))
-
-        browser.login().visit(page, view='@@sharing')
-        self.assertIn(SHARING_JS_RESOURCE, javascript_resources(self.layer['portal']),
-                      'The sharing javascript should be loaded on'
-                      ' lawgiverized content.')
-
-    @browsing
-    def test_javascript_NOT_loaded_on_NON_lawgiverized_content(self, browser):
-        folder = create(Builder('folder'))
-        browser.login().visit(folder, view='@@sharing')
-        self.assertNotIn(SHARING_JS_RESOURCE, javascript_resources(self.layer['portal']),
-                         'The sharing javascript should NOT be loaded on'
-                         ' Plone standard content without lawigver'
-                         ' workflows.')
 
     @browsing
     def test_permissions_are_shown_per_status(self, browser):
@@ -160,6 +136,7 @@ class TestSharingDescribeRoles(TestCase):
 
     @browsing
     def test_translated_request(self, browser):
+        browser.exception_bubbling = True
         page = create(Builder('page'))
         helpers.switch_language(self.layer['portal'], 'de')
 

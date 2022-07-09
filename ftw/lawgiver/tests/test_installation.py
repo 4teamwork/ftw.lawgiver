@@ -16,7 +16,6 @@ class TestInstallation(TestCase):
         version = portal_setup.getLastVersionForProfile(
             'ftw.lawgiver:default')
         self.assertNotEqual(version, None)
-        self.assertNotEqual(version, 'unknown')
 
     def test_request_layer_active(self):
         layers = registered_layers()

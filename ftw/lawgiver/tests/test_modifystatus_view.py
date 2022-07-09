@@ -1,8 +1,9 @@
-from Products.CMFCore.utils import getToolByName
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.lawgiver.browser.modifystatus import ModifyStatusViewBase
 from ftw.lawgiver.testing import LAWGIVER_INTEGRATION_TESTING
+from plone.protect.authenticator import createToken
+from Products.CMFCore.utils import getToolByName
 from unittest import TestCase
 
 
@@ -13,6 +14,7 @@ class TestModifyStatusViewBase(TestCase):
         super(TestModifyStatusViewBase, self).setUp()
         self.portal = self.layer['portal']
         self.request = self.layer['request']
+        self.request.form['_authenticator'] = createToken()
         self.wftool = getToolByName(self.portal, 'portal_workflow')
         self.wftool.setChainForPortalTypes(['Folder'], 'folder_workflow')
 
