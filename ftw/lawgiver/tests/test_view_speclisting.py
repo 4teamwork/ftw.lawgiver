@@ -78,10 +78,13 @@ class TestSpecificationListingsView(TestCase):
     @browsing
     def test_update_all_sepcifications(self, browser):
         browser.login(SITE_OWNER_NAME).visit(view='lawgiver-list-specs')
+        browser.exception_bubbling = True
         browser.find('Update all specifications').click()
 
         infos = list(map(methodcaller('replace', TESTS_PATH, '...'),
-                    statusmessages.messages()['info']))
+                     statusmessages.messages()['statusmessage-info']))
+        infos = list(map(methodcaller('replace', 'statusmessage_mtype_info Info: ', ''),
+                     infos))
         self.assertIn(
             'role-translation: The workflow was generated to .../profiles'
             '/role-translation/workflows/role-translation/definition.xml.',
@@ -93,6 +96,7 @@ class TestSpecificationListingsView(TestCase):
             infos)
 
         self.assertIn(
-            'invalid-spec: Error while generating the workflow:'
+            'statusmessage_mtype_error Error: invalid-spec: Error while '
+            'generating the workflow:'
             ' Action "viewX" is neither action group nor transition.',
-            statusmessages.messages()['error'])
+            statusmessages.messages()['statusmessage-error'])

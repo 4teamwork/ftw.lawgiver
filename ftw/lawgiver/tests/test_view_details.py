@@ -204,20 +204,21 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
             'Bar Workflow', get_workflow().title,
             'Workflow title - write / reimport seems not working?')
 
-        statusmessages.assert_message('Workflow wf-bar successfully imported.')
+        statusmessages.assert_message('statusmessage_mtype_info Info: Workflow wf-bar successfully imported.')
 
     @browsing
     def test_update_security(self, browser):
         specdetails.visit('Bar Workflow (wf-bar)')
         specdetails.button_reindex().click()
-        statusmessages.assert_message('Security update: 0 objects updated.')
+        statusmessages.assert_message('statusmessage_mtype_info Info: Security update: 0 objects updated.')
 
     @browsing
     def test_update_translations(self, browser):
         specdetails.visit('Bar Workflow (wf-bar)')
         specdetails.button_update_locales().click()
         statusmessages.assert_message(
-            'wf-bar: The translations were updated in your locales directory.'
+            'statusmessage_mtype_info Info: wf-bar: The translations were '
+            'updated in your locales directory.'
             ' You should now run bin/i18n-build')
 
 
@@ -226,6 +227,7 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
 
     @browsing
     def test_heading_shows_wfid(self, browser):
+        browser.exception_bubbling = True
         specdetails.visit('spec-based-workflow')
         self.assertEquals('spec-based-workflow',
                           plone.first_heading(),
@@ -235,9 +237,9 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
     def test_error_messages_shown(self, browser):
         specdetails.visit('spec-based-workflow')
         statusmessages.assert_message(
-            'The specification file could not be parsed:'
-            ' Exactly one ini-style section is required,'
-            ' containing the workflow title.')
+            'statusmessage_mtype_error Error: The specification file could not'
+            ' be parsed: Exactly one ini-style section is required, '
+            'containing the workflow title.')
 
     @browsing
     def test_buttons_not_shown(self, browser):
@@ -257,8 +259,9 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
 
     @browsing
     def test_definitionXML_not_touched_on_error(self, browser):
-        with open(INVALID_WORKFLOW_DEFINITION_XML, 'w+') as file_:
-            file_.write('some contents')
+        browser.exception_bubbling = True
+        with open(INVALID_WORKFLOW_DEFINITION_XML, 'bw+') as file_:
+            file_.write(b'some contents')
 
         specdetails.visit('Invalid Workflow (invalid-spec)')
 
@@ -278,7 +281,8 @@ class TestSpecificationDetailsViewBROKEN(TestCase):
         self.assertEquals([], statusmessages.info_messages(),
                           'Expecting no "info" portal messages.')
 
-        self.assertEquals(['invalid-spec: Error while generating the'
+        self.assertEquals(['statusmessage_mtype_error Error: invalid-spec: '
+                           'Error while generating the'
                            ' workflow: Action "viewX" is'
                            ' neither action group nor transition.'],
                           statusmessages.error_messages(),
@@ -332,7 +336,7 @@ class TestDestructiveImport(TestCase):
         specdetails.visit('Destructive Workflow (destructive-workflow)')
         specdetails.button_write_and_import().click()
         statusmessages.assert_message(
-            'Workflow destructive-workflow successfully imported.')
+            'statusmessage_mtype_info Info: Workflow destructive-workflow successfully imported.')
         self.assert_current_states('Foo')
 
         self.use_spec('bar')
@@ -356,5 +360,5 @@ class TestDestructiveImport(TestCase):
         specdetails.button_write_and_import().click()
         browser.find('I know what I am doing').click()
         statusmessages.assert_message(
-            'Workflow destructive-workflow successfully imported.')
+            'statusmessage_mtype_info Info: Workflow destructive-workflow successfully imported.')
         self.assert_current_states('Foo', 'Bar')

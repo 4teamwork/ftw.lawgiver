@@ -85,7 +85,7 @@ class TestIgnoreZCML(BaseTest):
                 '                 Bar" />')
 
         exception_message = str(context_manager.exception)
-        self.assertIn('ConfigurationError: Seems that a comma is missing',
+        self.assertIn('Seems that a comma is missing',
                       exception_message)
 
 
@@ -240,9 +240,9 @@ class TestActionGroupRegistry(BaseTest):
                 '                 View" />')
 
         self.assertEqual(
-            'File "<string>", line 5.0-8.25\n    ConfigurationError:'
-            ' Seems that a comma is missing in the "permissions" attribute'
-            ' of the lawgiver:map_permissions tag.',
+            'Seems that a comma is missing in the "permissions" attribute of '
+            'the lawgiver:map_permissions tag.'
+            '\n    File "<string>", line 5.0-8.25',
             str(cm.exception))
 
     def test_trailing_comma_works(self):
