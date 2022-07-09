@@ -54,6 +54,7 @@ class ConsoleMessageFormatter(object):
 
         print(translate(message), file=stream)
 
+
 @implementer(IUpdater)
 class Updater(object):
 
@@ -117,13 +118,13 @@ class Updater(object):
                 if not wf_names:
                     continue
 
-                upgrade_module.write_bytes(
-                    upgrade_module.bytes() +
-                    '        self.update_workflow_security(\n'
-                    '            [\'{}\'],\n'
-                    '            reindex_security={!r})\n'
-                    .format(('\',\n             \'').join(wf_names),
-                            flag))
+                code = bytes(
+                        '        self.update_workflow_security(\n'
+                        '            ["{}"],\n'
+                        '            reindex_security={!r})\n'
+                        .format((",\n             ").join(wf_names),
+                                flag), encoding='utf-8')
+                upgrade_module.write_bytes(upgrade_module.bytes() + code)
 
     def write_workflow(self, specification_path, output_formatter=None):
         specification = self._get_specification(
