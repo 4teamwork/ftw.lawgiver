@@ -90,16 +90,16 @@ class ActionGroupRegistry(object):
 
     def _merged_permissions(self):
         result = {}
-        for permission in set(self._permissions.keys() +
-                              self._extending_permissions.keys()):
+        for permission in set(list(self._permissions.keys()) +
+                              list(self._extending_permissions.keys())):
             result[permission] = (
                 self._merged_action_groups_mapping_for_perm(permission))
 
         return result
 
     def _merged_action_groups_mapping_for_perm(self, permission):
-        workflows = set(self._permissions.get(permission, {}).keys() +
-                        self._extending_permissions.get(permission, {}).keys())
+        workflows = set(list(self._permissions.get(permission, {}).keys()) +
+                        list(self._extending_permissions.get(permission, {}).keys()))
         result = {}
         for workflow in workflows:
             result[workflow] = self._merged_action_groups_for_perm_in_wf(

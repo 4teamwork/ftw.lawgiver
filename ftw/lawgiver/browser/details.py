@@ -95,7 +95,7 @@ class SpecDetails(BrowserView):
         if not wf:
             return []
 
-        current_states = wf.states.keys()
+        current_states = list(wf.states.keys())
 
         generator = getUtility(IWorkflowGenerator)
         new_states = generator.get_states(
@@ -181,7 +181,7 @@ class SpecDetails(BrowserView):
         with open(path) as specfile:
             try:
                 return parser(specfile, path=path)
-            except Exception, exc:
+            except Exception as exc:
                 getSite().error_log.raising(sys.exc_info())
 
                 IStatusMessage(self.request).add(

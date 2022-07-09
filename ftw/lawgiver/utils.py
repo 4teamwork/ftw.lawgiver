@@ -7,6 +7,8 @@ from path import Path
 from plone.app.workflow.interfaces import ISharingPageRole
 from Products.CMFCore.interfaces import IContentish
 from Products.CMFCore.utils import getToolByName
+from six.moves import map
+from six.moves import zip
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component import queryUtility
@@ -173,10 +175,10 @@ def get_roles_inherited_by(roles, role_inheritance):
         if role in result:
             return
         result.append(role)
-        map(_recurse, [parent for (child, parent) in role_inheritance
-                       if child == role])
+        list(map(_recurse, [parent for (child, parent) in role_inheritance
+                       if child == role]))
 
-    map(_recurse, roles)
+    list(map(_recurse, roles))
     return result
 
 

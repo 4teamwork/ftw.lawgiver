@@ -6,6 +6,7 @@ from ftw.lawgiver.wdl.interfaces import IStatus
 from ftw.lawgiver.wdl.interfaces import ITransition
 from unittest import TestCase
 from zope.interface.verify import verifyClass
+import six
 
 
 class TestSpecification(TestCase):
@@ -17,7 +18,7 @@ class TestSpecification(TestCase):
 
     def test_string_repr(self):
         obj = Specification(title='My Workflow')
-        self.assertEquals(unicode(obj),
+        self.assertEquals(six.text_type(obj),
                           u'<Specification "My Workflow">')
 
     def test_VALIDATION_no_initial_status(self):
@@ -71,7 +72,7 @@ class TestStatus(TestCase):
 
     def test_string_repr(self):
         obj = Status('Private', [])
-        self.assertEquals(unicode(obj),
+        self.assertEquals(six.text_type(obj),
                           u'<Status "Private">')
 
 
@@ -86,7 +87,7 @@ class TestTransition(TestCase):
         private = Status('Private', [])
         public = Status('Public', [])
         obj = Transition('publish', private, public)
-        self.assertEquals(unicode(obj),
+        self.assertEquals(six.text_type(obj),
                           u'<Transition "publish" ["Private" => "Public"]>')
 
     def test_src_status_object_or_title_required(self):

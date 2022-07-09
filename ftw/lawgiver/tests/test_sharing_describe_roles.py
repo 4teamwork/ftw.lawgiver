@@ -15,8 +15,8 @@ import transaction
 
 
 def javascript_resources(portal):
-    js_urls = filter(None, [node.attrib.get('src')
-                            for node in browser.css('script')])
+    js_urls = [_f for _f in [node.attrib.get('src')
+                            for node in browser.css('script')] if _f]
     return [url.replace(portal.absolute_url() + '/', '') for url in js_urls]
 
 

@@ -1,3 +1,4 @@
+from __future__ import print_function
 from collections import defaultdict
 from ftw.lawgiver import _
 from ftw.lawgiver.exceptions import UpgradeStepCreationError
@@ -11,6 +12,7 @@ from lxml import etree
 from operator import attrgetter
 from path import Path
 from Products.statusmessages.interfaces import IStatusMessage
+from six.moves import map
 from ZODB.POSException import ConflictError
 from zope.component import getMultiAdapter
 from zope.component import getUtility
@@ -50,7 +52,7 @@ class ConsoleMessageFormatter(object):
         else:
             stream = sys.stdout
 
-        print >>stream, translate(message)
+        print(translate(message), file=stream)
 
 @implementer(IUpdater)
 class Updater(object):
@@ -135,7 +137,7 @@ class Updater(object):
                       specification)
         except ConflictError:
             raise
-        except Exception, exc:
+        except Exception as exc:
             if not output_formatter:
                 raise
 
@@ -187,7 +189,7 @@ class Updater(object):
                 return parser(specfile, path=specification_path)
         except ConflictError:
             raise
-        except Exception, exc:
+        except Exception as exc:
             if not output_formatter:
                 raise
 
@@ -233,9 +235,9 @@ class Updater(object):
         doc = etree.fromstring(workflow_definition)
         result = {}
         for state_tag in doc.xpath('//state'):
-            result[state_tag.attrib['state_id']] = map(
+            result[state_tag.attrib['state_id']] = list(map(
                 attrgetter('text'),
                 state_tag.xpath(
-                    'permission-map[@name="View"]/permission-role'))
+                    'permission-map[@name="View"]/permission-role')))
 
         return result

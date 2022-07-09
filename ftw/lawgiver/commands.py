@@ -1,3 +1,4 @@
+from __future__ import print_function
 from ftw.lawgiver.interfaces import IUpdater
 from ftw.lawgiver.updater import ConsoleMessageFormatter
 from Products.CMFPlone.interfaces import IPloneSiteRoot
@@ -17,12 +18,12 @@ def discover_plone_site(app):
 
 def load_site(app, path):
     if not path:
-        print >>sys.stderr, 'ERROR: No Plone site found.' \
-            ' Use --site or create a Plone site in the Zope app root.'
+        print('ERROR: No Plone site found.' \
+            ' Use --site or create a Plone site in the Zope app root.', file=sys.stderr)
         sys.exit(1)
 
     app = makerequest(app)
-    print 'Using site at: /{0}'.format(path)
+    print('Using site at: /{0}'.format(path))
     site = app.unrestrictedTraverse(path)
     app.REQUEST.PARENTS = [site, app]
     setSite(site)
@@ -46,4 +47,4 @@ def rebuild_workflows(app, instance_args):
     getUtility(IUpdater).update_all_specifications(
         output_formatter=ConsoleMessageFormatter())
 
-    print 'DONE'
+    print('DONE')

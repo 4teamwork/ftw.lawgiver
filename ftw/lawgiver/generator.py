@@ -9,11 +9,12 @@ from lxml import etree
 from lxml import html
 from plone.app.workflow.interfaces import ISharingPageRole
 from plone.i18n.normalizer.interfaces import INormalizer
+from six.moves import map
 from zope.component import getUtilitiesFor
 from zope.component import getUtility
 from zope.i18n import translate
-from zope.interface import implements
 from zope.interface import implementer
+import six
 
 
 @implementer(IWorkflowGenerator)
@@ -38,7 +39,7 @@ class WorkflowGenerator(object):
         self.document = doc
 
         status_nodes = {}
-        for status in sorted(specification.states.values(),
+        for status in sorted(list(specification.states.values()),
                              key=lambda status: status.title):
             status_nodes[status] = self._add_status(doc, status)
 
@@ -105,8 +106,8 @@ class WorkflowGenerator(object):
             return []
 
         ignored_permissions = []
-        roles_to_list = map(specification.role_mapping.get,
-                            specification.visible_roles)
+        roles_to_list = list(map(specification.role_mapping.get,
+                            specification.visible_roles))
 
         for role_name, utility in getUtilitiesFor(ISharingPageRole):
             if role_name not in roles_to_list:
@@ -181,7 +182,7 @@ class WorkflowGenerator(object):
 
         per_status_role_inheritance = {}
 
-        for status, snode in sorted(status_nodes.items(),
+        for status, snode in sorted(list(status_nodes.items()),
                                     key=lambda item: item[0].title):
             statements = set(status.statements) | set(
                 self.specification.generals)
@@ -378,6 +379,6 @@ class WorkflowGenerator(object):
         if zcml_domain != action_group:
             return zcml_domain.encode('utf-8')
         else:
-            return translate(unicode(action_group),
+            return translate(six.text_type(action_group),
                              domain='ftw.lawgiver',
                              target_language=language).encode('utf-8')

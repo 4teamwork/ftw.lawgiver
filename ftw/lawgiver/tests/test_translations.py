@@ -4,15 +4,16 @@ from ftw.lawgiver.wdl.languages import LANGUAGES
 from unittest import TestCase
 from zope.component import getUtility
 from zope.i18n import translate
+import six
 
 
 class TestActionGroupTranslations(TestCase):
     layer = LAWGIVER_INTEGRATION_TESTING
 
     def test_translations(self):
-        languages = LANGUAGES.keys()
+        languages = list(LANGUAGES.keys())
         action_group_registry = getUtility(IActionGroupRegistry)
-        groups = action_group_registry.get_action_groups_for_workflow(None).keys()
+        groups = list(action_group_registry.get_action_groups_for_workflow(None).keys())
 
         untranslated = {}
         expected = {}
@@ -22,7 +23,7 @@ class TestActionGroupTranslations(TestCase):
                 continue
 
             untranslated[lang] = [name for name in groups
-                                  if translate(unicode(name),
+                                  if translate(six.text_type(name),
                                                target_language=lang,
                                                domain='ftw.lawgiver') == name]
             expected[lang] = []

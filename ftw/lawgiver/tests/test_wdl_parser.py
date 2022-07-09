@@ -1,16 +1,18 @@
-from StringIO import StringIO
 from ftw.lawgiver.exceptions import ParsingError
 from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.lawgiver.wdl.languages import LANGUAGES
+from ftw.lawgiver.wdl.parser import convert_statement
 from ftw.lawgiver.wdl.parser import PERMISSION_STATEMENT
 from ftw.lawgiver.wdl.parser import WORKLIST_STATEMENT
-from ftw.lawgiver.wdl.parser import convert_statement
 from ftw.testing import MockTestCase
+from six.moves import map
+from StringIO import StringIO
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.interface.verify import verifyObject
+import six
 
 
 class TestParser(MockTestCase):
@@ -106,8 +108,7 @@ class TestParser(MockTestCase):
             {'Private': u'<Status "Private">',
              'Public': u'<Status "Public">'},
 
-            dict(map(lambda item: (item[0], unicode(item[1])),
-                     spec.states.items())))
+            dict([(item[0], six.text_type(item[1])) for item in list(spec.states.items())]))
 
     def test_empty_status(self):
         # Let's support iteration based workflow development: I might
@@ -128,8 +129,7 @@ class TestParser(MockTestCase):
              'Pending': u'<Status "Pending">',
              'Published': u'<Status "Published">'},
 
-            dict(map(lambda item: (item[0], unicode(item[1])),
-                     spec.states.items())))
+            dict([(item[0], six.text_type(item[1])) for item in list(spec.states.items())]))
 
     def test_simple_context_specific_statements(self):
         spec = self.parse_lines(
@@ -187,7 +187,7 @@ class TestParser(MockTestCase):
         self.assertEquals(
             set(['<Transition "publish" ["Private" => "Published"]>',
                  '<Transition "retract" ["Published" => "Private"]>']),
-            set(map(unicode, spec.transitions)))
+            set(map(six.text_type, spec.transitions)))
 
     def test_invalid_transition_line(self):
         lines = (
@@ -321,7 +321,7 @@ class TestParser(MockTestCase):
                           spec.role_inheritance)
 
         self.assertEquals([('administrator', 'editor')],
-                          spec.states.values()[0].role_inheritance)
+                          list(spec.states.values())[0].role_inheritance)
 
     def test_worklist_viewers(self):
         spec = self.parse_lines(
@@ -334,7 +334,7 @@ class TestParser(MockTestCase):
         self.assertEquals(
             ['editor-in-chief',
              'reviewer'],
-            spec.states.values()[0].worklist_viewers)
+            list(spec.states.values())[0].worklist_viewers)
 
     def test_general_worklists_not_possible(self):
         # Worklist statements in the "General:" section are not allowed

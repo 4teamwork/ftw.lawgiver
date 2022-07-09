@@ -1,6 +1,8 @@
 from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.interfaces import IPermissionCollector
+from functools import reduce
 from operator import itemgetter
+from six.moves import map
 from zope.component import getUtility
 from zope.component.hooks import getSite
 from zope.interface import implementer
@@ -13,7 +15,7 @@ class DefaultPermissionCollector(object):
         grouped = self.get_grouped_permissions(workflow_name)
         if not grouped:
             return []
-        return sorted(set(reduce(list.__add__, grouped.values())))
+        return sorted(set(reduce(list.__add__, list(grouped.values()))))
 
     def get_grouped_permissions(self, workflow_name, unmanaged=False):
         registry = getUtility(IActionGroupRegistry)
@@ -38,4 +40,4 @@ class DefaultPermissionCollector(object):
 
     def _get_permissions(self):
         site = getSite()
-        return map(itemgetter(0), site.ac_inherited_permissions(1))
+        return list(map(itemgetter(0), site.ac_inherited_permissions(1)))

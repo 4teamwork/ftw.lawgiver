@@ -2,6 +2,7 @@ from ftw.lawgiver.interfaces import IUpdater
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.updater import StatusMessageFormatter
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
+from six.moves import map
 from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.publisher.browser import BrowserView
@@ -27,7 +28,7 @@ class ListSpecifications(BrowserView):
         discovery = getMultiAdapter((self.context, self.request),
                                     IWorkflowSpecificationDiscovery)
 
-        specs = map(self._get_spec_item, discovery.discover())
+        specs = list(map(self._get_spec_item, discovery.discover()))
         return sorted(specs, key=lambda spec: spec['link_text'])
 
     def _get_spec_item(self, path):

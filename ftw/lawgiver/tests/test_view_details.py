@@ -1,4 +1,3 @@
-from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.testing import SPECIFICATIONS_FUNCTIONAL
 from ftw.lawgiver.tests import helpers
 from ftw.lawgiver.tests.pages import specdetails
@@ -6,6 +5,8 @@ from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import plone
 from ftw.testbrowser.pages import statusmessages
 from operator import methodcaller
+from Products.CMFCore.utils import getToolByName
+from six.moves import map
 from unittest import TestCase
 import os
 import shutil
@@ -116,7 +117,7 @@ class TestBARSpecificationDetailsViewINSTALLED(TestCase):
         self.switch_language('de')
         specdetails.visit('Bar Workflow (wf-bar)')
         mapping = specdetails.action_groups()
-        self.assertIn('ansehen (view)', mapping.keys(),
+        self.assertIn('ansehen (view)', list(mapping.keys()),
                       'No action group "ansehen" found.')
 
     @browsing
@@ -312,8 +313,8 @@ class TestDestructiveImport(TestCase):
 
     def get_states(self):
         wftool = getToolByName(self.layer['portal'], 'portal_workflow')
-        states = map(methodcaller('title'),
-                     wftool.get('destructive-workflow').states)
+        states = list(map(methodcaller('title'),
+                     wftool.get('destructive-workflow').states))
         return states
 
     def assert_current_states(self, *postfixes):

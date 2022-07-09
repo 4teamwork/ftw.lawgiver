@@ -1,5 +1,6 @@
 from ftw.lawgiver.wdl import keywords
 from ftw.lawgiver.wdl.languages.base import LanguageBase
+from six.moves import map
 import re
 
 

@@ -1,3 +1,4 @@
+from __future__ import print_function
 from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
@@ -13,6 +14,7 @@ from zope.dottedname.resolve import resolve
 import difflib
 import os
 import unittest
+from functools import reduce
 
 
 CONFIGURE = '''
@@ -77,12 +79,12 @@ class XMLDiffTestCase(unittest.TestCase):
         parser = etree.XMLParser(remove_blank_text=True)
         try:
             xml = etree.fromstring(text, parser)
-        except etree.XMLSyntaxError, exc:
-            print '-' * 10
-            print exc.error_log
-            print '-' * 10
-            print text
-            print '-' * 10
+        except etree.XMLSyntaxError as exc:
+            print('-' * 10)
+            print(exc.error_log)
+            print('-' * 10)
+            print(text)
+            print('-' * 10)
             raise
 
         norm = StringIO()

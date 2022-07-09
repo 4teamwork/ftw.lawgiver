@@ -11,6 +11,7 @@ from zope.component import getUtilitiesFor
 from zope.component import getUtility
 from zope.i18n import translate
 from zope.publisher.browser import BrowserView
+from six.moves import zip
 
 
 class SharingDescribeRole(BrowserView):
@@ -150,7 +151,7 @@ class SharingDescribeRole(BrowserView):
             return None
 
         reversed_role_mapping = dict(zip(*reversed(
-                    zip(*spec.role_mapping.items()))))
+                    list(zip(*list(spec.role_mapping.items()))))))
 
         for name, utility in getUtilitiesFor(ISharingPageRole):
             utility_rolename = translate(utility.title, context=self.request)

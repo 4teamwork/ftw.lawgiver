@@ -22,7 +22,7 @@ class CommaSeparatedText(List):
             for s in u.split(','):
                 try:
                     v = vt.fromUnicode(s).strip()
-                except ValidationError, v:
+                except ValidationError as v:
                     raise InvalidToken("%s in %s" % (v, u))
                 else:
                     values.append(v)

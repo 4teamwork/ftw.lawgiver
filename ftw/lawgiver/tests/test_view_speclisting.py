@@ -5,6 +5,7 @@ from ftw.testbrowser import browsing
 from ftw.testbrowser.pages import statusmessages
 from operator import methodcaller
 from plone.app.testing import SITE_OWNER_NAME
+from six.moves import map
 from unittest import TestCase
 import os.path
 import shutil
@@ -12,12 +13,11 @@ import shutil
 
 TESTS_PATH = os.path.dirname(__file__)
 
-BACKUP_FILES = map(
-    lambda path: os.path.join(TESTS_PATH, path), [
+BACKUP_FILES = [os.path.join(TESTS_PATH, path) for path in [
         'profiles/custom-workflow/workflows/my_custom_workflow/definition.xml',
         'locales/plone.pot',
         'locales/en/LC_MESSAGES/plone.po',
-        ])
+        ]]
 
 
 class TestSpecificationListingsView(TestCase):
@@ -80,8 +80,8 @@ class TestSpecificationListingsView(TestCase):
         browser.login(SITE_OWNER_NAME).visit(view='lawgiver-list-specs')
         browser.find('Update all specifications').click()
 
-        infos = map(methodcaller('replace', TESTS_PATH, '...'),
-                    statusmessages.messages()['info'])
+        infos = list(map(methodcaller('replace', TESTS_PATH, '...'),
+                    statusmessages.messages()['info']))
         self.assertIn(
             'role-translation: The workflow was generated to .../profiles'
             '/role-translation/workflows/role-translation/definition.xml.',

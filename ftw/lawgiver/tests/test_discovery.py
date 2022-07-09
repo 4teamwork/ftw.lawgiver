@@ -1,6 +1,7 @@
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.testing import LAWGIVER_INTEGRATION_TESTING
 from plone.app.testing import PloneSandboxLayer
+from six.moves import map
 from unittest import TestCase
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
@@ -63,7 +64,7 @@ class TestWorkflowSpecificationDiscovery(TestCase):
         component = getMultiAdapter((self.portal, self.portal.REQUEST),
                                     IWorkflowSpecificationDiscovery)
 
-        result = map(make_path_relative, component.discover())
+        result = list(map(make_path_relative, component.discover()))
 
         prefix = 'profiles/spec-discovery/workflows/'
         self.assertEquals(

@@ -1,8 +1,10 @@
 from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.testing import MockTestCase
+from six.moves import map
 from zope.component import getUtility
 import os
+import six
 
 
 class TestExampleSpecification(MockTestCase):
@@ -31,8 +33,7 @@ class TestExampleSpecification(MockTestCase):
              'Pending': u'<Status "Pending">',
              'Published': u'<Status "Published">'},
 
-            dict(map(lambda item: (item[0], unicode(item[1])),
-                     self.spec.states.items())))
+            dict([(item[0], six.text_type(item[1])) for item in list(self.spec.states.items())]))
 
     def test_private_statements(self):
         private = self.spec.states['Private']
@@ -119,7 +120,7 @@ class TestExampleSpecification(MockTestCase):
                  '<Transition "publish" ["Pending" => "Published"]>',
                  '<Transition "retract" ["Published" => "Private"]>']),
 
-            set(map(unicode, self.spec.transitions)))
+            set(map(six.text_type, self.spec.transitions)))
 
     def test_role_mappings(self):
         self.assertEquals(
