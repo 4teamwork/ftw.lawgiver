@@ -18,49 +18,49 @@ EN_PO_PATH = os.path.join(
 
 
 SIMPLE_WORKFLOW_MESSAGES = r'''
-#. Default: "Private"
+#.Default: "Private"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
 msgid "Private"
 msgstr "Private"
 
-#. Default: "Published"
+#.Default: "Published"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
 msgid "Published"
 msgstr "Published"
 
-#. Default: "püblish"
+#.Default: "püblish"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
 msgid "püblish"
 msgstr "püblish"
 
-#. Default: "editor"
+#.Default: "editor"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
 msgid "simple_workflow--ROLE--Editor"
 msgstr "editor"
 
-#. Default: "An \"Editor\" writes articles."
+#.Default: "An \"Editor\" writes articles."
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
 msgid "simple_workflow--ROLE-DESCRIPTION--Editor"
 msgstr "An \"Editor\" writes articles."
 
-#. Default: "Private"
+#.Default: "Private"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
 msgid "simple_workflow--STATUS--private"
 msgstr "Private"
 
-#. Default: "Published"
+#.Default: "Published"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
 msgid "simple_workflow--STATUS--published"
 msgstr "Published"
 
-#. Default: "püblish"
+#.Default: "püblish"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
 msgid "simple_workflow--TRANSITION--publish--private_published"
 msgstr "püblish"
 '''.strip()
 
 OLD_SIMPLE_WORKFLOW_MESSAGES = r'''
-#. Default: "No Longer Available"
+#.Default: "No Longer Available"
 #: ftw/lawgiver/tests/assets/i18nbuilder/profiles/default/workflows/simple_workflow/specification.txt
 msgid "No Longer Available"
 msgstr "No Longer Available"

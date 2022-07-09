@@ -2,8 +2,8 @@ from ftw.testbrowser import browser
 from functools import partial
 from operator import methodcaller
 from plone.app.testing import SITE_OWNER_NAME
-import os.path
 from six.moves import map
+import os.path
 
 
 TESTS_DIRECTORY = os.path.abspath(
@@ -23,6 +23,9 @@ def visit(specification_title):
 def metadata():
     replace_path_in_row = partial(map, methodcaller('replace',
                                                     TESTS_DIRECTORY, '....'))
+
+    def replace_path_in_row(row):
+        return list(map(methodcaller('replace', TESTS_DIRECTORY, '....'), row))
     return list(map(replace_path_in_row,
                     browser.css('table.spec-metadata').first.lists()))
 

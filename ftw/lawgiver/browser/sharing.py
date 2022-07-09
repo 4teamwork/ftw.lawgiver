@@ -164,7 +164,7 @@ class SharingDescribeRole(BrowserView):
         return None
 
     def _translate(self, msgid, default=None):
-        if isinstance(msgid, str):
+        if isinstance(msgid, bytes):
             msgid = msgid.decode('utf-8')
 
         plone = translate(

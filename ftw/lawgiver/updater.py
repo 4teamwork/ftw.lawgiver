@@ -147,11 +147,11 @@ class Updater(object):
                 _(u'error_while_generating_workflow',
                   default=u'${id}: Error while generating'
                   u' the workflow: ${msg}',
-                  mapping={'msg': str(exc).decode('utf-8'),
+                  mapping={'msg': str(exc),
                            'id': self._workflow_id(specification_path)}))
             return False
 
-        with open(self._definition_path(specification_path), 'w+') as wf_file:
+        with open(self._definition_path(specification_path), 'bw+') as wf_file:
             generator.write(wf_file)
 
         if output_formatter:
@@ -199,7 +199,7 @@ class Updater(object):
                 _(u'error_parsing_error',
                   default=u'${id}: The specification file could not be'
                   u' parsed: ${error}',
-                  mapping={'error': str(exc).decode('utf-8'),
+                  mapping={'error': str(exc),
                            'id': self._workflow_id(specification_path)}))
             return None
 

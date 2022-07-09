@@ -188,7 +188,7 @@ class SpecDetails(BrowserView):
                     _(u'error_parsing_error',
                       default=u'The specification file could not be'
                       u' parsed: ${error}',
-                      mapping={'error': str(exc).decode('utf-8')}),
+                      mapping={'error': str(exc)}),
                     type='error')
                 return None
 
@@ -279,8 +279,8 @@ class SpecDetails(BrowserView):
                 default = ''
 
             lines.extend((
-                    'msgid "%s"' % msgid.decode('utf-8'),
-                    'msgstr "%s"' % default.decode('utf-8'),
+                    f'msgid "{msgid}"',
+                    f'msgstr "{default}"',
                     ''))
 
         return '\n'.join(lines).strip()
