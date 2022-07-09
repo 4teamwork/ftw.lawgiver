@@ -62,7 +62,8 @@ Installation
 Compatibility
 -------------
 
-ftw.lawgiver is compatible with Plone 4.3 and 5.1
+ftw.lawgiver Version < 2 is compatible with Plone 4.3 and 5.1
+Version 2 and greater is only compatible with Plone 6 and python 3.9 (might work with python 3.8 and 3.7 as well)
 
 
 Action groups
