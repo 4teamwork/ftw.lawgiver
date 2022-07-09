@@ -2,11 +2,11 @@ from ftw.lawgiver.wdl.interfaces import ISpecification
 from ftw.lawgiver.wdl.interfaces import IStatus
 from ftw.lawgiver.wdl.interfaces import ITransition
 from ftw.lawgiver.wdl.languages import LANGUAGES
-from zope.interface import implements
+from zope.interface import implementer
 
 
+@implementer(ISpecification)
 class Specification(object):
-    implements(ISpecification)
 
     def __init__(self, title, description=None,
                  states=None, initial_status_title=None,
@@ -58,9 +58,8 @@ class Specification(object):
                         '"%s" in role description is not in role mapping.' % (
                             role))
 
-
+@implementer(IStatus)
 class Status(object):
-    implements(IStatus)
 
     def __init__(self, title, statements, role_inheritance=None,
                  worklist_viewers=None):
@@ -72,9 +71,8 @@ class Status(object):
     def __repr__(self):
         return '<Status "%s">' % self.title
 
-
+@implementer(ITransition)
 class Transition(object):
-    implements(ITransition)
 
     supported_options = {'guard-expression'}
 

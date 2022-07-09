@@ -1,11 +1,9 @@
 from collections import defaultdict
 from ftw.lawgiver.interfaces import IActionGroupRegistry
-from zope.interface import implements
+from zope.interface import implementer
 
-
+@implementer(IActionGroupRegistry)
 class ActionGroupRegistry(object):
-
-    implements(IActionGroupRegistry)
 
     def __init__(self):
         self._permissions = {}

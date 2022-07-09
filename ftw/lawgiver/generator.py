@@ -13,11 +13,11 @@ from zope.component import getUtilitiesFor
 from zope.component import getUtility
 from zope.i18n import translate
 from zope.interface import implements
+from zope.interface import implementer
 
 
+@implementer(IWorkflowGenerator)
 class WorkflowGenerator(object):
-
-    implements(IWorkflowGenerator)
 
     def __init__(self):
         self.workflow_id = None

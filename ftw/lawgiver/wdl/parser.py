@@ -6,7 +6,7 @@ from ftw.lawgiver.wdl.specification import Specification
 from ftw.lawgiver.wdl.specification import Status
 from ftw.lawgiver.wdl.specification import Transition
 from ordereddict import OrderedDict
-from zope.interface import implements
+from zope.interface import implementer
 import ConfigParser
 import os.path
 import re
@@ -62,10 +62,8 @@ def convert_statement(language, statement):
 
     raise ParsingError('Unkown statement format: "%s"' % statement)
 
-
+@implementer(IWorkflowSpecificationParser)
 class SpecificationParser(object):
-
-    implements(IWorkflowSpecificationParser)
 
     def __init__(self):
         self._config = None

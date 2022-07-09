@@ -3,11 +3,11 @@ from ftw.lawgiver.interfaces import IPermissionCollector
 from operator import itemgetter
 from zope.component import getUtility
 from zope.component.hooks import getSite
-from zope.interface import implements
+from zope.interface import implementer
 
 
+@implementer(IPermissionCollector)
 class DefaultPermissionCollector(object):
-    implements(IPermissionCollector)
 
     def collect(self, workflow_name):
         grouped = self.get_grouped_permissions(workflow_name)

@@ -16,13 +16,12 @@ from zope.component import getMultiAdapter
 from zope.component import getUtility
 from zope.component.hooks import getSite
 from zope.i18n import translate
-from zope.interface import implements
+from zope.interface import implementer
 import os.path
 import pkg_resources
 import shlex
 import subprocess
 import sys
-
 
 try:
     pkg_resources.get_distribution('ftw.upgrade')
@@ -53,9 +52,8 @@ class ConsoleMessageFormatter(object):
 
         print >>stream, translate(message)
 
-
+@implementer(IUpdater)
 class Updater(object):
-    implements(IUpdater)
 
     def update_all_specifications(self, output_formatter=None):
         discovery = getMultiAdapter((getSite(), getSite().REQUEST),

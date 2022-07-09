@@ -10,7 +10,6 @@ from zope.component.hooks import getSite
 from zope.i18n import translate
 from zope.interface import Interface
 from zope.interface import implementer
-from zope.interface import implements
 import pkg_resources
 
 try:
@@ -33,8 +32,8 @@ DEFAULT_ROLE_TITLES = {
     }
 
 
+@implementer(ISharingPageRole)
 class DynamicRolesUtility(object):
-    implements(ISharingPageRole)
 
     def __init__(self, plonerole):
         self.plonerole = plonerole
@@ -66,9 +65,8 @@ class DynamicRolesUtility(object):
                                IDynamicRoleAdapter,
                                name=self.plonerole)
 
-
+@implementer(IDynamicRoleAdapter)
 class DynamicRolesAdapter(object):
-    implements(IDynamicRoleAdapter)
 
     def __init__(self, context, request, plonerole, required_permission):
         self.context = context

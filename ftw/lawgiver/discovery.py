@@ -1,18 +1,18 @@
-from Products.CMFCore.utils import getToolByName
 from ftw.lawgiver.interfaces import IWorkflowSpecificationDiscovery
 from ftw.lawgiver.wdl.languages import LANGUAGES
 from operator import itemgetter
 from operator import methodcaller
-from zope.component import adapts
+from Products.CMFCore.utils import getToolByName
+from zope.component import adapter
+from zope.interface import implementer
 from zope.interface import Interface
-from zope.interface import implements
 import hashlib
 import os
 
 
+@implementer(IWorkflowSpecificationDiscovery)
+adapter(Interface, Interface)
 class WorkflowSpecificationDiscovery(object):
-    implements(IWorkflowSpecificationDiscovery)
-    adapts(Interface, Interface)
 
     def __init__(self, context, request):
         self.context = context
