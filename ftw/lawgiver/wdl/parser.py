@@ -5,7 +5,6 @@ from ftw.lawgiver.wdl.languages import LANGUAGES
 from ftw.lawgiver.wdl.specification import Specification
 from ftw.lawgiver.wdl.specification import Status
 from ftw.lawgiver.wdl.specification import Transition
-from ordereddict import OrderedDict
 from zope.interface import implementer
 import six.moves.configparser
 import os.path
@@ -107,7 +106,7 @@ class SpecificationParser(object):
 
         sectionname = self._config.sections()[0]
         specargs = {'title': sectionname,
-                    'states': OrderedDict(),
+                    'states': {},
                     'language': self.language}
 
         for name, value in self._config.items(sectionname):

@@ -1,8 +1,6 @@
 from path import Path
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import getFSVersionTuple
 import os
-import pkg_resources
 import shlex
 import subprocess
 import transaction

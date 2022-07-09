@@ -4,17 +4,19 @@ from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.lawgiver.wdl.languages import LANGUAGES
 from ftw.testing import MockTestCase
+from functools import reduce
+from io import StringIO
+from io import BytesIO
 from lxml import etree
-from StringIO import StringIO
 from zope.component import getSiteManager
 from zope.component import getUtility
 from zope.component.hooks import getSite
 from zope.component.hooks import setSite
 from zope.dottedname.resolve import resolve
 import difflib
+import functools
 import os
 import unittest
-from functools import reduce
 
 
 CONFIGURE = '''
@@ -30,6 +32,10 @@ def definition_xml_eliminate_standalone(node):
     if node.text is not None or len(node) > 0:
         return
     node.text = '\n  '
+
+
+def cmp(a, b):
+    return (a > b) - (a < b) 
 
 
 def definition_xml_node_sorter(nodea, nodeb):
@@ -87,11 +93,11 @@ class XMLDiffTestCase(unittest.TestCase):
             print('-' * 10)
             raise
 
-        norm = StringIO()
+        norm = BytesIO()
         if node_sorter:
             # Search for parent elements
             for parent in xml.xpath('//*[./*]'):
-                parent[:] = sorted(parent, node_sorter)
+                parent[:] = sorted(parent, key=functools.cmp_to_key(node_sorter))
 
         xml.getroottree().write_c14n(norm)
         xml = etree.fromstring(norm.getvalue())
@@ -161,7 +167,7 @@ class EqualityTestCase(XMLDiffTestCase):
 
         for path in self.specifications:
             spec = self.get_spec(path)
-            definitions[path] = StringIO()
+            definitions[path] = BytesIO()
             self.generate_workflow(spec, definitions[path])
 
         pairs = []

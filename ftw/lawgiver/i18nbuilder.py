@@ -5,10 +5,10 @@ from i18ndude.catalog import MessageCatalog
 from i18ndude.catalog import POWriter
 from operator import attrgetter
 from path import Path
-from zope.component import getUtility
-import os.path
 from six.moves import filter
 from six.moves import map
+from zope.component import getUtility
+import os.path
 
 
 def cleanup_pofile(path):
@@ -127,8 +127,8 @@ class I18nBuilder(object):
                                        list(catalog.values())))))
 
         for msgid, msgstr in translations.items():
-            msgid = msgid.decode('utf-8').replace('"', '\\"')
-            msgstr = msgstr.decode('utf-8').replace('"', '\\"')
+            msgid = msgid.replace('"', '\\"')
+            msgstr = msgstr.replace('"', '\\"')
 
             if msgid in delete_candidates:
                 delete_candidates.remove(msgid)

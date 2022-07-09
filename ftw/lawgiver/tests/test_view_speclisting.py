@@ -37,7 +37,7 @@ class TestSpecificationListingsView(TestCase):
     @browsing
     def test_listing_spec_order(self, browser):
         browser.login(SITE_OWNER_NAME).visit(view='lawgiver-list-specs')
-        self.assertItemsEqual(
+        self.assertCountEqual(
             ['Bar Workflow (wf-bar)',
              'Foo Workflow (wf-foo)',
              'Invalid Workflow (invalid-spec)',

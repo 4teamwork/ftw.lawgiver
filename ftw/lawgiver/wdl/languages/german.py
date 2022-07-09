@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ftw.lawgiver.wdl import keywords
 from ftw.lawgiver.wdl.languages.base import LanguageBase
 from six.moves import map
@@ -17,12 +18,12 @@ class German(LanguageBase):
         keywords.STATUS: r'^[Ss]tatus (.*)$',
         keywords.TRANSITIONS: (r'^(?:'
                                r'[Tt]ransitionen'
-                               r'|[Zz]ustands\xc3\xa4nderungen'
+                               r'|[Zz]ustandsänderungen'
                                ')$'),
         keywords.TRANSITION_URL: (r'^(?:URL|url) '
                                   r'(?:'
                                   r'[Tt]ransition(en)*'
-                                  r'|[Zz]ustands\xc3\xa4nderung(en)*'
+                                  r'|[Zz]ustandsänderung(en)*'
                                   r')$'),
         keywords.VISIBLE_ROLES: r'^[Ss]ichtbare [Rr]ollen$',
         keywords.ROLE_DESCRIPTION: r'^(.*?) [R]ollen ?-?[bB]eschreibung$'

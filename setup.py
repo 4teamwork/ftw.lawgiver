@@ -54,7 +54,7 @@ setup(name='ftw.lawgiver',
           'ftw.upgrade',
           'path.py',
           'setuptools',
-          'Plone',
+          'i18ndude',
       ],
 
       tests_require=tests_require,

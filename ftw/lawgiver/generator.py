@@ -72,11 +72,11 @@ class WorkflowGenerator(object):
 
         for status in specification.states.values():
             result[status.title] = status.title
-            result[self._status_id(status).encode('utf-8')] = status.title
+            result[self._status_id(status)] = status.title
 
         for transition in specification.transitions:
             result[transition.title] = transition.title
-            result[self._transition_id(transition).encode('utf-8')] = (
+            result[self._transition_id(transition)] = (
                 transition.title)
 
         for customerrole, plonerole in specification.role_mapping.items():
@@ -118,9 +118,9 @@ class WorkflowGenerator(object):
     def _create_document(self):
         root = etree.Element("dc-workflow")
         root.set('workflow_id', self.workflow_id)
-        root.set('title', self.specification.title.decode('utf-8'))
+        root.set('title', self.specification.title)
         root.set('description', self.specification.description and
-                 self.specification.description.decode('utf-8') or '')
+                 self.specification.description or '')
 
         root.set('initial_state', self._status_id(
                 self.specification.get_initial_status()))
@@ -129,15 +129,14 @@ class WorkflowGenerator(object):
         root.set('manager_bypass', 'True')
 
         for permission in self.managed_permissions:
-            etree.SubElement(root, 'permission').text = permission.decode(
-                'utf-8')
+            etree.SubElement(root, 'permission').text = permission
 
         return root
 
     def _add_status(self, doc, status):
         node = etree.SubElement(doc, 'state')
         node.set('state_id', self._status_id(status))
-        node.set('title', status.title.decode('utf-8'))
+        node.set('title', status.title)
 
         for transition in self.specification.transitions:
             assert transition.src_status is not None, \
@@ -154,7 +153,7 @@ class WorkflowGenerator(object):
         node = etree.SubElement(doc, 'transition')
 
         node.set('new_state', self._status_id(transition.dest_status))
-        node.set('title', transition.title.decode('utf-8'))
+        node.set('title', transition.title)
         node.set('transition_id', self._transition_id(transition))
 
         node.set('after_script', '')
@@ -171,7 +170,7 @@ class WorkflowGenerator(object):
 
         action.set('url', url_struct % {
                 'transition': self._transition_id(transition)})
-        action.text = transition.title.decode('utf-8')
+        action.text = transition.title
 
         return node
 
@@ -215,7 +214,7 @@ class WorkflowGenerator(object):
 
             for role in roles:
                 rolenode = etree.SubElement(pnode, 'permission-role')
-                rolenode.text = role.decode('utf-8')
+                rolenode.text = role
 
     def _apply_transition_statements(self, statements, nodes,
                                      per_status_role_inheritance):
@@ -237,7 +236,7 @@ class WorkflowGenerator(object):
 
             for role in roles:
                 rolenode = etree.SubElement(guards, 'guard-role')
-                rolenode.text = role.decode('utf-8')
+                rolenode.text = role
 
             for option, value in transition.options.items():
                 if option == 'guard-expression':
@@ -262,7 +261,7 @@ class WorkflowGenerator(object):
         action.set('icon', '')
         action.set('url', '%%(portal_url)s/search?review_state=%s' % (
                 self._status_id(status)))
-        action.text = '%s (%%(count)d)' % status.title.decode('utf-8')
+        action.text = '%s (%%(count)d)' % status.title
 
         match = etree.SubElement(worklist, 'match')
         match.set('name', 'review_state')
@@ -276,7 +275,7 @@ class WorkflowGenerator(object):
 
         for role in sorted(roles):
             rolenode = etree.SubElement(guards, 'guard-role')
-            rolenode.text = role.decode('utf-8')
+            rolenode.text = role
 
     def _get_roles_for_permission(self, permission, statements):
         if permission in self.ignored_delegate_permissions:
@@ -367,18 +366,18 @@ class WorkflowGenerator(object):
             self.workflow_id, self._normalize(status.title))
 
     def _normalize(self, text):
-        if isinstance(text, str):
+        if isinstance(text, bytes):
             text = text.decode('utf-8')
 
         normalizer = getUtility(INormalizer)
         result = normalizer.normalize(text)
-        return result.decode('utf-8')
+        return result
 
     def _translate_action_group(self, action_group, language):
         zcml_domain = translate(action_group, target_language=language)
         if zcml_domain != action_group:
-            return zcml_domain.encode('utf-8')
+            return zcml_domain
         else:
             return translate(six.text_type(action_group),
                              domain='ftw.lawgiver',
-                             target_language=language).encode('utf-8')
+                             target_language=language)

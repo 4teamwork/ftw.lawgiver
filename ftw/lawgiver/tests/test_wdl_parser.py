@@ -7,8 +7,8 @@ from ftw.lawgiver.wdl.parser import convert_statement
 from ftw.lawgiver.wdl.parser import PERMISSION_STATEMENT
 from ftw.lawgiver.wdl.parser import WORKLIST_STATEMENT
 from ftw.testing import MockTestCase
+from io import StringIO
 from six.moves import map
-from StringIO import StringIO
 from zope.component import getUtility
 from zope.component import queryUtility
 from zope.interface.verify import verifyObject

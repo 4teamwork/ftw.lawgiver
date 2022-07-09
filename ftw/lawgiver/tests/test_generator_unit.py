@@ -1,4 +1,4 @@
-from StringIO import StringIO
+# -*- coding: utf-8 -*-
 from ftw.lawgiver.collector import DefaultPermissionCollector
 from ftw.lawgiver.generator import WorkflowGenerator
 from ftw.lawgiver.interfaces import IPermissionCollector
@@ -8,6 +8,7 @@ from ftw.lawgiver.wdl.specification import Specification
 from ftw.lawgiver.wdl.specification import Status
 from ftw.lawgiver.wdl.specification import Transition
 from ftw.testing import ComponentRegistryLayer
+from io import BytesIO
 from zope.component import getGlobalSiteManager
 
 
@@ -48,7 +49,7 @@ class TestGenerator(BaseTest):
         spec.states['Foo'] = Status('Foo', [])
         spec.validate()
 
-        result = StringIO()
+        result = BytesIO()
         WorkflowGenerator()('example-workflow', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {
@@ -65,18 +66,18 @@ class TestGenerator(BaseTest):
         self.assert_xml(expected, result.getvalue())
 
     def test_multi_word_utf8_status_titles(self):
-        status_title = 'Hello W\xc3\xb6rld'
-        spec = Specification(title='W\xc3\xb6rkflow',
+        status_title = 'Hello Wörld'
+        spec = Specification(title='Wörkflow',
                              initial_status_title=status_title)
         spec.states[status_title] = Status(status_title, [])
         spec.validate()
 
-        result = StringIO()
+        result = BytesIO()
         WorkflowGenerator()('workflow', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {
             'id': 'workflow',
-            'title': 'W\xc3\xb6rkflow',
+            'title': 'Wörkflow',
             'description': '',
             'initial_status': 'workflow--STATUS--hello-world'} % (
 
@@ -93,11 +94,11 @@ class TestGenerator(BaseTest):
         foo = spec.states['Foo'] = Status('Foo', [])
         bar = spec.states['Bar'] = Status('Bar', [])
 
-        spec.transitions.append(Transition('b\xc3\xa4rize', foo, bar))
-        spec.transitions.append(Transition('f\xc3\xbcize', bar, foo))
+        spec.transitions.append(Transition('bärize', foo, bar))
+        spec.transitions.append(Transition('füize', bar, foo))
         spec.validate()
 
-        result = StringIO()
+        result = BytesIO()
         WorkflowGenerator()('workflow', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {
@@ -120,13 +121,13 @@ class TestGenerator(BaseTest):
 
                 workflowxml.TRANSITION % {
                     'id': 'workflow--TRANSITION--barize--foo_bar',
-                    'title': 'b\xc3\xa4rize',
+                    'title': 'bärize',
                     'target_state': 'workflow--STATUS--bar',
                     'guards': workflowxml.GUARDS_DISABLED},
 
                 workflowxml.TRANSITION % {
                     'id': 'workflow--TRANSITION--fuize--bar_foo',
-                    'title': 'f\xc3\xbcize',
+                    'title': 'füize',
                     'target_state': 'workflow--STATUS--foo',
                     'guards': workflowxml.GUARDS_DISABLED},
 
@@ -143,11 +144,11 @@ class TestGenerator(BaseTest):
         foo = spec.states['Foo'] = Status('Foo', [])
         bar = spec.states['Bar'] = Status('Bar', [])
 
-        spec.transitions.append(Transition('b\xc3\xa4rize', foo, bar))
-        spec.transitions.append(Transition('f\xc3\xbcize', bar, foo))
+        spec.transitions.append(Transition('bärize', foo, bar))
+        spec.transitions.append(Transition('füize', bar, foo))
         spec.validate()
 
-        result = StringIO()
+        result = BytesIO()
         WorkflowGenerator()('workflow', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {
@@ -170,14 +171,14 @@ class TestGenerator(BaseTest):
 
                 workflowxml.TRANSITION_WITH_CUSTOM_URL % {
                     'id': 'workflow--TRANSITION--barize--foo_bar',
-                    'title': 'b\xc3\xa4rize',
+                    'title': 'bärize',
                     'target_state': 'workflow--STATUS--bar',
                     'guards': workflowxml.GUARDS_DISABLED,
                     'url_viewname': 'custom_wf_action'},
 
                 workflowxml.TRANSITION_WITH_CUSTOM_URL % {
                     'id': 'workflow--TRANSITION--fuize--bar_foo',
-                    'title': 'f\xc3\xbcize',
+                    'title': 'füize',
                     'target_state': 'workflow--STATUS--foo',
                     'guards': workflowxml.GUARDS_DISABLED,
                     'url_viewname': 'custom_wf_action'},
@@ -210,7 +211,7 @@ class TestGenerator(BaseTest):
                 ('admin', 'manage')])
         spec.validate()
 
-        result = StringIO()
+        result = BytesIO()
         WorkflowGenerator()('example-workflow', spec).write(result)
 
 
@@ -270,7 +271,7 @@ class TestGenerator(BaseTest):
 
         spec.validate()
 
-        result = StringIO()
+        result = BytesIO()
         WorkflowGenerator()('wf', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {
@@ -443,7 +444,7 @@ class TestGenerator(BaseTest):
 
         spec.validate()
 
-        result = StringIO()
+        result = BytesIO()
         WorkflowGenerator()('example-workflow', spec).write(result)
 
         xml_permissions_declaration = ''.join((
@@ -540,7 +541,7 @@ class TestGenerator(BaseTest):
 
         spec.validate()
 
-        result = StringIO()
+        result = BytesIO()
         WorkflowGenerator()('wf', spec).write(result)
 
         expected = workflowxml.WORKFLOW % {

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
 from ftw.testing import MockTestCase
@@ -39,11 +40,11 @@ class TestExampleSpecification(MockTestCase):
         private = self.spec.states['Private']
 
         self.assertEquals(
-            [('edit\xc3\xb6r', 'view'),
-             ('edit\xc3\xb6r', 'edit'),
-             ('edit\xc3\xb6r', 'delete'),
-             ('edit\xc3\xb6r', 'add'),
-             ('edit\xc3\xb6r', 'submit for publication'),
+            [('editör', 'view'),
+             ('editör', 'edit'),
+             ('editör', 'delete'),
+             ('editör', 'add'),
+             ('editör', 'submit for publication'),
              ('editor-in-chief', 'view'),
              ('editor-in-chief', 'edit'),
              ('editor-in-chief', 'delete'),
@@ -64,9 +65,9 @@ class TestExampleSpecification(MockTestCase):
         pending = self.spec.states['Pending']
 
         self.assertEquals(
-            [('edit\xc3\xb6r', 'view'),
-             ('edit\xc3\xb6r', 'add'),
-             ('edit\xc3\xb6r', 'retract'),
+            [('editör', 'view'),
+             ('editör', 'add'),
+             ('editör', 'retract'),
              ('editor-in-chief', 'view'),
              ('editor-in-chief', 'edit'),
              ('editor-in-chief', 'delete'),
@@ -88,9 +89,9 @@ class TestExampleSpecification(MockTestCase):
         published = self.spec.states['Published']
 
         self.assertEquals(
-            [('edit\xc3\xb6r', 'view'),
-             ('edit\xc3\xb6r', 'add'),
-             ('edit\xc3\xb6r', 'retract'),
+            [('editör', 'view'),
+             ('editör', 'add'),
+             ('editör', 'retract'),
              ('editor-in-chief', 'view'),
              ('editor-in-chief', 'add'),
              ('editor-in-chief', 'retract'),
@@ -125,13 +126,13 @@ class TestExampleSpecification(MockTestCase):
     def test_role_mappings(self):
         self.assertEquals(
             {'editor-in-chief': 'Reviewer',
-             'edit\xc3\xb6r': 'Editor',
+             'editör': 'Editor',
              'everyone': 'Anonymous',
              'administrator': 'Site Administrator'},
             self.spec.role_mapping)
 
     def test_visible_roles(self):
-        self.assertEquals(['edit\xc3\xb6r', 'editor-in-chief'],
+        self.assertEquals(['editör', 'editor-in-chief'],
                           self.spec.visible_roles)
 
     def test_general_statements(self):

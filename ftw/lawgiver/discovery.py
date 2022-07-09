@@ -11,7 +11,7 @@ import os
 
 
 @implementer(IWorkflowSpecificationDiscovery)
-adapter(Interface, Interface)
+@adapter(Interface, Interface)
 class WorkflowSpecificationDiscovery(object):
 
     def __init__(self, context, request):
@@ -20,12 +20,12 @@ class WorkflowSpecificationDiscovery(object):
 
     def discover(self):
         result = set()
-        map(result.update,
-            map(self._get_specification_files, self._get_profile_paths()))
+        for item in map(self._get_specification_files, self._get_profile_paths()):
+            result.update(item)
         return list(result)
 
     def hash(self, path):
-        return hashlib.md5(path).hexdigest()
+        return hashlib.md5(path.encode('utf-8')).hexdigest()
 
     def unhash(self, hash_):
         for path in self.discover():

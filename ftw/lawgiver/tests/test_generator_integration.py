@@ -1,9 +1,9 @@
-from StringIO import StringIO
 from ftw.lawgiver.interfaces import IActionGroupRegistry
 from ftw.lawgiver.interfaces import IWorkflowGenerator
 from ftw.lawgiver.testing import ZCML_FIXTURE
 from ftw.lawgiver.tests.base import BaseTest
 from ftw.lawgiver.wdl.interfaces import IWorkflowSpecificationParser
+from io import BytesIO
 from zope.component import getUtility
 from zope.component import provideUtility
 from zope.component import queryUtility
@@ -80,7 +80,7 @@ class TestGeneratorIntegration(BaseTest):
         with open(spec_path) as spec_file:
             spec = parser(spec_file, path=spec_path)
 
-        result = StringIO()
+        result = BytesIO()
         generator = getUtility(IWorkflowGenerator)
         generator('my_custom_workflow', spec).write(result)
 

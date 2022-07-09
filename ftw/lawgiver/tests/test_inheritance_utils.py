@@ -40,7 +40,7 @@ class TestMergeRoleInheritance(TestCase):
         status = Status('Private', [],
                         role_inheritance=[('admin', 'writer')])
 
-        self.assertItemsEqual(
+        self.assertCountEqual(
             [('Manager', 'Anonymous'),
              ('Manager', 'Editor')],
             merge_role_inheritance(spec, status))
@@ -135,7 +135,7 @@ class TestGetRolesInheritedBy(TestCase):
                           get_roles_inherited_by(['C'], role_inheritance))
 
     def test_basic(self):
-        self.assertItemsEqual(
+        self.assertCountEqual(
             ['Foo', 'Bar'],
             get_roles_inherited_by(['Bar'], [('Bar', 'Foo')]))
 
