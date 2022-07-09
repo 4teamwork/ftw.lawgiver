@@ -14,8 +14,6 @@ from plone.testing import z2
 from zope.configuration import xmlconfig
 import ftw.lawgiver.tests.builders
 
-IS_PLONE_5 = get_distribution('Plone').version >= '5'
-
 
 class MetaZCMLLayer(ComponentRegistryLayer):
 

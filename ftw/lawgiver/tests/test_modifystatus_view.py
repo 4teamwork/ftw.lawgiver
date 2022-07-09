@@ -2,7 +2,6 @@ from Products.CMFCore.utils import getToolByName
 from ftw.builder import Builder
 from ftw.builder import create
 from ftw.lawgiver.browser.modifystatus import ModifyStatusViewBase
-from ftw.lawgiver.testing import IS_PLONE_5
 from ftw.lawgiver.testing import LAWGIVER_INTEGRATION_TESTING
 from unittest import TestCase
 
@@ -38,7 +37,7 @@ class TestModifyStatusViewBase(TestCase):
         MS(folder, self.request)()
         exp_redirect_target = '{}/content_status_modify?workflow_action=submit{}'.format(
             folder.absolute_url(),
-            ('&_authenticator=' if IS_PLONE_5 else ''))
+            '&_authenticator=')
         redirecting_to = self.request.response.headers.get('location')
         self.assertTrue(redirecting_to.startswith(exp_redirect_target))
 
@@ -57,7 +56,7 @@ class TestModifyStatusViewBase(TestCase):
             folder, 'publish')
         exp_redirect_target = '{}/content_status_modify?workflow_action=publish{}'.format(
             folder.absolute_url(),
-            ('&_authenticator=' if IS_PLONE_5 else ''))
+            '&_authenticator=')
         redirecting_to = self.request.response.headers.get('location')
         self.assertTrue(redirecting_to.startswith(exp_redirect_target))
         self.assertEqual('visible', self.wftool.getInfoFor(folder, 'review_state'))
